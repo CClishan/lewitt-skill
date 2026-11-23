@@ -5,3 +5,4 @@ __pycache__/
 node_modules/
 # capture artifacts are large; keep the authored dna + renders, drop the raw shots
 runs/*/*/capture/*.png
+.playwright-cli/
