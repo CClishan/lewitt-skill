@@ -2,7 +2,7 @@
   "source": "https://binance.com",
   "domain": "binance.com",
   "capturedAt": "2026-11-23T12:28:11+00:00",
-  "driver": "playwright(node, CDP evaluate; throwaway profile, channel=chromium, module=~/.npm/_npx/31e32ef8478fbf80/node_modules/playwright)",
+  "driver": "playwright(node, CDP evaluate; throwaway profile, channel=chromium)",
   "isolated": true,
   "isolationNote": null,
   "pages": [

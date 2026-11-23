@@ -3,6 +3,9 @@ import json
 # resolve_tokens is injected by build_artifacts (single implementation of alias resolution).
 resolve_tokens = None
 
+# Neutral specimen text: the preview must not borrow copy from any earlier run.
+SPECIMEN = "Aa 0123456789 The quick brown fox"
+
 PREVIEW_CSS = """
 :root{--p-bg:#0d0f13;--p-panel:#15181e;--p-line:#262b34;--p-ink:#e8eaee;--p-mute:#8b93a1;--p-accent:#e2b53f;
 --p-mono:ui-monospace,SFMono-Regular,Menlo,monospace}
@@ -58,8 +61,14 @@ PREVIEW_JS = """
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var status = document.getElementById('p-status');
   function say(t){ if(status) status.textContent = t; }
+  // "240ms" -> 240, "0.4s" -> 400; never assume a unit
+  function msFrom(d){
+    var m = /^ *([0-9.]+) *(ms|s)? *$/i.exec(String(d));
+    if(!m) return 300;
+    return m[2] && m[2].toLowerCase() === 's' ? parseFloat(m[1]) * 1000 : parseFloat(m[1]);
+  }
   function copyAll(btn, text){
-    var done = function(){ say('copied ' + text.indexOf('\\n') > -1 ? 'token set' : text); };
+    var done = function(){ say('copied ' + (text.indexOf('\\n') > -1 ? 'token set' : text)); };
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(text).then(done, function(){ say('clipboard blocked — select the text instead'); });
     } else { say('clipboard unavailable — select the text instead'); }
@@ -88,7 +97,7 @@ PREVIEW_JS = """
       box.style.transform = 'translateX(56px) scale(.96)';
       box.style.opacity = '0.55';
       say('replaying ' + dur + ' ' + ease);
-      window.setTimeout(function(){ box.style.transform = 'none'; box.style.opacity = '1'; }, parseFloat(dur) * 1000 + 60);
+      window.setTimeout(function(){ box.style.transform = 'none'; box.style.opacity = '1'; }, msFrom(dur) + 60);
     });
   });
 })();
@@ -152,7 +161,7 @@ def render_preview_html(dna: dict, resolver=None, exists=None) -> str:
         type_cells.append(
             f'<tr><td class="mono"><span data-copy="var({_esc(t["css"])})">{_esc(t["id"])}</span></td>'
             f'<td class="mono">{_esc(size)}</td>'
-            f'<td><span style="font-size:{_esc(size)};line-height:1.1;display:inline-block">337,527,796 Aa BNB</span></td>'
+            f'<td><span style="font-size:{_esc(size)};line-height:1.1;display:inline-block">{_esc(SPECIMEN)}</span></td>'
             f'<td>{tag(t["status"])}</td></tr>'
         )
     weight_cells = []
@@ -234,7 +243,7 @@ def render_preview_html(dna: dict, resolver=None, exists=None) -> str:
             continue
         shots.append(
             f'<figure style="margin:0"><img class="shot" src="capture/{name}" alt="source page screenshot {name}" '
-            f'loading="lazy" onerror="this.closest(\'figure\').style.display=\'none\'">'
+            f'onerror="this.closest(\'figure\').style.display=\'none\'">'
             f'<figcaption class="mono" style="color:var(--p-mute);margin-top:6px">{name} — captured, not rebuilt</figcaption></figure>'
         )
     pages = meta.get("crawl", {}).get("pages") or [meta["source"]]

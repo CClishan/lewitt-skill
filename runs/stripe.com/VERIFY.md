@@ -15,8 +15,8 @@ Last run: **incremental** — scope `taste`; frozen `meta, evidence, measurement
 | evidence coverage | PASS | 32 evidence entries cited |
 | restraint guardrails | PASS | 2/2 restraint principles carry machine-readable guardrails; incremental targets=['taste'] frozen=['meta', 'evidence', 'measurements', 'patterns', 'tokens'] |
 | anti-slop (authored prose) | PASS | 0 hit(s) |
-| guardrail (generated code) | PASS | 0 violation(s)scanned ~/runs/stripe.com/system |
+| guardrail (generated code) | PASS | 0 violation(s) — scanned stripe.com/system |
 | visual fidelity | PARTIAL | 1 composition(s), 4 recorded deviation(s), status=partial |
 | full system/ site | PASS | system/index.html present |
 
-Generated at 2026-11-23T12:44:29+00:00.
+Generated at 2026-11-23T14:30:12+00:00.

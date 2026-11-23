@@ -12,6 +12,7 @@ const VIEWPORT = { width: 1440, height: 900 };
 
 async function launchIsolated() {
   const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'lewitt-profile-'));
+  global.__lewittProfile = profile;
   const opts = { headless: true, viewport: VIEWPORT, ignoreHTTPSErrors: true };
   try {
     return await chromium.launchPersistentContext(profile, opts);
@@ -78,6 +79,8 @@ async function launchIsolated() {
     }
   } finally {
     await ctx.close();
+    // the profile is throwaway: leaving it behind leaks state and fills the temp dir
+    try { fs.rmSync(global.__lewittProfile, { recursive: true, force: true }); } catch (e) {}
   }
   process.stdout.write(JSON.stringify(results));
 })().catch((e) => {

@@ -130,6 +130,28 @@ def newest_png() -> Path | None:
 
 
 # ---------------------------------------------------------------- playwright (node) driver
+def scrub_paths(obj, home: Path | None = None):
+    """Recursively replace home-directory prefixes in strings; artifacts are published."""
+    home = home or Path.home()
+    if isinstance(obj, str):
+        return obj.replace(str(home), "~")
+    if isinstance(obj, list):
+        return [scrub_paths(v, home) for v in obj]
+    if isinstance(obj, dict):
+        return {k: scrub_paths(v, home) for k, v in obj.items()}
+    return obj
+
+
+def module_label(module: Path) -> str:
+    """How the module was found, without publishing a home-directory path."""
+    home = Path.home()
+    try:
+        rel = module.resolve().relative_to(home)
+        return "~/" + rel.as_posix()
+    except ValueError:
+        return str(module)
+
+
 def playwright_candidates() -> list[Path]:
     """Where a `playwright` npm module may live, in priority order.
 
@@ -234,8 +256,8 @@ def main() -> int:
                     continue
                 meta["pages"].append({"url": extra["url"], "shot": Path(extra["png"]).name})
             meta["isolated"] = True
-            used = f"playwright(node, CDP evaluate; throwaway profile, channel={first.get('channel')}, module={module})"
-            meta["playwrightModule"] = str(module)
+            used = f"playwright(node, CDP evaluate; throwaway profile, channel={first.get('channel')})"
+            meta["playwrightModule"] = module_label(module)
         except Exception as exc:
             meta["errors"].append(f"node playwright: {str(exc)[-400:]}")
     else:
@@ -258,12 +280,12 @@ def main() -> int:
     if used is None:
         meta["captureIsolated"] = False
         meta["isolationNote"] = "no isolated driver available; capture did NOT run"
-        (cap / "meta.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
+        (cap / "meta.json").write_text(json.dumps(scrub_paths(meta), indent=2), encoding="utf-8")
         print("FAIL: no isolated browser driver.\n"
               "  bash " + str(HERE / "setup.sh") + "      # one-time: installs playwright next to the skill\n"
               "  or export LEWITT_PW_DIR=/some/dir/with/node_modules/playwright\n"
               "  or pass --driver \"<command>\" (must speak: open URL | eval file | shot path [--full])\n"
-              f"  looked for: {', '.join(str(c) for c in playwright_candidates()) or '(nothing)'}",
+              f"  looked for: {', '.join(module_label(c) for c in playwright_candidates()) or '(nothing)'}",
               file=sys.stderr)
         return 2
 
@@ -290,7 +312,7 @@ def main() -> int:
         print("FAIL: capture produced no dom.json", file=sys.stderr)
         return 4
 
-    (cap / "meta.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
+    (cap / "meta.json").write_text(json.dumps(scrub_paths(meta), indent=2), encoding="utf-8")
     print(json.dumps({
         "dest": str(out), "domain": domain, "driver": used, "isolated": meta["isolated"],
         "pages": meta["crawl"]["pages"], "errors": meta["errors"],

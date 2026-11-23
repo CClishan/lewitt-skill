@@ -40,6 +40,17 @@ SKIP_DIRS = {"node_modules", ".git", "dist", "build", ".next", "__pycache__"}
 FREE_UNITS = {"px", "pt", "rem", "em", "%", "ch", "vh", "vw", "ms", "s"}
 
 
+def repo_relative(path: Path, base: Path) -> str:
+    """Never write a machine path into an artifact: prefer <dest-parent>/<name> style."""
+    try:
+        return path.resolve().relative_to(base.resolve().parent).as_posix()
+    except ValueError:
+        try:
+            return path.resolve().relative_to(Path.cwd().resolve()).as_posix()
+        except ValueError:
+            return path.name
+
+
 def now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
@@ -421,13 +432,14 @@ def main() -> int:
     if args.check_code:
         ui = Path(args.check_code).expanduser().resolve()
         if not ui.is_dir():
-            rows.append({"name": "guardrail (generated code)", "result": "FAIL", "detail": f"{ui} is not a directory"})
+            rows.append({"name": "guardrail (generated code)", "result": "FAIL", "detail": f"{repo_relative(ui, dest)} is not a directory"})
         else:
             violations = check_guardrails(dna, ui)
             bad = [v for v in violations if v.get("line")]
             rows.append({"name": "guardrail (generated code)", "result": "PASS" if not bad else "FAIL",
-                         "detail": f"{len(bad)} violation(s)" + (
-                             ": " + " | ".join(f"{Path(v['file']).name}:{v['line']} {v['rule']}" for v in bad[:5]) if bad else f"scanned {ui}")})
+                         "detail": (f"{len(bad)} violation(s) — " + " | ".join(
+                             f"{repo_relative(Path(v['file']), dest)}:{v['line']} {v['rule']}" for v in bad[:5])
+                             if bad else f"0 violation(s) — scanned {repo_relative(ui, dest)}")})
     else:
         rows.append({"name": "guardrail (generated code)", "result": "unverified",
                      "detail": "no --check-code supplied"})
@@ -460,7 +472,7 @@ def main() -> int:
         previous = json.loads((dest / "verify.json").read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         previous = {}
-    result = {"generatedAt": now(), "dest": str(dest), "meta": dna.get("meta", {}), "checks": rows,
+    result = {"generatedAt": now(), "dest": repo_relative(dest, dest), "meta": dna.get("meta", {}), "checks": rows,
               "renderedBy": ba.RENDERER_VERSION,
               "dna": previous.get("dna", dna),
               "slop": slop, "guardrailViolations": violations}
@@ -473,7 +485,7 @@ def main() -> int:
         print(f"  slop {h['where']}: “{h['word']}” in {h['line']}")
     for v in violations:
         if v.get("line"):
-            print(f"  guardrail {v['file']}:{v['line']} {v['rule']} — {v['detail']}")
+            print(f"  guardrail {repo_relative(Path(v['file']), dest)}:{v['line']} {v['rule']} — {v['detail']}")
 
     if not args.report_only:
         (dest / "verify.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
