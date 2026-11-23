@@ -654,13 +654,21 @@ def main() -> int:
     # record exactly what was rendered, so the next incremental run can prove the frozen
     # blocks did not move (and lint_output.py can gate on the same fact)
     prev = load_previous(dest) or {}
-    (dest / "verify.json").write_text(json.dumps({
-        "generatedAt": (args.updated_at if args.incremental else None) or datetime.now(timezone.utc).isoformat(timespec="seconds"),
+    record = {
+        "generatedAt": (args.updated_at if args.incremental else None)
+        or datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "renderedBy": RENDERER_VERSION,
         "dna": dna,
         "checks": prev.get("checks", []),
         "note": "verify.json: `dna` is the exact state last rendered; rerun lint_output.py to refresh checks",
-    }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    }
+    (dest / "verify.json").write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    # keep a readable VERIFY.md even before lint runs, so the incremental scope is never invisible
+    checks = record["checks"] or [{"name": "gates", "result": "unverified", "detail": "run lint_output.py"}]
+    (dest / "VERIFY.md").write_text(
+        render_verify_md(dest, {"meta": dna.get("meta"), "checks": checks, "generatedAt": record["generatedAt"]}),
+        encoding="utf-8",
+    )
     return 0
 
 
