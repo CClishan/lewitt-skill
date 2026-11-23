@@ -1,0 +1,57 @@
+{
+  "skill_name": "design-dna",
+  "evals": [
+    {
+      "id": 0,
+      "name": "linear-restraint",
+      "url": "https://linear.app",
+      "rationale": "Near-black canvas, white as the only action colour, weight-driven hierarchy, rings instead of shadows — the canonical restraint case.",
+      "site_specific_keywords": ["08090A", "F7F8F8", "Inter", "Berkeley", "9999px", "ring"],
+      "assertions": [
+        {"text": "dna.json exists at {dest}/linear.app/", "check": "dna_exists"},
+        {"text": "All four renders exist (taste.md, tokens.css, tokens.resolved.json, agent-rules.md)", "check": "renders_exist"},
+        {"text": "lint_output.py exits 0", "check": "lint_pass"},
+        {"text": "At least one taste principle is a restraint with a guardrail", "check": "restraint_guardrail"},
+        {"text": "Every taste principle has chose != over and cited patterns", "check": "tradeoff_shape"},
+        {"text": "No banned slop words in authored prose", "check": "no_slop"},
+        {"text": "tokens.css uses primitive -> semantic aliases", "check": "token_layers"},
+        {"text": "agent-rules.md lists hard constraints before principles", "check": "rules_order"},
+        {"text": "Re-rendering dna.json reproduces artifacts byte-for-byte", "check": "ssot_stable"}
+      ]
+    },
+    {
+      "id": 1,
+      "name": "stripe-craft",
+      "url": "https://stripe.com",
+      "rationale": "Craft-heavy: tinted neutrals, multi-layer shadows, generous spacing — tests whether craft trade-offs survive without being called 'polished'.",
+      "site_specific_keywords": ["Soehne", "tinted", "gradient", "purple"],
+      "assertions": [
+        {"text": "At least one craft or system principle mentions tint or layering with a hex/px value", "check": "craft_specific"},
+        {"text": "Colour tokens include at least one tinted neutral (not pure grey)", "check": "tinted_neutral"},
+        {"text": "lint_output.py exits 0", "check": "lint_pass"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "incremental-freeze",
+      "url": "https://linear.app",
+      "rationale": "Rerun taste only; evidence and measurements must survive untouched and tokens may not drift silently.",
+      "assertions": [
+        {"text": "--incremental taste exits 0", "check": "incremental_ok"},
+        {"text": "evidence block is byte-identical before and after", "check": "evidence_frozen"},
+        {"text": "--incremental with changed tokens exits non-zero", "check": "token_guard"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "guardrail-catches-violation",
+      "url": "https://linear.app",
+      "rationale": "The executable exit must actually fire: a coloured Tailwind CTA and a drop shadow must fail.",
+      "assertions": [
+        {"text": "--check-code on a compliant fixture exits 0", "check": "code_pass"},
+        {"text": "--check-code on bg-indigo-600 + shadow exits non-zero", "check": "code_fail"},
+        {"text": "Violation names the file, line and rule", "check": "code_detail"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,607 @@
+{
+  "source": "https://linear.app",
+  "name": "Linear",
+  "modes": {},
+  "tokens": [
+    {
+      "id": "color/neutral/950",
+      "css": "--ds-neutral-950",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-home-bg"
+      ],
+      "values": {
+        "default": "#08090A"
+      }
+    },
+    {
+      "id": "color/neutral/900",
+      "css": "--ds-neutral-900",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-home-surface"
+      ],
+      "values": {
+        "default": "#0F1011"
+      }
+    },
+    {
+      "id": "color/neutral/850",
+      "css": "--ds-neutral-850",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-customers-surface",
+        "e-shadows"
+      ],
+      "values": {
+        "default": "#23252A"
+      }
+    },
+    {
+      "id": "color/white",
+      "css": "--ds-white",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-nav-cta"
+      ],
+      "values": {
+        "default": "#FFFFFF"
+      }
+    },
+    {
+      "id": "color/grey/200",
+      "css": "--ds-grey-200",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-text-primary"
+      ],
+      "values": {
+        "default": "#F7F8F8"
+      }
+    },
+    {
+      "id": "color/grey/400",
+      "css": "--ds-grey-400",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-text-body"
+      ],
+      "values": {
+        "default": "#D0D6E0"
+      }
+    },
+    {
+      "id": "color/grey/600",
+      "css": "--ds-grey-600",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-text-muted"
+      ],
+      "values": {
+        "default": "#8A8F98"
+      }
+    },
+    {
+      "id": "color/grey/700",
+      "css": "--ds-grey-700",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-text-muted"
+      ],
+      "values": {
+        "default": "#62666D"
+      }
+    },
+    {
+      "id": "color/highlight/one-off",
+      "css": "--ds-highlight-one-off",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-text-pink-hero"
+      ],
+      "values": {
+        "default": "#F79CE0"
+      }
+    },
+    {
+      "id": "color/canvas",
+      "css": "--ds-canvas",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-home-bg"
+      ],
+      "values": {
+        "default": "#08090A"
+      }
+    },
+    {
+      "id": "color/surface",
+      "css": "--ds-surface",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-home-surface"
+      ],
+      "values": {
+        "default": "#0F1011"
+      }
+    },
+    {
+      "id": "color/ring",
+      "css": "--ds-ring",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-shadows"
+      ],
+      "values": {
+        "default": "#23252A"
+      }
+    },
+    {
+      "id": "color/text/primary",
+      "css": "--ds-text-primary",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-text-primary"
+      ],
+      "values": {
+        "default": "#F7F8F8"
+      }
+    },
+    {
+      "id": "color/text/body",
+      "css": "--ds-text-body",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-text-body"
+      ],
+      "values": {
+        "default": "#D0D6E0"
+      }
+    },
+    {
+      "id": "color/text/muted",
+      "css": "--ds-text-muted",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-text-muted"
+      ],
+      "values": {
+        "default": "#8A8F98"
+      }
+    },
+    {
+      "id": "color/action/bg",
+      "css": "--ds-action-bg",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-nav-cta"
+      ],
+      "values": {
+        "default": "#FFFFFF"
+      }
+    },
+    {
+      "id": "color/action/fg",
+      "css": "--ds-action-fg",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-nav-cta"
+      ],
+      "values": {
+        "default": "#08090A"
+      }
+    },
+    {
+      "id": "font/sans",
+      "css": "--ds-font-sans",
+      "type": "fontFamily",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-font-display"
+      ],
+      "values": {
+        "default": "'Inter Variable', Inter, system-ui, sans-serif"
+      }
+    },
+    {
+      "id": "font/mono",
+      "css": "--ds-font-mono",
+      "type": "fontFamily",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-font-mono"
+      ],
+      "values": {
+        "default": "'Berkeley Mono', ui-monospace, SFMono-Regular, monospace"
+      }
+    },
+    {
+      "id": "font/body",
+      "css": "--ds-font-body",
+      "type": "fontFamily",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-font-display"
+      ],
+      "values": {
+        "default": "'Inter Variable', Inter, system-ui, sans-serif"
+      }
+    },
+    {
+      "id": "font/code",
+      "css": "--ds-font-code",
+      "type": "fontFamily",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-font-mono"
+      ],
+      "values": {
+        "default": "'Berkeley Mono', ui-monospace, SFMono-Regular, monospace"
+      }
+    },
+    {
+      "id": "type/display-1",
+      "css": "--ds-type-display-1",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h1"
+      ],
+      "values": {
+        "default": "64px"
+      }
+    },
+    {
+      "id": "type/display-2",
+      "css": "--ds-type-display-2",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h2"
+      ],
+      "values": {
+        "default": "48px"
+      }
+    },
+    {
+      "id": "type/title",
+      "css": "--ds-type-title",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h3"
+      ],
+      "values": {
+        "default": "20px"
+      }
+    },
+    {
+      "id": "type/body",
+      "css": "--ds-type-body",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-body"
+      ],
+      "values": {
+        "default": "15px"
+      }
+    },
+    {
+      "id": "type/ui",
+      "css": "--ds-type-ui",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-size-dist"
+      ],
+      "values": {
+        "default": "13px"
+      }
+    },
+    {
+      "id": "type/caption",
+      "css": "--ds-type-caption",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-size-dist"
+      ],
+      "values": {
+        "default": "12px"
+      }
+    },
+    {
+      "id": "leading/display",
+      "css": "--ds-leading-display",
+      "type": "number",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h1",
+        "e-h2"
+      ],
+      "values": {
+        "default": "1"
+      }
+    },
+    {
+      "id": "leading/body",
+      "css": "--ds-leading-body",
+      "type": "number",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-body"
+      ],
+      "values": {
+        "default": "1.6"
+      }
+    },
+    {
+      "id": "tracking/display",
+      "css": "--ds-tracking-display",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h1"
+      ],
+      "values": {
+        "default": "-0.022em"
+      }
+    },
+    {
+      "id": "weight/body",
+      "css": "--ds-weight-body",
+      "type": "fontWeight",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-weight-dist"
+      ],
+      "values": {
+        "default": "400"
+      }
+    },
+    {
+      "id": "weight/emphasis",
+      "css": "--ds-weight-emphasis",
+      "type": "fontWeight",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-weight-dist"
+      ],
+      "values": {
+        "default": "510"
+      }
+    },
+    {
+      "id": "weight/subhead",
+      "css": "--ds-weight-subhead",
+      "type": "fontWeight",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-weight-dist"
+      ],
+      "values": {
+        "default": "590"
+      }
+    },
+    {
+      "id": "radius/pill",
+      "css": "--ds-radius-pill",
+      "type": "dimension",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-radii"
+      ],
+      "values": {
+        "default": "9999px"
+      }
+    },
+    {
+      "id": "radius/md",
+      "css": "--ds-radius-md",
+      "type": "dimension",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-radii"
+      ],
+      "values": {
+        "default": "8px"
+      }
+    },
+    {
+      "id": "radius/sm",
+      "css": "--ds-radius-sm",
+      "type": "dimension",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-radii"
+      ],
+      "values": {
+        "default": "4px"
+      }
+    },
+    {
+      "id": "radius/control",
+      "css": "--ds-radius-control",
+      "type": "dimension",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-radii"
+      ],
+      "values": {
+        "default": "8px"
+      }
+    },
+    {
+      "id": "depth/ring",
+      "css": "--ds-depth-ring",
+      "type": "shadow",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-shadows"
+      ],
+      "values": {
+        "default": "0 0 0 1px #23252A"
+      }
+    },
+    {
+      "id": "depth/ring-inset",
+      "css": "--ds-depth-ring-inset",
+      "type": "shadow",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-shadows"
+      ],
+      "values": {
+        "default": "inset 0 0 0 1px rgba(255, 255, 255, 0.05)"
+      }
+    },
+    {
+      "id": "depth/float",
+      "css": "--ds-depth-float",
+      "type": "shadow",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-shadows"
+      ],
+      "values": {
+        "default": "0 2px 32px rgba(0, 0, 0, 0.25)"
+      }
+    },
+    {
+      "id": "motion/duration-fast",
+      "css": "--ds-motion-fast",
+      "type": "duration",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion"
+      ],
+      "values": {
+        "default": "100ms"
+      }
+    },
+    {
+      "id": "motion/duration",
+      "css": "--ds-motion-duration",
+      "type": "duration",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion"
+      ],
+      "values": {
+        "default": "160ms"
+      }
+    },
+    {
+      "id": "motion/easing",
+      "css": "--ds-motion-easing",
+      "type": "easing",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion"
+      ],
+      "values": {
+        "default": "cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+      }
+    },
+    {
+      "id": "space/section-adjacent",
+      "css": "--ds-space-section-adjacent",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-gaps"
+      ],
+      "values": {
+        "default": "10px"
+      }
+    },
+    {
+      "id": "space/section-breath",
+      "css": "--ds-space-section-breath",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-gaps"
+      ],
+      "values": {
+        "default": "224px"
+      }
+    },
+    {
+      "id": "layout/sidebar",
+      "css": "--ds-layout-sidebar",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-grid"
+      ],
+      "values": {
+        "default": "232px"
+      }
+    }
+  ]
+}

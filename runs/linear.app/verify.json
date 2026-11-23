@@ -1,0 +1,1571 @@
+{
+  "generatedAt": "2026-11-23T10:57:26+00:00",
+  "dest": "~/Projects/skills/design-dna/runs/linear.app",
+  "meta": {
+    "name": "Linear",
+    "source": "https://linear.app",
+    "domain": "linear.app",
+    "mode": "dna",
+    "capturedAt": "2026-11-23T10:57:08+00:00",
+    "viewport": "1440x900",
+    "captureIsolated": true,
+    "crawl": {
+      "pages": [
+        "https://linear.app",
+        "https://linear.app/customers",
+        "https://linear.app/pricing"
+      ],
+      "budget": "1+3"
+    },
+    "limitations": [
+      "Computed styles resolve CSS variables, so original token names are Inferred.",
+      "Hover/press/keyboard states were not forced; e-focus-rm comes from a CSSOM scan only.",
+      "The hero app frame is a product mockup: its chrome is observed, its behaviour is not."
+    ],
+    "openQuestions": [
+      "Is the hero app frame a live component or a recorded demo?",
+      "Do the light-on-light story panels get a dark-mode variant?"
+    ]
+  },
+  "checks": [
+    {
+      "name": "dna.json contract",
+      "result": "PASS",
+      "detail": "SSOT valid (evidence/measurements/patterns/taste/tokens)"
+    },
+    {
+      "name": "token resolution",
+      "result": "PASS",
+      "detail": "all aliases resolve, no cycles"
+    },
+    {
+      "name": "single source (R3)",
+      "result": "PASS",
+      "detail": "all artifacts are deterministic renders of dna.json, no post-render edits"
+    },
+    {
+      "name": "incremental freeze",
+      "result": "PASS",
+      "detail": "no frozen block changed since the last render"
+    },
+    {
+      "name": "evidence coverage",
+      "result": "PASS",
+      "detail": "28 evidence entries cited"
+    },
+    {
+      "name": "restraint guardrails",
+      "result": "PASS",
+      "detail": "2/2 restraint principles carry machine-readable guardrails"
+    },
+    {
+      "name": "anti-slop (authored prose)",
+      "result": "PASS",
+      "detail": "0 hit(s)"
+    },
+    {
+      "name": "guardrail (generated code)",
+      "result": "unverified",
+      "detail": "no --check-code supplied"
+    },
+    {
+      "name": "visual fidelity",
+      "result": "unverified",
+      "detail": "requires specimen comparison at matching viewports"
+    },
+    {
+      "name": "full system/ site",
+      "result": "n/a",
+      "detail": "DNA mode does not build system/"
+    }
+  ],
+  "dna": {
+    "meta": {
+      "name": "Linear",
+      "source": "https://linear.app",
+      "domain": "linear.app",
+      "mode": "dna",
+      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "viewport": "1440x900",
+      "captureIsolated": true,
+      "crawl": {
+        "pages": [
+          "https://linear.app",
+          "https://linear.app/customers",
+          "https://linear.app/pricing"
+        ],
+        "budget": "1+3"
+      },
+      "limitations": [
+        "Computed styles resolve CSS variables, so original token names are Inferred.",
+        "Hover/press/keyboard states were not forced; e-focus-rm comes from a CSSOM scan only.",
+        "The hero app frame is a product mockup: its chrome is observed, its behaviour is not."
+      ],
+      "openQuestions": [
+        "Is the hero app frame a live component or a recorded demo?",
+        "Do the light-on-light story panels get a dark-mode variant?"
+      ]
+    },
+    "evidence": [
+      {
+        "id": "e-home-bg",
+        "url": "https://linear.app/",
+        "locator": "html/body background",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "pageBackground": "rgb(8, 9, 10)",
+          "share": "64.5% of sampled element area"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-home-surface",
+        "url": "https://linear.app/",
+        "locator": "raised panels/sidebar/cards",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "value": "rgb(15, 16, 17)",
+          "share": "20.6%"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-customers-surface",
+        "url": "https://linear.app/customers",
+        "locator": "customer-story surface",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "value": "rgb(24, 25, 26)"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-2.png"
+      },
+      {
+        "id": "e-pricing-bg",
+        "url": "https://linear.app/pricing",
+        "locator": "pricing page background",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "pageBackground": "rgb(8, 9, 10)",
+          "share": "99.4%"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-pricing-surface",
+        "url": "https://linear.app/pricing",
+        "locator": "plan cards",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "value": "rgba(255,255,255,0.05)"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-nav-cta",
+        "url": "https://linear.app/",
+        "locator": "top-right primary action (Sign up) + nav links",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "bg": "rgb(255,255,255)",
+          "text": "rgb(8,9,10)",
+          "accentCandidates": "gray/white only, 100%"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-text-primary",
+        "url": "https://linear.app/",
+        "locator": "heading text",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "value": "rgb(247, 248, 248)",
+          "uses": 23
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-text-body",
+        "url": "https://linear.app/",
+        "locator": "paragraph/UI text",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "value": "rgb(208, 214, 224)",
+          "uses": 105
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-text-muted",
+        "url": "https://linear.app/",
+        "locator": "metadata/labels",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "values": [
+            "rgb(138, 143, 152) x182",
+            "rgb(98, 102, 109) x131"
+          ]
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-text-pink-hero",
+        "url": "https://linear.app/",
+        "locator": "hero highlight word only",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "value": "rgb(247, 156, 224)",
+          "uses": 41,
+          "share": "<5% visible surface"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-font-display",
+        "url": "https://linear.app/",
+        "locator": "headings",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "family": "Inter Variable",
+          "samples": "2266 elements"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-font-mono",
+        "url": "https://linear.app/",
+        "locator": "shortcuts/keys/code chips",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "family": "Berkeley Mono",
+          "samples": "259 elements"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-h1",
+        "url": "https://linear.app/",
+        "locator": "hero headline",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "size": "64px",
+          "weight": "510",
+          "lineHeight": "64px",
+          "letterSpacing": "-1.408px"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-h2",
+        "url": "https://linear.app/",
+        "locator": "section headline",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "size": "48px",
+          "weight": "510",
+          "lineHeight": "48px",
+          "letterSpacing": "-1.056px"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-h3",
+        "url": "https://linear.app/",
+        "locator": "card/feature title",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "size": "20px",
+          "weight": "590",
+          "lineHeight": "26.6px"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-body",
+        "url": "https://linear.app/",
+        "locator": "main paragraph",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "size": "15px",
+          "weight": "400",
+          "lineHeight": "24px"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-size-dist",
+        "url": "https://linear.app/",
+        "locator": "text size distribution (home)",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "top": "12px x186, 14px x180, 13px x121, 15px x65"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-size-dist-customers",
+        "url": "https://linear.app/customers",
+        "locator": "text size distribution (customers)",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "top": "14px x106, 13px x51, 20px x13"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-2.png"
+      },
+      {
+        "id": "e-size-dist-pricing",
+        "url": "https://linear.app/pricing",
+        "locator": "text size distribution (pricing)",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "top": "16px x201, 15px x93, 13px x90"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-weight-dist",
+        "url": "https://linear.app/",
+        "locator": "font-weight distribution",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "top": "400 x460, 510 x141, 590 x8"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-weight-dist-other",
+        "url": "https://linear.app/pricing",
+        "locator": "font-weight distribution (pricing)",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "top": "400 x372, 510 x35, 590 x4"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-radii",
+        "url": "https://linear.app/",
+        "locator": "radius distribution",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "values": {
+            "pill": "9999px",
+            "medium": "8px",
+            "small": "4px",
+            "avatar": "50%"
+          }
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-shadows",
+        "url": "https://linear.app/",
+        "locator": "shadow distribution on cards/panels",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "ring": "rgba(0,0,0,0.2) 0 0 0 1px",
+          "insetRing": "rgba(255,255,255,0.05) 0 0 0 1px inset",
+          "sample": "rgb(35,37,42) 0 0 0 1px inset"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-shadows-other",
+        "url": "https://linear.app/pricing",
+        "locator": "shadow distribution (pricing)",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "insetRing": "rgba(255,255,255,0.03) 0 0 0 1px inset"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-motion",
+        "url": "https://linear.app/",
+        "locator": "button/nav transitions",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "duration": "100ms",
+          "duration2": "160ms",
+          "easing": "cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-gaps",
+        "url": "https://linear.app/",
+        "locator": "vertical gap between three consecutive marketing sections",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "value": "10px x3 (adjacent), 224px band break"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-focus-rm",
+        "url": "https://linear.app/",
+        "locator": "stylesheet scan",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "cssom-scan",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "focusVisible": true,
+          "prefersReducedMotion": true
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-grid",
+        "url": "https://linear.app/",
+        "locator": "largest rendered grid (app mock)",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T10:57:08+00:00",
+        "values": {
+          "template": "232px 1072px",
+          "gridCount": 18
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      }
+    ],
+    "measurements": [
+      {
+        "id": "m-bg",
+        "category": "Color / canvas",
+        "value": "rgb(8, 9, 10) = #08090A",
+        "status": "observed",
+        "evidence": [
+          "e-home-bg",
+          "e-pricing-bg"
+        ]
+      },
+      {
+        "id": "m-surface-raised",
+        "category": "Color / surface",
+        "value": "rgb(15, 16, 17) = #0F1011 (20.6% area), rgb(24,25,26) on stories, rgba(255,255,255,0.05) on plan cards",
+        "status": "observed",
+        "evidence": [
+          "e-home-surface",
+          "e-customers-surface",
+          "e-pricing-surface"
+        ]
+      },
+      {
+        "id": "m-text",
+        "category": "Color / text scale",
+        "value": "#F7F8F8 primary, #D0D6E0 body, #8A8F98 / #62666D muted",
+        "status": "observed",
+        "evidence": [
+          "e-text-primary",
+          "e-text-body",
+          "e-text-muted"
+        ]
+      },
+      {
+        "id": "m-accent-restraint",
+        "category": "Color / accent share",
+        "value": "0 saturated accent roles; accentCandidates are grey/white; #F79CE0 appears once in hero word (<5% surface)",
+        "status": "observed",
+        "evidence": [
+          "e-nav-cta",
+          "e-text-pink-hero"
+        ]
+      },
+      {
+        "id": "m-fonts",
+        "category": "Typography / families",
+        "value": "Inter Variable (2266 el) + Berkeley Mono (259 el)",
+        "status": "observed",
+        "evidence": [
+          "e-font-display",
+          "e-font-mono"
+        ]
+      },
+      {
+        "id": "m-type-scale",
+        "category": "Typography / scale",
+        "value": "12/13/14/15/16 px UI band + 20/32/48/64 px display; H1 64/64, H2 48/48, H3 20/26.6, body 15/24",
+        "status": "observed",
+        "evidence": [
+          "e-h1",
+          "e-h2",
+          "e-h3",
+          "e-body",
+          "e-size-dist",
+          "e-size-dist-customers",
+          "e-size-dist-pricing"
+        ]
+      },
+      {
+        "id": "m-tracking",
+        "category": "Typography / tracking",
+        "value": "H1 -1.408px (-2.2%), H2 -1.056px (-2.2%), body normal",
+        "status": "observed",
+        "evidence": [
+          "e-h1",
+          "e-h2"
+        ]
+      },
+      {
+        "id": "m-weights",
+        "category": "Typography / weights",
+        "value": "400 body, 510 emphasis (141 uses), 590 subhead (8 uses); no 700+ anywhere",
+        "status": "observed",
+        "evidence": [
+          "e-weight-dist",
+          "e-weight-dist-other"
+        ]
+      },
+      {
+        "id": "m-radii",
+        "category": "Shape / radius",
+        "value": "pill 9999px, 8px controls, 4px chips, 50% avatars; 6/9/12px minority",
+        "status": "observed",
+        "evidence": [
+          "e-radii"
+        ]
+      },
+      {
+        "id": "m-depth",
+        "category": "Shape / depth",
+        "value": "1px rings (rgba(0,0,0,0.2) and rgb(35,37,42) inset / rgba(255,255,255,0.05) inset); one soft 0 2px 32px rgba(0,0,0,0.25) for floating panels",
+        "status": "observed",
+        "evidence": [
+          "e-shadows",
+          "e-shadows-other"
+        ]
+      },
+      {
+        "id": "m-motion",
+        "category": "Motion",
+        "value": "100ms and 160ms, cubic-bezier(0.25,0.46,0.45,0.94); :focus-visible and prefers-reduced-motion present",
+        "status": "observed",
+        "evidence": [
+          "e-motion",
+          "e-focus-rm"
+        ]
+      },
+      {
+        "id": "m-section-rhythm",
+        "category": "Layout / rhythm",
+        "value": "10px between three consecutive sections; one 224px breathing band before the closing block",
+        "status": "observed",
+        "evidence": [
+          "e-gaps"
+        ]
+      },
+      {
+        "id": "m-grid",
+        "category": "Layout / grid",
+        "value": "232px 1072px two-column app frame; 18 multi-column grids on the home page; 3x384 / 6x224 on subpages",
+        "status": "observed",
+        "evidence": [
+          "e-grid"
+        ]
+      },
+      {
+        "id": "m-container",
+        "category": "Layout / width",
+        "value": "containerMaxWidth none (fluid); header padding 72px top; content sits inside cards, not inside a centred container",
+        "status": "inferred",
+        "evidence": [
+          "e-grid",
+          "e-home-surface"
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "id": "p-accent-restraint",
+        "name": "White-only action color",
+        "rule": "The only saturated accent is a one-off hero word; every actionable surface resolves to white-on-near-black or 1px rings.",
+        "goal": "Lets emphasis come from position and weight, so the product mock stays the brightest thing on the page.",
+        "evidence": [
+          "e-nav-cta",
+          "e-text-pink-hero",
+          "e-text-primary"
+        ]
+      },
+      {
+        "id": "p-weight-not-size",
+        "name": "Weight and tracking beat size jumps",
+        "rule": "Hierarchy is carried by 400/510/590 and -2.2% tracking at display sizes, not by bold weights or a long type scale.",
+        "goal": "Keeps headings calm at 64px so a dense product screenshot can sit underneath without competing.",
+        "evidence": [
+          "e-weight-dist",
+          "e-weight-dist-other",
+          "e-h1"
+        ]
+      },
+      {
+        "id": "p-ui-band",
+        "name": "Tight UI band, wide display jumps",
+        "rule": "86% of text sits in 12-16px; display sizes jump straight to 20/32/48/64 with no intermediate steps.",
+        "goal": "Treats UI chrome as one texture and the marketing headline as a poster line — nothing in between competes.",
+        "evidence": [
+          "e-size-dist",
+          "e-size-dist-pricing"
+        ]
+      },
+      {
+        "id": "p-ring-depth",
+        "name": "Rings instead of shadows",
+        "rule": "Depth is a 1px inset/outset ring at 3-20% alpha; only genuinely floating panels get a soft shadow.",
+        "goal": "Keeps dark surfaces from looking muddy and stops cards from stacking into a shadow ladder.",
+        "evidence": [
+          "e-shadows",
+          "e-shadows-other"
+        ]
+      },
+      {
+        "id": "p-whitespace-in-sections",
+        "name": "Breathing room lives inside sections",
+        "rule": "Section-to-section gap is 10px; the 224px of air is padding inside a band, not margin between bands.",
+        "goal": "Makes the page read as one continuous dark canvas rather than a stack of cards.",
+        "evidence": [
+          "e-gaps",
+          "e-home-bg"
+        ]
+      },
+      {
+        "id": "p-product-as-visual",
+        "name": "Real product UI is the illustration",
+        "rule": "The hero visual is a rendered app frame (232px sidebar + 1072px canvas) with real states, not abstract art.",
+        "goal": "Shows the actual workflow at the exact density users buy the product for.",
+        "evidence": [
+          "e-grid",
+          "e-font-mono"
+        ]
+      },
+      {
+        "id": "p-short-motion",
+        "name": "Feedback motion only",
+        "rule": "Transitions are 100-160ms on border/background/color, with :focus-visible and a reduced-motion branch present.",
+        "goal": "Confirms interaction without delaying it; state stays legible with motion disabled.",
+        "evidence": [
+          "e-motion",
+          "e-focus-rm"
+        ]
+      }
+    ],
+    "taste": [
+      {
+        "id": "t-white-as-accent",
+        "name": "Brand lives in white, not in colour",
+        "kind": "restraint",
+        "status": "observed",
+        "trigger": "Deciding the action colour on a near-black marketing page.",
+        "decision": "Use white (#FFFFFF) on #08090A for the only high-contrast action and let everything else be grey.",
+        "chose": "white-on-black primary action",
+        "over": "a branded accent hue (Linear purple) across CTAs, links and states",
+        "reason": "On #08090A a white pill is already the loudest possible element; a coloured button would read as a template and compete with the product screenshot.",
+        "evidence": [
+          "e-nav-cta",
+          "e-text-pink-hero",
+          "e-text-primary"
+        ],
+        "patterns": [
+          "p-accent-restraint"
+        ],
+        "guardrail": {
+          "forbidCss": [],
+          "forbidClass": [
+            "(^|-)bg-(?!white|black|transparent|gray|neutral|zinc|slate|none)[a-z]+-(4|5|6|7)\\d\\d$",
+            "(^|-)text-(?!white|black|transparent)[a-z]+-(4|5|6)\\d\\d$"
+          ],
+          "max": {},
+          "note": "Any saturated fill/stroke belongs to illustration only, never to a control."
+        }
+      },
+      {
+        "id": "t-weights",
+        "name": "Voice comes from weight, not from size",
+        "kind": "craft",
+        "status": "observed",
+        "trigger": "Making a 64px headline feel authoritative without shouting.",
+        "decision": "Set display text at weight 510 with -2.2% tracking and subheads at 590; never go past 590.",
+        "chose": "510/590 variable weights with negative tracking",
+        "over": "700/800 bold headings with a 1.25 modular scale",
+        "reason": "Heavy weights at 64px turn into a wall that drowns the dense product screenshot directly below.",
+        "evidence": [
+          "e-weight-dist",
+          "e-h1",
+          "e-h2",
+          "e-h3"
+        ],
+        "patterns": [
+          "p-weight-not-size"
+        ]
+      },
+      {
+        "id": "t-ui-band",
+        "name": "One texture for UI, a poster line for marketing",
+        "kind": "system",
+        "status": "observed",
+        "trigger": "Choosing the type scale for a page that mixes marketing copy and a UI mock.",
+        "decision": "Keep 86% of text in 12-16px and jump straight to 20/32/48/64.",
+        "chose": "two-band scale (12-16 UI, 48-64 display) with nothing in between",
+        "over": "a smooth 1.25x ramp (16/20/25/31/39/48)",
+        "reason": "Intermediate sizes would make the app mock's own UI text compete with marketing headings.",
+        "evidence": [
+          "e-size-dist",
+          "e-size-dist-customers",
+          "e-size-dist-pricing"
+        ],
+        "patterns": [
+          "p-ui-band"
+        ]
+      },
+      {
+        "id": "t-ring-depth",
+        "name": "Depth is a ring, never a shadow ladder",
+        "kind": "restraint",
+        "status": "observed",
+        "trigger": "Separating cards and panels on a near-black canvas.",
+        "decision": "Use 1px inset/outset rings at 3-20% alpha; reserve soft blur for genuinely floating panels.",
+        "chose": "1px rings at low alpha",
+        "over": "layered box-shadows (0 4px 12px rgba(0,0,0,.3)) on every card",
+        "reason": "On #08090A a drop shadow is invisible and a strong one muddies the surface; a hairline ring holds the edge without stacking depth.",
+        "evidence": [
+          "e-shadows",
+          "e-shadows-other",
+          "e-home-surface"
+        ],
+        "patterns": [
+          "p-ring-depth"
+        ],
+        "guardrail": {
+          "forbidCss": [],
+          "requireCss": [],
+          "forbidClass": [
+            "(^|-)shadow-(?!none|sm|inner)[a-z]+-[a-z]+"
+          ],
+          "max": {
+            "box-shadow": {
+              "value": "1",
+              "unit": "px"
+            }
+          },
+          "note": "Offsets must stay 0; blur is allowed only on floating overlays."
+        }
+      }
+    ],
+    "tokens": [
+      {
+        "id": "color/neutral/950",
+        "css": "--ds-neutral-950",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-home-bg"
+        ],
+        "values": {
+          "default": "#08090A"
+        }
+      },
+      {
+        "id": "color/neutral/900",
+        "css": "--ds-neutral-900",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-home-surface"
+        ],
+        "values": {
+          "default": "#0F1011"
+        }
+      },
+      {
+        "id": "color/neutral/850",
+        "css": "--ds-neutral-850",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-customers-surface",
+          "e-shadows"
+        ],
+        "values": {
+          "default": "#23252A"
+        }
+      },
+      {
+        "id": "color/white",
+        "css": "--ds-white",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-nav-cta"
+        ],
+        "values": {
+          "default": "#FFFFFF"
+        }
+      },
+      {
+        "id": "color/grey/200",
+        "css": "--ds-grey-200",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-text-primary"
+        ],
+        "values": {
+          "default": "#F7F8F8"
+        }
+      },
+      {
+        "id": "color/grey/400",
+        "css": "--ds-grey-400",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-text-body"
+        ],
+        "values": {
+          "default": "#D0D6E0"
+        }
+      },
+      {
+        "id": "color/grey/600",
+        "css": "--ds-grey-600",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-text-muted"
+        ],
+        "values": {
+          "default": "#8A8F98"
+        }
+      },
+      {
+        "id": "color/grey/700",
+        "css": "--ds-grey-700",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-text-muted"
+        ],
+        "values": {
+          "default": "#62666D"
+        }
+      },
+      {
+        "id": "color/highlight/one-off",
+        "css": "--ds-highlight-one-off",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-text-pink-hero"
+        ],
+        "values": {
+          "default": "#F79CE0"
+        }
+      },
+      {
+        "id": "color/canvas",
+        "css": "--ds-canvas",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-home-bg"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/neutral/950"
+          }
+        }
+      },
+      {
+        "id": "color/surface",
+        "css": "--ds-surface",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-home-surface"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/neutral/900"
+          }
+        }
+      },
+      {
+        "id": "color/ring",
+        "css": "--ds-ring",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-shadows"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/neutral/850"
+          }
+        }
+      },
+      {
+        "id": "color/text/primary",
+        "css": "--ds-text-primary",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-text-primary"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/grey/200"
+          }
+        }
+      },
+      {
+        "id": "color/text/body",
+        "css": "--ds-text-body",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-text-body"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/grey/400"
+          }
+        }
+      },
+      {
+        "id": "color/text/muted",
+        "css": "--ds-text-muted",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-text-muted"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/grey/600"
+          }
+        }
+      },
+      {
+        "id": "color/action/bg",
+        "css": "--ds-action-bg",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-nav-cta"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/white"
+          }
+        }
+      },
+      {
+        "id": "color/action/fg",
+        "css": "--ds-action-fg",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-nav-cta"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/neutral/950"
+          }
+        }
+      },
+      {
+        "id": "font/sans",
+        "css": "--ds-font-sans",
+        "type": "fontFamily",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-font-display"
+        ],
+        "values": {
+          "default": "'Inter Variable', Inter, system-ui, sans-serif"
+        }
+      },
+      {
+        "id": "font/mono",
+        "css": "--ds-font-mono",
+        "type": "fontFamily",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-font-mono"
+        ],
+        "values": {
+          "default": "'Berkeley Mono', ui-monospace, SFMono-Regular, monospace"
+        }
+      },
+      {
+        "id": "font/body",
+        "css": "--ds-font-body",
+        "type": "fontFamily",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-font-display"
+        ],
+        "values": {
+          "default": {
+            "alias": "font/sans"
+          }
+        }
+      },
+      {
+        "id": "font/code",
+        "css": "--ds-font-code",
+        "type": "fontFamily",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-font-mono"
+        ],
+        "values": {
+          "default": {
+            "alias": "font/mono"
+          }
+        }
+      },
+      {
+        "id": "type/display-1",
+        "css": "--ds-type-display-1",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-h1"
+        ],
+        "values": {
+          "default": "64px"
+        }
+      },
+      {
+        "id": "type/display-2",
+        "css": "--ds-type-display-2",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-h2"
+        ],
+        "values": {
+          "default": "48px"
+        }
+      },
+      {
+        "id": "type/title",
+        "css": "--ds-type-title",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-h3"
+        ],
+        "values": {
+          "default": "20px"
+        }
+      },
+      {
+        "id": "type/body",
+        "css": "--ds-type-body",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-body"
+        ],
+        "values": {
+          "default": "15px"
+        }
+      },
+      {
+        "id": "type/ui",
+        "css": "--ds-type-ui",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-size-dist"
+        ],
+        "values": {
+          "default": "13px"
+        }
+      },
+      {
+        "id": "type/caption",
+        "css": "--ds-type-caption",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-size-dist"
+        ],
+        "values": {
+          "default": "12px"
+        }
+      },
+      {
+        "id": "leading/display",
+        "css": "--ds-leading-display",
+        "type": "number",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-h1",
+          "e-h2"
+        ],
+        "values": {
+          "default": "1"
+        }
+      },
+      {
+        "id": "leading/body",
+        "css": "--ds-leading-body",
+        "type": "number",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-body"
+        ],
+        "values": {
+          "default": "1.6"
+        }
+      },
+      {
+        "id": "tracking/display",
+        "css": "--ds-tracking-display",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-h1"
+        ],
+        "values": {
+          "default": "-0.022em"
+        }
+      },
+      {
+        "id": "weight/body",
+        "css": "--ds-weight-body",
+        "type": "fontWeight",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-weight-dist"
+        ],
+        "values": {
+          "default": "400"
+        }
+      },
+      {
+        "id": "weight/emphasis",
+        "css": "--ds-weight-emphasis",
+        "type": "fontWeight",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-weight-dist"
+        ],
+        "values": {
+          "default": "510"
+        }
+      },
+      {
+        "id": "weight/subhead",
+        "css": "--ds-weight-subhead",
+        "type": "fontWeight",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-weight-dist"
+        ],
+        "values": {
+          "default": "590"
+        }
+      },
+      {
+        "id": "radius/pill",
+        "css": "--ds-radius-pill",
+        "type": "dimension",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-radii"
+        ],
+        "values": {
+          "default": "9999px"
+        }
+      },
+      {
+        "id": "radius/md",
+        "css": "--ds-radius-md",
+        "type": "dimension",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-radii"
+        ],
+        "values": {
+          "default": "8px"
+        }
+      },
+      {
+        "id": "radius/sm",
+        "css": "--ds-radius-sm",
+        "type": "dimension",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-radii"
+        ],
+        "values": {
+          "default": "4px"
+        }
+      },
+      {
+        "id": "radius/control",
+        "css": "--ds-radius-control",
+        "type": "dimension",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-radii"
+        ],
+        "values": {
+          "default": {
+            "alias": "radius/md"
+          }
+        }
+      },
+      {
+        "id": "depth/ring",
+        "css": "--ds-depth-ring",
+        "type": "shadow",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-shadows"
+        ],
+        "values": {
+          "default": "0 0 0 1px #23252A"
+        }
+      },
+      {
+        "id": "depth/ring-inset",
+        "css": "--ds-depth-ring-inset",
+        "type": "shadow",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-shadows"
+        ],
+        "values": {
+          "default": "inset 0 0 0 1px rgba(255, 255, 255, 0.05)"
+        }
+      },
+      {
+        "id": "depth/float",
+        "css": "--ds-depth-float",
+        "type": "shadow",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-shadows"
+        ],
+        "values": {
+          "default": "0 2px 32px rgba(0, 0, 0, 0.25)"
+        }
+      },
+      {
+        "id": "motion/duration-fast",
+        "css": "--ds-motion-fast",
+        "type": "duration",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-motion"
+        ],
+        "values": {
+          "default": "100ms"
+        }
+      },
+      {
+        "id": "motion/duration",
+        "css": "--ds-motion-duration",
+        "type": "duration",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-motion"
+        ],
+        "values": {
+          "default": "160ms"
+        }
+      },
+      {
+        "id": "motion/easing",
+        "css": "--ds-motion-easing",
+        "type": "easing",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-motion"
+        ],
+        "values": {
+          "default": "cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+        }
+      },
+      {
+        "id": "space/section-adjacent",
+        "css": "--ds-space-section-adjacent",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-gaps"
+        ],
+        "values": {
+          "default": "10px"
+        }
+      },
+      {
+        "id": "space/section-breath",
+        "css": "--ds-space-section-breath",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-gaps"
+        ],
+        "values": {
+          "default": "224px"
+        }
+      },
+      {
+        "id": "layout/sidebar",
+        "css": "--ds-layout-sidebar",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-grid"
+        ],
+        "values": {
+          "default": "232px"
+        }
+      }
+    ]
+  },
+  "slop": [],
+  "guardrailViolations": []
+}

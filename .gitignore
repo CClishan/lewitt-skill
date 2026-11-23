@@ -1,0 +1,7 @@
+.DS_Store
+__pycache__/
+*.pyc
+.dd/
+node_modules/
+# capture artifacts are large; keep the authored dna + renders, drop the raw shots
+runs/*/*/capture/*.png
