@@ -4,7 +4,7 @@
     "source": "https://linear.app",
     "domain": "linear.app",
     "mode": "dna",
-    "capturedAt": "2026-11-23T10:57:08+00:00",
+    "capturedAt": "2026-11-23T12:15:26+00:00",
     "viewport": "1440x900",
     "captureIsolated": true,
     "crawl": {
@@ -36,7 +36,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "pageBackground": "rgb(8, 9, 10)",
         "share": "64.5% of sampled element area"
@@ -54,7 +54,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "value": "rgb(15, 16, 17)",
         "share": "20.6%"
@@ -72,7 +72,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "value": "rgb(24, 25, 26)"
       },
@@ -89,7 +89,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "pageBackground": "rgb(8, 9, 10)",
         "share": "99.4%"
@@ -107,7 +107,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "value": "rgba(255,255,255,0.05)"
       },
@@ -124,7 +124,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "bg": "rgb(255,255,255)",
         "text": "rgb(8,9,10)",
@@ -143,7 +143,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "value": "rgb(247, 248, 248)",
         "uses": 23
@@ -161,7 +161,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "value": "rgb(208, 214, 224)",
         "uses": 105
@@ -179,7 +179,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "values": [
           "rgb(138, 143, 152) x182",
@@ -199,7 +199,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "value": "rgb(247, 156, 224)",
         "uses": 41,
@@ -218,7 +218,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "family": "Inter Variable",
         "samples": "2266 elements"
@@ -236,7 +236,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "family": "Berkeley Mono",
         "samples": "259 elements"
@@ -254,7 +254,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "size": "64px",
         "weight": "510",
@@ -274,7 +274,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "size": "48px",
         "weight": "510",
@@ -294,7 +294,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "size": "20px",
         "weight": "590",
@@ -313,7 +313,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "size": "15px",
         "weight": "400",
@@ -332,7 +332,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "top": "12px x186, 14px x180, 13px x121, 15px x65"
       },
@@ -349,7 +349,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "top": "14px x106, 13px x51, 20px x13"
       },
@@ -366,7 +366,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "top": "16px x201, 15px x93, 13px x90"
       },
@@ -383,7 +383,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "top": "400 x460, 510 x141, 590 x8"
       },
@@ -400,7 +400,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "top": "400 x372, 510 x35, 590 x4"
       },
@@ -417,7 +417,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "values": {
           "pill": "9999px",
@@ -439,7 +439,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "ring": "rgba(0,0,0,0.2) 0 0 0 1px",
         "insetRing": "rgba(255,255,255,0.05) 0 0 0 1px inset",
@@ -458,7 +458,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "insetRing": "rgba(255,255,255,0.03) 0 0 0 1px inset"
       },
@@ -475,7 +475,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "duration": "100ms",
         "duration2": "160ms",
@@ -494,7 +494,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "value": "10px x3 (adjacent), 224px band break"
       },
@@ -511,7 +511,7 @@
       },
       "state": "default",
       "method": "cssom-scan",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "focusVisible": true,
         "prefersReducedMotion": true
@@ -529,7 +529,7 @@
       },
       "state": "default",
       "method": "computed-style+viewport-screenshot",
-      "capturedAt": "2026-11-23T10:57:08+00:00",
+      "capturedAt": "2026-11-23T12:15:26+00:00",
       "values": {
         "template": "232px 1072px",
         "gridCount": 18

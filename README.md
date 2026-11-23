@@ -1,4 +1,4 @@
-# design-dna
+# lewitt
 
 Reverse-engineer a website into a **design DNA** an AI coder can actually follow: measured
 tokens plus the trade-offs behind them, rendered from one authored file and checked by
@@ -27,7 +27,7 @@ instead of shadows" can be enforced against generated UI, not just written down.
 ## Usage
 
 ```sh
-SKILL=~/Projects/skills/design-dna/scripts
+SKILL=~/Projects/skills/lewitt/scripts
 DEST=./out
 
 python3 $SKILL/capture.py linear.app --dest $DEST --pages 4      # isolated, CDP-eval capture
@@ -37,19 +37,23 @@ python3 $SKILL/lint_output.py --dest $DEST/linear.app           # all gates
 python3 $SKILL/lint_output.py --dest $DEST/linear.app --check-code ./src   # guardrails vs code
 ```
 
-Incremental update of one site:
+Incremental update of one site — declare the scope, everything else is frozen:
 
 ```sh
-python3 $SKILL/build_artifacts.py $DEST/linear.app --incremental measurements,taste
+python3 $SKILL/build_artifacts.py $DEST/linear.app --incremental taste                      # wording only
+python3 $SKILL/build_artifacts.py $DEST/linear.app --incremental evidence,measurements,tokens  # brand colour changed
 ```
 
-It refuses when a frozen block changed since the last render.
+It fails when a frozen block moved since the last render, or when `tokens` changed without
+`evidence` in the same scope.
 
 ## Requirements
 
 - Python 3.10+
-- `playwright` for capture (one-time): `mkdir -p ~/.dd && cd ~/.dd && npm i playwright && npx playwright install chromium`
-  `capture.py` exits non-zero rather than capture from a non-isolated browser.
+- `playwright` for capture (one-time): `bash scripts/setup.sh` installs it into the skill's own
+  `node_modules` (override with `LEWITT_PW_DIR`). Verification order: `LEWITT_PW_DIR` → skill
+  `node_modules` → `npm root -g` → npx cache. `capture.py` exits non-zero rather than capture
+  from a non-isolated browser.
 
 ## Layout
 
@@ -73,17 +77,28 @@ evals/evals.json          regression cases (linear restraint, stripe craft, incr
 runs/linear.app/          the worked example: 3 pages, 28 evidence, 46 tokens, 0 slop hits
 ```
 
-## Worked example (linear.app, DNA mode)
+## Worked examples (DNA mode)
 
-| Gate | Result |
-| --- | --- |
-| dna.json contract / token resolution / single source / incremental freeze | PASS |
-| evidence coverage (28 entries) / restraint guardrails (2/2) / anti-slop (0 hits) | PASS |
-| guardrail vs generated code, visual fidelity | unverified (not claimed) |
+| Run | Pages | Evidence | Tokens | Anti-slop hits | Restraint guardrails | Gate summary |
+| --- | --- | --- | --- | --- | --- | --- |
+| `runs/linear.app` | 3 | 28 | 46 | 0 | 2/2 | all PASS |
+| `runs/stripe.com` | 4 | 32 | 49 | 0 | 2/2 | all PASS |
 
-Sharpest principle: *Brand lives in white, not in colour* — white on `#08090A` is the only
-high-contrast action; a branded hue would compete with the product screenshot.
+- Linear — *Brand lives in white, not in colour*: white on `#08090A` is the only high-contrast
+  action; a branded hue would compete with the product screenshot.
+- Stripe — *Colour is a once-per-page event*: one gradient band in the hero, indigo
+  (`#533AFD`) on actions and links only (~0.2% of surface), everything below flat white.
 
-## Status
+The Stripe run is the anti-slop stress test: a craft-heavy, gradient-heavy, motion-heavy site
+passes the word list without being described as "polished" or "premium" — the craft shows up as
+measurements (blue-tinted ink, 300 weights, three motion tiers), not adjectives.
 
-Not committed to a remote yet. Create the repo and push when you want a shareable version.
+`visual fidelity` stays `unverified` in both runs: the gates prove internal consistency, not
+resemblance.
+
+## Credits
+
+The reasoning chain and banned-word discipline come from `taste-skill` (MIT, Senlin); the
+evidence ledger, token layering and verification table come from `website-design-system`
+(DiqingWWW). `lewitt` is the merge, named after Sol LeWitt's instruction-set idea: the brief is
+a set of instructions that a competent executor can rebuild from.

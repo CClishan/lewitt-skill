@@ -1,0 +1,645 @@
+{
+  "source": "https://stripe.com/",
+  "name": "Stripe",
+  "modes": {},
+  "tokens": [
+    {
+      "id": "color/ink/900",
+      "css": "--lw-ink-900",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-ink"
+      ],
+      "values": {
+        "default": "#061B31"
+      }
+    },
+    {
+      "id": "color/ink/700",
+      "css": "--lw-ink-700",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-ink-body"
+      ],
+      "values": {
+        "default": "#50617A"
+      }
+    },
+    {
+      "id": "color/ink/600",
+      "css": "--lw-ink-600",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-ink-body"
+      ],
+      "values": {
+        "default": "#64748D"
+      }
+    },
+    {
+      "id": "color/blue-tint/100",
+      "css": "--lw-tint-100",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-canvas-light"
+      ],
+      "values": {
+        "default": "#E5EDF5"
+      }
+    },
+    {
+      "id": "color/blue-tint/50",
+      "css": "--lw-tint-50",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-canvas-light",
+        "e-sections-tinted"
+      ],
+      "values": {
+        "default": "#F8FAFD"
+      }
+    },
+    {
+      "id": "color/blue-tint/25",
+      "css": "--lw-page-tint",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-canvas-pricing"
+      ],
+      "values": {
+        "default": "#F6F9FC"
+      }
+    },
+    {
+      "id": "color/white",
+      "css": "--lw-white",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-canvas-light"
+      ],
+      "values": {
+        "default": "#FFFFFF"
+      }
+    },
+    {
+      "id": "color/indigo/600",
+      "css": "--lw-indigo-600",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-purple"
+      ],
+      "values": {
+        "default": "#533AFD"
+      }
+    },
+    {
+      "id": "color/indigo/500",
+      "css": "--lw-indigo-500",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-purple"
+      ],
+      "values": {
+        "default": "#635BFF"
+      }
+    },
+    {
+      "id": "color/canvas",
+      "css": "--lw-canvas",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-canvas-light"
+      ],
+      "values": {
+        "default": "#FFFFFF"
+      }
+    },
+    {
+      "id": "color/canvas-tint",
+      "css": "--lw-canvas-tint",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-canvas-pricing"
+      ],
+      "values": {
+        "default": "#F6F9FC"
+      }
+    },
+    {
+      "id": "color/surface-subtle",
+      "css": "--lw-surface-subtle",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-canvas-light"
+      ],
+      "values": {
+        "default": "#F8FAFD"
+      }
+    },
+    {
+      "id": "color/text/heading",
+      "css": "--lw-text-heading",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-ink"
+      ],
+      "values": {
+        "default": "#061B31"
+      }
+    },
+    {
+      "id": "color/text/body",
+      "css": "--lw-text-body",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-ink-body"
+      ],
+      "values": {
+        "default": "#50617A"
+      }
+    },
+    {
+      "id": "color/text/muted",
+      "css": "--lw-text-muted",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-ink-body"
+      ],
+      "values": {
+        "default": "#64748D"
+      }
+    },
+    {
+      "id": "color/action/bg",
+      "css": "--lw-action-bg",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-purple"
+      ],
+      "values": {
+        "default": "#533AFD"
+      }
+    },
+    {
+      "id": "color/action/bg-alt",
+      "css": "--lw-action-bg-alt",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-purple"
+      ],
+      "values": {
+        "default": "#635BFF"
+      }
+    },
+    {
+      "id": "color/action/fg",
+      "css": "--lw-action-fg",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-buttons"
+      ],
+      "values": {
+        "default": "#FFFFFF"
+      }
+    },
+    {
+      "id": "color/link",
+      "css": "--lw-link",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-purple"
+      ],
+      "values": {
+        "default": "#533AFD"
+      }
+    },
+    {
+      "id": "font/sans",
+      "css": "--lw-font-sans",
+      "type": "fontFamily",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-font-sohne"
+      ],
+      "values": {
+        "default": "'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif"
+      }
+    },
+    {
+      "id": "font/mono",
+      "css": "--lw-font-mono",
+      "type": "fontFamily",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-font-mono"
+      ],
+      "values": {
+        "default": "'SourceCodePro', ui-monospace, SFMono-Regular, monospace"
+      }
+    },
+    {
+      "id": "font/body",
+      "css": "--lw-font-body",
+      "type": "fontFamily",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-font-sohne"
+      ],
+      "values": {
+        "default": "'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif"
+      }
+    },
+    {
+      "id": "font/code",
+      "css": "--lw-font-code",
+      "type": "fontFamily",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-font-mono"
+      ],
+      "values": {
+        "default": "'SourceCodePro', ui-monospace, SFMono-Regular, monospace"
+      }
+    },
+    {
+      "id": "type/hero",
+      "css": "--lw-type-hero",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h1"
+      ],
+      "values": {
+        "default": "48px"
+      }
+    },
+    {
+      "id": "type/h2",
+      "css": "--lw-type-h2",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h2"
+      ],
+      "values": {
+        "default": "32px"
+      }
+    },
+    {
+      "id": "type/h3",
+      "css": "--lw-type-h3",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h3"
+      ],
+      "values": {
+        "default": "26px"
+      }
+    },
+    {
+      "id": "type/body",
+      "css": "--lw-type-body",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-size-dist"
+      ],
+      "values": {
+        "default": "16px"
+      }
+    },
+    {
+      "id": "type/ui",
+      "css": "--lw-type-ui",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-size-dist-pricing"
+      ],
+      "values": {
+        "default": "15px"
+      }
+    },
+    {
+      "id": "type/caption",
+      "css": "--lw-type-caption",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-size-dist"
+      ],
+      "values": {
+        "default": "10px"
+      }
+    },
+    {
+      "id": "tracking/hero",
+      "css": "--lw-tracking-hero",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h1"
+      ],
+      "values": {
+        "default": "-0.02em"
+      }
+    },
+    {
+      "id": "tracking/h2",
+      "css": "--lw-tracking-h2",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h2"
+      ],
+      "values": {
+        "default": "-0.015em"
+      }
+    },
+    {
+      "id": "leading/prose",
+      "css": "--lw-leading-prose",
+      "type": "number",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-body-type"
+      ],
+      "values": {
+        "default": "1.2"
+      }
+    },
+    {
+      "id": "weight/light",
+      "css": "--lw-weight-light",
+      "type": "fontWeight",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-weights"
+      ],
+      "values": {
+        "default": "300"
+      }
+    },
+    {
+      "id": "weight/regular",
+      "css": "--lw-weight-regular",
+      "type": "fontWeight",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-weights"
+      ],
+      "values": {
+        "default": "400"
+      }
+    },
+    {
+      "id": "weight/ui-strong",
+      "css": "--lw-weight-ui-strong",
+      "type": "fontWeight",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-weights-pricing"
+      ],
+      "values": {
+        "default": "500"
+      }
+    },
+    {
+      "id": "radius/control",
+      "css": "--lw-radius-control",
+      "type": "dimension",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-radii"
+      ],
+      "values": {
+        "default": "4px"
+      }
+    },
+    {
+      "id": "radius/control-alt",
+      "css": "--lw-radius-control-alt",
+      "type": "dimension",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-radii"
+      ],
+      "values": {
+        "default": "6px"
+      }
+    },
+    {
+      "id": "radius/card",
+      "css": "--lw-radius-card",
+      "type": "dimension",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-radii-pricing"
+      ],
+      "values": {
+        "default": "16.5px"
+      }
+    },
+    {
+      "id": "depth/float",
+      "css": "--lw-depth-float",
+      "type": "shadow",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-shadow-soft"
+      ],
+      "values": {
+        "default": "0 16px 32px rgba(50, 50, 93, 0.12)"
+      }
+    },
+    {
+      "id": "depth/float-strong",
+      "css": "--lw-depth-float-strong",
+      "type": "shadow",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-shadow-layered"
+      ],
+      "values": {
+        "default": "0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3)"
+      }
+    },
+    {
+      "id": "depth/ring",
+      "css": "--lw-depth-ring",
+      "type": "shadow",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-ring"
+      ],
+      "values": {
+        "default": "0 0 0 1px #533AFD"
+      }
+    },
+    {
+      "id": "depth/ring-inset",
+      "css": "--lw-depth-ring-inset",
+      "type": "shadow",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-ring"
+      ],
+      "values": {
+        "default": "inset 0 0 0 2px #FFFFFF"
+      }
+    },
+    {
+      "id": "motion/fast",
+      "css": "--lw-motion-fast",
+      "type": "duration",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion"
+      ],
+      "values": {
+        "default": "240ms"
+      }
+    },
+    {
+      "id": "motion/base",
+      "css": "--lw-motion-base",
+      "type": "duration",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion"
+      ],
+      "values": {
+        "default": "300ms"
+      }
+    },
+    {
+      "id": "motion/reveal",
+      "css": "--lw-motion-reveal",
+      "type": "duration",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion"
+      ],
+      "values": {
+        "default": "400ms"
+      }
+    },
+    {
+      "id": "motion/easing-in-out",
+      "css": "--lw-easing-in-out",
+      "type": "easing",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion"
+      ],
+      "values": {
+        "default": "cubic-bezier(0.45, 0.05, 0.55, 0.95)"
+      }
+    },
+    {
+      "id": "motion/easing-out",
+      "css": "--lw-easing-out",
+      "type": "easing",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion"
+      ],
+      "values": {
+        "default": "cubic-bezier(0.25, 1, 0.5, 1)"
+      }
+    },
+    {
+      "id": "space/section",
+      "css": "--lw-space-section",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-gaps-products"
+      ],
+      "values": {
+        "default": "128px"
+      }
+    },
+    {
+      "id": "layout/container",
+      "css": "--lw-layout-container",
+      "type": "dimension",
+      "layer": "component",
+      "status": "inferred",
+      "evidence": [
+        "e-container"
+      ],
+      "values": {
+        "default": "1080px"
+      }
+    }
+  ]
+}

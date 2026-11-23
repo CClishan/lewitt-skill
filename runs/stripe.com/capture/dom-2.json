@@ -1,0 +1,472 @@
+{
+  "url": "https://stripe.com/en-sg/pricing",
+  "title": "Pricing & Fees",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "errors": [],
+  "colors": {
+    "pageBackground": "rgb(246, 249, 252)",
+    "backgroundColors": [
+      {
+        "value": "rgb(255, 255, 255)",
+        "count": 43,
+        "areaPct": 40.3
+      },
+      {
+        "value": "rgb(250, 251, 253)",
+        "count": 30,
+        "areaPct": 4.4
+      },
+      {
+        "value": "rgb(99, 91, 255)",
+        "count": 22,
+        "areaPct": 0.4
+      },
+      {
+        "value": "rgba(66, 71, 112, 0.06)",
+        "count": 14,
+        "areaPct": 0
+      },
+      {
+        "value": "rgb(246, 249, 252)",
+        "count": 8,
+        "areaPct": 49
+      },
+      {
+        "value": "rgb(31, 68, 104)",
+        "count": 4,
+        "areaPct": 0.2
+      },
+      {
+        "value": "rgb(248, 250, 253)",
+        "count": 3,
+        "areaPct": 1
+      },
+      {
+        "value": "rgb(10, 37, 64)",
+        "count": 3,
+        "areaPct": 0
+      }
+    ],
+    "textColors": [
+      {
+        "value": "rgb(10, 37, 64)",
+        "count": 323
+      },
+      {
+        "value": "rgb(66, 84, 102)",
+        "count": 159
+      },
+      {
+        "value": "rgb(114, 127, 150)",
+        "count": 82
+      },
+      {
+        "value": "rgb(83, 58, 253)",
+        "count": 80
+      },
+      {
+        "value": "rgb(63, 75, 102)",
+        "count": 60
+      },
+      {
+        "value": "rgb(99, 91, 255)",
+        "count": 48
+      }
+    ],
+    "accentCandidates": [
+      {
+        "value": "rgb(10, 37, 64)",
+        "count": 110
+      },
+      {
+        "value": "rgb(83, 58, 253)",
+        "count": 80
+      },
+      {
+        "value": "rgb(114, 127, 150)",
+        "count": 76
+      },
+      {
+        "value": "rgb(99, 91, 255)",
+        "count": 67
+      },
+      {
+        "value": "rgb(255, 255, 255)",
+        "count": 33
+      },
+      {
+        "value": "rgb(66, 84, 102)",
+        "count": 29
+      }
+    ]
+  },
+  "typography": {
+    "uniqueFamilies": [
+      {
+        "value": "sohne-var",
+        "count": 3393
+      },
+      {
+        "value": "Arial",
+        "count": 19
+      }
+    ],
+    "headings": {
+      "h1": {
+        "size": "56px",
+        "weight": "500",
+        "lineHeight": "68px",
+        "letterSpacing": "-1.12px",
+        "family": "sohne-var"
+      },
+      "h2": {
+        "size": "26px",
+        "weight": "500",
+        "lineHeight": "36px",
+        "letterSpacing": "normal",
+        "family": "sohne-var"
+      },
+      "h3": {
+        "size": "18.72px",
+        "weight": "700",
+        "lineHeight": "normal",
+        "letterSpacing": "normal",
+        "family": "sohne-var"
+      }
+    },
+    "body": {
+      "size": "14px",
+      "weight": "300",
+      "lineHeight": "16.8px",
+      "family": "sohne-var",
+      "maxWidth": "none"
+    },
+    "sizeDistribution": [
+      {
+        "value": "15px",
+        "count": 531
+      },
+      {
+        "value": "14px",
+        "count": 128
+      },
+      {
+        "value": "12px",
+        "count": 82
+      },
+      {
+        "value": "13px",
+        "count": 42
+      },
+      {
+        "value": "18px",
+        "count": 24
+      },
+      {
+        "value": "26px",
+        "count": 15
+      },
+      {
+        "value": "16px",
+        "count": 13
+      },
+      {
+        "value": "24px",
+        "count": 8
+      },
+      {
+        "value": "38px",
+        "count": 3
+      },
+      {
+        "value": "56px",
+        "count": 1
+      },
+      {
+        "value": "23px",
+        "count": 1
+      }
+    ],
+    "weightDistribution": [
+      {
+        "value": "300",
+        "count": 506
+      },
+      {
+        "value": "425",
+        "count": 224
+      },
+      {
+        "value": "400",
+        "count": 86
+      },
+      {
+        "value": "500",
+        "count": 32
+      }
+    ]
+  },
+  "effects": {
+    "radii": [
+      {
+        "value": "16.5px",
+        "count": 54
+      },
+      {
+        "value": "8px",
+        "count": 24
+      },
+      {
+        "value": "50%",
+        "count": 10
+      },
+      {
+        "value": "1px",
+        "count": 4
+      },
+      {
+        "value": "4px",
+        "count": 3
+      },
+      {
+        "value": "12px",
+        "count": 2
+      },
+      {
+        "value": "4px 4px 0px 0px",
+        "count": 2
+      },
+      {
+        "value": "999px",
+        "count": 2
+      }
+    ],
+    "shadows": [
+      {
+        "value": "rgb(77, 144, 254) 0px 0px 0px 2px, rgba(255, 255, 255, 0.9) 0px 0px 0px 2px inset",
+        "count": 38
+      },
+      {
+        "value": "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
+        "count": 16
+      },
+      {
+        "value": "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px",
+        "count": 6
+      },
+      {
+        "value": "rgba(50, 50, 93, 0.25) 0px 13.5px 27px -12.4px",
+        "count": 1
+      }
+    ],
+    "transitions": [
+      "all",
+      "color 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95), opacity 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95)",
+      "opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s cubic-bezier",
+      "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+      "transform 0.15s cubic-bezier(0.215, 0.61, 0.355, 1)",
+      "opacity cubic-bezier(0.4, 0, 0.2, 1), transform cubic-bezier(0.4, 0, 0.2, 1)"
+    ]
+  },
+  "spacingDistribution": [
+    {
+      "value": "4px",
+      "count": 420
+    },
+    {
+      "value": "16px",
+      "count": 169
+    },
+    {
+      "value": "24px",
+      "count": 92
+    },
+    {
+      "value": "12px",
+      "count": 64
+    },
+    {
+      "value": "6px",
+      "count": 62
+    },
+    {
+      "value": "3px",
+      "count": 57
+    },
+    {
+      "value": "0px 8px",
+      "count": 46
+    },
+    {
+      "value": "8px",
+      "count": 39
+    },
+    {
+      "value": "32px",
+      "count": 31
+    },
+    {
+      "value": "16px 32px",
+      "count": 16
+    },
+    {
+      "value": "20px",
+      "count": 13
+    },
+    {
+      "value": "48px",
+      "count": 11
+    },
+    {
+      "value": "128px",
+      "count": 11
+    },
+    {
+      "value": "14px",
+      "count": 8
+    },
+    {
+      "value": "4px 32px",
+      "count": 8
+    }
+  ],
+  "buttons": [
+    {
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "0px",
+      "paddingTop": "12px",
+      "paddingLeft": "12px"
+    },
+    {
+      "fontSize": "15px",
+      "fontWeight": "300",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "0px",
+      "paddingTop": "0px",
+      "paddingLeft": "0px"
+    },
+    {
+      "fontSize": "15px",
+      "fontWeight": "425",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "0px",
+      "paddingTop": "0px",
+      "paddingLeft": "0px"
+    },
+    {
+      "fontSize": "16px",
+      "fontWeight": "300",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "0px",
+      "paddingTop": "0px",
+      "paddingLeft": "0px"
+    },
+    {
+      "fontSize": "13px",
+      "fontWeight": "300",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "0px",
+      "paddingTop": "0px",
+      "paddingLeft": "2px"
+    }
+  ],
+  "layout": {
+    "bodyPadding": "0px",
+    "containerMaxWidth": "1080px",
+    "containerPadding": "0px",
+    "containerWidth": "1080px"
+  },
+  "cards": [
+    {
+      "selector": "div.SessionsBanner__card",
+      "width": "193px",
+      "height": "224px",
+      "ratio": "0.86:1",
+      "radius": "4px",
+      "shadow": null
+    },
+    {
+      "selector": "section.Card.Card--shadowMedium",
+      "width": "532px",
+      "height": "287px",
+      "ratio": "1.85:1",
+      "radius": "8px",
+      "shadow": "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px"
+    },
+    {
+      "selector": "section.Card.Card--shadowMedium",
+      "width": "532px",
+      "height": "287px",
+      "ratio": "1.85:1",
+      "radius": "8px",
+      "shadow": "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px"
+    },
+    {
+      "selector": "div.Card.Card--shadowMedium",
+      "width": "440px",
+      "height": "129px",
+      "ratio": "3.41:1",
+      "radius": "8px",
+      "shadow": "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px"
+    }
+  ],
+  "images": [],
+  "spacingSamples": [
+    {
+      "tag": "h1",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "h2",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "ul",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "1px"
+    },
+    {
+      "tag": "button",
+      "margin": "0px",
+      "padding": "12px 12px 14px",
+      "gap": "normal 4px"
+    },
+    {
+      "tag": "nav",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "footer",
+      "margin": "0px",
+      "padding": "0px 16px",
+      "gap": "24px normal"
+    }
+  ],
+  "sectionGaps": [],
+  "grid": {
+    "columns": 2,
+    "gap": "64px normal",
+    "template": "270px 810px",
+    "selector": "div.ColumnLayout"
+  },
+  "gridCount": 78,
+  "focusVisible": true,
+  "reducedMotion": true
+}

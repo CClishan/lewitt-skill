@@ -1,4 +1,4 @@
-// design-dna — DOM extractor. Runs inside the target page; measures only, never interprets.
+// lewitt — DOM extractor. Runs inside the target page; measures only, never interprets.
 // (Interpretation lives in references/infer-*.md. Output contract -> references/sense.md.)
 //
 // The body below is a BARE function expression: exactly ONE closing `}` and NO trailing
@@ -121,6 +121,16 @@
       // effects
       if (s.borderRadius && s.borderRadius !== "0px") bump(radiiCount, s.borderRadius);
       if (s.boxShadow && s.boxShadow !== "none") bump(shadowCount, s.boxShadow);
+      // pseudo-elements carry a lot of hairline/border work (rings, inset highlights)
+      if (el.matches("button, a, input, [role='button'], [class*='btn'], [class*='card']")) {
+        for (const pseudo of ["::before", "::after"]) {
+          let ps = null;
+          try { ps = getComputedStyle(el, pseudo); } catch (err) { continue; }
+          if (!ps) continue;
+          if (ps.boxShadow && ps.boxShadow !== "none") bump(shadowCount, ps.boxShadow);
+          if (ps.borderRadius && ps.borderRadius !== "0px") bump(radiiCount, ps.borderRadius);
+        }
+      }
       if (s.transition && s.transition !== "all 0s ease 0s" && s.transition !== "none 0s ease 0s") {
         transitionSet.add(s.transition.slice(0, 120));
       }

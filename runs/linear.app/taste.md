@@ -1,7 +1,7 @@
 # Linear — Design DNA
 
 - Source: https://linear.app
-- Mode: dna  ·  Captured: 2026-11-23T10:57:08+00:00
+- Mode: dna  ·  Captured: 2026-11-23T12:15:26+00:00
 - Pages inspected: 3 (https://linear.app, https://linear.app/customers, https://linear.app/pricing)
 - Browser capture: isolated (fresh context)
 - Viewport: 1440x900

@@ -1,0 +1,1729 @@
+{
+  "generatedAt": "2026-11-23T12:18:52+00:00",
+  "dest": "~/runs/stripe.com",
+  "meta": {
+    "name": "Stripe",
+    "source": "https://stripe.com/",
+    "domain": "stripe.com",
+    "mode": "dna",
+    "capturedAt": "2026-11-23T12:17:46+00:00",
+    "viewport": "1440x900",
+    "captureIsolated": true,
+    "crawl": {
+      "pages": [
+        "https://stripe.com/",
+        "https://stripe.com/pricing",
+        "https://stripe.com/products",
+        "https://stripe.com/contact/sales"
+      ],
+      "budget": "1+3"
+    },
+    "limitations": [
+      "stripe.com redirects to /en-sg on this network; copy and pricing are the SG locale.",
+      "The hero gradient is an image (1392x975); its colours are sampled from pixels, not CSS.",
+      "Rendered font is sohne-var; the loaded face filename was not inspected.",
+      "Home page CSSOM scan found no :focus-visible/reduced-motion, while the pricing page did — scanning is per-page.",
+      "contact/sales (page 4) is a short form page and contributes little signal."
+    ],
+    "openQuestions": [
+      "Is the hero gradient CSS or an image asset on other locales?",
+      "Does the dark footer section count as a second surface mode?"
+    ]
+  },
+  "checks": [
+    {
+      "name": "dna.json contract",
+      "result": "PASS",
+      "detail": "SSOT valid (evidence/measurements/patterns/taste/tokens)"
+    },
+    {
+      "name": "token resolution",
+      "result": "PASS",
+      "detail": "all aliases resolve, no cycles"
+    },
+    {
+      "name": "single source (R3)",
+      "result": "PASS",
+      "detail": "all artifacts are deterministic renders of dna.json, no post-render edits"
+    },
+    {
+      "name": "incremental freeze",
+      "result": "PASS",
+      "detail": "no frozen block changed since the last render"
+    },
+    {
+      "name": "evidence coverage",
+      "result": "PASS",
+      "detail": "32 evidence entries cited"
+    },
+    {
+      "name": "restraint guardrails",
+      "result": "PASS",
+      "detail": "2/2 restraint principles carry machine-readable guardrails"
+    },
+    {
+      "name": "anti-slop (authored prose)",
+      "result": "PASS",
+      "detail": "0 hit(s)"
+    },
+    {
+      "name": "guardrail (generated code)",
+      "result": "unverified",
+      "detail": "no --check-code supplied"
+    },
+    {
+      "name": "visual fidelity",
+      "result": "unverified",
+      "detail": "requires specimen comparison at matching viewports"
+    },
+    {
+      "name": "full system/ site",
+      "result": "n/a",
+      "detail": "DNA mode does not build system/"
+    }
+  ],
+  "dna": {
+    "meta": {
+      "name": "Stripe",
+      "source": "https://stripe.com/",
+      "domain": "stripe.com",
+      "mode": "dna",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "viewport": "1440x900",
+      "captureIsolated": true,
+      "crawl": {
+        "pages": [
+          "https://stripe.com/",
+          "https://stripe.com/pricing",
+          "https://stripe.com/products",
+          "https://stripe.com/contact/sales"
+        ],
+        "budget": "1+3"
+      },
+      "limitations": [
+        "stripe.com redirects to /en-sg on this network; copy and pricing are the SG locale.",
+        "The hero gradient is an image (1392x975); its colours are sampled from pixels, not CSS.",
+        "Rendered font is sohne-var; the loaded face filename was not inspected.",
+        "Home page CSSOM scan found no :focus-visible/reduced-motion, while the pricing page did — scanning is per-page.",
+        "contact/sales (page 4) is a short form page and contributes little signal."
+      ],
+      "openQuestions": [
+        "Is the hero gradient CSS or an image asset on other locales?",
+        "Does the dark footer section count as a second surface mode?"
+      ]
+    },
+    "evidence": [
+      {
+        "id": "e-canvas-light",
+        "url": "https://stripe.com/",
+        "locator": "page canvas + body background",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "white": "62.1%",
+          "pale blue rgb(229,237,245)": "12.2%",
+          "pale grey rgb(248,250,253)": "11.2%"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-canvas-pricing",
+        "url": "https://stripe.com/pricing",
+        "locator": "pricing canvas html background",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "rgb(246,249,252)": "49%",
+          "white cards": "40.3%"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-2.png"
+      },
+      {
+        "id": "e-sections-tinted",
+        "url": "https://stripe.com/products",
+        "locator": "product page sections",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "white": "68.2%",
+          "pale grey rgb(248,250,253)": "21%",
+          "blue veil rgba(22,88,188,0.03)": "9.4%"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-ink",
+        "url": "https://stripe.com/",
+        "locator": "heading text",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "rgb(6, 27, 49)": "109 text nodes",
+          "rgb(10, 37, 64) on pricing": "323"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-ink-body",
+        "url": "https://stripe.com/",
+        "locator": "body/secondary text",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "rgb(80, 97, 122)": "152",
+          "rgb(100, 116, 141)": "60"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-ink-other",
+        "url": "https://stripe.com/pricing",
+        "locator": "pricing secondary text",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "rgb(66, 84, 102)": "159",
+          "rgb(114, 127, 150)": "82"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-2.png"
+      },
+      {
+        "id": "e-purple",
+        "url": "https://stripe.com/",
+        "locator": "primary button (Contact sales) + linked words",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "rgb(83, 58, 253)": "accent candidate x73; 0.2% of surface",
+          "rgb(99, 91, 255)": "pricing CTA x67"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-hero-band",
+        "url": "https://stripe.com/",
+        "locator": "hero right side",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "screenshot-pixels",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "rendered": "1392x975 image (ratio 1.43:1)",
+          "sampled pixels": "pink #E080E0-ish, orange #E08000-ish, lilac, all above 60% saturation"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png",
+        "limitations": [
+          "JPEG-free PNG sampled in 32px buckets; gradient is decorative, not a control colour"
+        ]
+      },
+      {
+        "id": "e-font-sohne",
+        "url": "https://stripe.com/",
+        "locator": "all text",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "family": "sohne-var",
+          "samples": "1986"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-font-mono",
+        "url": "https://stripe.com/",
+        "locator": "inline code/keys",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "family": "SourceCodePro",
+          "samples": "14"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png",
+        "limitations": [
+          "shown as monospace fallback; the loaded face was not verified"
+        ]
+      },
+      {
+        "id": "e-h1",
+        "url": "https://stripe.com/",
+        "locator": "hero headline",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "size": "48px",
+          "weight": "300",
+          "lineHeight": "~59px (1.2)",
+          "letterSpacing": "-0.96px"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-h2",
+        "url": "https://stripe.com/",
+        "locator": "section headline",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "size": "32px",
+          "weight": "300",
+          "letterSpacing": "-0.64px"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-h3",
+        "url": "https://stripe.com/",
+        "locator": "card headline",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "size": "26px",
+          "weight": "300",
+          "letterSpacing": "-0.26px"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-body-type",
+        "url": "https://stripe.com/",
+        "locator": "body copy",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "size": "16px",
+          "weight": "300 or 400",
+          "prose size": "32px/300 in a marketing block"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-size-dist",
+        "url": "https://stripe.com/",
+        "locator": "text size distribution",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "top": "16px x194, 10px x93, 14px x41, 26px x24, 22px x20, 48px x12"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-size-dist-pricing",
+        "url": "https://stripe.com/pricing",
+        "locator": "text size distribution",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "top": "15px x531, 14px x128, 12px x82, 18px x24"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-2.png"
+      },
+      {
+        "id": "e-weights",
+        "url": "https://stripe.com/",
+        "locator": "font-weight distribution",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "300": "x302",
+          "400": "x165"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-weights-pricing",
+        "url": "https://stripe.com/pricing",
+        "locator": "font-weight distribution",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "300": "x506",
+          "425": "x224",
+          "400": "x86",
+          "500": "x32"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-2.png"
+      },
+      {
+        "id": "e-radii",
+        "url": "https://stripe.com/",
+        "locator": "radius distribution",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "4px": "x78 (buttons, chips)",
+          "6px": "x36",
+          "5px": "x6",
+          "8px": "x4",
+          "16px": "x1"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-radii-pricing",
+        "url": "https://stripe.com/pricing",
+        "locator": "radius distribution",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "16.5px": "x54 (cards)",
+          "8px": "x24",
+          "4px": "x3"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-2.png"
+      },
+      {
+        "id": "e-shadow-soft",
+        "url": "https://stripe.com/",
+        "locator": "floating panels",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "rgba(50,50,93,0.12) 0 16px 32px": "x2",
+          "rgba(23,23,23,0.08) 0 15px 35px": "x1"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-shadow-layered",
+        "url": "https://stripe.com/pricing",
+        "locator": "pricing cards",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "rgba(50,50,93,0.25) 0 2px 5px -1px, rgba(0,0,0,0.3) 0 1px 3px": "x16",
+          "rgba(50,50,93,0.25) 0 13px 27px -5px, rgba(0,0,0,0.3) 0 8px 16px": "x6"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-2.png"
+      },
+      {
+        "id": "e-ring",
+        "url": "https://stripe.com/",
+        "locator": "button hairline (::before/::after computed)",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "rgb(255,255,255) 0 0 0 2px inset": "x1",
+          "rgb(83,58,253) 0 0 0 1px": "x2 on products"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-motion",
+        "url": "https://stripe.com/",
+        "locator": "transitions across pages",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "color": "0.3s cubic-bezier(0.25,1,0.5,1)",
+          "opacity": "0.24s cubic-bezier(0.45,0.05,0.55,0.95)",
+          "grid-template-rows": "0.4s cubic-bezier(0.65,0,0.35,1)"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-motion-support",
+        "url": "https://stripe.com/pricing",
+        "locator": "stylesheet scan (pricing)",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "cssom-scan",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "focusVisible": true,
+          "prefersReducedMotion": true
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-2.png",
+        "limitations": [
+          "home page returned false for both; the scan is per-page"
+        ]
+      },
+      {
+        "id": "e-space",
+        "url": "https://stripe.com/",
+        "locator": "spacing distribution",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "8px": "x65",
+          "6px": "x38",
+          "12px": "x34",
+          "16px": "x32",
+          "32px": "x26",
+          "64px": "x22"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-gaps-home",
+        "url": "https://stripe.com/",
+        "locator": "section gaps",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "160px": "hero→logos",
+          "408px": "logos→next",
+          "48px": "one tight pair"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-gaps-products",
+        "url": "https://stripe.com/products",
+        "locator": "section gaps",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "128px": "x7 (consistent)"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-grid",
+        "url": "https://stripe.com/",
+        "locator": "footer + content grids",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "template": "12 x 88px, gap 16px",
+          "gridCount": 34
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-container",
+        "url": "https://stripe.com/pricing",
+        "locator": "pricing container",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "maxWidth": "1080px",
+          "rendered": "1080px"
+        },
+        "status": "inferred",
+        "artifact": "capture/viewport-2.png"
+      },
+      {
+        "id": "e-buttons",
+        "url": "https://stripe.com/",
+        "locator": "button typography",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "primary": "16px/400, radius 4px",
+          "secondary": "16px/400, border 1px purple",
+          "padded": "12px vertical"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-cookie-banner",
+        "url": "https://stripe.com/",
+        "locator": "cookie consent (screenshot)",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "screenshot",
+        "capturedAt": "2026-11-23T12:17:46+00:00",
+        "values": {
+          "rendered": "white panel, cookie copy"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      }
+    ],
+    "measurements": [
+      {
+        "id": "m-canvas",
+        "category": "Color / canvas",
+        "value": "white (62%) with two pale bands #E5EDF5 and #F8FAFD; pricing page is #F6F9FC under white cards",
+        "status": "observed",
+        "evidence": [
+          "e-canvas-light",
+          "e-canvas-pricing",
+          "e-sections-tinted"
+        ]
+      },
+      {
+        "id": "m-ink",
+        "category": "Color / text",
+        "value": "#061B31 headings (RGB 6,27,49), #50617A body, #64748D muted — all blue-tinted, no pure grey",
+        "status": "observed",
+        "evidence": [
+          "e-ink",
+          "e-ink-body",
+          "e-ink-other"
+        ]
+      },
+      {
+        "id": "m-accent",
+        "category": "Color / accent",
+        "value": "#533AFD primary fills and linked words (0.2% of surface), #635BFF CTA on pricing; secondary CTA is 1px purple outline",
+        "status": "observed",
+        "evidence": [
+          "e-purple",
+          "e-buttons"
+        ]
+      },
+      {
+        "id": "m-hero-gradient",
+        "category": "Color / hero",
+        "value": "full-bleed gradient band (pink/orange/lilac) occupying the hero's right half; decorative, 0% as a control colour",
+        "status": "observed",
+        "evidence": [
+          "e-hero-band"
+        ]
+      },
+      {
+        "id": "m-fonts",
+        "category": "Typography / families",
+        "value": "sohne-var (1986 nodes) + SourceCodePro for code/keys",
+        "status": "observed",
+        "evidence": [
+          "e-font-sohne",
+          "e-font-mono"
+        ]
+      },
+      {
+        "id": "m-type-scale",
+        "category": "Typography / scale",
+        "value": "H1 48/300/-0.96px, H2 32/300/-0.64px, H3 26/300/-0.26px, body 16-17px, prose 32px/300",
+        "status": "observed",
+        "evidence": [
+          "e-h1",
+          "e-h2",
+          "e-h3",
+          "e-body-type",
+          "e-size-dist"
+        ]
+      },
+      {
+        "id": "m-ui-density",
+        "category": "Typography / UI",
+        "value": "pricing/product UI sits at 15px x531 and 14px; 10px x93 on the home page is metadata, not body",
+        "status": "observed",
+        "evidence": [
+          "e-size-dist",
+          "e-size-dist-pricing"
+        ]
+      },
+      {
+        "id": "m-weights",
+        "category": "Typography / weights",
+        "value": "300 body/display dominates (x302 / x506), 400 secondary, 425/500 only in pricing UI; 700 only in 3 nodes",
+        "status": "observed",
+        "evidence": [
+          "e-weights",
+          "e-weights-pricing"
+        ]
+      },
+      {
+        "id": "m-radii",
+        "category": "Shape / radius",
+        "value": "4px controls, 6px secondary, 16.5px cards on pricing, 8px on secondary cards",
+        "status": "observed",
+        "evidence": [
+          "e-radii",
+          "e-radii-pricing"
+        ]
+      },
+      {
+        "id": "m-depth-float",
+        "category": "Shape / depth",
+        "value": "layered tinted shadows: rgba(50,50,93,.12) 0 16px 32px for floats; pricing cards rgba(50,50,93,.25) 0 13px 27px -5px + rgba(0,0,0,.3) 0 8px 16px",
+        "status": "observed",
+        "evidence": [
+          "e-shadow-soft",
+          "e-shadow-layered"
+        ]
+      },
+      {
+        "id": "m-depth-ring",
+        "category": "Shape / hairline",
+        "value": "button rings: inset 0 0 0 2px white, 0 0 0 1px purple on products",
+        "status": "observed",
+        "evidence": [
+          "e-ring"
+        ]
+      },
+      {
+        "id": "m-motion",
+        "category": "Motion",
+        "value": "0.24s opacity (cubic-bezier(.45,.05,.55,.95)), 0.3s color (cubic-bezier(.25,1,.5,1)), 0.4s grid-template-rows reveal",
+        "status": "observed",
+        "evidence": [
+          "e-motion"
+        ]
+      },
+      {
+        "id": "m-space",
+        "category": "Spacing",
+        "value": "8px base; 128px between sections on product pages, home hero→logos 160px then 408px",
+        "status": "observed",
+        "evidence": [
+          "e-space",
+          "e-gaps-home",
+          "e-gaps-products"
+        ]
+      },
+      {
+        "id": "m-grid",
+        "category": "Layout / grid",
+        "value": "12 x 88px with 16px gutters (footer + content), 1080px pricing container",
+        "status": "observed",
+        "evidence": [
+          "e-grid",
+          "e-container"
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "id": "p-ink-tint",
+        "name": "Text is blue-black, never grey",
+        "rule": "Headings #061B31 and body #50617A sit on a blue hue axis; muted text is a lighter blue, not a neutral.",
+        "goal": "Keeps a light page from looking half-finished and ties copy to the indigo CTA.",
+        "evidence": [
+          "e-ink",
+          "e-ink-body",
+          "e-ink-other"
+        ]
+      },
+      {
+        "id": "p-accent-share",
+        "name": "One indigo for actions and linked words only",
+        "rule": "rgb(83,58,253) covers ~0.2% of the surface: filled CTA, 1px outlined CTA, inline links. No indigo surfaces, headers or decoration.",
+        "goal": "Action colour stays unambiguous while the page stays mostly white.",
+        "evidence": [
+          "e-purple",
+          "e-canvas-light",
+          "e-buttons"
+        ]
+      },
+      {
+        "id": "p-hero-gradient",
+        "name": "One gradient, spent on the hero",
+        "rule": "A single full-bleed pink/orange/lilac band covers the hero; every section below is flat white or a pale tint.",
+        "goal": "Delivers a memorable first screen, then removes colour so product detail is readable.",
+        "evidence": [
+          "e-hero-band",
+          "e-canvas-light",
+          "e-sections-tinted"
+        ]
+      },
+      {
+        "id": "p-light-weights",
+        "name": "Light weights at every size",
+        "rule": "300 carries display and body (x302 home, x506 pricing); 400 for UI, 425/500 only inside pricing controls.",
+        "goal": "Keeps 48px headlines airy so gradient and product shots carry the emotion.",
+        "evidence": [
+          "e-weights",
+          "e-weights-pricing",
+          "e-h1"
+        ]
+      },
+      {
+        "id": "p-two-radii",
+        "name": "Controls small, cards large",
+        "rule": "Buttons and chips 4-6px; cards 16.5px on pricing and 8px elsewhere. No pill buttons in the primary flow.",
+        "goal": "Distinguishes clickable controls from content containers by silhouette.",
+        "evidence": [
+          "e-radii",
+          "e-radii-pricing"
+        ]
+      },
+      {
+        "id": "p-shadow-tint",
+        "name": "Shadows tinted to the canvas, not black",
+        "rule": "Elevation uses rgba(50,50,93,·) plus a second layer, mostly 1-2px tight, with 13-16px blur on floats.",
+        "goal": "Product screenshots float on white without grey halos.",
+        "evidence": [
+          "e-shadow-soft",
+          "e-shadow-layered",
+          "e-ring"
+        ]
+      },
+      {
+        "id": "p-motion-tiered",
+        "name": "Three motion tiers by job",
+        "rule": "0.24s for opacity, 0.3s for colour, 0.4s for the grid reveal; reduced-motion and focus-visible are present on the pricing stylesheet.",
+        "goal": "Colour is instant enough to feel responsive, layout reveals stay calm.",
+        "evidence": [
+          "e-motion",
+          "e-motion-support"
+        ]
+      },
+      {
+        "id": "p-rhythm",
+        "name": "Fixed 128px section rhythm on inner pages",
+        "rule": "Product pages repeat a 128px gap seven times; the home page uses 160px then a 408px break around the logos.",
+        "goal": "Inner pages read as one steady column; only the home page gets dramatic spacing.",
+        "evidence": [
+          "e-gaps-products",
+          "e-gaps-home",
+          "e-space"
+        ]
+      }
+    ],
+    "taste": [
+      {
+        "id": "t-gradient-budget",
+        "name": "Colour is a once-per-page event",
+        "kind": "restraint",
+        "status": "observed",
+        "trigger": "Making a payments brand feel alive without breaking legibility of dense product shots.",
+        "decision": "One full-bleed gradient band in the hero; below it every surface is white or a pale blue tint.",
+        "chose": "a single decorative gradient confined to the hero",
+        "over": "gradient text, gradient buttons, and gradient section backgrounds (the common fintech treatment)",
+        "reason": "Readers need to trust the screenshots more than the scenery; once colour stops, the product becomes the subject.",
+        "evidence": [
+          "e-hero-band",
+          "e-canvas-light",
+          "e-sections-tinted"
+        ],
+        "patterns": [
+          "p-hero-gradient"
+        ],
+        "guardrail": {
+          "forbidCss": [],
+          "forbidClass": [
+            "(^|-)bg-gradient-to-"
+          ],
+          "max": {},
+          "note": "Needs judgement: allow gradients only inside the hero band and on illustration. Elements at #533AFD are actions, not decoration."
+        }
+      },
+      {
+        "id": "t-indigo-share",
+        "name": "One indigo, only where you can click",
+        "kind": "restraint",
+        "status": "observed",
+        "trigger": "Deciding how much of a light page the brand colour may occupy.",
+        "decision": "Indigo only on the filled CTA, the outlined CTA border, and linked words; everything else is ink or tint.",
+        "chose": "indigo restricted to actions and links",
+        "over": "indigo section backgrounds, indigo icons, and indigo headings",
+        "reason": "At ~0.2% of the surface, indigo always means 'do something'; a larger share would make the page a brand poster and slow scanning.",
+        "evidence": [
+          "e-purple",
+          "e-canvas-light"
+        ],
+        "patterns": [
+          "p-accent-share"
+        ],
+        "guardrail": {
+          "forbidCss": [],
+          "forbidClass": [
+            "(^|-)bg-(indigo|violet|purple)-[4-7]00$"
+          ],
+          "max": {},
+          "note": "Allowed on buttons/links only; never on a section or card background."
+        }
+      },
+      {
+        "id": "t-light-weights",
+        "name": "Light weights carry the headline",
+        "kind": "craft",
+        "status": "observed",
+        "trigger": "Setting a 48px headline beside a saturated gradient.",
+        "decision": "300 weight at 48/32/26px with -0.96/-0.64/-0.26px tracking; weight steps up only inside pricing controls (425/500).",
+        "chose": "variable 300 at every display size",
+        "over": "600-700 headline weights with a 1.33x type ramp",
+        "reason": "A light face over a heavy gradient leaves the gradient as the loudest thing; bold type would fight the artwork and the screenshots.",
+        "evidence": [
+          "e-weights",
+          "e-h1",
+          "e-h2",
+          "e-h3"
+        ],
+        "patterns": [
+          "p-light-weights"
+        ]
+      },
+      {
+        "id": "t-ink-tint",
+        "name": "Blue-black ink instead of grey",
+        "kind": "craft",
+        "status": "observed",
+        "trigger": "Choosing text colours for a white page with a cold indigo accent.",
+        "decision": "#061B31 headings and #50617A body — every neutral carries a blue hue.",
+        "chose": "blue-tinted neutrals",
+        "over": "pure greys (#111, #666) or neutral-warm text",
+        "reason": "Grey text on a white page beside indigo reads as unfinished; shared hue makes the colour look chosen rather than added.",
+        "evidence": [
+          "e-ink",
+          "e-ink-body"
+        ],
+        "patterns": [
+          "p-ink-tint"
+        ]
+      },
+      {
+        "id": "t-motion-tiers",
+        "name": "Motion is tiered by job",
+        "kind": "system",
+        "status": "observed",
+        "trigger": "Animating a page with hover states, colour changes and a reveal.",
+        "decision": "0.24s opacity, 0.3s colour, 0.4s grid reveal, each with its own cubic-bezier; focus-visible and reduced-motion respected.",
+        "chose": "three job-specific durations",
+        "over": "one global 200ms ease on everything",
+        "reason": "Colour has to feel immediate on hover while a layout reveal needs room to read; one duration would make one of them wrong.",
+        "evidence": [
+          "e-motion",
+          "e-motion-support"
+        ],
+        "patterns": [
+          "p-motion-tiered"
+        ]
+      }
+    ],
+    "tokens": [
+      {
+        "id": "color/ink/900",
+        "css": "--lw-ink-900",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-ink"
+        ],
+        "values": {
+          "default": "#061B31"
+        }
+      },
+      {
+        "id": "color/ink/700",
+        "css": "--lw-ink-700",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-ink-body"
+        ],
+        "values": {
+          "default": "#50617A"
+        }
+      },
+      {
+        "id": "color/ink/600",
+        "css": "--lw-ink-600",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-ink-body"
+        ],
+        "values": {
+          "default": "#64748D"
+        }
+      },
+      {
+        "id": "color/blue-tint/100",
+        "css": "--lw-tint-100",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-canvas-light"
+        ],
+        "values": {
+          "default": "#E5EDF5"
+        }
+      },
+      {
+        "id": "color/blue-tint/50",
+        "css": "--lw-tint-50",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-canvas-light",
+          "e-sections-tinted"
+        ],
+        "values": {
+          "default": "#F8FAFD"
+        }
+      },
+      {
+        "id": "color/blue-tint/25",
+        "css": "--lw-page-tint",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-canvas-pricing"
+        ],
+        "values": {
+          "default": "#F6F9FC"
+        }
+      },
+      {
+        "id": "color/white",
+        "css": "--lw-white",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-canvas-light"
+        ],
+        "values": {
+          "default": "#FFFFFF"
+        }
+      },
+      {
+        "id": "color/indigo/600",
+        "css": "--lw-indigo-600",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-purple"
+        ],
+        "values": {
+          "default": "#533AFD"
+        }
+      },
+      {
+        "id": "color/indigo/500",
+        "css": "--lw-indigo-500",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-purple"
+        ],
+        "values": {
+          "default": "#635BFF"
+        }
+      },
+      {
+        "id": "color/canvas",
+        "css": "--lw-canvas",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-canvas-light"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/white"
+          }
+        }
+      },
+      {
+        "id": "color/canvas-tint",
+        "css": "--lw-canvas-tint",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-canvas-pricing"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/blue-tint/25"
+          }
+        }
+      },
+      {
+        "id": "color/surface-subtle",
+        "css": "--lw-surface-subtle",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-canvas-light"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/blue-tint/50"
+          }
+        }
+      },
+      {
+        "id": "color/text/heading",
+        "css": "--lw-text-heading",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-ink"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/ink/900"
+          }
+        }
+      },
+      {
+        "id": "color/text/body",
+        "css": "--lw-text-body",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-ink-body"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/ink/700"
+          }
+        }
+      },
+      {
+        "id": "color/text/muted",
+        "css": "--lw-text-muted",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-ink-body"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/ink/600"
+          }
+        }
+      },
+      {
+        "id": "color/action/bg",
+        "css": "--lw-action-bg",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-purple"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/indigo/600"
+          }
+        }
+      },
+      {
+        "id": "color/action/bg-alt",
+        "css": "--lw-action-bg-alt",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-purple"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/indigo/500"
+          }
+        }
+      },
+      {
+        "id": "color/action/fg",
+        "css": "--lw-action-fg",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-buttons"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/white"
+          }
+        }
+      },
+      {
+        "id": "color/link",
+        "css": "--lw-link",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-purple"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/indigo/600"
+          }
+        }
+      },
+      {
+        "id": "font/sans",
+        "css": "--lw-font-sans",
+        "type": "fontFamily",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-font-sohne"
+        ],
+        "values": {
+          "default": "'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif"
+        }
+      },
+      {
+        "id": "font/mono",
+        "css": "--lw-font-mono",
+        "type": "fontFamily",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-font-mono"
+        ],
+        "values": {
+          "default": "'SourceCodePro', ui-monospace, SFMono-Regular, monospace"
+        }
+      },
+      {
+        "id": "font/body",
+        "css": "--lw-font-body",
+        "type": "fontFamily",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-font-sohne"
+        ],
+        "values": {
+          "default": {
+            "alias": "font/sans"
+          }
+        }
+      },
+      {
+        "id": "font/code",
+        "css": "--lw-font-code",
+        "type": "fontFamily",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-font-mono"
+        ],
+        "values": {
+          "default": {
+            "alias": "font/mono"
+          }
+        }
+      },
+      {
+        "id": "type/hero",
+        "css": "--lw-type-hero",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-h1"
+        ],
+        "values": {
+          "default": "48px"
+        }
+      },
+      {
+        "id": "type/h2",
+        "css": "--lw-type-h2",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-h2"
+        ],
+        "values": {
+          "default": "32px"
+        }
+      },
+      {
+        "id": "type/h3",
+        "css": "--lw-type-h3",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-h3"
+        ],
+        "values": {
+          "default": "26px"
+        }
+      },
+      {
+        "id": "type/body",
+        "css": "--lw-type-body",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-size-dist"
+        ],
+        "values": {
+          "default": "16px"
+        }
+      },
+      {
+        "id": "type/ui",
+        "css": "--lw-type-ui",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-size-dist-pricing"
+        ],
+        "values": {
+          "default": "15px"
+        }
+      },
+      {
+        "id": "type/caption",
+        "css": "--lw-type-caption",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-size-dist"
+        ],
+        "values": {
+          "default": "10px"
+        }
+      },
+      {
+        "id": "tracking/hero",
+        "css": "--lw-tracking-hero",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-h1"
+        ],
+        "values": {
+          "default": "-0.02em"
+        }
+      },
+      {
+        "id": "tracking/h2",
+        "css": "--lw-tracking-h2",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-h2"
+        ],
+        "values": {
+          "default": "-0.015em"
+        }
+      },
+      {
+        "id": "leading/prose",
+        "css": "--lw-leading-prose",
+        "type": "number",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-body-type"
+        ],
+        "values": {
+          "default": "1.2"
+        }
+      },
+      {
+        "id": "weight/light",
+        "css": "--lw-weight-light",
+        "type": "fontWeight",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-weights"
+        ],
+        "values": {
+          "default": "300"
+        }
+      },
+      {
+        "id": "weight/regular",
+        "css": "--lw-weight-regular",
+        "type": "fontWeight",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-weights"
+        ],
+        "values": {
+          "default": "400"
+        }
+      },
+      {
+        "id": "weight/ui-strong",
+        "css": "--lw-weight-ui-strong",
+        "type": "fontWeight",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-weights-pricing"
+        ],
+        "values": {
+          "default": "500"
+        }
+      },
+      {
+        "id": "radius/control",
+        "css": "--lw-radius-control",
+        "type": "dimension",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-radii"
+        ],
+        "values": {
+          "default": "4px"
+        }
+      },
+      {
+        "id": "radius/control-alt",
+        "css": "--lw-radius-control-alt",
+        "type": "dimension",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-radii"
+        ],
+        "values": {
+          "default": "6px"
+        }
+      },
+      {
+        "id": "radius/card",
+        "css": "--lw-radius-card",
+        "type": "dimension",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-radii-pricing"
+        ],
+        "values": {
+          "default": "16.5px"
+        }
+      },
+      {
+        "id": "depth/float",
+        "css": "--lw-depth-float",
+        "type": "shadow",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-shadow-soft"
+        ],
+        "values": {
+          "default": "0 16px 32px rgba(50, 50, 93, 0.12)"
+        }
+      },
+      {
+        "id": "depth/float-strong",
+        "css": "--lw-depth-float-strong",
+        "type": "shadow",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-shadow-layered"
+        ],
+        "values": {
+          "default": "0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3)"
+        }
+      },
+      {
+        "id": "depth/ring",
+        "css": "--lw-depth-ring",
+        "type": "shadow",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-ring"
+        ],
+        "values": {
+          "default": "0 0 0 1px #533AFD"
+        }
+      },
+      {
+        "id": "depth/ring-inset",
+        "css": "--lw-depth-ring-inset",
+        "type": "shadow",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-ring"
+        ],
+        "values": {
+          "default": "inset 0 0 0 2px #FFFFFF"
+        }
+      },
+      {
+        "id": "motion/fast",
+        "css": "--lw-motion-fast",
+        "type": "duration",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-motion"
+        ],
+        "values": {
+          "default": "240ms"
+        }
+      },
+      {
+        "id": "motion/base",
+        "css": "--lw-motion-base",
+        "type": "duration",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-motion"
+        ],
+        "values": {
+          "default": "300ms"
+        }
+      },
+      {
+        "id": "motion/reveal",
+        "css": "--lw-motion-reveal",
+        "type": "duration",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-motion"
+        ],
+        "values": {
+          "default": "400ms"
+        }
+      },
+      {
+        "id": "motion/easing-in-out",
+        "css": "--lw-easing-in-out",
+        "type": "easing",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-motion"
+        ],
+        "values": {
+          "default": "cubic-bezier(0.45, 0.05, 0.55, 0.95)"
+        }
+      },
+      {
+        "id": "motion/easing-out",
+        "css": "--lw-easing-out",
+        "type": "easing",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-motion"
+        ],
+        "values": {
+          "default": "cubic-bezier(0.25, 1, 0.5, 1)"
+        }
+      },
+      {
+        "id": "space/section",
+        "css": "--lw-space-section",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-gaps-products"
+        ],
+        "values": {
+          "default": "128px"
+        }
+      },
+      {
+        "id": "layout/container",
+        "css": "--lw-layout-container",
+        "type": "dimension",
+        "layer": "component",
+        "status": "inferred",
+        "evidence": [
+          "e-container"
+        ],
+        "values": {
+          "default": "1080px"
+        }
+      }
+    ]
+  },
+  "slop": [],
+  "guardrailViolations": []
+}

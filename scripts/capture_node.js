@@ -1,17 +1,17 @@
-// design-dna — node capture driver (requires the `playwright` npm module).
+// lewitt — node capture driver (requires the `playwright` npm module).
 // Isolation: launchPersistentContext in a throwaway profile => no inherited login state.
 // Evaluation: CDP Runtime.evaluate (see eval_cdp.js).
 // Env: DD_JOBS (JSON array), DD_EXTRACT (path to extract.js)
-const { chromium } = require(process.env.DD_PLAYWRIGHT || 'playwright');
+const { chromium } = require(process.env.LEWITT_PLAYWRIGHT || 'playwright');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const ddEvaluate = require('./eval_cdp');
+const lewittEvaluate = require('./eval_cdp');
 
 const VIEWPORT = { width: 1440, height: 900 };
 
 async function launchIsolated() {
-  const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'dd-profile-'));
+  const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'lewitt-profile-'));
   const opts = { headless: true, viewport: VIEWPORT, ignoreHTTPSErrors: true };
   try {
     return await chromium.launchPersistentContext(profile, opts);
@@ -25,8 +25,8 @@ async function launchIsolated() {
 }
 
 (async () => {
-  const jobs = JSON.parse(process.env.DD_JOBS || '[]');
-  const extractSrc = fs.readFileSync(process.env.DD_EXTRACT, 'utf8');
+  const jobs = JSON.parse(process.env.LEWITT_JOBS || '[]');
+  const extractSrc = fs.readFileSync(process.env.LEWITT_EXTRACT, 'utf8');
   const ctx = await launchIsolated();
   const channel = ctx.__channel || 'chromium';
   const results = [];
@@ -37,19 +37,19 @@ async function launchIsolated() {
       await page.waitForTimeout(job.wait || 3000);
       await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {});
       await page.screenshot({ path: job.png, type: 'png' });
-      const fullHeight = await ddEvaluate(page, '() => document.documentElement.scrollHeight');
+      const fullHeight = await lewittEvaluate(page, '() => document.documentElement.scrollHeight');
       let fullPng = null;
       if (job.full && fullHeight <= VIEWPORT.height * 6) {
         await page.screenshot({ path: job.fullPng, type: 'png', fullPage: true });
         fullPng = job.fullPng;
       }
-      const dom = await ddEvaluate(page, extractSrc);
+      const dom = await lewittEvaluate(page, extractSrc);
       fs.writeFileSync(job.json, JSON.stringify(dom, null, 2));
       const extra = [];
       if (job.linksExpr && (job.maxPages || 1) > 1) {
         let links = [];
         try {
-          links = (await ddEvaluate(page, job.linksExpr)) || [];
+          links = (await lewittEvaluate(page, job.linksExpr)) || [];
         } catch (e) {
           extra.push({ index: 0, url: null, error: 'nav extraction failed: ' + String(e).slice(0, 200) });
         }
@@ -63,7 +63,7 @@ async function launchIsolated() {
             await p2.waitForTimeout(2500);
             const png2 = path.join(path.dirname(job.png), `viewport-${i}.png`);
             await p2.screenshot({ path: png2, type: 'png' });
-            const dom2 = await ddEvaluate(p2, extractSrc);
+            const dom2 = await lewittEvaluate(p2, extractSrc);
             fs.writeFileSync(path.join(path.dirname(job.png), `dom-${i}.json`), JSON.stringify(dom2, null, 2));
             extra.push({ index: i, url: link, png: png2, json: path.join(path.dirname(job.png), `dom-${i}.json`) });
           } catch (e) {

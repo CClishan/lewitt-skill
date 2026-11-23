@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""design-dna — browser capture adapter. Prefers an isolated, fresh browser context.
+"""lewitt — browser capture adapter. Prefers an isolated, fresh browser context.
 
 Order of preference (see references/sense.md):
   1. node playwright  — launchPersistentContext in a throwaway profile (auto, if `playwright` resolves)
@@ -15,9 +15,9 @@ Writes into `<out>/capture/`:
   meta.json           capture provenance for dna.json meta
 
 Examples:
-  npm i playwright   # one-time, anywhere; pass --node-cwd
-  python3 capture.py linear.app --dest ./out --node-cwd ~/.dd
-  python3 capture.py https://linear.app --pages 3 --node-cwd ~/.dd
+  bash setup.sh                                   # one-time: installs playwright into the skill
+  python3 capture.py linear.app --dest ./out
+  python3 capture.py https://linear.app --pages 3 --playwright /path/to/node_modules/playwright
 """
 from __future__ import annotations
 
@@ -130,25 +130,62 @@ def newest_png() -> Path | None:
 
 
 # ---------------------------------------------------------------- playwright (node) driver
+def playwright_candidates() -> list[Path]:
+    """Where a `playwright` npm module may live, in priority order.
+
+    1. LEWITT_PW_DIR              explicit override (a dir containing node_modules/playwright,
+                                  or the module dir itself)
+    2. <skill>/node_modules       self-contained: `scripts/setup.sh` installs here
+    3. $npm root -g               a globally installed playwright
+    4. npx cache                  whatever `npx playwright` already downloaded
+    No hardcoded home-directory path: a fresh clone behaves like the dev machine.
+    """
+    cands: list[Path] = []
+    env = os.environ.get("LEWITT_PW_DIR")
+    if env:
+        e = Path(env).expanduser()
+        return [c for c in (e / "node_modules" / "playwright", e) if (c / "package.json").exists()] or [e]
+    cands.append(HERE.parent / "node_modules" / "playwright")
+    try:
+        out = subprocess.run(["npm", "root", "-g"], capture_output=True, text=True, timeout=20)
+        if out.returncode == 0 and out.stdout.strip():
+            cands.append(Path(out.stdout.strip()) / "playwright")
+    except Exception:
+        pass
+    npx = Path.home() / ".npm" / "_npx"
+    if npx.exists():
+        cands += sorted(npx.glob("*/node_modules/playwright"), key=lambda p: p.stat().st_mtime, reverse=True)[:3]
+    seen, uniq = set(), []
+    for c in cands:
+        rp = c.resolve() if c.exists() else c
+        if rp not in seen:
+            seen.add(rp)
+            uniq.append(rp)
+    return uniq
+
+
+def resolve_playwright(explicit: str | None = None) -> Path | None:
+    if explicit:
+        e = Path(explicit).expanduser()
+        for c in (e / "node_modules" / "playwright", e):
+            if (c / "package.json").exists():
+                return c
+        return None
+    for c in playwright_candidates():
+        if (c / "package.json").exists():
+            return c
+    return None
+
+
 class NodePW:
-    SCRIPT = (HERE / "capture_node.js").read_text()
-
-    def __init__(self, cwd: Path | None = None):
-        self.cwd = cwd
-
-    def available(self) -> bool:
-        try:
-            out = subprocess.run(["node", "-e", "require.resolve('playwright')"], capture_output=True, text=True, cwd=self.cwd)
-            return out.returncode == 0
-        except Exception:
-            return False
+    def __init__(self, module: Path):
+        self.module = module
 
     def run(self, jobs: list[dict]) -> list[dict]:
         proc = subprocess.run(
             ["node", str(HERE / "capture_node.js")],
-            env={**os.environ, "DD_JOBS": json.dumps(jobs), "DD_EXTRACT": str(EXTRACT),
-                 "DD_PLAYWRIGHT": str(Path(self.cwd or HERE) / "node_modules" / "playwright")},
-            cwd=self.cwd,
+            env={**os.environ, "LEWITT_JOBS": json.dumps(jobs), "LEWITT_EXTRACT": str(EXTRACT),
+                 "LEWITT_PLAYWRIGHT": str(self.module)},
             capture_output=True, text=True, timeout=600,
         )
         if proc.returncode != 0:
@@ -163,8 +200,8 @@ def main() -> int:
     ap.add_argument("--dest", default=".")
     ap.add_argument("--pages", type=int, default=1, help="total pages to inspect (1 + up to 3 representative)")
     ap.add_argument("--wait", type=int, default=3000)
-    ap.add_argument("--node-cwd", default=str(Path.home() / ".dd"),
-                    help="dir where the `playwright` npm module is resolvable")
+    ap.add_argument("--playwright", default=None,
+                    help="dir holding node_modules/playwright (default: LEWITT_PW_DIR, then the skill's own node_modules, then global/npx)")
     ap.add_argument("--driver", default=None, help="external driver command (open/eval/shot verbs); default: node playwright")
     args = ap.parse_args()
 
@@ -186,25 +223,27 @@ def main() -> int:
         "linksExpr": NAV_LINKS, "maxPages": max(1, args.pages),
     }]
 
-    node_pw = NodePW(cwd=args.node_cwd)
+    module = resolve_playwright(args.playwright or os.environ.get("LEWITT_PW_DIR"))
     used = None
-    if node_pw.available():
+    if module:
         try:
-            first = node_pw.run(jobs)[0]
+            first = NodePW(module).run(jobs)[0]
             for extra in first.get("extra", []):
                 if extra.get("error"):
                     meta["errors"].append(f"page {extra.get('index')} {extra.get('url')}: {extra['error']}")
                     continue
                 meta["pages"].append({"url": extra["url"], "shot": Path(extra["png"]).name})
             meta["isolated"] = True
-            used = f"playwright(node 1.65+ via CDP evaluate; throwaway profile, channel={first.get('channel')})"
+            used = f"playwright(node, CDP evaluate; throwaway profile, channel={first.get('channel')}, module={module})"
+            meta["playwrightModule"] = str(module)
         except Exception as exc:
             meta["errors"].append(f"node playwright: {str(exc)[-400:]}")
     else:
-        meta["errors"].append("node playwright: module not resolvable (npm i playwright)")
+        tried = ", ".join(str(c) for c in playwright_candidates()) or "(none)"
+        meta["errors"].append(f"node playwright: module not found; tried {tried}")
 
-    if used is None and (args.driver or os.environ.get("DD_CAPTURE_CMD")):
-        drv = External(args.driver or os.environ["DD_CAPTURE_CMD"])
+    if used is None and (args.driver or os.environ.get("LEWITT_CAPTURE_CMD")):
+        drv = External(args.driver or os.environ["LEWITT_CAPTURE_CMD"])
         try:
             drv.open(url)
             drv.screenshot(cap / "viewport.png")
@@ -220,10 +259,11 @@ def main() -> int:
         meta["captureIsolated"] = False
         meta["isolationNote"] = "no isolated driver available; capture did NOT run"
         (cap / "meta.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
-        print("FAIL: no browser driver. Install playwright:\n"
-              "  mkdir -p ~/.dd && cd ~/.dd && npm i playwright && npx playwright install chromium\n"
-              "then rerun (defaults to --node-cwd ~/.dd) or provide --driver.\n"
-              f"existing tooling (never used silently): {sorted(s for s in ('playwright-cli', 'chrome') if shutil.which(s))}",
+        print("FAIL: no isolated browser driver.\n"
+              "  bash " + str(HERE / "setup.sh") + "      # one-time: installs playwright next to the skill\n"
+              "  or export LEWITT_PW_DIR=/some/dir/with/node_modules/playwright\n"
+              "  or pass --driver \"<command>\" (must speak: open URL | eval file | shot path [--full])\n"
+              f"  looked for: {', '.join(str(c) for c in playwright_candidates()) or '(nothing)'}",
               file=sys.stderr)
         return 2
 

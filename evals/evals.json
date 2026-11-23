@@ -1,5 +1,5 @@
 {
-  "skill_name": "design-dna",
+  "skill_name": "lewitt",
   "evals": [
     {
       "id": 0,
@@ -28,6 +28,8 @@
       "assertions": [
         {"text": "At least one craft or system principle mentions tint or layering with a hex/px value", "check": "craft_specific"},
         {"text": "Colour tokens include at least one tinted neutral (not pure grey)", "check": "tinted_neutral"},
+        {"text": "Gradient/decorative terms never appear as a positive adjective in authored prose (craft is described by measurement)", "check": "no_slop"},
+        {"text": "The hero gradient is recorded as decorative evidence and is not listed as an accent token", "check": "gradient_not_accent"},
         {"text": "lint_output.py exits 0", "check": "lint_pass"}
       ]
     },
@@ -37,9 +39,10 @@
       "url": "https://linear.app",
       "rationale": "Rerun taste only; evidence and measurements must survive untouched and tokens may not drift silently.",
       "assertions": [
-        {"text": "--incremental taste exits 0", "check": "incremental_ok"},
+        {"text": "--incremental taste exits 0 and records meta.incremental", "check": "incremental_ok"},
         {"text": "evidence block is byte-identical before and after", "check": "evidence_frozen"},
-        {"text": "--incremental with changed tokens exits non-zero", "check": "token_guard"}
+        {"text": "--incremental evidence,tokens exits 0 when the brand colour changed (scope is dynamic)", "check": "tokens_in_scope_ok"},
+        {"text": "--incremental taste exits non-zero when tokens changed but evidence was frozen", "check": "token_guard"}
       ]
     },
     {

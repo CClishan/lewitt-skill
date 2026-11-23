@@ -1,0 +1,352 @@
+{
+  "url": "https://stripe.com/en-sg/contact/sales",
+  "title": "Stripe | Contact our Sales Team",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "errors": [],
+  "colors": {
+    "pageBackground": "rgba(0, 0, 0, 0)",
+    "backgroundColors": [
+      {
+        "value": "rgb(255, 255, 255)",
+        "count": 7,
+        "areaPct": 97
+      },
+      {
+        "value": "rgb(229, 237, 245)",
+        "count": 3,
+        "areaPct": 0
+      },
+      {
+        "value": "rgb(83, 58, 253)",
+        "count": 2,
+        "areaPct": 0.4
+      },
+      {
+        "value": "rgba(255, 255, 255, 0.25)",
+        "count": 2,
+        "areaPct": 1.9
+      },
+      {
+        "value": "rgba(255, 255, 255, 0)",
+        "count": 2,
+        "areaPct": 0.5
+      },
+      {
+        "value": "rgba(255, 255, 255, 0.65)",
+        "count": 1,
+        "areaPct": 0.2
+      }
+    ],
+    "textColors": [
+      {
+        "value": "rgb(83, 58, 253)",
+        "count": 5
+      },
+      {
+        "value": "rgb(6, 27, 49)",
+        "count": 5
+      },
+      {
+        "value": "rgb(90, 102, 119)",
+        "count": 3
+      },
+      {
+        "value": "rgb(100, 116, 141)",
+        "count": 2
+      },
+      {
+        "value": "rgb(80, 97, 122)",
+        "count": 1
+      },
+      {
+        "value": "rgb(39, 57, 81)",
+        "count": 1
+      }
+    ],
+    "accentCandidates": [
+      {
+        "value": "rgb(83, 58, 253)",
+        "count": 6
+      },
+      {
+        "value": "rgb(90, 102, 119)",
+        "count": 2
+      },
+      {
+        "value": "rgba(255, 255, 255, 0)",
+        "count": 2
+      },
+      {
+        "value": "rgb(3, 19, 35)",
+        "count": 1
+      },
+      {
+        "value": "rgba(255, 255, 255, 0.65)",
+        "count": 1
+      },
+      {
+        "value": "rgba(255, 255, 255, 0.25)",
+        "count": 1
+      }
+    ]
+  },
+  "typography": {
+    "uniqueFamilies": [
+      {
+        "value": "sohne-var",
+        "count": 111
+      }
+    ],
+    "headings": {
+      "h1": {
+        "size": "26px",
+        "weight": "300",
+        "lineHeight": "29.12px",
+        "letterSpacing": "-0.26px",
+        "family": "sohne-var"
+      }
+    },
+    "body": {
+      "size": "18px",
+      "weight": "300",
+      "lineHeight": "25.2px",
+      "family": "sohne-var",
+      "maxWidth": "none"
+    },
+    "sizeDistribution": [
+      {
+        "value": "14px",
+        "count": 11
+      },
+      {
+        "value": "16px",
+        "count": 5
+      },
+      {
+        "value": "26px",
+        "count": 1
+      },
+      {
+        "value": "18px",
+        "count": 1
+      }
+    ],
+    "weightDistribution": [
+      {
+        "value": "300",
+        "count": 10
+      },
+      {
+        "value": "400",
+        "count": 8
+      }
+    ]
+  },
+  "effects": {
+    "radii": [
+      {
+        "value": "4px",
+        "count": 10
+      },
+      {
+        "value": "6px",
+        "count": 3
+      },
+      {
+        "value": "50%",
+        "count": 3
+      }
+    ],
+    "shadows": [
+      {
+        "value": "rgba(0, 55, 112, 0.14) 0px 20px 80px -16px, rgba(0, 59, 137, 0.06) 0px 10px 60px -16px",
+        "count": 1
+      },
+      {
+        "value": "rgba(0, 0, 0, 0.06) 0px 4px 24px 0px, rgba(0, 0, 0, 0.03) 0px 1px 2px 0px",
+        "count": 1
+      }
+    ],
+    "transitions": [
+      "all",
+      "opacity 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95)",
+      "fill 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95)",
+      "color 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95), background-color 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95), border-co",
+      "stroke 0.3s cubic-bezier(0.25, 1, 0.5, 1)",
+      "transform 0.3s cubic-bezier(0.25, 1, 0.5, 1)"
+    ]
+  },
+  "spacingDistribution": [
+    {
+      "value": "8px",
+      "count": 12
+    },
+    {
+      "value": "-1px",
+      "count": 8
+    },
+    {
+      "value": "6px",
+      "count": 5
+    },
+    {
+      "value": "10.5px",
+      "count": 3
+    },
+    {
+      "value": "11.5px",
+      "count": 3
+    },
+    {
+      "value": "32px",
+      "count": 3
+    },
+    {
+      "value": "12px",
+      "count": 3
+    },
+    {
+      "value": "10px",
+      "count": 2
+    },
+    {
+      "value": "40px",
+      "count": 2
+    },
+    {
+      "value": "16px",
+      "count": 2
+    },
+    {
+      "value": "normal 24px",
+      "count": 2
+    },
+    {
+      "value": "1px",
+      "count": 2
+    },
+    {
+      "value": "15.5px",
+      "count": 2
+    },
+    {
+      "value": "16.5px",
+      "count": 2
+    },
+    {
+      "value": "18px",
+      "count": 2
+    }
+  ],
+  "buttons": [
+    {
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "4px",
+      "paddingTop": "12px",
+      "paddingLeft": "16px"
+    },
+    {
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "4px",
+      "paddingTop": "10.5px",
+      "paddingLeft": "24px"
+    }
+  ],
+  "layout": {
+    "bodyPadding": "0px",
+    "containerMaxWidth": "none",
+    "containerPadding": "0px",
+    "containerWidth": "1440px"
+  },
+  "cards": [
+    {
+      "selector": "div.csf-form-card.csf-form-card--get-started",
+      "width": "608px",
+      "height": "427px",
+      "ratio": "1.42:1",
+      "radius": "6px",
+      "shadow": "rgba(0, 55, 112, 0.14) 0px 20px 80px -16px, rgba(0, 59, 137, 0.06) 0px 10px 60px -16px"
+    },
+    {
+      "selector": "div.CookieSettings_CookieSettings__H9pSM",
+      "width": "380px",
+      "height": "129px",
+      "ratio": "2.94:1",
+      "radius": "6px",
+      "shadow": "rgba(0, 0, 0, 0.06) 0px 4px 24px 0px, rgba(0, 0, 0, 0.03) 0px 1px 2px 0px"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://images.stripeassets.com/fzn2n1nzq965/1EEpJdtNgijGk8k7LIws6n/6e183150ff008ecad245a6f5edf76865",
+      "naturalWidth": 1392,
+      "naturalHeight": 1352,
+      "ratio": "1.03:1",
+      "renderedWidth": "1392px",
+      "role": "hero"
+    }
+  ],
+  "spacingSamples": [
+    {
+      "tag": "section",
+      "margin": "0px",
+      "padding": "0px 16px",
+      "gap": "normal"
+    },
+    {
+      "tag": "h1",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "p",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "ul",
+      "margin": "0px 0px 0px 1040px",
+      "padding": "0px",
+      "gap": "normal 8px"
+    },
+    {
+      "tag": "button",
+      "margin": "0px",
+      "padding": "12px 16px",
+      "gap": "8px"
+    },
+    {
+      "tag": "nav",
+      "margin": "0px",
+      "padding": "10px 16px",
+      "gap": "28px"
+    },
+    {
+      "tag": "footer",
+      "margin": "0px",
+      "padding": "0px 16px",
+      "gap": "normal"
+    }
+  ],
+  "sectionGaps": [],
+  "grid": {
+    "columns": 2,
+    "gap": "normal 24px",
+    "template": "168px 336px",
+    "selector": "div.hds-field.hds-field--layered"
+  },
+  "gridCount": 2,
+  "focusVisible": false,
+  "reducedMotion": false
+}

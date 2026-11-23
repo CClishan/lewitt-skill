@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""design-dna — mechanical gates. No mental scanning (R2).
+"""lewitt — mechanical gates. No mental scanning (R2).
 
 Three gates, one command:
   1. schema     dna.json contract (delegates to build_artifacts.validate)
@@ -294,8 +294,10 @@ def schema_checks(dest: Path, dna: dict) -> list[dict]:
                  "detail": "; ".join(drift) or "all artifacts are deterministic renders of dna.json, no post-render edits"})
 
     frozen_moves = frozen_violations(dna, changed)
+    inc = (dna.get("meta") or {}).get("incremental") or {}
+    scope = f" — scope {inc.get('targets')}, frozen {inc.get('frozen')}" if inc else ""
     rows.append({"name": "incremental freeze", "result": "PASS" if not frozen_moves else "FAIL",
-                 "detail": "; ".join(frozen_moves) or "no frozen block changed since the last render"})
+                 "detail": "; ".join(frozen_moves) or "no frozen block changed since the last render" + scope})
 
     missing_refs = []
     ev_ids = {e["id"] for e in dna.get("evidence", [])}

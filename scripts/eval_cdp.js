@@ -1,6 +1,6 @@
-// design-dna — page evaluation via CDP Runtime.evaluate.
+// lewitt — page evaluation via CDP Runtime.evaluate.
 // Avoids harness/string escaping layers entirely: the function source is sent as an expression.
-module.exports = async function ddEvaluate(page, funcSrc, arg) {
+module.exports = async function lewittEvaluate(page, funcSrc, arg) {
   const cdp = await page.context().newCDPSession(page);
   try {
     const expr = arg === undefined

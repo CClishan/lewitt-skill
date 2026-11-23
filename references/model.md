@@ -20,7 +20,7 @@ rerun. Never patch a rendered file.
 | `crawl.pages` | recommended | >4 pages needs `crawl.budget: "user-expanded"` |
 | `limitations` | recommended | one line per known blind spot |
 | `openQuestions` | optional | things a follow-up run should resolve |
-| `incremental` | set by tooling | never author by hand |
+| `incremental` | set by tooling | `{targets[], frozen[], updatedAt}` — the declared scope of the last run; never author by hand |
 
 ## evidence
 

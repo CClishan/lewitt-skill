@@ -1,5 +1,5 @@
 ---
-name: design-dna
+name: lewitt
 description: >-
   Reverse-engineer a website's design into an evidence-backed, agent-usable design DNA:
   tokens (primitive/semantic/component) plus opinionated WHY trade-offs, rendered from one
@@ -71,12 +71,16 @@ instead of asking:
 **Incremental update (hard rule).** If `{dest}/{domain}/dna.json` already exists, you are
 updating, not rebuilding:
 
-1. Read the existing file and say which blocks you will rerun.
-2. Rerun only those blocks (`measurements`, `patterns`, `taste`); freeze the rest verbatim —
-   including every evidence id you are not re-observing.
-3. Render with `--incremental measurements,patterns,taste`.
-4. Never overwrite the whole file "to be safe". Never delete evidence that still supports a
-   frozen block.
+1. Read the existing file and **declare a scope** — the blocks this run may change, e.g.
+   `taste` for wording, `tokens,measurements` for a changed primary colour, `evidence,measurements,tokens`
+   after capturing a new subpage that exposed new components.
+2. Edit only the blocks in scope; leave every other block byte-identical (including evidence ids
+   you are not re-observing). Everything outside the scope is frozen automatically.
+3. Render with `--incremental <scope>`; the tool records `meta.incremental {targets, frozen}`.
+4. `tokens` may change, but only together with `evidence` in the same scope (or with `--force`
+   plus a `meta.limitations` line). Numbers never move without the proof that moved them.
+5. Never delete evidence that still supports a frozen block. Never rewrite the file wholesale
+   "to be safe".
 
 If the target page cannot be reached, stop and report; do not fabricate a system from an error
 page.
@@ -89,7 +93,8 @@ Read [references/sense.md](references/sense.md), then:
 python3 "$SKILL/scripts/capture.py" <url> --dest "$DEST" --pages 4
 ```
 
-`capture.py` refuses to run without an isolated driver — a logged-in or wrong surface is a
+`capture.py` finds playwright via `LEWITT_PW_DIR` → the skill's own `node_modules` → global/npx,
+so a fresh clone only needs `bash scripts/setup.sh`. It refuses to run without an isolated driver — a logged-in or wrong surface is a
 failed capture, not a weaker one. It writes `capture/dom.json`, `capture/viewport.png`,
 `capture/fullpage.png` (only when ≤ 6 viewports tall), `capture/dom-N.json` for extra pages, and
 `capture/meta.json`. Read the screenshots: composition is judged visually, values come from the
@@ -130,10 +135,12 @@ never the output.
 Incremental form:
 
 ```sh
-python3 "$SKILL/scripts/build_artifacts.py" "$DEST/$DOMAIN" --incremental measurements,taste
+python3 "$SKILL/scripts/build_artifacts.py" "$DEST/$DOMAIN" --incremental taste
+python3 "$SKILL/scripts/build_artifacts.py" "$DEST/$DOMAIN" --incremental evidence,measurements,tokens   # e.g. the brand colour changed
 ```
 
-It refuses if `tokens` changed while evidence was frozen (`--force` only when you can say why).
+Frozen blocks that moved since the last render make it fail; so does a `tokens` change whose
+`evidence` was not in scope.
 
 ### Phase 5 — Verify
 
@@ -166,7 +173,7 @@ They are allowed only as an explicit foil ("could have gone 'clean and modern', 
 
 | Situation | Do |
 | --- | --- |
-| No isolated browser driver | Stop. Install per `capture.py`'s message (`npm i playwright` in `~/.dd`). Do not fall back to a shared session silently; if you must, set `meta.captureIsolated=false` + `meta.isolationNote`. |
+| No isolated browser driver | Stop. Run `bash scripts/setup.sh` (installs playwright next to the skill), or set `LEWITT_PW_DIR`, or pass `--driver`. Do not fall back to a shared session silently; if you must, set `meta.captureIsolated=false` + `meta.isolationNote`. |
 | Bot wall / login form | Report it; ask for an accessible URL or exported screenshots. A labeled scaffold is not an extraction. |
 | SPA still hydrating | `capture.py` waits; add a `limitations` entry and mark affected measurements `inferred`. |
 | Fewer than 3 taste principles survive | Ship 2 with evidence. Never pad with generic ones. |

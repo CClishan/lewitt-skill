@@ -1,0 +1,507 @@
+{
+  "url": "https://stripe.com/en-sg",
+  "title": "Stripe | Financial Infrastructure to Grow Your Revenue",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "errors": [],
+  "colors": {
+    "pageBackground": "rgba(0, 0, 0, 0)",
+    "backgroundColors": [
+      {
+        "value": "rgb(255, 255, 255)",
+        "count": 27,
+        "areaPct": 62.1
+      },
+      {
+        "value": "rgb(229, 237, 245)",
+        "count": 16,
+        "areaPct": 12.2
+      },
+      {
+        "value": "rgba(255, 255, 255, 0)",
+        "count": 14,
+        "areaPct": 0.3
+      },
+      {
+        "value": "rgb(248, 250, 253)",
+        "count": 10,
+        "areaPct": 11.2
+      },
+      {
+        "value": "rgb(83, 58, 253)",
+        "count": 8,
+        "areaPct": 0.2
+      },
+      {
+        "value": "rgb(226, 228, 255)",
+        "count": 3,
+        "areaPct": 0
+      },
+      {
+        "value": "rgb(232, 233, 255)",
+        "count": 3,
+        "areaPct": 0
+      },
+      {
+        "value": "rgb(227, 236, 247)",
+        "count": 3,
+        "areaPct": 0.1
+      }
+    ],
+    "textColors": [
+      {
+        "value": "rgb(80, 97, 122)",
+        "count": 152
+      },
+      {
+        "value": "rgb(6, 27, 49)",
+        "count": 109
+      },
+      {
+        "value": "rgb(100, 116, 141)",
+        "count": 60
+      },
+      {
+        "value": "rgb(83, 58, 253)",
+        "count": 43
+      },
+      {
+        "value": "rgb(255, 255, 255)",
+        "count": 25
+      },
+      {
+        "value": "rgb(39, 57, 81)",
+        "count": 16
+      }
+    ],
+    "accentCandidates": [
+      {
+        "value": "rgb(80, 97, 122)",
+        "count": 85
+      },
+      {
+        "value": "rgb(83, 58, 253)",
+        "count": 73
+      },
+      {
+        "value": "rgb(0, 0, 0)",
+        "count": 26
+      },
+      {
+        "value": "rgb(255, 255, 255)",
+        "count": 15
+      },
+      {
+        "value": "rgba(255, 255, 255, 0)",
+        "count": 14
+      },
+      {
+        "value": "rgb(6, 27, 49)",
+        "count": 5
+      }
+    ]
+  },
+  "typography": {
+    "uniqueFamilies": [
+      {
+        "value": "sohne-var",
+        "count": 1986
+      },
+      {
+        "value": "SourceCodePro",
+        "count": 14
+      }
+    ],
+    "headings": {
+      "h1": {
+        "size": "48px",
+        "weight": "300",
+        "lineHeight": "55.2px",
+        "letterSpacing": "-0.96px",
+        "family": "sohne-var"
+      },
+      "h2": {
+        "size": "32px",
+        "weight": "300",
+        "lineHeight": "35.2px",
+        "letterSpacing": "-0.64px",
+        "family": "sohne-var"
+      },
+      "h3": {
+        "size": "26px",
+        "weight": "300",
+        "lineHeight": "29.12px",
+        "letterSpacing": "-0.26px",
+        "family": "sohne-var"
+      },
+      "h4": {
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "22.4px",
+        "letterSpacing": "normal",
+        "family": "sohne-var"
+      }
+    },
+    "body": {
+      "size": "32px",
+      "weight": "300",
+      "lineHeight": "35.2px",
+      "family": "sohne-var",
+      "maxWidth": "none"
+    },
+    "sizeDistribution": [
+      {
+        "value": "16px",
+        "count": 194
+      },
+      {
+        "value": "10px",
+        "count": 93
+      },
+      {
+        "value": "14px",
+        "count": 41
+      },
+      {
+        "value": "26px",
+        "count": 24
+      },
+      {
+        "value": "22px",
+        "count": 20
+      },
+      {
+        "value": "9px",
+        "count": 19
+      },
+      {
+        "value": "48px",
+        "count": 12
+      },
+      {
+        "value": "8px",
+        "count": 12
+      },
+      {
+        "value": "12px",
+        "count": 12
+      },
+      {
+        "value": "32px",
+        "count": 11
+      },
+      {
+        "value": "18px",
+        "count": 11
+      },
+      {
+        "value": "10.99px",
+        "count": 10
+      }
+    ],
+    "weightDistribution": [
+      {
+        "value": "300",
+        "count": 302
+      },
+      {
+        "value": "400",
+        "count": 165
+      }
+    ]
+  },
+  "effects": {
+    "radii": [
+      {
+        "value": "4px",
+        "count": 78
+      },
+      {
+        "value": "6px",
+        "count": 36
+      },
+      {
+        "value": "5px",
+        "count": 6
+      },
+      {
+        "value": "100%",
+        "count": 4
+      },
+      {
+        "value": "8px",
+        "count": 4
+      },
+      {
+        "value": "3px",
+        "count": 2
+      },
+      {
+        "value": "2px",
+        "count": 2
+      },
+      {
+        "value": "16px",
+        "count": 1
+      }
+    ],
+    "shadows": [
+      {
+        "value": "rgba(50, 50, 93, 0.12) 0px 16px 32px 0px",
+        "count": 2
+      },
+      {
+        "value": "rgb(255, 255, 255) 0px 0px 0px 2px inset",
+        "count": 1
+      },
+      {
+        "value": "rgba(23, 23, 23, 0.08) 0px 15px 35px 0px",
+        "count": 1
+      },
+      {
+        "value": "rgba(23, 23, 23, 0.06) 0px 3px 6px 0px",
+        "count": 1
+      },
+      {
+        "value": "rgba(0, 59, 137, 0.05) 0px 2px 8px 0px, rgba(0, 55, 112, 0.08) 0px 5px 14px 0px",
+        "count": 1
+      },
+      {
+        "value": "rgba(0, 0, 0, 0.06) 0px 4px 24px 0px, rgba(0, 0, 0, 0.03) 0px 1px 2px 0px",
+        "count": 1
+      }
+    ],
+    "transitions": [
+      "all",
+      "grid-template-rows 0.4s cubic-bezier(0.65, 0, 0.35, 1)",
+      "color 0.3s cubic-bezier(0.25, 1, 0.5, 1)",
+      "stroke 0.3s cubic-bezier(0.25, 1, 0.5, 1)",
+      "transform 0.3s cubic-bezier(0.25, 1, 0.5, 1)",
+      "background-color 0.3s cubic-bezier(0.25, 1, 0.5, 1), outline-color 0.3s cubic-bezier(0.25, 1, 0.5, 1)"
+    ]
+  },
+  "spacingDistribution": [
+    {
+      "value": "8px",
+      "count": 65
+    },
+    {
+      "value": "6px",
+      "count": 38
+    },
+    {
+      "value": "12px",
+      "count": 34
+    },
+    {
+      "value": "16px",
+      "count": 32
+    },
+    {
+      "value": "4px",
+      "count": 30
+    },
+    {
+      "value": "32px",
+      "count": 26
+    },
+    {
+      "value": "64px",
+      "count": 22
+    },
+    {
+      "value": "15.5px",
+      "count": 19
+    },
+    {
+      "value": "10px",
+      "count": 15
+    },
+    {
+      "value": "2px",
+      "count": 13
+    },
+    {
+      "value": "14.5px",
+      "count": 11
+    },
+    {
+      "value": "14px",
+      "count": 11
+    },
+    {
+      "value": "96px",
+      "count": 10
+    },
+    {
+      "value": "11px",
+      "count": 10
+    },
+    {
+      "value": "40px",
+      "count": 10
+    }
+  ],
+  "buttons": [
+    {
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "4px",
+      "paddingTop": "0px",
+      "paddingLeft": "0px"
+    },
+    {
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "4px",
+      "paddingTop": "12px",
+      "paddingLeft": "0px"
+    },
+    {
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "0px",
+      "paddingTop": "0px",
+      "paddingLeft": "0px"
+    }
+  ],
+  "layout": {
+    "bodyPadding": "0px",
+    "containerMaxWidth": "none",
+    "containerPadding": "0px",
+    "containerWidth": "1440px"
+  },
+  "cards": [
+    {
+      "selector": "div.CookieSettings_CookieSettings__H9pSM",
+      "width": "380px",
+      "height": "129px",
+      "ratio": "2.94:1",
+      "radius": "6px",
+      "shadow": "rgba(0, 0, 0, 0.06) 0px 4px 24px 0px, rgba(0, 0, 0, 0.03) 0px 1px 2px 0px"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://b.stripecdn.com/mkt-ssr-statics/assets/_next/static/media/wave-fallback-desktop-1x.fba6fa88.",
+      "naturalWidth": 1392,
+      "naturalHeight": 975,
+      "ratio": "1.43:1",
+      "renderedWidth": "1392px",
+      "role": "hero"
+    },
+    {
+      "src": "https://images.stripeassets.com/fzn2n1nzq965/1Vf8oT9Fm6dEwpnEx5PgK1/055956f38d7fd8b0cc7419692ef29778",
+      "naturalWidth": 308,
+      "naturalHeight": 525,
+      "ratio": "0.59:1",
+      "renderedWidth": "280px",
+      "role": "thumbnail"
+    },
+    {
+      "src": "https://images.stripeassets.com/fzn2n1nzq965/vYmk6v8n7oDAwbDpwhjV6/846f9b3e214549b8f14e2b8c8cfe9343/",
+      "naturalWidth": 860,
+      "naturalHeight": 712,
+      "ratio": "1.21:1",
+      "renderedWidth": "860px",
+      "role": "hero"
+    },
+    {
+      "src": "https://images.stripeassets.com/fzn2n1nzq965/3NcSrMqMgaKe75QNr8wZI8/46d520dfc48c5b9f1c59dcde9460b58c",
+      "naturalWidth": 1232,
+      "naturalHeight": 450,
+      "ratio": "2.74:1",
+      "renderedWidth": "1243px",
+      "role": "hero"
+    },
+    {
+      "src": "https://images.stripeassets.com/fzn2n1nzq965/6qXXr6LHgF0pDzCKGr90jG/ee23b420081aa216b844b2117cc5ff3d",
+      "naturalWidth": 1440,
+      "naturalHeight": 467,
+      "ratio": "3.08:1",
+      "renderedWidth": "1232px",
+      "role": "hero"
+    }
+  ],
+  "spacingSamples": [
+    {
+      "tag": "h1",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "h2",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "h3",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "p",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "ul",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal 24px"
+    },
+    {
+      "tag": "button",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "nav",
+      "margin": "0px",
+      "padding": "10px 16px",
+      "gap": "28px"
+    },
+    {
+      "tag": "footer",
+      "margin": "0px",
+      "padding": "0px 16px",
+      "gap": "normal"
+    }
+  ],
+  "sectionGaps": [
+    {
+      "between": "section[5]→section[6]",
+      "gap": 160
+    },
+    {
+      "between": "section[7]→section[8]",
+      "gap": 408
+    },
+    {
+      "between": "section[8]→section[9]",
+      "gap": 48
+    }
+  ],
+  "grid": {
+    "columns": 12,
+    "gap": "normal 16px",
+    "template": "88px 88px 88px 88px 88px 88px 88px 88px 88px 88px 88px 88px",
+    "selector": "div.footer-links-section"
+  },
+  "gridCount": 34,
+  "focusVisible": false,
+  "reducedMotion": false
+}
