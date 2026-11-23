@@ -1,106 +1,125 @@
 # lewitt
 
-Reverse-engineer a website into a **design DNA** an AI coder can actually follow: measured
-tokens plus the trade-offs behind them, rendered from one authored file and checked by
-executable gates.
+> *"The idea becomes a machine that makes the art."* — Sol LeWitt
 
-Merged from two skills and their strongest parts:
+**`lewitt`** is an agent skill that reverse-engineers any website URL into an evidence-backed **Design DNA**, a zero-dependency **interactive preview**, and **machine-enforceable coding guardrails** for AI agents.
 
-- `taste-skill` (senlindesign) — the Measure → Pattern → Taste reasoning chain, forced
-  restatement of a rejected alternative, mandatory restraint, mechanical anti-slop.
-- `website-design-system` (DiqingWWW) — evidence ledger with status labels, three-layer tokens,
-  single-source artifacts, explicit verification.
+Giving an AI raw hex codes and font sizes produces generic slop. Taste is not a spec sheet — it is **trade-offs and restraint**. Named after conceptual artist Sol LeWitt, whose wall drawings were executed from precise written instruction sets, `lewitt` extracts *why* a site looks the way it does, encodes what it **refuses to do**, and enforces those constraints when you build.
 
-## The one idea
+![lewitt preview of stripe.com — live swatches, evidence ids, token layers](docs/preview.png)
 
-`dna.json` is the only file you author. `taste.md`, `tokens.css`, `tokens.resolved.json`,
-`agent-rules.md`, `preview.html` and `VERIFY.md` are deterministic renders of it. The preview is a
-single file with live swatches, type and motion specimens, taste cards and a copy/download bar —
-it renders in ~30 ms and needs no browser tooling. If a rendered file drifts,
-`lint_output.py` fails — so an analysis can never be half-updated.
+---
 
+## Core Principles
+
+- **Evidence over guesswork (R1)**: captures rendered DOM, computed styles and screenshots in an isolated browser context (Playwright, evaluated over CDP). Every finding is tagged `Observed`, `Inferred`, `Proposed` or `Unknown`; a screenshot estimate is never disguised as a measured CSS value.
+- **Taste as trade-offs, plus code guardrails (R2)**: raw measurements are distilled into structural patterns and *Chose A over B* principles. Every **Restraint** principle carries a machine-readable guardrail (forbidden CSS properties, Tailwind v3/v4 class patterns, value caps) that a linter checks — not a wish.
+- **Single source of truth (R3)**: `dna.json` is the only authored file. `taste.md`, `tokens.css`, `tokens.resolved.json`, `agent-rules.md` and `preview.html` are deterministic renders of it (~33 ms) and are byte-compared against drift.
+- **Honest verification**: visual fidelity is tracked in `fidelity.json` (`unverified` / `PARTIAL` / `PASS`) with explicit recorded deviations — never silently claimed as a 1:1 match.
+
+## Two Speeds
+
+### 1. DNA mode (default, 1–2 min)
+
+Inspects the entry page plus up to 3 representative subpages, then deterministically renders:
+
+- **`preview.html`** — single file, zero remote assets, linked to the same `tokens.css`: live swatches (Semantic → Component → Primitive) with evidence ids, type/radius/shadow specimens, clickable **Motion Replay** driven by the real duration tokens (respects `prefers-reduced-motion`), *Chose vs Over* Taste DNA cards, source screenshots, and a one-click handoff bar.
+- **`agent-rules.md`** — condensed instruction set with **MUST NOT** guardrails pinned at the top; tokens ordered Semantic → Component → Primitive.
+- **`taste.md`**, **`tokens.css`**, **`tokens.resolved.json`**, **`VERIFY.md`**.
+
+### 2. Full mode (`--full`)
+
+Everything above, plus a runnable **`system/`** reference site built on the source's own extracted canvas colour (never forcing a generic dark docs theme onto a light system):
+
+![Fidelity vs source — captured page beside the token-built hero](docs/fidelity.png)
+
+- component anatomy and state matrices (`default / hover / focus-visible / active / disabled`, forced samples labelled, live controls beside them)
+- real compositions assembled strictly from extracted tokens (hero, pricing cards, checkout flow)
+- five live stress toggles (long copy, missing media, no-gradient fallback, reduced motion, 390 px viewport)
+- side-by-side **Fidelity vs source**, backed by `fidelity.json`
+
+![Motion replay section of the interactive preview](docs/motion.png)
+
+## Output Structure
+
+Every run writes to an isolated `{dest}/{domain}/` directory:
+
+```text
+{dest}/{domain}/
+├── dna.json               # single source of truth (evidence, measurements, patterns, taste, tokens)
+├── preview.html           # zero-dependency interactive preview (every mode)
+├── taste.md               # human-readable anatomy, token table and Taste DNA
+├── agent-rules.md         # condensed rules for coding agents (MUST NOT guardrails on top)
+├── tokens.css             # scoped CSS custom properties (--lw-*)
+├── tokens.resolved.json   # resolved three-tier token registry
+├── VERIFY.md              # mechanical audit report
+├── verify.json            # machine gate results + the exact rendered snapshot
+├── fidelity.json          # match/deviation log for visual fidelity (--full)
+├── capture/               # raw DOM snapshots and viewport screenshots for traceability
+└── system/                # (--full only) runnable design-system site
 ```
-meta · evidence · measurements · patterns · taste · tokens
+
+Sample runs included in this repository:
+
+- [`runs/stripe.com/`](runs/stripe.com) — full mode (`preview.html` + `system/index.html` + `fidelity.json`)
+- [`runs/linear.app/`](runs/linear.app) — DNA mode (restraint: white as the only action colour)
+- [`runs/binance.com/`](runs/binance.com) — DNA + full (accent share tracks product density)
+
+## Installation
+
+```sh
+# 1. Clone and link to your agent
+git clone https://github.com/CClishan/lewitt-skill.git ~/Projects/skills/lewitt
+ln -s ~/Projects/skills/lewitt ~/.codex/skills/lewitt
+ln -s ~/Projects/skills/lewitt ~/.claude/skills/lewitt
+
+# 2. Initialize the browser capture driver
+cd ~/Projects/skills/lewitt
+bash scripts/setup.sh
 ```
 
-Restraint principles carry a machine-readable `guardrail`, so "no accent colour" or "rings
-instead of shadows" can be enforced against generated UI, not just written down.
+`capture.py` finds Playwright through `LEWITT_PW_DIR` → the skill's own `node_modules` → global/npx,
+and runs in an isolated browser context by default. Rendering and linting need only Python 3.10+.
 
 ## Usage
 
-```sh
-SKILL=~/Projects/skills/lewitt/scripts
-DEST=./out
-
-python3 $SKILL/capture.py linear.app --dest $DEST --pages 4      # isolated, CDP-eval capture
-#   ... author $DEST/linear.app/dna.json (see references/) ...
-python3 $SKILL/build_artifacts.py $DEST/linear.app              # renders + schema gate
-python3 $SKILL/lint_output.py --dest $DEST/linear.app           # all gates
-python3 $SKILL/lint_output.py --dest $DEST/linear.app --check-code ./src   # guardrails vs code
+```text
+Use lewitt to analyze https://stripe.com              # DNA mode + preview.html
+Use lewitt to analyze https://stripe.com --full        # also build the system/ reference site
+Update the tokens and pricing evidence for stripe.com # incremental: only these blocks rerun
 ```
 
-Incremental update of one site — declare the scope, everything else is frozen:
+## Enforce Guardrails on Your Own Code
+
+Feed `agent-rules.md` and `tokens.css` to your coding agent, then lint the UI you built against the extracted Restraint guardrails before shipping:
 
 ```sh
-python3 $SKILL/build_artifacts.py $DEST/linear.app --incremental taste                      # wording only
-python3 $SKILL/build_artifacts.py $DEST/linear.app --incremental evidence,measurements,tokens  # brand colour changed
+python3 scripts/lint_output.py --dest runs/stripe.com --check-code ./src
 ```
 
-It fails when a frozen block moved since the last render, or when `tokens` changed without
-`evidence` in the same scope.
+Example: Linear's *"depth is a hairline, not a shadow"* principle rejects `shadow-lg` and any
+`box-shadow` with offset or blur, while stripe's *"colour is a once-per-page event"* rejects
+`bg-gradient-to-*` and Tailwind v4's `bg-linear-to-*`.
 
-## Requirements
+## Architecture
 
-- Python 3.10+
-- `playwright` for capture (one-time): `bash scripts/setup.sh` installs it into the skill's own
-  `node_modules` (override with `LEWITT_PW_DIR`). Verification order: `LEWITT_PW_DIR` → skill
-  `node_modules` → `npm root -g` → npx cache. `capture.py` exits non-zero rather than capture
-  from a non-isolated browser.
-
-## Layout
-
+```text
+Phase 0  Brief   → scope, mode (DNA vs --full), incremental freeze detection
+Phase 1  Sense   → isolated Playwright/CDP capture + structured evidence ledger
+Phase 2  Infer   → Measure → Pattern → Taste DNA (trade-offs + restraint guardrails)
+Phase 3  Model   → three-tier token registry (primitive / semantic / component) + status tags
+Phase 4  Build   → deterministic render from dna.json (+ optional --full system/ site)
+Phase 5  Verify  → anti-slop grep, R3 byte-equality, colour scope, guardrail code check, fidelity
 ```
-SKILL.md                  entry point, pipeline, three rules
-references/
-  sense.md                capture, isolation, evidence ledger, screenshot-vs-DOM rules
-  infer-measure.md        17 measurement categories
-  infer-pattern.md        system-rule layer (5-8 patterns)
-  infer-taste.md          trade-offs, restraint, guardrail grammar, banned words
-  model.md                dna.json contract, token layers, modes
-  build-full.md           --full: runnable design-system site
-  verify.md               what each gate proves and does not
-scripts/
-  capture.py              isolated browser capture (node playwright via CDP)
-  capture_node.js, eval_cdp.js
-  extract.js              in-page DOM extractor (measure only)
-  build_artifacts.py      SSOT renderer + schema validator
-  lint_output.py          slop · drift · freeze · guardrails (--check-code)
-evals/evals.json          regression cases (linear restraint, stripe craft, incremental, guardrail)
-runs/linear.app/          the worked example: 3 pages, 28 evidence, 46 tokens, 0 slop hits
-```
-
-## Worked examples (DNA mode)
-
-| Run | Pages | Evidence | Tokens | Anti-slop hits | Restraint guardrails | Gate summary |
-| --- | --- | --- | --- | --- | --- | --- |
-| `runs/linear.app` | 3 | 28 | 46 | 0 | 2/2 | all PASS |
-| `runs/stripe.com` | 4 | 32 | 49 | 0 | 2/2 | all PASS |
-
-- Linear — *Brand lives in white, not in colour*: white on `#08090A` is the only high-contrast
-  action; a branded hue would compete with the product screenshot.
-- Stripe — *Colour is a once-per-page event*: one gradient band in the hero, indigo
-  (`#533AFD`) on actions and links only (~0.2% of surface), everything below flat white.
-
-The Stripe run is the anti-slop stress test: a craft-heavy, gradient-heavy, motion-heavy site
-passes the word list without being described as "polished" or "premium" — the craft shows up as
-measurements (blue-tinted ink, 300 weights, three motion tiers), not adjectives.
-
-`visual fidelity` stays `unverified` in both runs: the gates prove internal consistency, not
-resemblance.
 
 ## Credits
 
-The reasoning chain and banned-word discipline come from `taste-skill` (MIT, Senlin); the
-evidence ledger, token layering and verification table come from `website-design-system`
-(DiqingWWW). `lewitt` is the merge, named after Sol LeWitt's instruction-set idea: the brief is
-a set of instructions that a competent executor can rebuild from.
+The Measure → Pattern → Taste reasoning chain and the banned-word discipline come from
+[`taste-skill`](https://github.com/senlindesign/taste-skill) (MIT, Senlin). The evidence ledger,
+token layering and verification table come from
+[`website-design-system`](https://github.com/DiqingWWW/Web-Design-System-Skill) (DiqingWWW).
+`lewitt` is the merge.
+
+## License
+
+MIT
