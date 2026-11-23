@@ -232,6 +232,7 @@ def check_guardrails(dna: dict, ui_dir: Path) -> list[dict]:
 
 # ---------------------------------------------------------------- gate 1
 def drift_check(dest: Path, dna: dict) -> tuple[list[str], list[str]]:
+    """Byte-equal artifacts + no block moved since the snapshot in verify.json."""
     """Compare renders against (a) the current dna.json and (b) the state last rendered."""
     drift: list[str] = []
     expected = {
@@ -359,8 +360,14 @@ def main() -> int:
     rows.append({"name": "full system/ site", "result": "n/a" if dna.get("meta", {}).get("mode") != "full" else "unverified",
                  "detail": "DNA mode does not build system/"})
 
+    try:  # keep the rendered snapshot so `build_artifacts --incremental` can prove frozen blocks held
+        previous = json.loads((dest / "verify.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        previous = {}
     result = {"generatedAt": now(), "dest": str(dest), "meta": dna.get("meta", {}), "checks": rows,
-              "dna": dna, "slop": slop, "guardrailViolations": violations}
+              "renderedBy": ba.RENDERER_VERSION,
+              "dna": previous.get("dna", dna),
+              "slop": slop, "guardrailViolations": violations}
     failed = [r for r in rows if r["result"] == "FAIL"]
 
     for r in rows:

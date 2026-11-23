@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-23T12:21:29+00:00",
+  "generatedAt": "2026-11-23T12:22:09+00:00",
   "dest": "~/runs/stripe.com",
   "meta": {
     "name": "Stripe",
@@ -82,6 +82,7 @@
       "detail": "DNA mode does not build system/"
     }
   ],
+  "renderedBy": "build_artifacts.py/v1",
   "dna": {
     "meta": {
       "name": "Stripe",

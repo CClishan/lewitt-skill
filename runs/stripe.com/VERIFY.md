@@ -15,4 +15,4 @@ Renders are deterministic re-encodings of `dna.json`: byte-equality proves the a
 | visual fidelity | unverified | requires specimen comparison at matching viewports |
 | full system/ site | n/a | DNA mode does not build system/ |
 
-Generated at 2026-11-23T12:21:29+00:00.
+Generated at 2026-11-23T12:22:09+00:00.
