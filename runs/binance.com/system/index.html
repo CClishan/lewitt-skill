@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lewitt — Binance design system (evidence-backed)</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="doc.css">
+<link rel="stylesheet" href="system.css">
+</head>
+<body>
+<a class="skip" href="#foundations">Skip to content</a>
+<div class="layout">
+<nav class="toc" aria-label="Sections">
+  <div class="brand">lewitt · Binance</div>
+  <div class="sub">extracted 2026-11-23 · 4 pages · mode full</div>
+  <a href="#foundations">Foundations</a>
+  <a href="#color">Colour</a>
+  <a href="#type">Typography</a>
+  <a href="#shape">Radius &amp; depth</a>
+  <a href="#components">Components</a>
+  <a href="#compositions">Compositions</a>
+  <a href="#motion">Motion</a>
+  <a href="#stress">Stress</a>
+  <a href="#system">System &amp; taste</a>
+  <a href="#evidence">Evidence &amp; handoff</a>
+</nav>
+<main id="foundations">
+  <h1>Binance — extracted design system</h1>
+  <p class="lede">Three dark layers, one gold accent reserved for action and figures, hairline borders
+  instead of shadows, and a number-first type scale (72px figure against 12px body).
+  Each claim below links to an evidence id in <a href="#evidence">Evidence</a>; anything the gates could not
+  prove is marked <span class="badge">unverified</span> rather than asserted.</p>
+  <p class="note">This reference site is built from <code>../tokens.css</code> (a deterministic render of
+  <code>dna.json</code>). Nothing here is hand-tuned: if a token changes, every specimen changes with it.</p>
+
+  <h3>Principles at a glance</h3>
+  <div class="grid-3">
+    <div class="ds-card ds-scope"><div class="mono" style="color:var(--lw-text-tertiary)">Brand yellow share</div>
+      <div class="ds-figure" style="font-size:40px">0.3%</div><div class="ds-body">home page surface; 5.3% on the futures trading floor.</div></div>
+    <div class="ds-card ds-scope"><div class="mono" style="color:var(--lw-text-tertiary)">Shadows in sample</div>
+      <div class="ds-figure" style="font-size:40px">1</div><div class="ds-body">one overlay panel; everything else is a 1px #333B47 border.</div></div>
+    <div class="ds-card ds-scope"><div class="mono" style="color:var(--lw-text-tertiary)">Figure : body size</div>
+      <div class="ds-figure" style="font-size:40px">72 : 12</div><div class="ds-body">data outranks copy by a 6x ratio.</div></div>
+  </div>
+
+  <section id="color">
+    <h2>Colour</h2>
+    <p>Roles, not hierarchy: brand gold for action and figures, green/red only for direction, blue-grey neutrals for everything else.</p>
+    <div class="grid-3"><div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#181A20"></div><div style="padding:8px"><div class="mono">color/dark/900</div><div class="mono" style="color:var(--doc-mute)">#181A20</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#0B0E11"></div><div style="padding:8px"><div class="mono">color/dark/1000</div><div class="mono" style="color:var(--doc-mute)">#0B0E11</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#29313D"></div><div style="padding:8px"><div class="mono">color/slate/700</div><div class="mono" style="color:var(--doc-mute)">#29313D</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#1E2329"></div><div style="padding:8px"><div class="mono">color/slate/800</div><div class="mono" style="color:var(--doc-mute)">#1E2329</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#333B47"></div><div style="padding:8px"><div class="mono">color/slate/600</div><div class="mono" style="color:var(--doc-mute)">#333B47</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#3D4452"></div><div style="padding:8px"><div class="mono">color/slate/500</div><div class="mono" style="color:var(--doc-mute)">#3D4452</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#EAECEF"></div><div style="padding:8px"><div class="mono">color/grey/100</div><div class="mono" style="color:var(--doc-mute)">#EAECEF</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#929AA5"></div><div style="padding:8px"><div class="mono">color/grey/400</div><div class="mono" style="color:var(--doc-mute)">#929AA5</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#707A8A"></div><div style="padding:8px"><div class="mono">color/grey/500</div><div class="mono" style="color:var(--doc-mute)">#707A8A</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#F0B90B"></div><div style="padding:8px"><div class="mono">color/gold/400</div><div class="mono" style="color:var(--doc-mute)">#F0B90B</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#FCD535"></div><div style="padding:8px"><div class="mono">color/gold/300</div><div class="mono" style="color:var(--doc-mute)">#FCD535</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#202630"></div><div style="padding:8px"><div class="mono">color/on-gold</div><div class="mono" style="color:var(--doc-mute)">#202630</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#2EBD85"></div><div style="padding:8px"><div class="mono">color/up</div><div class="mono" style="color:var(--doc-mute)">#2EBD85</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#F6465D"></div><div style="padding:8px"><div class="mono">color/down</div><div class="mono" style="color:var(--doc-mute)">#F6465D</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#181A20"></div><div style="padding:8px"><div class="mono">color/canvas</div><div class="mono" style="color:var(--doc-mute)">#181A20</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#29313D"></div><div style="padding:8px"><div class="mono">color/surface</div><div class="mono" style="color:var(--doc-mute)">#29313D</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#1E2329"></div><div style="padding:8px"><div class="mono">color/well</div><div class="mono" style="color:var(--doc-mute)">#1E2329</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#333B47"></div><div style="padding:8px"><div class="mono">color/border</div><div class="mono" style="color:var(--doc-mute)">#333B47</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#3D4452"></div><div style="padding:8px"><div class="mono">color/border-strong</div><div class="mono" style="color:var(--doc-mute)">#3D4452</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#EAECEF"></div><div style="padding:8px"><div class="mono">color/text/primary</div><div class="mono" style="color:var(--doc-mute)">#EAECEF</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#929AA5"></div><div style="padding:8px"><div class="mono">color/text/secondary</div><div class="mono" style="color:var(--doc-mute)">#929AA5</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#707A8A"></div><div style="padding:8px"><div class="mono">color/text/tertiary</div><div class="mono" style="color:var(--doc-mute)">#707A8A</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#F0B90B"></div><div style="padding:8px"><div class="mono">color/brand</div><div class="mono" style="color:var(--doc-mute)">#F0B90B</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#FCD535"></div><div style="padding:8px"><div class="mono">color/action/bg</div><div class="mono" style="color:var(--doc-mute)">#FCD535</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#202630"></div><div style="padding:8px"><div class="mono">color/action/fg</div><div class="mono" style="color:var(--doc-mute)">#202630</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#2EBD85"></div><div style="padding:8px"><div class="mono">color/trend/up</div><div class="mono" style="color:var(--doc-mute)">#2EBD85</div></div></div>
+<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#F6465D"></div><div style="padding:8px"><div class="mono">color/trend/down</div><div class="mono" style="color:var(--doc-mute)">#F6465D</div></div></div></div>
+    <h3>Foreground / background pairs in use</h3>
+    <table><thead><tr><th>Pair</th><th>Hex</th><th>Where</th></tr></thead><tbody>
+      <tr><td class="mono">text / canvas</td><td class="mono">#EAECEF on #181A20</td><td>body copy</td></tr>
+      <tr><td class="mono">text-secondary / surface</td><td class="mono">#929AA5 on #29313D</td><td>labels inside cards</td></tr>
+      <tr><td class="mono">action-fg / action-bg</td><td class="mono">#202630 on #FCD535</td><td>primary button</td></tr>
+      <tr><td class="mono">trend-up / canvas</td><td class="mono">#2EBD85 on #181A20</td><td>price change</td></tr>
+      <tr><td class="mono">trend-down / canvas</td><td class="mono">#F6465D on #181A20</td><td>price change</td></tr>
+    </tbody></table>
+  </section>
+
+  <section id="type">
+    <h2>Typography</h2>
+    <p>BinanceNova carries every surface; BinancePlex is a sparing display face (10 nodes in 2 of 4 pages).
+    The loaded web fonts are not available in this document, so specimens fall back to the declared system stack.
+    <span class="badge">inferred</span> for rendered-face parity.</p>
+    <div class="ds-card ds-scope"><div style="margin-bottom:10px"><span class="mono" style="color:var(--doc-mute)">type/figure · 72px</span><div style="font-size:72px;line-height:1.15">Aa 337,527,796 BNB</div></div>
+<div style="margin-bottom:10px"><span class="mono" style="color:var(--doc-mute)">type/headline · 40px</span><div style="font-size:40px;line-height:1.15">Aa 337,527,796 BNB</div></div>
+<div style="margin-bottom:10px"><span class="mono" style="color:var(--doc-mute)">type/title · 18px</span><div style="font-size:18px;line-height:1.15">Aa 337,527,796 BNB</div></div>
+<div style="margin-bottom:10px"><span class="mono" style="color:var(--doc-mute)">type/ui · 14px</span><div style="font-size:14px;line-height:1.15">Aa 337,527,796 BNB</div></div>
+<div style="margin-bottom:10px"><span class="mono" style="color:var(--doc-mute)">type/body · 12px</span><div style="font-size:12px;line-height:1.15">Aa 337,527,796 BNB</div></div>
+<div style="margin-bottom:10px"><span class="mono" style="color:var(--doc-mute)">type/legal · 8px</span><div style="font-size:8px;line-height:1.15">Aa 337,527,796 BNB</div></div></div>
+  </section>
+
+  <section id="shape">
+    <h2>Radius &amp; depth</h2>
+    <div class="grid-3">
+      <div class="ds-card ds-scope" style="border-radius:var(--lw-radius-card)"><div class="mono">radius/card · 8px</div><div class="ds-body">tabs, cards, pills</div></div>
+      <div class="ds-card ds-scope" style="border-radius:var(--lw-radius-button)"><div class="mono">radius/button · 10px</div><div class="ds-body">primary and secondary buttons</div></div>
+      <div class="ds-card ds-scope" style="border-radius:var(--lw-radius-option)"><div class="mono">radius/option · 16px</div><div class="ds-body">large option tiles</div></div>
+    </div>
+    <h3>Depth: border, never shadow</h3>
+    <div class="grid-2">
+      <div class="ds-card ds-scope"><div class="mono">default: 1px #333B47</div><div class="ds-row" style="grid-template-columns:1fr"><span class="ds-name">Card on canvas</span></div></div>
+      <div class="ds-overlay ds-scope" style="max-width:100%"><div class="mono">the only measured shadow</div><div class="ds-body">floating overlay: -2px 0 14px rgba(0,0,0,.4), 0 0 6px rgba(0,0,0,.2)</div></div>
+    </div>
+  </section>
+
+  <section id="components">
+    <h2>Components</h2>
+    <p>States are real pointer and keyboard states where the browser can produce them; forced samples are labelled.</p>
+
+    <h3>Button</h3>
+    <div class="ds-card ds-scope" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+      <button class="ds-btn ds-btn--primary" id="cta-signup">Sign Up</button>
+      <button class="ds-btn ds-btn--secondary">Log In</button>
+      <button class="ds-btn ds-btn--ghost">Deposit</button>
+      <button class="ds-btn ds-btn--primary" disabled>Disabled (sample)</button>
+      <span class="ds-status" id="cta-status" aria-live="polite"></span>
+    </div>
+    <table style="margin-top:12px"><thead><tr><th>Property</th><th>Token</th></tr></thead><tbody>
+      <tr><td>fill / label</td><td class="mono">--lw-action-bg / --lw-action-fg</td></tr>
+      <tr><td>radius</td><td class="mono">--lw-radius-button (10px)</td></tr>
+      <tr><td>hover</td><td class="mono">--lw-brand, 200ms --lw-easing-standard</td></tr>
+      <tr><td>focus</td><td class="mono">2px --lw-brand outline, offset 2px</td></tr>
+    </tbody></table>
+
+    <h3>Tabs</h3>
+    <div class="ds-card ds-scope">
+      <div class="ds-tabs" role="tablist" aria-label="Market tabs" id="mkt-tabs"><button class="ds-tab" role="tab" id="mkt-tab-0" aria-controls="mkt-panel-0" aria-selected="true" tabindex="0">Top</button>
+<button class="ds-tab" role="tab" id="mkt-tab-1" aria-controls="mkt-panel-1" aria-selected="false" tabindex="-1">New</button>
+<button class="ds-tab" role="tab" id="mkt-tab-2" aria-controls="mkt-panel-2" aria-selected="false" tabindex="-1">Top Gainer</button></div>
+      <div style="margin-top:12px"><div class="ds-tabs-content" id="mkt-panel-0" role="tabpanel" aria-labelledby="mkt-tab-0"><div class="ds-row"><span class="ds-coin" style="background:#F7931A">B</span><span class="ds-name">Bitcoin<span class="ds-sym">BTC</span></span><span class="ds-price">61,389.52</span><span class="ds-change ds-change--up">+0.36%</span></div>
+<div class="ds-row"><span class="ds-coin" style="background:#627EEA">E</span><span class="ds-name">Ethereum<span class="ds-sym">ETH</span></span><span class="ds-price">1,723.74</span><span class="ds-change ds-change--up">+0.71%</span></div>
+<div class="ds-row"><span class="ds-coin" style="background:#26A17B">U</span><span class="ds-name">TetherUS<span class="ds-sym">USDT</span></span><span class="ds-price">1.00</span><span class="ds-change ds-change--down">-0.02%</span></div>
+<div class="ds-row"><span class="ds-coin" style="background:#F0B90B">B</span><span class="ds-name">BNB Chain<span class="ds-sym">BNB</span></span><span class="ds-price">556.21</span><span class="ds-change ds-change--up">+0.39%</span></div>
+<div class="ds-row"><span class="ds-coin" style="background:#2775CA">U</span><span class="ds-name">USDCoin<span class="ds-sym">USDC</span></span><span class="ds-price">1.00</span><span class="ds-change ds-change--down">-0.03%</span></div></div>
+<div class="ds-tabs-content" id="mkt-panel-1" role="tabpanel" aria-labelledby="mkt-tab-1" hidden><div class="ds-row"><span class="ds-coin" style="background:#9B8CFF">A</span><span class="ds-name">Antburst<span class="ds-sym">ANTB</span></span><span class="ds-price">91.39</span><span class="ds-change ds-change--up">+0.93%</span></div><div class="ds-row"><span class="ds-coin" style="background:#E6B800">E</span><span class="ds-name">Eweji<span class="ds-sym">EWJB</span></span><span class="ds-price">85.64</span><span class="ds-change ds-change--up">+0.63%</span></div></div>
+<div class="ds-tabs-content" id="mkt-panel-2" role="tabpanel" aria-labelledby="mkt-tab-2" hidden><div class="ds-row"><span class="ds-coin" style="background:#F45B69">P</span><span class="ds-name">Promenade<span class="ds-sym">PROM</span></span><span class="ds-price">5.71</span><span class="ds-change ds-change--up">+26.72%</span></div><div class="ds-row"><span class="ds-coin" style="background:#C7B299">M</span><span class="ds-name">Mubarak<span class="ds-sym">MUBARAK</span></span><span class="ds-price">0.02408</span><span class="ds-change ds-change--up">+16.33%</span></div></div></div>
+    </div>
+
+    <h3>Coin row</h3>
+    <div class="ds-card ds-scope"><div class="ds-panel-title"><span>Popular</span><a class="ds-link" href="#components">View All ›</a></div><div class="ds-row"><span class="ds-coin" style="background:#F7931A">B</span><span class="ds-name">Bitcoin<span class="ds-sym">BTC</span></span><span class="ds-price">61,389.52</span><span class="ds-change ds-change--up">+0.36%</span></div>
+<div class="ds-row"><span class="ds-coin" style="background:#627EEA">E</span><span class="ds-name">Ethereum<span class="ds-sym">ETH</span></span><span class="ds-price">1,723.74</span><span class="ds-change ds-change--up">+0.71%</span></div>
+<div class="ds-row"><span class="ds-coin" style="background:#26A17B">U</span><span class="ds-name">TetherUS<span class="ds-sym">USDT</span></span><span class="ds-price">1.00</span><span class="ds-change ds-change--down">-0.02%</span></div>
+<div class="ds-row"><span class="ds-coin" style="background:#F0B90B">B</span><span class="ds-name">BNB Chain<span class="ds-sym">BNB</span></span><span class="ds-price">556.21</span><span class="ds-change ds-change--up">+0.39%</span></div>
+<div class="ds-row"><span class="ds-coin" style="background:#2775CA">U</span><span class="ds-name">USDCoin<span class="ds-sym">USDC</span></span><span class="ds-price">1.00</span><span class="ds-change ds-change--down">-0.03%</span></div></div>
+
+    <h3>Chips and select</h3>
+    <div class="ds-card ds-scope" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <button class="ds-chip" aria-pressed="true">All</button>
+      <button class="ds-chip" aria-pressed="false">bStocks</button>
+      <button class="ds-chip" aria-pressed="false">tCommodities</button>
+      <button class="ds-chip" aria-pressed="false">DeFi</button>
+      <select class="ds-select" aria-label="Interval"><option>24h</option><option>7d</option><option>30d</option></select>
+    </div>
+
+    <h3>Input well</h3>
+    <div class="ds-card ds-scope">
+      <label class="mono" for="amt" style="color:var(--lw-text-tertiary)">Amount</label>
+      <input class="ds-well" id="amt" style="width:100%;margin-top:6px" placeholder="0.00" inputmode="decimal" aria-describedby="amt-help">
+      <div class="ds-body" id="amt-help" style="margin-top:6px">Available 0.00 BNB</div>
+    </div>
+
+    <h3>Table</h3>
+    <div class="ds-card ds-scope">
+      <table class="ds-table"><thead><tr><th>Name</th><th>Price</th><th>24h Change</th><th>Market Cap</th></tr></thead><tbody>
+        <tr><td>Bitcoin <span class="ds-sym">BTC</span></td><td class="ds-price">61,389.52</td><td class="ds-change ds-change--up">+0.36%</td><td>1.23T</td></tr>
+        <tr><td>USDT <span class="ds-sym">USDT</span></td><td class="ds-price">1.00</td><td class="ds-change ds-change--down">-0.02%</td><td>174.63B</td></tr>
+      </tbody></table>
+    </div>
+  </section>
+
+  <section id="compositions">
+    <h2>Compositions</h2>
+    <p>Three compositions, all reusing the components above.</p>
+
+    <h3>A · Hero: figure first <span class="badge">observed</span></h3>
+    <div class="ds-scope comp-hero" style="background:var(--lw-canvas);border:1px solid var(--lw-border);border-radius:var(--lw-radius-option);padding:32px">
+      <div>
+        <div class="ds-figure">337,527,796</div>
+        <div class="ds-headline">USERS<br>TRUST US</div>
+        <div class="ds-body" style="font-size:var(--lw-type-ui)">The World's Leading Cryptocurrency Exchange</div>
+        <div style="display:flex;gap:12px;margin-top:20px"><button class="ds-btn ds-btn--primary">Sign Up</button><button class="ds-btn ds-btn--secondary">Industry-Leading Security</button></div>
+      </div>
+      <div class="ds-card"><div class="ds-panel-title"><span>Popular</span><a class="ds-link" href="#compositions">View All ›</a></div><div class="ds-row"><span class="ds-coin" style="background:#F7931A">B</span><span class="ds-name">Bitcoin<span class="ds-sym">BTC</span></span><span class="ds-price">61,389.52</span><span class="ds-change ds-change--up">+0.36%</span></div>
+<div class="ds-row"><span class="ds-coin" style="background:#627EEA">E</span><span class="ds-name">Ethereum<span class="ds-sym">ETH</span></span><span class="ds-price">1,723.74</span><span class="ds-change ds-change--up">+0.71%</span></div>
+<div class="ds-row"><span class="ds-coin" style="background:#26A17B">U</span><span class="ds-name">TetherUS<span class="ds-sym">USDT</span></span><span class="ds-price">1.00</span><span class="ds-change ds-change--down">-0.02%</span></div>
+<div class="ds-row"><span class="ds-coin" style="background:#F0B90B">B</span><span class="ds-name">BNB Chain<span class="ds-sym">BNB</span></span><span class="ds-price">556.21</span><span class="ds-change ds-change--up">+0.39%</span></div>
+<div class="ds-row"><span class="ds-coin" style="background:#2775CA">U</span><span class="ds-name">USDCoin<span class="ds-sym">USDC</span></span><span class="ds-price">1.00</span><span class="ds-change ds-change--down">-0.03%</span></div></div>
+    </div>
+
+    <h3>B · Market board <span class="badge">observed</span></h3>
+    <div class="ds-scope" style="background:var(--lw-canvas);padding:16px;border-radius:var(--lw-radius-option)">
+      <div class="grid-3" style="margin-bottom:16px">
+        <div class="ds-card"><div class="ds-panel-title"><span>Top</span><a class="ds-link" href="#compositions">More ›</a></div><div class="ds-row"><span class="ds-coin" style="background:#F7931A">B</span><span class="ds-name">Bitcoin<span class="ds-sym">BTC</span></span><span class="ds-price">61,389.52</span><span class="ds-change ds-change--up">+0.36%</span></div><div class="ds-row"><span class="ds-coin" style="background:#627EEA">E</span><span class="ds-name">Ethereum<span class="ds-sym">ETH</span></span><span class="ds-price">1,723.74</span><span class="ds-change ds-change--up">+0.71%</span></div></div>
+        <div class="ds-card"><div class="ds-panel-title"><span>New</span><a class="ds-link" href="#compositions">More ›</a></div><div class="ds-row"><span class="ds-coin" style="background:#9B8CFF">A</span><span class="ds-name">Antburst<span class="ds-sym">ANTB</span></span><span class="ds-price">91.39</span><span class="ds-change ds-change--up">+0.93%</span></div><div class="ds-row"><span class="ds-coin" style="background:#E6B800">E</span><span class="ds-name">Eweji<span class="ds-sym">EWJB</span></span><span class="ds-price">85.64</span><span class="ds-change ds-change--up">+0.63%</span></div></div>
+        <div class="ds-card"><div class="ds-panel-title"><span>Top Gainer</span><a class="ds-link" href="#compositions">More ›</a></div><div class="ds-row"><span class="ds-coin" style="background:#F45B69">P</span><span class="ds-name">Promenade<span class="ds-sym">PROM</span></span><span class="ds-price">5.71</span><span class="ds-change ds-change--up">+26.72%</span></div><div class="ds-row"><span class="ds-coin" style="background:#C7B299">M</span><span class="ds-name">Mubarak<span class="ds-sym">MUBARAK</span></span><span class="ds-price">0.02408</span><span class="ds-change ds-change--up">+16.33%</span></div></div>
+      </div>
+      <div class="ds-card"><table class="ds-table"><thead><tr><th>Name</th><th>Price</th><th>24h Change</th><th>24h Volume</th></tr></thead><tbody>
+        <tr><td>Bitcoin <span class="ds-sym">BTC</span></td><td class="ds-price">61,389.52</td><td class="ds-change ds-change--up">+0.36%</td><td>27.05B</td></tr><tr><td>Ethereum <span class="ds-sym">ETH</span></td><td class="ds-price">1,723.74</td><td class="ds-change ds-change--up">+0.71%</td><td>27.05B</td></tr><tr><td>TetherUS <span class="ds-sym">USDT</span></td><td class="ds-price">1.00</td><td class="ds-change ds-change--down">-0.02%</td><td>27.05B</td></tr><tr><td>BNB Chain <span class="ds-sym">BNB</span></td><td class="ds-price">556.21</td><td class="ds-change ds-change--up">+0.39%</td><td>27.05B</td></tr><tr><td>USDCoin <span class="ds-sym">USDC</span></td><td class="ds-price">1.00</td><td class="ds-change ds-change--down">-0.03%</td><td>27.05B</td></tr>
+      </tbody></table></div>
+    </div>
+
+    <h3>C · Convert flow (responsive) <span class="badge">observed</span> layout, <span class="badge">proposed</span> interaction copy</h3>
+    <div class="ds-scope comp-convert" style="background:var(--lw-canvas);padding:24px">
+      <div><div class="ds-headline">Convert BTC to ETH instantly</div><div class="ds-body">Swap assets with zero fees on Binance Convert.</div></div>
+      <div class="ds-card">
+        <label class="mono" for="from" style="color:var(--lw-text-tertiary)">From</label>
+        <input class="ds-well" id="from" value="1 BTC" style="width:100%;margin:6px 0 12px">
+        <label class="mono" for="to" style="color:var(--lw-text-tertiary)">To (estimate)</label>
+        <input class="ds-well" id="to" value="0 BNB" readonly style="width:100%;margin:6px 0 16px">
+        <button class="ds-btn ds-btn--primary" id="convert" style="width:100%">Preview conversion</button>
+        <div class="ds-status" id="convert-status" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="motion">
+    <h2>Motion</h2>
+    <table><thead><tr><th>Tier</th><th>Token</th><th>Used for</th><th>Replay</th></tr></thead><tbody>
+      <tr><td>Micro</td><td class="mono">--lw-motion-micro · 150ms linear</td><td>tab underline, chip state</td><td><button class="ds-btn ds-btn--ghost" id="replay-micro">Replay</button></td></tr>
+      <tr><td>Hover</td><td class="mono">--lw-motion-hover · 200ms --lw-easing-standard</td><td>button fill, border colour</td><td><button class="ds-btn ds-btn--ghost" id="replay-hover">Replay</button></td></tr>
+      <tr><td>Panel</td><td class="mono">--lw-motion-panel · 700ms --lw-easing-panel</td><td>promotional panel transform</td><td><button class="ds-btn ds-btn--ghost" id="replay-panel">Replay</button></td></tr>
+    </tbody></table>
+    <div class="ds-card ds-scope" style="margin-top:12px;overflow:hidden">
+      <div id="panel-demo" class="ds-card" style="background:var(--lw-well);transform:translateX(0)">Panel specimen — 700ms transform</div>
+    </div>
+    <p class="note">Reduced motion: the document honours <code>prefers-reduced-motion</code> (doc.css) and the replay buttons shorten transitions to 1ms.
+    The source site exposed a reduced-motion branch on 2 of 4 pages only — recorded as an observed gap, not fixed silently.</p>
+  </section>
+
+  <section id="stress">
+    <h2>Stress</h2>
+    <div class="grid-2">
+      <div class="ds-card ds-scope"><div class="ds-panel-title"><span>Long label</span></div>
+        <div class="ds-row" style="grid-template-columns:28px minmax(0,1fr) auto"><span class="ds-coin" style="background:#F0B90B">B</span><span class="ds-name">Bitcoin wrapped strategy vault (21x leveraged uncertainty)</span><span class="ds-change ds-change--up">+0.36%</span></div></div>
+      <div class="ds-card ds-scope"><div class="ds-panel-title"><span>Missing media</span></div>
+        <div class="ds-row" style="grid-template-columns:28px minmax(0,1fr) auto"><span class="ds-coin" style="background:var(--lw-border);color:var(--lw-text-tertiary)">?</span><span class="ds-name">Unlisted asset<span class="ds-sym">—</span></span><span class="ds-change">—</span></div></div>
+      <div class="ds-card ds-scope"><div class="ds-panel-title"><span>Empty</span></div><div class="ds-body">No markets match this filter.</div></div>
+      <div class="ds-card ds-scope"><div class="ds-panel-title"><span>Error</span></div><div class="ds-body" style="color:var(--lw-trend-down)">Price feed unavailable — retrying in 5s.</div></div>
+    </div>
+    <p class="note">Text scaling here is sample-level typography, not a browser zoom test.</p>
+  </section>
+
+  <section id="system">
+    <h2>System &amp; taste</h2>
+    <div class="ds-card" style="margin-bottom:16px"><div><span class="badge observed">observed</span><span class="mono">system</span></div><h3 style="margin-top:8px">Colour is assigned by role, not by hierarchy</h3><p><span class="mono">Trigger</span> Designing a screen that shows prices, price changes, actions and promotions at once.</p><p><span class="mono">Chose</span> <strong>a three-role colour system (brand, direction, neutral)</strong> <span class="mono">over</span> a hue per category (per-coin colours, per-section accents, coloured badges)</p><p><span class="mono">Reason</span> In a list of fifty numbers, a colour that could mean anything stops carrying meaning; three roles keep a glance reliable.</p></div>
+<div class="ds-card" style="margin-bottom:16px"><div><span class="badge observed">observed</span><span class="mono">restraint</span></div><h3 style="margin-top:8px">Depth is a hairline, not a shadow</h3><p><span class="mono">Trigger</span> Layering cards and inputs on a near-black canvas.</p><p><span class="mono">Chose</span> <strong>1px hairlines plus a lifted fill</strong> <span class="mono">over</span> a drop shadow on every card and panel</p><p><span class="mono">Reason</span> On a dark canvas a shadow is invisible until it is strong enough to smear the 12px digits sitting on it.</p><p><span class="mono">Guardrail</span> <code>{"forbidCss": [], "forbidClass": ["(^|-)shadow-(?!none|sm|inner)[a-z]+-[a-z]+"], "max": {"box-shadow": {"value": "0", "unit": "px"}}, "note": "Exception: the single floating overlay panel measured at 14px/6px blur. Everything else is a 1px border."}</code></p></div>
+<div class="ds-card" style="margin-bottom:16px"><div><span class="badge observed">observed</span><span class="mono">craft</span></div><h3 style="margin-top:8px">Data outranks copy</h3><p><span class="mono">Trigger</span> Deciding what to enlarge on a landing page that also has to sell a product.</p><p><span class="mono">Chose</span> <strong>a 72/40/12 scale biased toward numbers</strong> <span class="mono">over</span> a balanced 48/28/16 marketing scale where copy and data compete</p><p><span class="mono">Reason</span> The promise of an exchange is a number; making it the largest object lets a screenshot-free page still read as a product.</p></div>
+<div class="ds-card" style="margin-bottom:16px"><div><span class="badge observed">observed</span><span class="mono">restraint</span></div><h3 style="margin-top:8px">The display face is earned, not standard</h3><p><span class="mono">Trigger</span> Choosing type families across marketing and trading surfaces.</p><p><span class="mono">Chose</span> <strong>a single UI family with a sparing display face</strong> <span class="mono">over</span> a display/body pairing applied site-wide</p><p><span class="mono">Reason</span> A second family used everywhere splits product identity from marketing; used sparingly it signals that this surface is different.</p><p><span class="mono">Guardrail</span> <code>{"forbidCss": [], "forbidClass": ["(^|-)font-(serif|display|mono)$"], "max": {}, "note": "A display face is allowed only on campaign blocks, never on tables, prices or controls."}</code></p></div>
+    <h3>Patterns</h3>
+    <h3>Yellow is an amount, not a mood</h3><p><strong>Brand yellow is confined to the CTA fill, the hero statistic, the active-tab underline and a few links; it never fills a section or sets body copy.</strong></p><p class="mono" style="color:var(--doc-mute)">On a page showing dozens of numbers, yellow can only mean 'this is the figure' or 'this is the action'. · e-brand, e-canvas, e-stroke-strong</p>
+<h3>Yellow expands with density</h3><p><strong>Yellow fill is 0.3% of the marketing home page and 5.3% of the trading floor.</strong></p><p class="mono" style="color:var(--doc-mute)">Marketing reads dark with a highlight; the trading product reads brand-forward because product mode replaces marketing mode. · e-brand, e-brand-other, e-canvas-futures</p>
+<h3>Three dark layers, no shadows</h3><p><strong>Canvas #181A20, card #29313D, well #1E2329, separated by #333B47 hairlines; a single shadow exists in the sample.</strong></p><p class="mono" style="color:var(--doc-mute)">Depth survives on OLED and dim screens without blur halos over 12px price text. · e-surface-raised, e-surface-deep, e-stroke-strong, e-shadow</p>
+<h3>Numbers get the largest type</h3><p><strong>The hero figure is 72px while headlines are 40px and body 12px — a 6x ratio between statistic and prose.</strong></p><p class="mono" style="color:var(--doc-mute)">A reader scanning for a number never hunts; hierarchy is data &gt; headline &gt; body. · e-display-72, e-h2, e-body, e-sizes</p>
+<h3>One UI family, one earned display face</h3><p><strong>BinanceNova carries every surface; BinancePlex appears on 10 nodes in 2 of 4 pages.</strong></p><p class="mono" style="color:var(--doc-mute)">Keeps product pages uniform while letting campaign pages differ slightly. · e-font-nova, e-font-nova-other, e-font-plex</p>
+<h3>A two-colour direction axis</h3><p><strong>Gains use #2EBD85 and losses #F6465D, always as text, never as a filled badge.</strong></p><p class="mono" style="color:var(--doc-mute)">Direction stays legible at 12px without competing with the brand yellow. · e-up, e-down</p>
+<h3>Radii track role</h3><p><strong>Buttons 10px, cards and tabs 8px, large option tiles 16px, inline chips 4px.</strong></p><p class="mono" style="color:var(--doc-mute)">Silhouette alone tells a card from a button from a tile. · e-radii-home, e-radii-markets, e-radii-futures</p>
+<h3>Hover is fast, panels are slow</h3><p><strong>Colour and border hovers run at 0.15-0.2s; panel and image transforms at 0.7s.</strong></p><p class="mono" style="color:var(--doc-mute)">Interface feedback is immediate while promotional movement stays calm enough to read. · e-motion, e-motion-markets</p>
+  </section>
+
+  <section id="evidence">
+    <h2>Evidence &amp; handoff</h2>
+    <ul>
+      <li>Downloads: <a href="../tokens.css" download rel="noreferrer">tokens.css</a> · <a href="../tokens.resolved.json" download rel="noreferrer">tokens.resolved.json</a> · <a href="../taste.md" download rel="noreferrer">taste.md</a> · <a href="../agent-rules.md" download rel="noreferrer">agent-rules.md</a> · <a href="../VERIFY.md" download rel="noreferrer">VERIFY.md</a></li>
+      <li>Inspected pages:<ul><li><a href="https://www.binance.com/en" rel="noreferrer">https://www.binance.com/en</a></li>
+<li><a href="https://www.binance.com/en/crypto/convert" rel="noreferrer">https://www.binance.com/en/crypto/convert</a></li>
+<li><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">https://www.binance.com/en/markets/overview</a></li>
+<li><a href="https://www.binance.com/en/futures/home" rel="noreferrer">https://www.binance.com/en/futures/home</a></li></ul></li>
+    </ul>
+    <h3>Limitations</h3>
+    <ul><li>binance.com redirects to www.binance.com/en; output folder keeps the requested binance.com name.</li>
+<li>Menu dropdowns and modals were not opened (reversible-state risk); their states are unknown.</li>
+<li>The homepage h1 is a 16px utility node, so display sizes were read from the hero figure and h2, not semantic tags.</li>
+<li>prefers-reduced-motion was found on 2 of 4 pages; the CSSOM scan disagrees page to page.</li>
+<li>BinancePlex appears on only 2 of 4 pages, so its role is inferred.</li></ul>
+    <h3>Measurements</h3>
+    <table><thead><tr><th>Category</th><th>Value</th><th>Status</th><th>Evidence</th></tr></thead><tbody><tr><td>Color / canvas</td><td>#181A20 = rgb(24,26,32) on 93.8% (home) and 98.3% (markets); #0B0E11 floor covers 52.2% of futures</td><td><span class="badge observed">observed</span></td><td class="mono">e-canvas, e-canvas-markets, e-surface-floor, e-canvas-futures</td></tr>
+<tr><td>Color / surfaces</td><td>raised #29313D (2.2%), input well #1E2329 (3.5%), border #333B47, stronger border #3D4452</td><td><span class="badge observed">observed</span></td><td class="mono">e-surface-raised, e-surface-deep, e-stroke-strong, e-stroke-subtle</td></tr>
+<tr><td>Color / text</td><td>#EAECEF body, #929AA5 secondary, #707A8A tertiary, #202630 on yellow</td><td><span class="badge observed">observed</span></td><td class="mono">e-ink, e-ink-muted, e-ink-faint, e-ink-on-brand</td></tr>
+<tr><td>Color / brand</td><td>#F0B90B for logo and hero figure, #FCD535 for filled CTA; fill reaches 5.3% of the futures page</td><td><span class="badge observed">observed</span></td><td class="mono">e-brand, e-brand-other, e-display-72</td></tr>
+<tr><td>Color / semantic</td><td>up #2EBD85, down #F6465D, always as text colour</td><td><span class="badge observed">observed</span></td><td class="mono">e-up, e-down</td></tr>
+<tr><td>Typography / families</td><td>BinanceNova everywhere (669 / 969 nodes); BinancePlex on only 2 of 4 pages, 10 nodes</td><td><span class="badge observed">observed</span></td><td class="mono">e-font-nova, e-font-nova-other, e-font-plex</td></tr>
+<tr><td>Typography / scale</td><td>72px figure, 40px/600 headline, 32px/700 page title, 18px/500 card title, 14px UI, 12px body, 8px legal</td><td><span class="badge observed">observed</span></td><td class="mono">e-display-72, e-h2, e-h1-markets, e-h3, e-body, e-body-markets, e-sizes, e-sizes-markets</td></tr>
+<tr><td>Typography / weights</td><td>400 x91 and 500 x77 dominate; 600 x16 for headlines; 700 x8 (hero figure, markets h1)</td><td><span class="badge observed">observed</span></td><td class="mono">e-weights, e-weights-markets</td></tr>
+<tr><td>Shape / radius</td><td>buttons 10px, cards/tabs/pills 8px, option tiles 16px, chips 4px, coin icons 50%, badges 9999px</td><td><span class="badge observed">observed</span></td><td class="mono">e-radii-home, e-radii-markets, e-radii-futures</td></tr>
+<tr><td>Shape / depth</td><td>one shadow in the whole sample (cookie overlay); every other layer separated by a #333B47 hairline on a #29313D fill</td><td><span class="badge observed">observed</span></td><td class="mono">e-shadow, e-stroke-strong, e-surface-raised</td></tr>
+<tr><td>Motion</td><td>0.7s transform cubic-bezier(0,0,0.2,1); 0.2s color/bg/border cubic-bezier(0.4,0,0.2,1); 0.15s linear micro-states</td><td><span class="badge observed">observed</span></td><td class="mono">e-motion, e-motion-markets</td></tr>
+<tr><td>Interaction affordances</td><td>:focus-visible on all sampled pages; prefers-reduced-motion on pages 1 and 3 but not 2 and 4</td><td><span class="badge observed">observed</span></td><td class="mono">e-focus, e-focus-other</td></tr>
+<tr><td>Spacing</td><td>8px x82, 16px x55, 20px x27, 4px x27, 24px gutters, 64px block spacing</td><td><span class="badge observed">observed</span></td><td class="mono">e-space</td></tr>
+<tr><td>Layout</td><td>1440px container with 24px padding (home), 1200px content (markets), 3 x 376px cards with 48/36 gaps (futures)</td><td><span class="badge observed">observed</span></td><td class="mono">e-container, e-container-markets, e-grid</td></tr></tbody></table>
+    <h3>Token registry</h3>
+    <table><thead><tr><th>Token</th><th>CSS var</th><th>Type</th><th>Layer</th><th>Status</th><th>Value</th></tr></thead><tbody><tr><td><code>color/dark/900</code></td><td><code>--lw-dark-900</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#181A20</code></td></tr>
+<tr><td><code>color/dark/1000</code></td><td><code>--lw-dark-1000</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#0B0E11</code></td></tr>
+<tr><td><code>color/slate/700</code></td><td><code>--lw-slate-700</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#29313D</code></td></tr>
+<tr><td><code>color/slate/800</code></td><td><code>--lw-slate-800</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#1E2329</code></td></tr>
+<tr><td><code>color/slate/600</code></td><td><code>--lw-slate-600</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#333B47</code></td></tr>
+<tr><td><code>color/slate/500</code></td><td><code>--lw-slate-500</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#3D4452</code></td></tr>
+<tr><td><code>color/grey/100</code></td><td><code>--lw-grey-100</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#EAECEF</code></td></tr>
+<tr><td><code>color/grey/400</code></td><td><code>--lw-grey-400</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#929AA5</code></td></tr>
+<tr><td><code>color/grey/500</code></td><td><code>--lw-grey-500</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#707A8A</code></td></tr>
+<tr><td><code>color/gold/400</code></td><td><code>--lw-gold-400</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#F0B90B</code></td></tr>
+<tr><td><code>color/gold/300</code></td><td><code>--lw-gold-300</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#FCD535</code></td></tr>
+<tr><td><code>color/on-gold</code></td><td><code>--lw-on-gold</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#202630</code></td></tr>
+<tr><td><code>color/up</code></td><td><code>--lw-up</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#2EBD85</code></td></tr>
+<tr><td><code>color/down</code></td><td><code>--lw-down</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#F6465D</code></td></tr>
+<tr><td><code>color/canvas</code></td><td><code>--lw-canvas</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#181A20</code></td></tr>
+<tr><td><code>color/surface</code></td><td><code>--lw-surface</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#29313D</code></td></tr>
+<tr><td><code>color/well</code></td><td><code>--lw-well</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#1E2329</code></td></tr>
+<tr><td><code>color/border</code></td><td><code>--lw-border</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#333B47</code></td></tr>
+<tr><td><code>color/border-strong</code></td><td><code>--lw-border-strong</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#3D4452</code></td></tr>
+<tr><td><code>color/text/primary</code></td><td><code>--lw-text-primary</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#EAECEF</code></td></tr>
+<tr><td><code>color/text/secondary</code></td><td><code>--lw-text-secondary</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#929AA5</code></td></tr>
+<tr><td><code>color/text/tertiary</code></td><td><code>--lw-text-tertiary</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#707A8A</code></td></tr>
+<tr><td><code>color/brand</code></td><td><code>--lw-brand</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#F0B90B</code></td></tr>
+<tr><td><code>color/action/bg</code></td><td><code>--lw-action-bg</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#FCD535</code></td></tr>
+<tr><td><code>color/action/fg</code></td><td><code>--lw-action-fg</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#202630</code></td></tr>
+<tr><td><code>color/trend/up</code></td><td><code>--lw-trend-up</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#2EBD85</code></td></tr>
+<tr><td><code>color/trend/down</code></td><td><code>--lw-trend-down</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#F6465D</code></td></tr>
+<tr><td><code>font/ui</code></td><td><code>--lw-font-ui</code></td><td>fontFamily</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>'BinanceNova', -apple-system, 'Helvetica Neue', Arial, sans-serif</code></td></tr>
+<tr><td><code>font/display</code></td><td><code>--lw-font-display</code></td><td>fontFamily</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>'BinancePlex', 'BinanceNova', -apple-system, sans-serif</code></td></tr>
+<tr><td><code>font/body</code></td><td><code>--lw-font-body</code></td><td>fontFamily</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>'BinanceNova', -apple-system, 'Helvetica Neue', Arial, sans-serif</code></td></tr>
+<tr><td><code>font/campaign</code></td><td><code>--lw-font-campaign</code></td><td>fontFamily</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>'BinancePlex', 'BinanceNova', -apple-system, sans-serif</code></td></tr>
+<tr><td><code>type/figure</code></td><td><code>--lw-type-figure</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>72px</code></td></tr>
+<tr><td><code>type/headline</code></td><td><code>--lw-type-headline</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>40px</code></td></tr>
+<tr><td><code>type/title</code></td><td><code>--lw-type-title</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>18px</code></td></tr>
+<tr><td><code>type/ui</code></td><td><code>--lw-type-ui</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>14px</code></td></tr>
+<tr><td><code>type/body</code></td><td><code>--lw-type-body</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>12px</code></td></tr>
+<tr><td><code>type/legal</code></td><td><code>--lw-type-legal</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>8px</code></td></tr>
+<tr><td><code>leading/body</code></td><td><code>--lw-leading-body</code></td><td>number</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>1.33</code></td></tr>
+<tr><td><code>weight/regular</code></td><td><code>--lw-weight-regular</code></td><td>fontWeight</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>400</code></td></tr>
+<tr><td><code>weight/medium</code></td><td><code>--lw-weight-medium</code></td><td>fontWeight</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>500</code></td></tr>
+<tr><td><code>weight/semibold</code></td><td><code>--lw-weight-semibold</code></td><td>fontWeight</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>600</code></td></tr>
+<tr><td><code>weight/bold</code></td><td><code>--lw-weight-bold</code></td><td>fontWeight</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>700</code></td></tr>
+<tr><td><code>radius/button</code></td><td><code>--lw-radius-button</code></td><td>dimension</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>10px</code></td></tr>
+<tr><td><code>radius/card</code></td><td><code>--lw-radius-card</code></td><td>dimension</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>8px</code></td></tr>
+<tr><td><code>radius/option</code></td><td><code>--lw-radius-option</code></td><td>dimension</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>16px</code></td></tr>
+<tr><td><code>radius/chip</code></td><td><code>--lw-radius-chip</code></td><td>dimension</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>4px</code></td></tr>
+<tr><td><code>radius/pill</code></td><td><code>--lw-radius-pill</code></td><td>dimension</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>9999px</code></td></tr>
+<tr><td><code>depth/overlay</code></td><td><code>--lw-depth-overlay</code></td><td>shadow</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>-2px 0 14px rgba(0, 0, 0, 0.4), 0 0 6px rgba(0, 0, 0, 0.2)</code></td></tr>
+<tr><td><code>motion/micro</code></td><td><code>--lw-motion-micro</code></td><td>duration</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>150ms</code></td></tr>
+<tr><td><code>motion/hover</code></td><td><code>--lw-motion-hover</code></td><td>duration</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>200ms</code></td></tr>
+<tr><td><code>motion/panel</code></td><td><code>--lw-motion-panel</code></td><td>duration</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>700ms</code></td></tr>
+<tr><td><code>motion/easing-standard</code></td><td><code>--lw-easing-standard</code></td><td>easing</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>cubic-bezier(0.4, 0, 0.2, 1)</code></td></tr>
+<tr><td><code>motion/easing-panel</code></td><td><code>--lw-easing-panel</code></td><td>easing</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>cubic-bezier(0, 0, 0.2, 1)</code></td></tr>
+<tr><td><code>space/unit</code></td><td><code>--lw-space-unit</code></td><td>dimension</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>8px</code></td></tr>
+<tr><td><code>space/block</code></td><td><code>--lw-space-block</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>64px</code></td></tr>
+<tr><td><code>layout/container</code></td><td><code>--lw-layout-container</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>1440px</code></td></tr>
+<tr><td><code>layout/container-pad</code></td><td><code>--lw-layout-pad</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>24px</code></td></tr></tbody></table>
+    <h3>Evidence ledger</h3>
+    <table><thead><tr><th>ID</th><th>URL</th><th>Locator</th><th>Method</th><th>Status</th><th>Values</th></tr></thead><tbody><tr><td><code>e-canvas</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>page background</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(24, 26, 32)=93.8% of sampled area</td></tr>
+<tr><td><code>e-canvas-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>markets canvas</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(24, 26, 32)=98.3%</td></tr>
+<tr><td><code>e-canvas-futures</code></td><td><a href="https://www.binance.com/en/futures/home" rel="noreferrer">binance.com/en/futures/home</a></td><td>futures canvas mix</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(24,26,32)=21.6%, rgb(11,14,17)=52.2%, rgb(32,38,48)=14.4%</td></tr>
+<tr><td><code>e-surface-raised</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>price and news panels</td><td>computed-style+screenshot-pixel</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(41, 49, 61)=2.2% of area; confirmed at screenshot pixel (800,300)</td></tr>
+<tr><td><code>e-surface-raised-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>tabbed cards</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">fill=rgb(41,49,61) rendered as card background in viewport-3</td></tr>
+<tr><td><code>e-surface-deep</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>input wells and inset rows</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(30, 35, 41)=3.5%</td></tr>
+<tr><td><code>e-surface-floor</code></td><td><a href="https://www.binance.com/en/futures/home" rel="noreferrer">binance.com/en/futures/home</a></td><td>futures page base layer</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(11, 14, 17)=52.2%</td></tr>
+<tr><td><code>e-ink</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>body text</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(234, 236, 239)=#EAECEF, 81 nodes</td></tr>
+<tr><td><code>e-ink-muted</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>labels and secondary text</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(146, 154, 165)=#929AA5, 78 nodes</td></tr>
+<tr><td><code>e-ink-faint</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>tertiary and meta text</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(112, 122, 138)=#707A8A, 25 nodes</td></tr>
+<tr><td><code>e-ink-on-brand</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>text on yellow</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(32, 38, 48)=#202630, 6 nodes</td></tr>
+<tr><td><code>e-brand</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>logo, hero figure, Sign Up, cookie CTAs</td><td>computed-style+screenshot-pixel</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(252, 213, 53)=#FCD535, 0.3% of surface, rgb(240, 185, 11)=#F0B90B, 13 text nodes</td></tr>
+<tr><td><code>e-brand-other</code></td><td><a href="https://www.binance.com/en/futures/home" rel="noreferrer">binance.com/en/futures/home</a></td><td>futures CTA fills</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(252,213,53)=5.3% of that page</td></tr>
+<tr><td><code>e-up</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>price change positive</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(46, 189, 133)=#2EBD85, 5 nodes</td></tr>
+<tr><td><code>e-down</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>price change negative</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(246, 70, 93)=#F6465D</td></tr>
+<tr><td><code>e-stroke-strong</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>dividers and active tab underline</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(51, 59, 71)=#333B47</td></tr>
+<tr><td><code>e-stroke-subtle</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>card and input borders</td><td>computed-style+screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">card=rgb(41,49,61), input outline=rgb(61,68,82) by screenshot</td></tr>
+<tr><td><code>e-font-nova</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>all text</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">family=BinanceNova, samples=669</td></tr>
+<tr><td><code>e-font-nova-other</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>markets text</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">family=BinanceNova, samples=969</td></tr>
+<tr><td><code>e-font-plex</code></td><td><a href="https://www.binance.com/en/crypto/convert" rel="noreferrer">binance.com/en/crypto/convert</a></td><td>display face</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">family=BinancePlex, samples=10</td></tr>
+<tr><td><code>e-h2</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>section and marketing headline</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=40px, weight=600, letterSpacing=normal</td></tr>
+<tr><td><code>e-h2-convert</code></td><td><a href="https://www.binance.com/en/crypto/convert" rel="noreferrer">binance.com/en/crypto/convert</a></td><td>convert headline</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=40px, weight=600</td></tr>
+<tr><td><code>e-h1-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>markets page h1</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=32px, weight=700</td></tr>
+<tr><td><code>e-h3</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>card title</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=18px, weight=500</td></tr>
+<tr><td><code>e-body</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>body copy</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=12px, weight=500, lineHeight=16px</td></tr>
+<tr><td><code>e-body-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>table body</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=12px, weight=400, lineHeight=18px</td></tr>
+<tr><td><code>e-sizes</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>text size distribution</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">top=14px x96, 16px x49, 20px x15, 18px x10, 28px x4, 72px x3</td></tr>
+<tr><td><code>e-sizes-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>text size distribution</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">top=14px x155, 16px x49, 12px x31, 18px x10</td></tr>
+<tr><td><code>e-display-72</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>hero figure 337,527,796</td><td>computed-style+screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">computed=72px x3 nodes, weight=700, rendered=yellow figure in screenshot</td></tr>
+<tr><td><code>e-weights</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>weight distribution</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">400=x91, 500=x77, 600=x16, 700=x8</td></tr>
+<tr><td><code>e-weights-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>weight distribution</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">400=x138, 500=x106, 600=x4, 700=x2</td></tr>
+<tr><td><code>e-radii-home</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>radius distribution</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">10px=x17 buttons, 8px=x18, 4px=x10, 16px=x7 banner card</td></tr>
+<tr><td><code>e-radii-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>radius distribution</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">8px=x43 cards, tabs, pills, 9999px=x8, 50%=x12 coin icons</td></tr>
+<tr><td><code>e-radii-futures</code></td><td><a href="https://www.binance.com/en/futures/home" rel="noreferrer">binance.com/en/futures/home</a></td><td>radius distribution</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">4px=x17, 6px=x13, 16px=x10</td></tr>
+<tr><td><code>e-shadow</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>only shadow in the sample</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">cookie panel=rgba(0,0,0,0.4) -2px 0 14px, rgba(0,0,0,0.2) 0 0 6px, inset rgba(255,255,255,0.2) 0 0 2px</td></tr>
+<tr><td><code>e-motion</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>transitions</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">transform=0.7s cubic-bezier(0,0,0.2,1), generic=0.25s ease-in-out</td></tr>
+<tr><td><code>e-motion-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>hover transitions</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">color/bg/border=0.2s cubic-bezier(0.4,0,0.2,1), generic=0.15s linear</td></tr>
+<tr><td><code>e-motion-pages</code></td><td><a href="https://www.binance.com/en/crypto/convert" rel="noreferrer">binance.com/en/crypto/convert</a></td><td>transitions on convert</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">value=all only</td></tr>
+<tr><td><code>e-focus</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>stylesheet scan</td><td>cssom-scan</td><td><span class="badge observed">observed</span></td><td class="mono">focusVisible=True, prefersReducedMotion=True</td></tr>
+<tr><td><code>e-focus-other</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>stylesheet scan</td><td>cssom-scan</td><td><span class="badge observed">observed</span></td><td class="mono">focusVisible=True, reducedMotion=true on page 3, false on pages 2 and 4</td></tr>
+<tr><td><code>e-space</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>spacing distribution</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">8px=x82, 16px=x55, 20px=x27, 4px=x27, 24px=x9, 64px=x8</td></tr>
+<tr><td><code>e-container</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>page container</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">maxWidth=1440px, padding=0 24px</td></tr>
+<tr><td><code>e-container-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>markets container</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rendered=1200px, maxWidth=none</td></tr>
+<tr><td><code>e-grid</code></td><td><a href="https://www.binance.com/en/futures/home" rel="noreferrer">binance.com/en/futures/home</a></td><td>futures card grid</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">template=376px 376px 376px, gap=48px 36px, count=2</td></tr>
+<tr><td><code>e-buttons</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>button typography</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">primary=14px/500, radius 10px, padding 10x16, secondary=14px/500, radius 4px, text=14px/400</td></tr>
+<tr><td><code>e-coin-tiles</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>coin row icon tiles</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=28px, radius=50%, fill=per-asset brand colours</td></tr></tbody></table>
+  </section>
+</main>
+</div>
+<script src="system.js"></script>
+</body>
+</html>

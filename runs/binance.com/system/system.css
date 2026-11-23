@@ -1,0 +1,62 @@
+/* lewitt system/ — components built from the extracted tokens (tokens.css).
+   Every value below reads a --lw-* variable or is a documented border/geometry derived from dna.json.
+   Rule from dna.json t-hairline-depth: depth is a 1px border, no box-shadow (except the overlay panel). */
+
+.ds-scope { background: var(--lw-canvas); color: var(--lw-text-primary); font-family: var(--lw-font-body); font-size: var(--lw-type-ui); }
+.ds-card { background: var(--lw-surface); border: 1px solid var(--lw-border); border-radius: var(--lw-radius-card); padding: 16px; }
+.ds-card--flat { background: var(--lw-canvas); }
+.ds-well { background: var(--lw-well); border: 1px solid var(--lw-border-strong); border-radius: var(--lw-radius-card); padding: 12px 14px; color: var(--lw-text-secondary); }
+.ds-panel-title { display: flex; justify-content: space-between; align-items: center; font-size: var(--lw-type-ui); font-weight: var(--lw-weight-medium); margin-bottom: 12px; }
+.ds-panel-title a, .ds-link { color: var(--lw-text-secondary); text-decoration: none; font-size: var(--lw-type-body); }
+.ds-link:hover { color: var(--lw-brand); }
+
+.ds-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--lw-font-body); font-size: var(--lw-type-ui); font-weight: var(--lw-weight-medium);
+  padding: 10px 16px; border-radius: var(--lw-radius-button); border: 1px solid transparent;
+  cursor: pointer; touch-action: manipulation;
+  transition: background-color var(--lw-motion-hover) var(--lw-easing-standard), border-color var(--lw-motion-hover) var(--lw-easing-standard), color var(--lw-motion-hover) var(--lw-easing-standard);
+}
+.ds-btn--primary { background: var(--lw-action-bg); color: var(--lw-action-fg); }
+.ds-btn--primary:hover { background: var(--lw-brand); }
+.ds-btn--secondary { background: transparent; color: var(--lw-text-primary); border-color: var(--lw-border-strong); }
+.ds-btn--secondary:hover { border-color: var(--lw-text-secondary); }
+.ds-btn--ghost { background: var(--lw-well); color: var(--lw-text-secondary); border-radius: var(--lw-radius-chip); padding: 6px 10px; font-size: var(--lw-type-body); }
+.ds-btn:disabled { opacity: .45; cursor: not-allowed; }
+.ds-btn:focus-visible, .ds-chip:focus-visible, .ds-tab:focus-visible, .ds-select:focus-visible { outline: 2px solid var(--lw-brand); outline-offset: 2px; }
+
+.ds-chip { font-size: var(--lw-type-body); padding: 4px 10px; border-radius: var(--lw-radius-chip); border: 1px solid var(--lw-border); color: var(--lw-text-secondary); background: transparent; cursor: pointer; }
+.ds-chip[aria-pressed="true"] { color: var(--lw-text-primary); border-color: var(--lw-text-secondary); background: var(--lw-well); }
+
+.ds-tabs { display: flex; gap: 18px; border-bottom: 1px solid var(--lw-border); }
+.ds-tab { position: relative; background: none; border: 0; color: var(--lw-text-secondary); font: var(--lw-weight-medium) var(--lw-type-ui)/1.4 var(--lw-font-body); padding: 10px 0; cursor: pointer; }
+.ds-tab[aria-selected="true"] { color: var(--lw-text-primary); }
+.ds-tab[aria-selected="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--lw-brand); border-radius: var(--lw-radius-pill); }
+
+.ds-row { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto auto; gap: 10px; align-items: center; padding: 8px 0; }
+.ds-row + .ds-row { border-top: 1px solid transparent; }
+.ds-coin { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-size: 10px; font-weight: var(--lw-weight-semibold); color: #1B1F27; }
+.ds-name { color: var(--lw-text-primary); }
+.ds-sym { color: var(--lw-text-tertiary); font-size: var(--lw-type-body); margin-left: 6px; }
+.ds-price { font-family: var(--lw-font-ui); color: var(--lw-text-primary); font-variant-numeric: tabular-nums; text-align: right; }
+.ds-change { font-variant-numeric: tabular-nums; text-align: right; min-width: 68px; }
+.ds-change--up { color: var(--lw-trend-up); }
+.ds-change--down { color: var(--lw-trend-down); }
+.ds-figure { font-family: var(--lw-font-ui); font-size: var(--lw-type-figure); line-height: 1; font-weight: var(--lw-weight-bold); color: var(--lw-brand); }
+.ds-headline { font-size: var(--lw-type-headline); line-height: 1.1; font-weight: var(--lw-weight-semibold); margin: 8px 0; }
+.ds-body { font-size: var(--lw-type-body); line-height: var(--lw-leading-body); color: var(--lw-text-secondary); }
+.ds-select { background: var(--lw-well); color: var(--lw-text-primary); border: 1px solid var(--lw-border-strong); border-radius: var(--lw-radius-card); font: inherit; padding: 6px 10px; }
+.ds-table { width: 100%; border-collapse: collapse; font-size: var(--lw-type-ui); }
+.ds-table th { color: var(--lw-text-tertiary); font-weight: var(--lw-weight-regular); font-size: var(--lw-type-body); text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--lw-border); }
+.ds-table td { padding: 12px 8px; border-bottom: 1px solid var(--lw-border); color: var(--lw-text-primary); }
+.ds-table tr:hover td { background: var(--lw-well); }
+.ds-tabs-content[hidden] { display: none; }
+.ds-status { font-size: var(--lw-type-body); color: var(--lw-text-tertiary); min-height: 18px; }
+.ds-overlay { background: var(--lw-surface); border: 1px solid var(--lw-border-strong); border-radius: var(--lw-radius-option); box-shadow: var(--lw-depth-overlay); padding: 16px; }
+
+/* responsive compositions */
+.comp-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: 32px; }
+.comp-convert { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 340px); gap: 24px; }
+@media (max-width: 860px) { .comp-hero, .comp-convert { grid-template-columns: minmax(0, 1fr); } }
+.ds-figure { overflow-wrap: anywhere; }
+.ds-name { overflow-wrap: anywhere; }

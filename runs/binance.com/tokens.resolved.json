@@ -1,0 +1,748 @@
+{
+  "source": "https://www.binance.com/en",
+  "name": "Binance",
+  "modes": {},
+  "tokens": [
+    {
+      "id": "color/dark/900",
+      "css": "--lw-dark-900",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-canvas"
+      ],
+      "values": {
+        "default": "#181A20"
+      }
+    },
+    {
+      "id": "color/dark/1000",
+      "css": "--lw-dark-1000",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-surface-floor"
+      ],
+      "values": {
+        "default": "#0B0E11"
+      }
+    },
+    {
+      "id": "color/slate/700",
+      "css": "--lw-slate-700",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-surface-raised"
+      ],
+      "values": {
+        "default": "#29313D"
+      }
+    },
+    {
+      "id": "color/slate/800",
+      "css": "--lw-slate-800",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-surface-deep"
+      ],
+      "values": {
+        "default": "#1E2329"
+      }
+    },
+    {
+      "id": "color/slate/600",
+      "css": "--lw-slate-600",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-stroke-strong"
+      ],
+      "values": {
+        "default": "#333B47"
+      }
+    },
+    {
+      "id": "color/slate/500",
+      "css": "--lw-slate-500",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-stroke-subtle"
+      ],
+      "values": {
+        "default": "#3D4452"
+      }
+    },
+    {
+      "id": "color/grey/100",
+      "css": "--lw-grey-100",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-ink"
+      ],
+      "values": {
+        "default": "#EAECEF"
+      }
+    },
+    {
+      "id": "color/grey/400",
+      "css": "--lw-grey-400",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-ink-muted"
+      ],
+      "values": {
+        "default": "#929AA5"
+      }
+    },
+    {
+      "id": "color/grey/500",
+      "css": "--lw-grey-500",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-ink-faint"
+      ],
+      "values": {
+        "default": "#707A8A"
+      }
+    },
+    {
+      "id": "color/gold/400",
+      "css": "--lw-gold-400",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-brand"
+      ],
+      "values": {
+        "default": "#F0B90B"
+      }
+    },
+    {
+      "id": "color/gold/300",
+      "css": "--lw-gold-300",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-brand"
+      ],
+      "values": {
+        "default": "#FCD535"
+      }
+    },
+    {
+      "id": "color/on-gold",
+      "css": "--lw-on-gold",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-ink-on-brand"
+      ],
+      "values": {
+        "default": "#202630"
+      }
+    },
+    {
+      "id": "color/up",
+      "css": "--lw-up",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-up"
+      ],
+      "values": {
+        "default": "#2EBD85"
+      }
+    },
+    {
+      "id": "color/down",
+      "css": "--lw-down",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-down"
+      ],
+      "values": {
+        "default": "#F6465D"
+      }
+    },
+    {
+      "id": "color/canvas",
+      "css": "--lw-canvas",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-canvas"
+      ],
+      "values": {
+        "default": "#181A20"
+      }
+    },
+    {
+      "id": "color/surface",
+      "css": "--lw-surface",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-surface-raised"
+      ],
+      "values": {
+        "default": "#29313D"
+      }
+    },
+    {
+      "id": "color/well",
+      "css": "--lw-well",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-surface-deep"
+      ],
+      "values": {
+        "default": "#1E2329"
+      }
+    },
+    {
+      "id": "color/border",
+      "css": "--lw-border",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-stroke-strong"
+      ],
+      "values": {
+        "default": "#333B47"
+      }
+    },
+    {
+      "id": "color/border-strong",
+      "css": "--lw-border-strong",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-stroke-subtle"
+      ],
+      "values": {
+        "default": "#3D4452"
+      }
+    },
+    {
+      "id": "color/text/primary",
+      "css": "--lw-text-primary",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-ink"
+      ],
+      "values": {
+        "default": "#EAECEF"
+      }
+    },
+    {
+      "id": "color/text/secondary",
+      "css": "--lw-text-secondary",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-ink-muted"
+      ],
+      "values": {
+        "default": "#929AA5"
+      }
+    },
+    {
+      "id": "color/text/tertiary",
+      "css": "--lw-text-tertiary",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-ink-faint"
+      ],
+      "values": {
+        "default": "#707A8A"
+      }
+    },
+    {
+      "id": "color/brand",
+      "css": "--lw-brand",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-brand"
+      ],
+      "values": {
+        "default": "#F0B90B"
+      }
+    },
+    {
+      "id": "color/action/bg",
+      "css": "--lw-action-bg",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-brand"
+      ],
+      "values": {
+        "default": "#FCD535"
+      }
+    },
+    {
+      "id": "color/action/fg",
+      "css": "--lw-action-fg",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-ink-on-brand"
+      ],
+      "values": {
+        "default": "#202630"
+      }
+    },
+    {
+      "id": "color/trend/up",
+      "css": "--lw-trend-up",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-up"
+      ],
+      "values": {
+        "default": "#2EBD85"
+      }
+    },
+    {
+      "id": "color/trend/down",
+      "css": "--lw-trend-down",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-down"
+      ],
+      "values": {
+        "default": "#F6465D"
+      }
+    },
+    {
+      "id": "font/ui",
+      "css": "--lw-font-ui",
+      "type": "fontFamily",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-font-nova"
+      ],
+      "values": {
+        "default": "'BinanceNova', -apple-system, 'Helvetica Neue', Arial, sans-serif"
+      }
+    },
+    {
+      "id": "font/display",
+      "css": "--lw-font-display",
+      "type": "fontFamily",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-font-plex"
+      ],
+      "values": {
+        "default": "'BinancePlex', 'BinanceNova', -apple-system, sans-serif"
+      }
+    },
+    {
+      "id": "font/body",
+      "css": "--lw-font-body",
+      "type": "fontFamily",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-font-nova"
+      ],
+      "values": {
+        "default": "'BinanceNova', -apple-system, 'Helvetica Neue', Arial, sans-serif"
+      }
+    },
+    {
+      "id": "font/campaign",
+      "css": "--lw-font-campaign",
+      "type": "fontFamily",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-font-plex"
+      ],
+      "values": {
+        "default": "'BinancePlex', 'BinanceNova', -apple-system, sans-serif"
+      }
+    },
+    {
+      "id": "type/figure",
+      "css": "--lw-type-figure",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-display-72"
+      ],
+      "values": {
+        "default": "72px"
+      }
+    },
+    {
+      "id": "type/headline",
+      "css": "--lw-type-headline",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h2"
+      ],
+      "values": {
+        "default": "40px"
+      }
+    },
+    {
+      "id": "type/title",
+      "css": "--lw-type-title",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h3"
+      ],
+      "values": {
+        "default": "18px"
+      }
+    },
+    {
+      "id": "type/ui",
+      "css": "--lw-type-ui",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-sizes"
+      ],
+      "values": {
+        "default": "14px"
+      }
+    },
+    {
+      "id": "type/body",
+      "css": "--lw-type-body",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-body"
+      ],
+      "values": {
+        "default": "12px"
+      }
+    },
+    {
+      "id": "type/legal",
+      "css": "--lw-type-legal",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-sizes"
+      ],
+      "values": {
+        "default": "8px"
+      }
+    },
+    {
+      "id": "leading/body",
+      "css": "--lw-leading-body",
+      "type": "number",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-body"
+      ],
+      "values": {
+        "default": "1.33"
+      }
+    },
+    {
+      "id": "weight/regular",
+      "css": "--lw-weight-regular",
+      "type": "fontWeight",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-weights"
+      ],
+      "values": {
+        "default": "400"
+      }
+    },
+    {
+      "id": "weight/medium",
+      "css": "--lw-weight-medium",
+      "type": "fontWeight",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-weights"
+      ],
+      "values": {
+        "default": "500"
+      }
+    },
+    {
+      "id": "weight/semibold",
+      "css": "--lw-weight-semibold",
+      "type": "fontWeight",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-weights"
+      ],
+      "values": {
+        "default": "600"
+      }
+    },
+    {
+      "id": "weight/bold",
+      "css": "--lw-weight-bold",
+      "type": "fontWeight",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-weights"
+      ],
+      "values": {
+        "default": "700"
+      }
+    },
+    {
+      "id": "radius/button",
+      "css": "--lw-radius-button",
+      "type": "dimension",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-radii-home"
+      ],
+      "values": {
+        "default": "10px"
+      }
+    },
+    {
+      "id": "radius/card",
+      "css": "--lw-radius-card",
+      "type": "dimension",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-radii-markets"
+      ],
+      "values": {
+        "default": "8px"
+      }
+    },
+    {
+      "id": "radius/option",
+      "css": "--lw-radius-option",
+      "type": "dimension",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-radii-home"
+      ],
+      "values": {
+        "default": "16px"
+      }
+    },
+    {
+      "id": "radius/chip",
+      "css": "--lw-radius-chip",
+      "type": "dimension",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-radii-home"
+      ],
+      "values": {
+        "default": "4px"
+      }
+    },
+    {
+      "id": "radius/pill",
+      "css": "--lw-radius-pill",
+      "type": "dimension",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-radii-markets"
+      ],
+      "values": {
+        "default": "9999px"
+      }
+    },
+    {
+      "id": "depth/overlay",
+      "css": "--lw-depth-overlay",
+      "type": "shadow",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-shadow"
+      ],
+      "values": {
+        "default": "-2px 0 14px rgba(0, 0, 0, 0.4), 0 0 6px rgba(0, 0, 0, 0.2)"
+      }
+    },
+    {
+      "id": "motion/micro",
+      "css": "--lw-motion-micro",
+      "type": "duration",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion-markets"
+      ],
+      "values": {
+        "default": "150ms"
+      }
+    },
+    {
+      "id": "motion/hover",
+      "css": "--lw-motion-hover",
+      "type": "duration",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion-markets"
+      ],
+      "values": {
+        "default": "200ms"
+      }
+    },
+    {
+      "id": "motion/panel",
+      "css": "--lw-motion-panel",
+      "type": "duration",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion"
+      ],
+      "values": {
+        "default": "700ms"
+      }
+    },
+    {
+      "id": "motion/easing-standard",
+      "css": "--lw-easing-standard",
+      "type": "easing",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion-markets"
+      ],
+      "values": {
+        "default": "cubic-bezier(0.4, 0, 0.2, 1)"
+      }
+    },
+    {
+      "id": "motion/easing-panel",
+      "css": "--lw-easing-panel",
+      "type": "easing",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion"
+      ],
+      "values": {
+        "default": "cubic-bezier(0, 0, 0.2, 1)"
+      }
+    },
+    {
+      "id": "space/unit",
+      "css": "--lw-space-unit",
+      "type": "dimension",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-space"
+      ],
+      "values": {
+        "default": "8px"
+      }
+    },
+    {
+      "id": "space/block",
+      "css": "--lw-space-block",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-space"
+      ],
+      "values": {
+        "default": "64px"
+      }
+    },
+    {
+      "id": "layout/container",
+      "css": "--lw-layout-container",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-container"
+      ],
+      "values": {
+        "default": "1440px"
+      }
+    },
+    {
+      "id": "layout/container-pad",
+      "css": "--lw-layout-pad",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-container"
+      ],
+      "values": {
+        "default": "24px"
+      }
+    }
+  ]
+}

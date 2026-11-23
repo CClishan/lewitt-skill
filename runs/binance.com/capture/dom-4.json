@@ -1,0 +1,387 @@
+{
+  "url": "https://www.binance.com/en/futures/home",
+  "title": "Cryptocurrency Futures | Crypto Futures Trading | Binance Futures",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "errors": [],
+  "colors": {
+    "pageBackground": "rgb(24, 26, 32)",
+    "backgroundColors": [
+      {
+        "value": "rgb(41, 49, 61)",
+        "count": 15,
+        "areaPct": 2.5
+      },
+      {
+        "value": "rgb(51, 59, 71)",
+        "count": 10,
+        "areaPct": 4.1
+      },
+      {
+        "value": "rgb(252, 213, 53)",
+        "count": 7,
+        "areaPct": 5.3
+      },
+      {
+        "value": "rgb(24, 26, 32)",
+        "count": 2,
+        "areaPct": 21.6
+      },
+      {
+        "value": "rgb(32, 38, 48)",
+        "count": 2,
+        "areaPct": 14.4
+      },
+      {
+        "value": "rgb(11, 14, 17)",
+        "count": 1,
+        "areaPct": 52.2
+      }
+    ],
+    "textColors": [
+      {
+        "value": "rgb(234, 236, 239)",
+        "count": 43
+      },
+      {
+        "value": "rgb(146, 154, 165)",
+        "count": 14
+      },
+      {
+        "value": "rgb(112, 122, 138)",
+        "count": 10
+      },
+      {
+        "value": "rgb(32, 38, 48)",
+        "count": 7
+      },
+      {
+        "value": "rgb(240, 185, 11)",
+        "count": 6
+      }
+    ],
+    "accentCandidates": [
+      {
+        "value": "rgb(234, 236, 239)",
+        "count": 40
+      },
+      {
+        "value": "rgb(51, 59, 71)",
+        "count": 10
+      },
+      {
+        "value": "rgb(32, 38, 48)",
+        "count": 9
+      },
+      {
+        "value": "rgb(252, 213, 53)",
+        "count": 7
+      }
+    ]
+  },
+  "typography": {
+    "uniqueFamilies": [
+      {
+        "value": "BinanceNova",
+        "count": 327
+      },
+      {
+        "value": "BinancePlex",
+        "count": 10
+      }
+    ],
+    "headings": {
+      "h1": {
+        "size": "40px",
+        "weight": "600",
+        "lineHeight": "48px",
+        "letterSpacing": "normal",
+        "family": "BinanceNova"
+      }
+    },
+    "body": {
+      "size": "12.992px",
+      "weight": "400",
+      "lineHeight": "19.488px",
+      "family": "BinanceNova",
+      "maxWidth": "none"
+    },
+    "sizeDistribution": [
+      {
+        "value": "14px",
+        "count": 32
+      },
+      {
+        "value": "16px",
+        "count": 16
+      },
+      {
+        "value": "20px",
+        "count": 16
+      },
+      {
+        "value": "12px",
+        "count": 9
+      },
+      {
+        "value": "32px",
+        "count": 5
+      },
+      {
+        "value": "40px",
+        "count": 1
+      },
+      {
+        "value": "28px",
+        "count": 1
+      }
+    ],
+    "weightDistribution": [
+      {
+        "value": "500",
+        "count": 30
+      },
+      {
+        "value": "400",
+        "count": 27
+      },
+      {
+        "value": "600",
+        "count": 23
+      }
+    ]
+  },
+  "effects": {
+    "radii": [
+      {
+        "value": "4px",
+        "count": 17
+      },
+      {
+        "value": "6px",
+        "count": 13
+      },
+      {
+        "value": "16px",
+        "count": 10
+      },
+      {
+        "value": "10px",
+        "count": 2
+      },
+      {
+        "value": "2px",
+        "count": 1
+      }
+    ],
+    "shadows": [
+      {
+        "value": "rgba(0, 0, 0, 0.4) -2px 0px 14px 0px, rgba(0, 0, 0, 0.2) 0px 0px 6px 0px, rgba(255, 255, 255, 0.2) 0px 0px 2px 0px inset",
+        "count": 1
+      }
+    ],
+    "transitions": [
+      "all"
+    ]
+  },
+  "spacingDistribution": [
+    {
+      "value": "32px",
+      "count": 20
+    },
+    {
+      "value": "6px",
+      "count": 15
+    },
+    {
+      "value": "16px",
+      "count": 11
+    },
+    {
+      "value": "80px",
+      "count": 10
+    },
+    {
+      "value": "24px",
+      "count": 10
+    },
+    {
+      "value": "12px",
+      "count": 6
+    },
+    {
+      "value": "8px",
+      "count": 4
+    },
+    {
+      "value": "48px",
+      "count": 4
+    },
+    {
+      "value": "20px",
+      "count": 2
+    },
+    {
+      "value": "40px",
+      "count": 2
+    },
+    {
+      "value": "9.6px",
+      "count": 2
+    },
+    {
+      "value": "56px",
+      "count": 1
+    },
+    {
+      "value": "64px",
+      "count": 1
+    },
+    {
+      "value": "50px",
+      "count": 1
+    },
+    {
+      "value": "48px 36px",
+      "count": 1
+    }
+  ],
+  "buttons": [
+    {
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "4px",
+      "paddingTop": "0px",
+      "paddingLeft": "10px"
+    },
+    {
+      "fontSize": "16px",
+      "fontWeight": "500",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "6px",
+      "paddingTop": "0px",
+      "paddingLeft": "20px"
+    },
+    {
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "letterSpacing": "0.7px",
+      "textTransform": "none",
+      "borderRadius": "10px",
+      "paddingTop": "12px",
+      "paddingLeft": "10px"
+    },
+    {
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "letterSpacing": "0.7px",
+      "textTransform": "none",
+      "borderRadius": "2px",
+      "paddingTop": "12px",
+      "paddingLeft": "10px"
+    }
+  ],
+  "layout": {
+    "bodyPadding": "0px",
+    "containerMaxWidth": "100%",
+    "containerPadding": "0px",
+    "containerWidth": "375px"
+  },
+  "cards": [
+    {
+      "selector": "div.flex.flex-col",
+      "width": "376px",
+      "height": "262px",
+      "ratio": "1.44:1",
+      "radius": "16px",
+      "shadow": null
+    },
+    {
+      "selector": "div.flex.flex-col",
+      "width": "376px",
+      "height": "262px",
+      "ratio": "1.44:1",
+      "radius": "16px",
+      "shadow": null
+    },
+    {
+      "selector": "div.flex.flex-col",
+      "width": "376px",
+      "height": "262px",
+      "ratio": "1.44:1",
+      "radius": "16px",
+      "shadow": null
+    },
+    {
+      "selector": "div.otFloatingRoundedCorner.otRelFont",
+      "width": "375px",
+      "height": "343px",
+      "ratio": "1.09:1",
+      "radius": "16px",
+      "shadow": "rgba(0, 0, 0, 0.4) -2px 0px 14px 0px, rgba(0, 0, 0, 0.2) 0px 0px 6px 0px, rgba(255, 255, 255, 0.2) 0px 0px 2px 0px inset"
+    }
+  ],
+  "images": [
+    {
+      "src": "data-uri (image/png, ~2KB)",
+      "naturalWidth": 265,
+      "naturalHeight": 192,
+      "ratio": "1.38:1",
+      "renderedWidth": "88px",
+      "role": "thumbnail"
+    },
+    {
+      "src": "https://bin.bnbstatic.com/static/images/futures/landing-page/portfolio-dark.png",
+      "naturalWidth": 1160,
+      "naturalHeight": 445,
+      "ratio": "2.61:1",
+      "renderedWidth": "580px",
+      "role": "feature"
+    },
+    {
+      "src": "https://bin.bnbstatic.com/static/images/futures/landing-page/portfolio-dark.png",
+      "naturalWidth": 1160,
+      "naturalHeight": 445,
+      "ratio": "2.61:1",
+      "renderedWidth": "0px",
+      "role": "thumbnail"
+    },
+    {
+      "src": "https://cdn.cookielaw.org/logos/99f99939-5a0d-4feb-aef3-ba45f16b6907/5bfb9945-c83c-46f9-8bd7-55e8fd1",
+      "naturalWidth": 510,
+      "naturalHeight": 103,
+      "ratio": "4.95:1",
+      "renderedWidth": "0px",
+      "role": "thumbnail"
+    }
+  ],
+  "spacingSamples": [
+    {
+      "tag": "h1",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "button",
+      "margin": "0px",
+      "padding": "0px 10px",
+      "gap": "6px"
+    }
+  ],
+  "sectionGaps": [],
+  "grid": {
+    "columns": 3,
+    "gap": "48px 36px",
+    "template": "376px 376px 376px",
+    "selector": "div.grid.grid-cols-1"
+  },
+  "gridCount": 2,
+  "focusVisible": true,
+  "reducedMotion": false
+}

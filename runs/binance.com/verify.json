@@ -1,0 +1,2091 @@
+{
+  "generatedAt": "2026-11-23T12:32:50+00:00",
+  "dest": "~/runs/binance.com",
+  "meta": {
+    "name": "Binance",
+    "source": "https://www.binance.com/en",
+    "domain": "binance.com",
+    "mode": "full",
+    "capturedAt": "2026-11-23T12:28:11+00:00",
+    "viewport": "1440x900",
+    "captureIsolated": true,
+    "crawl": {
+      "pages": [
+        "https://www.binance.com/en",
+        "https://www.binance.com/en/crypto/convert",
+        "https://www.binance.com/en/markets/overview",
+        "https://www.binance.com/en/futures/home"
+      ],
+      "budget": "1+3"
+    },
+    "limitations": [
+      "binance.com redirects to www.binance.com/en; output folder keeps the requested binance.com name.",
+      "Menu dropdowns and modals were not opened (reversible-state risk); their states are unknown.",
+      "The homepage h1 is a 16px utility node, so display sizes were read from the hero figure and h2, not semantic tags.",
+      "prefers-reduced-motion was found on 2 of 4 pages; the CSSOM scan disagrees page to page.",
+      "BinancePlex appears on only 2 of 4 pages, so its role is inferred."
+    ],
+    "openQuestions": [
+      "Is #FCD535 a pressed state of #F0B90B or a separate brand token?",
+      "Does the futures floor #0B0E11 imply a second theme mode?"
+    ]
+  },
+  "checks": [
+    {
+      "name": "dna.json contract",
+      "result": "PASS",
+      "detail": "SSOT valid (evidence/measurements/patterns/taste/tokens)"
+    },
+    {
+      "name": "token resolution",
+      "result": "PASS",
+      "detail": "all aliases resolve, no cycles"
+    },
+    {
+      "name": "single source (R3)",
+      "result": "PASS",
+      "detail": "all artifacts are deterministic renders of dna.json, no post-render edits"
+    },
+    {
+      "name": "incremental freeze",
+      "result": "PASS",
+      "detail": "no frozen block changed since the last render"
+    },
+    {
+      "name": "evidence coverage",
+      "result": "PASS",
+      "detail": "46 evidence entries cited"
+    },
+    {
+      "name": "restraint guardrails",
+      "result": "PASS",
+      "detail": "2/2 restraint principles carry machine-readable guardrails"
+    },
+    {
+      "name": "anti-slop (authored prose)",
+      "result": "PASS",
+      "detail": "0 hit(s)"
+    },
+    {
+      "name": "guardrail (generated code)",
+      "result": "PASS",
+      "detail": "0 violation(s)scanned ~/runs/binance.com/system"
+    },
+    {
+      "name": "visual fidelity",
+      "result": "unverified",
+      "detail": "requires specimen comparison at matching viewports"
+    },
+    {
+      "name": "full system/ site",
+      "result": "PASS",
+      "detail": "system/index.html present"
+    }
+  ],
+  "renderedBy": "build_artifacts.py/v1",
+  "dna": {
+    "meta": {
+      "name": "Binance",
+      "source": "https://www.binance.com/en",
+      "domain": "binance.com",
+      "mode": "full",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "viewport": "1440x900",
+      "captureIsolated": true,
+      "crawl": {
+        "pages": [
+          "https://www.binance.com/en",
+          "https://www.binance.com/en/crypto/convert",
+          "https://www.binance.com/en/markets/overview",
+          "https://www.binance.com/en/futures/home"
+        ],
+        "budget": "1+3"
+      },
+      "limitations": [
+        "binance.com redirects to www.binance.com/en; output folder keeps the requested binance.com name.",
+        "Menu dropdowns and modals were not opened (reversible-state risk); their states are unknown.",
+        "The homepage h1 is a 16px utility node, so display sizes were read from the hero figure and h2, not semantic tags.",
+        "prefers-reduced-motion was found on 2 of 4 pages; the CSSOM scan disagrees page to page.",
+        "BinancePlex appears on only 2 of 4 pages, so its role is inferred."
+      ],
+      "openQuestions": [
+        "Is #FCD535 a pressed state of #F0B90B or a separate brand token?",
+        "Does the futures floor #0B0E11 imply a second theme mode?"
+      ]
+    },
+    "evidence": [
+      {
+        "id": "e-canvas",
+        "url": "https://www.binance.com/en",
+        "locator": "page background",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "rgb(24, 26, 32)": "93.8% of sampled area"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-canvas-markets",
+        "url": "https://www.binance.com/en/markets/overview",
+        "locator": "markets canvas",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "rgb(24, 26, 32)": "98.3%"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-canvas-futures",
+        "url": "https://www.binance.com/en/futures/home",
+        "locator": "futures canvas mix",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "rgb(24,26,32)": "21.6%",
+          "rgb(11,14,17)": "52.2%",
+          "rgb(32,38,48)": "14.4%"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-4.png"
+      },
+      {
+        "id": "e-surface-raised",
+        "url": "https://www.binance.com/en",
+        "locator": "price and news panels",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+screenshot-pixel",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "rgb(41, 49, 61)": "2.2% of area; confirmed at screenshot pixel (800,300)"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-surface-raised-markets",
+        "url": "https://www.binance.com/en/markets/overview",
+        "locator": "tabbed cards",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "fill": "rgb(41,49,61) rendered as card background in viewport-3"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png",
+        "limitations": [
+          "areaPct rounds to 0 on a 98% canvas; presence confirmed visually"
+        ]
+      },
+      {
+        "id": "e-surface-deep",
+        "url": "https://www.binance.com/en",
+        "locator": "input wells and inset rows",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "rgb(30, 35, 41)": "3.5%"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-surface-floor",
+        "url": "https://www.binance.com/en/futures/home",
+        "locator": "futures page base layer",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "rgb(11, 14, 17)": "52.2%"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-4.png"
+      },
+      {
+        "id": "e-ink",
+        "url": "https://www.binance.com/en",
+        "locator": "body text",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "rgb(234, 236, 239)": "#EAECEF, 81 nodes"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-ink-muted",
+        "url": "https://www.binance.com/en",
+        "locator": "labels and secondary text",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "rgb(146, 154, 165)": "#929AA5, 78 nodes"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-ink-faint",
+        "url": "https://www.binance.com/en/markets/overview",
+        "locator": "tertiary and meta text",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "rgb(112, 122, 138)": "#707A8A, 25 nodes"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-ink-on-brand",
+        "url": "https://www.binance.com/en",
+        "locator": "text on yellow",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "rgb(32, 38, 48)": "#202630, 6 nodes"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-brand",
+        "url": "https://www.binance.com/en",
+        "locator": "logo, hero figure, Sign Up, cookie CTAs",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+screenshot-pixel",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "rgb(252, 213, 53)": "#FCD535, 0.3% of surface",
+          "rgb(240, 185, 11)": "#F0B90B, 13 text nodes"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-brand-other",
+        "url": "https://www.binance.com/en/futures/home",
+        "locator": "futures CTA fills",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "rgb(252,213,53)": "5.3% of that page"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-4.png"
+      },
+      {
+        "id": "e-up",
+        "url": "https://www.binance.com/en",
+        "locator": "price change positive",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "rgb(46, 189, 133)": "#2EBD85, 5 nodes"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png",
+        "limitations": [
+          "screenshot pixel (760,603) reads (39,145,105) after antialiasing; token is the DOM value"
+        ]
+      },
+      {
+        "id": "e-down",
+        "url": "https://www.binance.com/en/markets/overview",
+        "locator": "price change negative",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "rgb(246, 70, 93)": "#F6465D"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-stroke-strong",
+        "url": "https://www.binance.com/en",
+        "locator": "dividers and active tab underline",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "rgb(51, 59, 71)": "#333B47"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-stroke-subtle",
+        "url": "https://www.binance.com/en",
+        "locator": "card and input borders",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "card": "rgb(41,49,61)",
+          "input outline": "rgb(61,68,82) by screenshot"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-font-nova",
+        "url": "https://www.binance.com/en",
+        "locator": "all text",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "family": "BinanceNova",
+          "samples": "669"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-font-nova-other",
+        "url": "https://www.binance.com/en/markets/overview",
+        "locator": "markets text",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "family": "BinanceNova",
+          "samples": "969"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-font-plex",
+        "url": "https://www.binance.com/en/crypto/convert",
+        "locator": "display face",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "family": "BinancePlex",
+          "samples": "10"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-2.png",
+        "limitations": [
+          "appears on 2 of 4 pages only; role inferred"
+        ]
+      },
+      {
+        "id": "e-h2",
+        "url": "https://www.binance.com/en",
+        "locator": "section and marketing headline",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "size": "40px",
+          "weight": "600",
+          "letterSpacing": "normal"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-h2-convert",
+        "url": "https://www.binance.com/en/crypto/convert",
+        "locator": "convert headline",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "size": "40px",
+          "weight": "600"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-2.png",
+        "limitations": [
+          "same treatment on a second page"
+        ]
+      },
+      {
+        "id": "e-h1-markets",
+        "url": "https://www.binance.com/en/markets/overview",
+        "locator": "markets page h1",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "size": "32px",
+          "weight": "700"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png",
+        "limitations": [
+          "home h1 is a 16px utility node; semantic tag does not track display size"
+        ]
+      },
+      {
+        "id": "e-h3",
+        "url": "https://www.binance.com/en",
+        "locator": "card title",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "size": "18px",
+          "weight": "500"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-body",
+        "url": "https://www.binance.com/en",
+        "locator": "body copy",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "size": "12px",
+          "weight": "500",
+          "lineHeight": "16px"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-body-markets",
+        "url": "https://www.binance.com/en/markets/overview",
+        "locator": "table body",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "size": "12px",
+          "weight": "400",
+          "lineHeight": "18px"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-sizes",
+        "url": "https://www.binance.com/en",
+        "locator": "text size distribution",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "top": "14px x96, 16px x49, 20px x15, 18px x10, 28px x4, 72px x3"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-sizes-markets",
+        "url": "https://www.binance.com/en/markets/overview",
+        "locator": "text size distribution",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "top": "14px x155, 16px x49, 12px x31, 18px x10"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-display-72",
+        "url": "https://www.binance.com/en",
+        "locator": "hero figure 337,527,796",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "computed": "72px x3 nodes",
+          "weight": "700",
+          "rendered": "yellow figure in screenshot"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-weights",
+        "url": "https://www.binance.com/en",
+        "locator": "weight distribution",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "400": "x91",
+          "500": "x77",
+          "600": "x16",
+          "700": "x8"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-weights-markets",
+        "url": "https://www.binance.com/en/markets/overview",
+        "locator": "weight distribution",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "400": "x138",
+          "500": "x106",
+          "600": "x4",
+          "700": "x2"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-radii-home",
+        "url": "https://www.binance.com/en",
+        "locator": "radius distribution",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "10px": "x17 buttons",
+          "8px": "x18",
+          "4px": "x10",
+          "16px": "x7 banner card"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-radii-markets",
+        "url": "https://www.binance.com/en/markets/overview",
+        "locator": "radius distribution",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "8px": "x43 cards, tabs, pills",
+          "9999px": "x8",
+          "50%": "x12 coin icons"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-radii-futures",
+        "url": "https://www.binance.com/en/futures/home",
+        "locator": "radius distribution",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "4px": "x17",
+          "6px": "x13",
+          "16px": "x10"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-4.png"
+      },
+      {
+        "id": "e-shadow",
+        "url": "https://www.binance.com/en",
+        "locator": "only shadow in the sample",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "cookie panel": "rgba(0,0,0,0.4) -2px 0 14px, rgba(0,0,0,0.2) 0 0 6px, inset rgba(255,255,255,0.2) 0 0 2px"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-motion",
+        "url": "https://www.binance.com/en",
+        "locator": "transitions",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "transform": "0.7s cubic-bezier(0,0,0.2,1)",
+          "generic": "0.25s ease-in-out"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-motion-markets",
+        "url": "https://www.binance.com/en/markets/overview",
+        "locator": "hover transitions",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "color/bg/border": "0.2s cubic-bezier(0.4,0,0.2,1)",
+          "generic": "0.15s linear"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-motion-pages",
+        "url": "https://www.binance.com/en/crypto/convert",
+        "locator": "transitions on convert",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "value": "all only"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-2.png",
+        "limitations": [
+          "no named durations captured on this page"
+        ]
+      },
+      {
+        "id": "e-focus",
+        "url": "https://www.binance.com/en",
+        "locator": "stylesheet scan",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "cssom-scan",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "focusVisible": true,
+          "prefersReducedMotion": true
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-focus-other",
+        "url": "https://www.binance.com/en/markets/overview",
+        "locator": "stylesheet scan",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "cssom-scan",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "focusVisible": true,
+          "reducedMotion": "true on page 3, false on pages 2 and 4"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-space",
+        "url": "https://www.binance.com/en",
+        "locator": "spacing distribution",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "8px": "x82",
+          "16px": "x55",
+          "20px": "x27",
+          "4px": "x27",
+          "24px": "x9",
+          "64px": "x8"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-container",
+        "url": "https://www.binance.com/en",
+        "locator": "page container",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "maxWidth": "1440px",
+          "padding": "0 24px"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-container-markets",
+        "url": "https://www.binance.com/en/markets/overview",
+        "locator": "markets container",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "rendered": "1200px",
+          "maxWidth": "none"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      },
+      {
+        "id": "e-grid",
+        "url": "https://www.binance.com/en/futures/home",
+        "locator": "futures card grid",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "template": "376px 376px 376px",
+          "gap": "48px 36px",
+          "count": 2
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-4.png"
+      },
+      {
+        "id": "e-buttons",
+        "url": "https://www.binance.com/en",
+        "locator": "button typography",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "primary": "14px/500, radius 10px, padding 10x16",
+          "secondary": "14px/500, radius 4px",
+          "text": "14px/400"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport.png"
+      },
+      {
+        "id": "e-coin-tiles",
+        "url": "https://www.binance.com/en/markets/overview",
+        "locator": "coin row icon tiles",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "state": "default",
+        "method": "computed-style+viewport-screenshot",
+        "capturedAt": "2026-11-23T12:28:11+00:00",
+        "values": {
+          "size": "28px",
+          "radius": "50%",
+          "fill": "per-asset brand colours"
+        },
+        "status": "observed",
+        "artifact": "capture/viewport-3.png"
+      }
+    ],
+    "measurements": [
+      {
+        "id": "m-canvas",
+        "category": "Color / canvas",
+        "value": "#181A20 = rgb(24,26,32) on 93.8% (home) and 98.3% (markets); #0B0E11 floor covers 52.2% of futures",
+        "status": "observed",
+        "evidence": [
+          "e-canvas",
+          "e-canvas-markets",
+          "e-surface-floor",
+          "e-canvas-futures"
+        ]
+      },
+      {
+        "id": "m-surfaces",
+        "category": "Color / surfaces",
+        "value": "raised #29313D (2.2%), input well #1E2329 (3.5%), border #333B47, stronger border #3D4452",
+        "status": "observed",
+        "evidence": [
+          "e-surface-raised",
+          "e-surface-deep",
+          "e-stroke-strong",
+          "e-stroke-subtle"
+        ]
+      },
+      {
+        "id": "m-ink",
+        "category": "Color / text",
+        "value": "#EAECEF body, #929AA5 secondary, #707A8A tertiary, #202630 on yellow",
+        "status": "observed",
+        "evidence": [
+          "e-ink",
+          "e-ink-muted",
+          "e-ink-faint",
+          "e-ink-on-brand"
+        ]
+      },
+      {
+        "id": "m-brand",
+        "category": "Color / brand",
+        "value": "#F0B90B for logo and hero figure, #FCD535 for filled CTA; fill reaches 5.3% of the futures page",
+        "status": "observed",
+        "evidence": [
+          "e-brand",
+          "e-brand-other",
+          "e-display-72"
+        ]
+      },
+      {
+        "id": "m-semantic",
+        "category": "Color / semantic",
+        "value": "up #2EBD85, down #F6465D, always as text colour",
+        "status": "observed",
+        "evidence": [
+          "e-up",
+          "e-down"
+        ]
+      },
+      {
+        "id": "m-fonts",
+        "category": "Typography / families",
+        "value": "BinanceNova everywhere (669 / 969 nodes); BinancePlex on only 2 of 4 pages, 10 nodes",
+        "status": "observed",
+        "evidence": [
+          "e-font-nova",
+          "e-font-nova-other",
+          "e-font-plex"
+        ]
+      },
+      {
+        "id": "m-type-scale",
+        "category": "Typography / scale",
+        "value": "72px figure, 40px/600 headline, 32px/700 page title, 18px/500 card title, 14px UI, 12px body, 8px legal",
+        "status": "observed",
+        "evidence": [
+          "e-display-72",
+          "e-h2",
+          "e-h1-markets",
+          "e-h3",
+          "e-body",
+          "e-body-markets",
+          "e-sizes",
+          "e-sizes-markets"
+        ]
+      },
+      {
+        "id": "m-weights",
+        "category": "Typography / weights",
+        "value": "400 x91 and 500 x77 dominate; 600 x16 for headlines; 700 x8 (hero figure, markets h1)",
+        "status": "observed",
+        "evidence": [
+          "e-weights",
+          "e-weights-markets"
+        ]
+      },
+      {
+        "id": "m-radii",
+        "category": "Shape / radius",
+        "value": "buttons 10px, cards/tabs/pills 8px, option tiles 16px, chips 4px, coin icons 50%, badges 9999px",
+        "status": "observed",
+        "evidence": [
+          "e-radii-home",
+          "e-radii-markets",
+          "e-radii-futures"
+        ]
+      },
+      {
+        "id": "m-depth",
+        "category": "Shape / depth",
+        "value": "one shadow in the whole sample (cookie overlay); every other layer separated by a #333B47 hairline on a #29313D fill",
+        "status": "observed",
+        "evidence": [
+          "e-shadow",
+          "e-stroke-strong",
+          "e-surface-raised"
+        ]
+      },
+      {
+        "id": "m-motion",
+        "category": "Motion",
+        "value": "0.7s transform cubic-bezier(0,0,0.2,1); 0.2s color/bg/border cubic-bezier(0.4,0,0.2,1); 0.15s linear micro-states",
+        "status": "observed",
+        "evidence": [
+          "e-motion",
+          "e-motion-markets"
+        ]
+      },
+      {
+        "id": "m-a11y-signals",
+        "category": "Interaction affordances",
+        "value": ":focus-visible on all sampled pages; prefers-reduced-motion on pages 1 and 3 but not 2 and 4",
+        "status": "observed",
+        "evidence": [
+          "e-focus",
+          "e-focus-other"
+        ]
+      },
+      {
+        "id": "m-space",
+        "category": "Spacing",
+        "value": "8px x82, 16px x55, 20px x27, 4px x27, 24px gutters, 64px block spacing",
+        "status": "observed",
+        "evidence": [
+          "e-space"
+        ]
+      },
+      {
+        "id": "m-layout",
+        "category": "Layout",
+        "value": "1440px container with 24px padding (home), 1200px content (markets), 3 x 376px cards with 48/36 gaps (futures)",
+        "status": "observed",
+        "evidence": [
+          "e-container",
+          "e-container-markets",
+          "e-grid"
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "id": "p-yellow-ratio",
+        "name": "Yellow is an amount, not a mood",
+        "rule": "Brand yellow is confined to the CTA fill, the hero statistic, the active-tab underline and a few links; it never fills a section or sets body copy.",
+        "goal": "On a page showing dozens of numbers, yellow can only mean 'this is the figure' or 'this is the action'.",
+        "evidence": [
+          "e-brand",
+          "e-canvas",
+          "e-stroke-strong"
+        ]
+      },
+      {
+        "id": "p-fill-by-density",
+        "name": "Yellow expands with density",
+        "rule": "Yellow fill is 0.3% of the marketing home page and 5.3% of the trading floor.",
+        "goal": "Marketing reads dark with a highlight; the trading product reads brand-forward because product mode replaces marketing mode.",
+        "evidence": [
+          "e-brand",
+          "e-brand-other",
+          "e-canvas-futures"
+        ]
+      },
+      {
+        "id": "p-nested-surfaces",
+        "name": "Three dark layers, no shadows",
+        "rule": "Canvas #181A20, card #29313D, well #1E2329, separated by #333B47 hairlines; a single shadow exists in the sample.",
+        "goal": "Depth survives on OLED and dim screens without blur halos over 12px price text.",
+        "evidence": [
+          "e-surface-raised",
+          "e-surface-deep",
+          "e-stroke-strong",
+          "e-shadow"
+        ]
+      },
+      {
+        "id": "p-number-first",
+        "name": "Numbers get the largest type",
+        "rule": "The hero figure is 72px while headlines are 40px and body 12px — a 6x ratio between statistic and prose.",
+        "goal": "A reader scanning for a number never hunts; hierarchy is data > headline > body.",
+        "evidence": [
+          "e-display-72",
+          "e-h2",
+          "e-body",
+          "e-sizes"
+        ]
+      },
+      {
+        "id": "p-one-frame-two-families",
+        "name": "One UI family, one earned display face",
+        "rule": "BinanceNova carries every surface; BinancePlex appears on 10 nodes in 2 of 4 pages.",
+        "goal": "Keeps product pages uniform while letting campaign pages differ slightly.",
+        "evidence": [
+          "e-font-nova",
+          "e-font-nova-other",
+          "e-font-plex"
+        ]
+      },
+      {
+        "id": "p-semantic-pair",
+        "name": "A two-colour direction axis",
+        "rule": "Gains use #2EBD85 and losses #F6465D, always as text, never as a filled badge.",
+        "goal": "Direction stays legible at 12px without competing with the brand yellow.",
+        "evidence": [
+          "e-up",
+          "e-down"
+        ]
+      },
+      {
+        "id": "p-control-radii",
+        "name": "Radii track role",
+        "rule": "Buttons 10px, cards and tabs 8px, large option tiles 16px, inline chips 4px.",
+        "goal": "Silhouette alone tells a card from a button from a tile.",
+        "evidence": [
+          "e-radii-home",
+          "e-radii-markets",
+          "e-radii-futures"
+        ]
+      },
+      {
+        "id": "p-motion-tiers",
+        "name": "Hover is fast, panels are slow",
+        "rule": "Colour and border hovers run at 0.15-0.2s; panel and image transforms at 0.7s.",
+        "goal": "Interface feedback is immediate while promotional movement stays calm enough to read.",
+        "evidence": [
+          "e-motion",
+          "e-motion-markets"
+        ]
+      }
+    ],
+    "taste": [
+      {
+        "id": "t-role-color",
+        "name": "Colour is assigned by role, not by hierarchy",
+        "kind": "system",
+        "status": "observed",
+        "trigger": "Designing a screen that shows prices, price changes, actions and promotions at once.",
+        "decision": "One accent for brand and action, green/red for direction, blue-greys for everything else.",
+        "chose": "a three-role colour system (brand, direction, neutral)",
+        "over": "a hue per category (per-coin colours, per-section accents, coloured badges)",
+        "reason": "In a list of fifty numbers, a colour that could mean anything stops carrying meaning; three roles keep a glance reliable.",
+        "evidence": [
+          "e-brand",
+          "e-up",
+          "e-down",
+          "e-ink"
+        ],
+        "patterns": [
+          "p-semantic-pair",
+          "p-yellow-ratio"
+        ]
+      },
+      {
+        "id": "t-hairline-depth",
+        "name": "Depth is a hairline, not a shadow",
+        "kind": "restraint",
+        "status": "observed",
+        "trigger": "Layering cards and inputs on a near-black canvas.",
+        "decision": "Separate layers with #333B47 1px borders over a #29313D fill; one shadow exists in the whole sample.",
+        "chose": "1px hairlines plus a lifted fill",
+        "over": "a drop shadow on every card and panel",
+        "reason": "On a dark canvas a shadow is invisible until it is strong enough to smear the 12px digits sitting on it.",
+        "evidence": [
+          "e-surface-raised",
+          "e-stroke-strong",
+          "e-shadow"
+        ],
+        "patterns": [
+          "p-nested-surfaces"
+        ],
+        "guardrail": {
+          "forbidCss": [],
+          "forbidClass": [
+            "(^|-)shadow-(?!none|sm|inner)[a-z]+-[a-z]+"
+          ],
+          "max": {
+            "box-shadow": {
+              "value": "0",
+              "unit": "px"
+            }
+          },
+          "note": "Exception: the single floating overlay panel measured at 14px/6px blur. Everything else is a 1px border."
+        }
+      },
+      {
+        "id": "t-data-first",
+        "name": "Data outranks copy",
+        "kind": "craft",
+        "status": "observed",
+        "trigger": "Deciding what to enlarge on a landing page that also has to sell a product.",
+        "decision": "Scale the statistic to 72px, the headline to 40px/600, prose to 12px.",
+        "chose": "a 72/40/12 scale biased toward numbers",
+        "over": "a balanced 48/28/16 marketing scale where copy and data compete",
+        "reason": "The promise of an exchange is a number; making it the largest object lets a screenshot-free page still read as a product.",
+        "evidence": [
+          "e-display-72",
+          "e-h2",
+          "e-body",
+          "e-sizes"
+        ],
+        "patterns": [
+          "p-number-first"
+        ]
+      },
+      {
+        "id": "t-two-families",
+        "name": "The display face is earned, not standard",
+        "kind": "restraint",
+        "status": "observed",
+        "trigger": "Choosing type families across marketing and trading surfaces.",
+        "decision": "BinanceNova everywhere; BinancePlex only on 10 nodes in 2 of 4 pages.",
+        "chose": "a single UI family with a sparing display face",
+        "over": "a display/body pairing applied site-wide",
+        "reason": "A second family used everywhere splits product identity from marketing; used sparingly it signals that this surface is different.",
+        "evidence": [
+          "e-font-nova",
+          "e-font-plex"
+        ],
+        "patterns": [
+          "p-one-frame-two-families"
+        ],
+        "guardrail": {
+          "forbidCss": [],
+          "forbidClass": [
+            "(^|-)font-(serif|display|mono)$"
+          ],
+          "max": {},
+          "note": "A display face is allowed only on campaign blocks, never on tables, prices or controls."
+        }
+      }
+    ],
+    "tokens": [
+      {
+        "id": "color/dark/900",
+        "css": "--lw-dark-900",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-canvas"
+        ],
+        "values": {
+          "default": "#181A20"
+        }
+      },
+      {
+        "id": "color/dark/1000",
+        "css": "--lw-dark-1000",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-surface-floor"
+        ],
+        "values": {
+          "default": "#0B0E11"
+        }
+      },
+      {
+        "id": "color/slate/700",
+        "css": "--lw-slate-700",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-surface-raised"
+        ],
+        "values": {
+          "default": "#29313D"
+        }
+      },
+      {
+        "id": "color/slate/800",
+        "css": "--lw-slate-800",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-surface-deep"
+        ],
+        "values": {
+          "default": "#1E2329"
+        }
+      },
+      {
+        "id": "color/slate/600",
+        "css": "--lw-slate-600",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-stroke-strong"
+        ],
+        "values": {
+          "default": "#333B47"
+        }
+      },
+      {
+        "id": "color/slate/500",
+        "css": "--lw-slate-500",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-stroke-subtle"
+        ],
+        "values": {
+          "default": "#3D4452"
+        }
+      },
+      {
+        "id": "color/grey/100",
+        "css": "--lw-grey-100",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-ink"
+        ],
+        "values": {
+          "default": "#EAECEF"
+        }
+      },
+      {
+        "id": "color/grey/400",
+        "css": "--lw-grey-400",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-ink-muted"
+        ],
+        "values": {
+          "default": "#929AA5"
+        }
+      },
+      {
+        "id": "color/grey/500",
+        "css": "--lw-grey-500",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-ink-faint"
+        ],
+        "values": {
+          "default": "#707A8A"
+        }
+      },
+      {
+        "id": "color/gold/400",
+        "css": "--lw-gold-400",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-brand"
+        ],
+        "values": {
+          "default": "#F0B90B"
+        }
+      },
+      {
+        "id": "color/gold/300",
+        "css": "--lw-gold-300",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-brand"
+        ],
+        "values": {
+          "default": "#FCD535"
+        }
+      },
+      {
+        "id": "color/on-gold",
+        "css": "--lw-on-gold",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-ink-on-brand"
+        ],
+        "values": {
+          "default": "#202630"
+        }
+      },
+      {
+        "id": "color/up",
+        "css": "--lw-up",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-up"
+        ],
+        "values": {
+          "default": "#2EBD85"
+        }
+      },
+      {
+        "id": "color/down",
+        "css": "--lw-down",
+        "type": "color",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-down"
+        ],
+        "values": {
+          "default": "#F6465D"
+        }
+      },
+      {
+        "id": "color/canvas",
+        "css": "--lw-canvas",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-canvas"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/dark/900"
+          }
+        }
+      },
+      {
+        "id": "color/surface",
+        "css": "--lw-surface",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-surface-raised"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/slate/700"
+          }
+        }
+      },
+      {
+        "id": "color/well",
+        "css": "--lw-well",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-surface-deep"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/slate/800"
+          }
+        }
+      },
+      {
+        "id": "color/border",
+        "css": "--lw-border",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-stroke-strong"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/slate/600"
+          }
+        }
+      },
+      {
+        "id": "color/border-strong",
+        "css": "--lw-border-strong",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-stroke-subtle"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/slate/500"
+          }
+        }
+      },
+      {
+        "id": "color/text/primary",
+        "css": "--lw-text-primary",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-ink"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/grey/100"
+          }
+        }
+      },
+      {
+        "id": "color/text/secondary",
+        "css": "--lw-text-secondary",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-ink-muted"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/grey/400"
+          }
+        }
+      },
+      {
+        "id": "color/text/tertiary",
+        "css": "--lw-text-tertiary",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-ink-faint"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/grey/500"
+          }
+        }
+      },
+      {
+        "id": "color/brand",
+        "css": "--lw-brand",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-brand"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/gold/400"
+          }
+        }
+      },
+      {
+        "id": "color/action/bg",
+        "css": "--lw-action-bg",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-brand"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/gold/300"
+          }
+        }
+      },
+      {
+        "id": "color/action/fg",
+        "css": "--lw-action-fg",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-ink-on-brand"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/on-gold"
+          }
+        }
+      },
+      {
+        "id": "color/trend/up",
+        "css": "--lw-trend-up",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-up"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/up"
+          }
+        }
+      },
+      {
+        "id": "color/trend/down",
+        "css": "--lw-trend-down",
+        "type": "color",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-down"
+        ],
+        "values": {
+          "default": {
+            "alias": "color/down"
+          }
+        }
+      },
+      {
+        "id": "font/ui",
+        "css": "--lw-font-ui",
+        "type": "fontFamily",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-font-nova"
+        ],
+        "values": {
+          "default": "'BinanceNova', -apple-system, 'Helvetica Neue', Arial, sans-serif"
+        }
+      },
+      {
+        "id": "font/display",
+        "css": "--lw-font-display",
+        "type": "fontFamily",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-font-plex"
+        ],
+        "values": {
+          "default": "'BinancePlex', 'BinanceNova', -apple-system, sans-serif"
+        }
+      },
+      {
+        "id": "font/body",
+        "css": "--lw-font-body",
+        "type": "fontFamily",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-font-nova"
+        ],
+        "values": {
+          "default": {
+            "alias": "font/ui"
+          }
+        }
+      },
+      {
+        "id": "font/campaign",
+        "css": "--lw-font-campaign",
+        "type": "fontFamily",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-font-plex"
+        ],
+        "values": {
+          "default": {
+            "alias": "font/display"
+          }
+        }
+      },
+      {
+        "id": "type/figure",
+        "css": "--lw-type-figure",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-display-72"
+        ],
+        "values": {
+          "default": "72px"
+        }
+      },
+      {
+        "id": "type/headline",
+        "css": "--lw-type-headline",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-h2"
+        ],
+        "values": {
+          "default": "40px"
+        }
+      },
+      {
+        "id": "type/title",
+        "css": "--lw-type-title",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-h3"
+        ],
+        "values": {
+          "default": "18px"
+        }
+      },
+      {
+        "id": "type/ui",
+        "css": "--lw-type-ui",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-sizes"
+        ],
+        "values": {
+          "default": "14px"
+        }
+      },
+      {
+        "id": "type/body",
+        "css": "--lw-type-body",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-body"
+        ],
+        "values": {
+          "default": "12px"
+        }
+      },
+      {
+        "id": "type/legal",
+        "css": "--lw-type-legal",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-sizes"
+        ],
+        "values": {
+          "default": "8px"
+        }
+      },
+      {
+        "id": "leading/body",
+        "css": "--lw-leading-body",
+        "type": "number",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-body"
+        ],
+        "values": {
+          "default": "1.33"
+        }
+      },
+      {
+        "id": "weight/regular",
+        "css": "--lw-weight-regular",
+        "type": "fontWeight",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-weights"
+        ],
+        "values": {
+          "default": "400"
+        }
+      },
+      {
+        "id": "weight/medium",
+        "css": "--lw-weight-medium",
+        "type": "fontWeight",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-weights"
+        ],
+        "values": {
+          "default": "500"
+        }
+      },
+      {
+        "id": "weight/semibold",
+        "css": "--lw-weight-semibold",
+        "type": "fontWeight",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-weights"
+        ],
+        "values": {
+          "default": "600"
+        }
+      },
+      {
+        "id": "weight/bold",
+        "css": "--lw-weight-bold",
+        "type": "fontWeight",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-weights"
+        ],
+        "values": {
+          "default": "700"
+        }
+      },
+      {
+        "id": "radius/button",
+        "css": "--lw-radius-button",
+        "type": "dimension",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-radii-home"
+        ],
+        "values": {
+          "default": "10px"
+        }
+      },
+      {
+        "id": "radius/card",
+        "css": "--lw-radius-card",
+        "type": "dimension",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-radii-markets"
+        ],
+        "values": {
+          "default": "8px"
+        }
+      },
+      {
+        "id": "radius/option",
+        "css": "--lw-radius-option",
+        "type": "dimension",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-radii-home"
+        ],
+        "values": {
+          "default": "16px"
+        }
+      },
+      {
+        "id": "radius/chip",
+        "css": "--lw-radius-chip",
+        "type": "dimension",
+        "layer": "semantic",
+        "status": "observed",
+        "evidence": [
+          "e-radii-home"
+        ],
+        "values": {
+          "default": "4px"
+        }
+      },
+      {
+        "id": "radius/pill",
+        "css": "--lw-radius-pill",
+        "type": "dimension",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-radii-markets"
+        ],
+        "values": {
+          "default": "9999px"
+        }
+      },
+      {
+        "id": "depth/overlay",
+        "css": "--lw-depth-overlay",
+        "type": "shadow",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-shadow"
+        ],
+        "values": {
+          "default": "-2px 0 14px rgba(0, 0, 0, 0.4), 0 0 6px rgba(0, 0, 0, 0.2)"
+        }
+      },
+      {
+        "id": "motion/micro",
+        "css": "--lw-motion-micro",
+        "type": "duration",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-motion-markets"
+        ],
+        "values": {
+          "default": "150ms"
+        }
+      },
+      {
+        "id": "motion/hover",
+        "css": "--lw-motion-hover",
+        "type": "duration",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-motion-markets"
+        ],
+        "values": {
+          "default": "200ms"
+        }
+      },
+      {
+        "id": "motion/panel",
+        "css": "--lw-motion-panel",
+        "type": "duration",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-motion"
+        ],
+        "values": {
+          "default": "700ms"
+        }
+      },
+      {
+        "id": "motion/easing-standard",
+        "css": "--lw-easing-standard",
+        "type": "easing",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-motion-markets"
+        ],
+        "values": {
+          "default": "cubic-bezier(0.4, 0, 0.2, 1)"
+        }
+      },
+      {
+        "id": "motion/easing-panel",
+        "css": "--lw-easing-panel",
+        "type": "easing",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-motion"
+        ],
+        "values": {
+          "default": "cubic-bezier(0, 0, 0.2, 1)"
+        }
+      },
+      {
+        "id": "space/unit",
+        "css": "--lw-space-unit",
+        "type": "dimension",
+        "layer": "primitive",
+        "status": "observed",
+        "evidence": [
+          "e-space"
+        ],
+        "values": {
+          "default": "8px"
+        }
+      },
+      {
+        "id": "space/block",
+        "css": "--lw-space-block",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-space"
+        ],
+        "values": {
+          "default": "64px"
+        }
+      },
+      {
+        "id": "layout/container",
+        "css": "--lw-layout-container",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-container"
+        ],
+        "values": {
+          "default": "1440px"
+        }
+      },
+      {
+        "id": "layout/container-pad",
+        "css": "--lw-layout-pad",
+        "type": "dimension",
+        "layer": "component",
+        "status": "observed",
+        "evidence": [
+          "e-container"
+        ],
+        "values": {
+          "default": "24px"
+        }
+      }
+    ]
+  },
+  "slop": [],
+  "guardrailViolations": []
+}

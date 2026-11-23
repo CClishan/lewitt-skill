@@ -1,0 +1,1012 @@
+{
+  "source": "https://www.binance.com/en",
+  "capturedAt": "2026-11-23T12:28:11+00:00",
+  "evidence": [
+    {
+      "id": "e-canvas",
+      "url": "https://www.binance.com/en",
+      "locator": "page background",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "rgb(24, 26, 32)": "93.8% of sampled area"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-canvas-markets",
+      "url": "https://www.binance.com/en/markets/overview",
+      "locator": "markets canvas",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "rgb(24, 26, 32)": "98.3%"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-3.png"
+    },
+    {
+      "id": "e-canvas-futures",
+      "url": "https://www.binance.com/en/futures/home",
+      "locator": "futures canvas mix",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "rgb(24,26,32)": "21.6%",
+        "rgb(11,14,17)": "52.2%",
+        "rgb(32,38,48)": "14.4%"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-4.png"
+    },
+    {
+      "id": "e-surface-raised",
+      "url": "https://www.binance.com/en",
+      "locator": "price and news panels",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+screenshot-pixel",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "rgb(41, 49, 61)": "2.2% of area; confirmed at screenshot pixel (800,300)"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-surface-raised-markets",
+      "url": "https://www.binance.com/en/markets/overview",
+      "locator": "tabbed cards",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "fill": "rgb(41,49,61) rendered as card background in viewport-3"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-3.png",
+      "limitations": [
+        "areaPct rounds to 0 on a 98% canvas; presence confirmed visually"
+      ]
+    },
+    {
+      "id": "e-surface-deep",
+      "url": "https://www.binance.com/en",
+      "locator": "input wells and inset rows",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "rgb(30, 35, 41)": "3.5%"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-surface-floor",
+      "url": "https://www.binance.com/en/futures/home",
+      "locator": "futures page base layer",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "rgb(11, 14, 17)": "52.2%"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-4.png"
+    },
+    {
+      "id": "e-ink",
+      "url": "https://www.binance.com/en",
+      "locator": "body text",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "rgb(234, 236, 239)": "#EAECEF, 81 nodes"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-ink-muted",
+      "url": "https://www.binance.com/en",
+      "locator": "labels and secondary text",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "rgb(146, 154, 165)": "#929AA5, 78 nodes"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-ink-faint",
+      "url": "https://www.binance.com/en/markets/overview",
+      "locator": "tertiary and meta text",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "rgb(112, 122, 138)": "#707A8A, 25 nodes"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-3.png"
+    },
+    {
+      "id": "e-ink-on-brand",
+      "url": "https://www.binance.com/en",
+      "locator": "text on yellow",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "rgb(32, 38, 48)": "#202630, 6 nodes"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-brand",
+      "url": "https://www.binance.com/en",
+      "locator": "logo, hero figure, Sign Up, cookie CTAs",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+screenshot-pixel",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "rgb(252, 213, 53)": "#FCD535, 0.3% of surface",
+        "rgb(240, 185, 11)": "#F0B90B, 13 text nodes"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-brand-other",
+      "url": "https://www.binance.com/en/futures/home",
+      "locator": "futures CTA fills",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "rgb(252,213,53)": "5.3% of that page"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-4.png"
+    },
+    {
+      "id": "e-up",
+      "url": "https://www.binance.com/en",
+      "locator": "price change positive",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "rgb(46, 189, 133)": "#2EBD85, 5 nodes"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png",
+      "limitations": [
+        "screenshot pixel (760,603) reads (39,145,105) after antialiasing; token is the DOM value"
+      ]
+    },
+    {
+      "id": "e-down",
+      "url": "https://www.binance.com/en/markets/overview",
+      "locator": "price change negative",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "rgb(246, 70, 93)": "#F6465D"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-3.png"
+    },
+    {
+      "id": "e-stroke-strong",
+      "url": "https://www.binance.com/en",
+      "locator": "dividers and active tab underline",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "rgb(51, 59, 71)": "#333B47"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-stroke-subtle",
+      "url": "https://www.binance.com/en",
+      "locator": "card and input borders",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "card": "rgb(41,49,61)",
+        "input outline": "rgb(61,68,82) by screenshot"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-font-nova",
+      "url": "https://www.binance.com/en",
+      "locator": "all text",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "family": "BinanceNova",
+        "samples": "669"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-font-nova-other",
+      "url": "https://www.binance.com/en/markets/overview",
+      "locator": "markets text",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "family": "BinanceNova",
+        "samples": "969"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-3.png"
+    },
+    {
+      "id": "e-font-plex",
+      "url": "https://www.binance.com/en/crypto/convert",
+      "locator": "display face",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "family": "BinancePlex",
+        "samples": "10"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-2.png",
+      "limitations": [
+        "appears on 2 of 4 pages only; role inferred"
+      ]
+    },
+    {
+      "id": "e-h2",
+      "url": "https://www.binance.com/en",
+      "locator": "section and marketing headline",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "size": "40px",
+        "weight": "600",
+        "letterSpacing": "normal"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-h2-convert",
+      "url": "https://www.binance.com/en/crypto/convert",
+      "locator": "convert headline",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "size": "40px",
+        "weight": "600"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-2.png",
+      "limitations": [
+        "same treatment on a second page"
+      ]
+    },
+    {
+      "id": "e-h1-markets",
+      "url": "https://www.binance.com/en/markets/overview",
+      "locator": "markets page h1",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "size": "32px",
+        "weight": "700"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-3.png",
+      "limitations": [
+        "home h1 is a 16px utility node; semantic tag does not track display size"
+      ]
+    },
+    {
+      "id": "e-h3",
+      "url": "https://www.binance.com/en",
+      "locator": "card title",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "size": "18px",
+        "weight": "500"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-body",
+      "url": "https://www.binance.com/en",
+      "locator": "body copy",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "size": "12px",
+        "weight": "500",
+        "lineHeight": "16px"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-body-markets",
+      "url": "https://www.binance.com/en/markets/overview",
+      "locator": "table body",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "size": "12px",
+        "weight": "400",
+        "lineHeight": "18px"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-3.png"
+    },
+    {
+      "id": "e-sizes",
+      "url": "https://www.binance.com/en",
+      "locator": "text size distribution",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "top": "14px x96, 16px x49, 20px x15, 18px x10, 28px x4, 72px x3"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-sizes-markets",
+      "url": "https://www.binance.com/en/markets/overview",
+      "locator": "text size distribution",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "top": "14px x155, 16px x49, 12px x31, 18px x10"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-3.png"
+    },
+    {
+      "id": "e-display-72",
+      "url": "https://www.binance.com/en",
+      "locator": "hero figure 337,527,796",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "computed": "72px x3 nodes",
+        "weight": "700",
+        "rendered": "yellow figure in screenshot"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-weights",
+      "url": "https://www.binance.com/en",
+      "locator": "weight distribution",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "400": "x91",
+        "500": "x77",
+        "600": "x16",
+        "700": "x8"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-weights-markets",
+      "url": "https://www.binance.com/en/markets/overview",
+      "locator": "weight distribution",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "400": "x138",
+        "500": "x106",
+        "600": "x4",
+        "700": "x2"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-3.png"
+    },
+    {
+      "id": "e-radii-home",
+      "url": "https://www.binance.com/en",
+      "locator": "radius distribution",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "10px": "x17 buttons",
+        "8px": "x18",
+        "4px": "x10",
+        "16px": "x7 banner card"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-radii-markets",
+      "url": "https://www.binance.com/en/markets/overview",
+      "locator": "radius distribution",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "8px": "x43 cards, tabs, pills",
+        "9999px": "x8",
+        "50%": "x12 coin icons"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-3.png"
+    },
+    {
+      "id": "e-radii-futures",
+      "url": "https://www.binance.com/en/futures/home",
+      "locator": "radius distribution",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "4px": "x17",
+        "6px": "x13",
+        "16px": "x10"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-4.png"
+    },
+    {
+      "id": "e-shadow",
+      "url": "https://www.binance.com/en",
+      "locator": "only shadow in the sample",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "cookie panel": "rgba(0,0,0,0.4) -2px 0 14px, rgba(0,0,0,0.2) 0 0 6px, inset rgba(255,255,255,0.2) 0 0 2px"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-motion",
+      "url": "https://www.binance.com/en",
+      "locator": "transitions",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "transform": "0.7s cubic-bezier(0,0,0.2,1)",
+        "generic": "0.25s ease-in-out"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-motion-markets",
+      "url": "https://www.binance.com/en/markets/overview",
+      "locator": "hover transitions",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "color/bg/border": "0.2s cubic-bezier(0.4,0,0.2,1)",
+        "generic": "0.15s linear"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-3.png"
+    },
+    {
+      "id": "e-motion-pages",
+      "url": "https://www.binance.com/en/crypto/convert",
+      "locator": "transitions on convert",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "value": "all only"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-2.png",
+      "limitations": [
+        "no named durations captured on this page"
+      ]
+    },
+    {
+      "id": "e-focus",
+      "url": "https://www.binance.com/en",
+      "locator": "stylesheet scan",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "cssom-scan",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "focusVisible": true,
+        "prefersReducedMotion": true
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-focus-other",
+      "url": "https://www.binance.com/en/markets/overview",
+      "locator": "stylesheet scan",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "cssom-scan",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "focusVisible": true,
+        "reducedMotion": "true on page 3, false on pages 2 and 4"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-3.png"
+    },
+    {
+      "id": "e-space",
+      "url": "https://www.binance.com/en",
+      "locator": "spacing distribution",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "8px": "x82",
+        "16px": "x55",
+        "20px": "x27",
+        "4px": "x27",
+        "24px": "x9",
+        "64px": "x8"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-container",
+      "url": "https://www.binance.com/en",
+      "locator": "page container",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "maxWidth": "1440px",
+        "padding": "0 24px"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-container-markets",
+      "url": "https://www.binance.com/en/markets/overview",
+      "locator": "markets container",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "rendered": "1200px",
+        "maxWidth": "none"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-3.png"
+    },
+    {
+      "id": "e-grid",
+      "url": "https://www.binance.com/en/futures/home",
+      "locator": "futures card grid",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "template": "376px 376px 376px",
+        "gap": "48px 36px",
+        "count": 2
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-4.png"
+    },
+    {
+      "id": "e-buttons",
+      "url": "https://www.binance.com/en",
+      "locator": "button typography",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "primary": "14px/500, radius 10px, padding 10x16",
+        "secondary": "14px/500, radius 4px",
+        "text": "14px/400"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-coin-tiles",
+      "url": "https://www.binance.com/en/markets/overview",
+      "locator": "coin row icon tiles",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:28:11+00:00",
+      "values": {
+        "size": "28px",
+        "radius": "50%",
+        "fill": "per-asset brand colours"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-3.png"
+    }
+  ],
+  "measurements": [
+    {
+      "id": "m-canvas",
+      "category": "Color / canvas",
+      "value": "#181A20 = rgb(24,26,32) on 93.8% (home) and 98.3% (markets); #0B0E11 floor covers 52.2% of futures",
+      "status": "observed",
+      "evidence": [
+        "e-canvas",
+        "e-canvas-markets",
+        "e-surface-floor",
+        "e-canvas-futures"
+      ]
+    },
+    {
+      "id": "m-surfaces",
+      "category": "Color / surfaces",
+      "value": "raised #29313D (2.2%), input well #1E2329 (3.5%), border #333B47, stronger border #3D4452",
+      "status": "observed",
+      "evidence": [
+        "e-surface-raised",
+        "e-surface-deep",
+        "e-stroke-strong",
+        "e-stroke-subtle"
+      ]
+    },
+    {
+      "id": "m-ink",
+      "category": "Color / text",
+      "value": "#EAECEF body, #929AA5 secondary, #707A8A tertiary, #202630 on yellow",
+      "status": "observed",
+      "evidence": [
+        "e-ink",
+        "e-ink-muted",
+        "e-ink-faint",
+        "e-ink-on-brand"
+      ]
+    },
+    {
+      "id": "m-brand",
+      "category": "Color / brand",
+      "value": "#F0B90B for logo and hero figure, #FCD535 for filled CTA; fill reaches 5.3% of the futures page",
+      "status": "observed",
+      "evidence": [
+        "e-brand",
+        "e-brand-other",
+        "e-display-72"
+      ]
+    },
+    {
+      "id": "m-semantic",
+      "category": "Color / semantic",
+      "value": "up #2EBD85, down #F6465D, always as text colour",
+      "status": "observed",
+      "evidence": [
+        "e-up",
+        "e-down"
+      ]
+    },
+    {
+      "id": "m-fonts",
+      "category": "Typography / families",
+      "value": "BinanceNova everywhere (669 / 969 nodes); BinancePlex on only 2 of 4 pages, 10 nodes",
+      "status": "observed",
+      "evidence": [
+        "e-font-nova",
+        "e-font-nova-other",
+        "e-font-plex"
+      ]
+    },
+    {
+      "id": "m-type-scale",
+      "category": "Typography / scale",
+      "value": "72px figure, 40px/600 headline, 32px/700 page title, 18px/500 card title, 14px UI, 12px body, 8px legal",
+      "status": "observed",
+      "evidence": [
+        "e-display-72",
+        "e-h2",
+        "e-h1-markets",
+        "e-h3",
+        "e-body",
+        "e-body-markets",
+        "e-sizes",
+        "e-sizes-markets"
+      ]
+    },
+    {
+      "id": "m-weights",
+      "category": "Typography / weights",
+      "value": "400 x91 and 500 x77 dominate; 600 x16 for headlines; 700 x8 (hero figure, markets h1)",
+      "status": "observed",
+      "evidence": [
+        "e-weights",
+        "e-weights-markets"
+      ]
+    },
+    {
+      "id": "m-radii",
+      "category": "Shape / radius",
+      "value": "buttons 10px, cards/tabs/pills 8px, option tiles 16px, chips 4px, coin icons 50%, badges 9999px",
+      "status": "observed",
+      "evidence": [
+        "e-radii-home",
+        "e-radii-markets",
+        "e-radii-futures"
+      ]
+    },
+    {
+      "id": "m-depth",
+      "category": "Shape / depth",
+      "value": "one shadow in the whole sample (cookie overlay); every other layer separated by a #333B47 hairline on a #29313D fill",
+      "status": "observed",
+      "evidence": [
+        "e-shadow",
+        "e-stroke-strong",
+        "e-surface-raised"
+      ]
+    },
+    {
+      "id": "m-motion",
+      "category": "Motion",
+      "value": "0.7s transform cubic-bezier(0,0,0.2,1); 0.2s color/bg/border cubic-bezier(0.4,0,0.2,1); 0.15s linear micro-states",
+      "status": "observed",
+      "evidence": [
+        "e-motion",
+        "e-motion-markets"
+      ]
+    },
+    {
+      "id": "m-a11y-signals",
+      "category": "Interaction affordances",
+      "value": ":focus-visible on all sampled pages; prefers-reduced-motion on pages 1 and 3 but not 2 and 4",
+      "status": "observed",
+      "evidence": [
+        "e-focus",
+        "e-focus-other"
+      ]
+    },
+    {
+      "id": "m-space",
+      "category": "Spacing",
+      "value": "8px x82, 16px x55, 20px x27, 4px x27, 24px gutters, 64px block spacing",
+      "status": "observed",
+      "evidence": [
+        "e-space"
+      ]
+    },
+    {
+      "id": "m-layout",
+      "category": "Layout",
+      "value": "1440px container with 24px padding (home), 1200px content (markets), 3 x 376px cards with 48/36 gaps (futures)",
+      "status": "observed",
+      "evidence": [
+        "e-container",
+        "e-container-markets",
+        "e-grid"
+      ]
+    }
+  ]
+}

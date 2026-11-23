@@ -1,0 +1,501 @@
+{
+  "url": "https://www.binance.com/en",
+  "title": "Binance Crypto Exchange: Buy, Sell Bitcoin, Ethereum, Stocks & More",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "errors": [],
+  "colors": {
+    "pageBackground": "rgb(24, 26, 32)",
+    "backgroundColors": [
+      {
+        "value": "rgb(24, 26, 32)",
+        "count": 9,
+        "areaPct": 93.8
+      },
+      {
+        "value": "rgb(252, 213, 53)",
+        "count": 7,
+        "areaPct": 0.3
+      },
+      {
+        "value": "rgb(51, 59, 71)",
+        "count": 3,
+        "areaPct": 0
+      },
+      {
+        "value": "rgb(41, 49, 61)",
+        "count": 3,
+        "areaPct": 2.2
+      },
+      {
+        "value": "rgb(30, 35, 41)",
+        "count": 2,
+        "areaPct": 3.5
+      },
+      {
+        "value": "rgb(255, 255, 255)",
+        "count": 1,
+        "areaPct": 0.2
+      },
+      {
+        "value": "rgb(0, 0, 0)",
+        "count": 1,
+        "areaPct": 0
+      }
+    ],
+    "textColors": [
+      {
+        "value": "rgb(234, 236, 239)",
+        "count": 81
+      },
+      {
+        "value": "rgb(146, 154, 165)",
+        "count": 78
+      },
+      {
+        "value": "rgb(240, 185, 11)",
+        "count": 13
+      },
+      {
+        "value": "rgb(112, 122, 138)",
+        "count": 9
+      },
+      {
+        "value": "rgb(32, 38, 48)",
+        "count": 6
+      },
+      {
+        "value": "rgb(46, 189, 133)",
+        "count": 5
+      }
+    ],
+    "accentCandidates": [
+      {
+        "value": "rgb(146, 154, 165)",
+        "count": 65
+      },
+      {
+        "value": "rgb(234, 236, 239)",
+        "count": 20
+      },
+      {
+        "value": "rgb(0, 0, 238)",
+        "count": 16
+      },
+      {
+        "value": "rgb(252, 213, 53)",
+        "count": 5
+      },
+      {
+        "value": "rgb(32, 38, 48)",
+        "count": 5
+      },
+      {
+        "value": "rgb(112, 122, 138)",
+        "count": 3
+      }
+    ]
+  },
+  "typography": {
+    "uniqueFamilies": [
+      {
+        "value": "BinanceNova",
+        "count": 669
+      }
+    ],
+    "headings": {
+      "h1": {
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "16px",
+        "letterSpacing": "normal",
+        "family": "BinanceNova"
+      },
+      "h2": {
+        "size": "40px",
+        "weight": "600",
+        "lineHeight": "48px",
+        "letterSpacing": "normal",
+        "family": "BinanceNova"
+      },
+      "h3": {
+        "size": "18px",
+        "weight": "500",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "family": "BinanceNova"
+      }
+    },
+    "body": {
+      "size": "12px",
+      "weight": "500",
+      "lineHeight": "16px",
+      "family": "BinanceNova",
+      "maxWidth": "none"
+    },
+    "sizeDistribution": [
+      {
+        "value": "14px",
+        "count": 96
+      },
+      {
+        "value": "16px",
+        "count": 49
+      },
+      {
+        "value": "20px",
+        "count": 15
+      },
+      {
+        "value": "18px",
+        "count": 10
+      },
+      {
+        "value": "12px",
+        "count": 6
+      },
+      {
+        "value": "28px",
+        "count": 4
+      },
+      {
+        "value": "72px",
+        "count": 3
+      },
+      {
+        "value": "32px",
+        "count": 3
+      },
+      {
+        "value": "40px",
+        "count": 3
+      },
+      {
+        "value": "64px",
+        "count": 2
+      },
+      {
+        "value": "24px",
+        "count": 1
+      }
+    ],
+    "weightDistribution": [
+      {
+        "value": "400",
+        "count": 91
+      },
+      {
+        "value": "500",
+        "count": 77
+      },
+      {
+        "value": "600",
+        "count": 16
+      },
+      {
+        "value": "700",
+        "count": 8
+      }
+    ]
+  },
+  "effects": {
+    "radii": [
+      {
+        "value": "8px",
+        "count": 18
+      },
+      {
+        "value": "10px",
+        "count": 17
+      },
+      {
+        "value": "4px",
+        "count": 10
+      },
+      {
+        "value": "16px",
+        "count": 7
+      },
+      {
+        "value": "20px",
+        "count": 2
+      },
+      {
+        "value": "12px",
+        "count": 1
+      },
+      {
+        "value": "24px",
+        "count": 1
+      }
+    ],
+    "shadows": [
+      {
+        "value": "rgba(0, 0, 0, 0.4) -2px 0px 14px 0px, rgba(0, 0, 0, 0.2) 0px 0px 6px 0px, rgba(255, 255, 255, 0.2) 0px 0px 2px 0px inset",
+        "count": 1
+      }
+    ],
+    "transitions": [
+      "all",
+      "transform 0.7s cubic-bezier(0, 0, 0.2, 1)",
+      "0.25s ease-in-out",
+      "0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+      "transform 0.2s cubic-bezier(0, 0, 0.2, 1)",
+      "opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+    ]
+  },
+  "spacingDistribution": [
+    {
+      "value": "8px",
+      "count": 82
+    },
+    {
+      "value": "16px",
+      "count": 55
+    },
+    {
+      "value": "20px",
+      "count": 27
+    },
+    {
+      "value": "4px",
+      "count": 27
+    },
+    {
+      "value": "24px",
+      "count": 9
+    },
+    {
+      "value": "64px",
+      "count": 8
+    },
+    {
+      "value": "10px",
+      "count": 8
+    },
+    {
+      "value": "40px",
+      "count": 6
+    },
+    {
+      "value": "80px",
+      "count": 5
+    },
+    {
+      "value": "11px",
+      "count": 4
+    },
+    {
+      "value": "5px",
+      "count": 4
+    },
+    {
+      "value": "6px",
+      "count": 3
+    },
+    {
+      "value": "32px",
+      "count": 3
+    },
+    {
+      "value": "12px",
+      "count": 3
+    },
+    {
+      "value": "120px",
+      "count": 3
+    }
+  ],
+  "buttons": [
+    {
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "4px",
+      "paddingTop": "0px",
+      "paddingLeft": "10px"
+    },
+    {
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "0px",
+      "paddingTop": "0px",
+      "paddingLeft": "0px"
+    },
+    {
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "10px",
+      "paddingTop": "10px",
+      "paddingLeft": "16px"
+    },
+    {
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "0px",
+      "paddingTop": "10px",
+      "paddingLeft": "0px"
+    }
+  ],
+  "layout": {
+    "bodyPadding": "0px",
+    "containerMaxWidth": "1440px",
+    "containerPadding": "0px 24px",
+    "containerWidth": "1440px"
+  },
+  "cards": [
+    {
+      "selector": "div.cm-banner--enter",
+      "width": "375px",
+      "height": "301px",
+      "ratio": "1.25:1",
+      "radius": "16px",
+      "shadow": "rgba(0, 0, 0, 0.4) -2px 0px 14px 0px, rgba(0, 0, 0, 0.2) 0px 0px 6px 0px, rgba(255, 255, 255, 0.2) 0px 0px 2px 0px inset"
+    }
+  ],
+  "images": [
+    {
+      "src": "data-uri (image/png, ~4KB)",
+      "naturalWidth": 360,
+      "naturalHeight": 192,
+      "ratio": "1.88:1",
+      "renderedWidth": "120px",
+      "role": "thumbnail"
+    },
+    {
+      "src": "https://bin.bnbstatic.com/static/images/common/logo.png",
+      "naturalWidth": 200,
+      "naturalHeight": 200,
+      "ratio": "1.00:1",
+      "renderedWidth": "20px",
+      "role": "thumbnail"
+    },
+    {
+      "src": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/87496d50-2408-43e1-ad4c-78b47b448a6a",
+      "naturalWidth": 96,
+      "naturalHeight": 96,
+      "ratio": "1.00:1",
+      "renderedWidth": "28px",
+      "role": "thumbnail"
+    },
+    {
+      "src": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/3a8c9fe6-2a76-4ace-aa07-415d994de6f0",
+      "naturalWidth": 96,
+      "naturalHeight": 96,
+      "ratio": "1.00:1",
+      "renderedWidth": "28px",
+      "role": "thumbnail"
+    },
+    {
+      "src": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/20220218/94863af2-c980-42cf-a139-7b9f462a36c2",
+      "naturalWidth": 192,
+      "naturalHeight": 192,
+      "ratio": "1.00:1",
+      "renderedWidth": "28px",
+      "role": "thumbnail"
+    },
+    {
+      "src": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/20260611/7e8ad4e1-b452-4eca-b533-ef150ba92e0e",
+      "naturalWidth": 192,
+      "naturalHeight": 192,
+      "ratio": "1.00:1",
+      "renderedWidth": "28px",
+      "role": "thumbnail"
+    },
+    {
+      "src": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/20260609/1a7dd0c6-e431-4ef3-a19f-4f9b8940712e",
+      "naturalWidth": 192,
+      "naturalHeight": 192,
+      "ratio": "1.00:1",
+      "renderedWidth": "28px",
+      "role": "thumbnail"
+    },
+    {
+      "src": "https://bin.bnbstatic.com/image/julia/new-homepage/safu/forbes_dark.png",
+      "naturalWidth": 256,
+      "naturalHeight": 256,
+      "ratio": "1.00:1",
+      "renderedWidth": "0px",
+      "role": "thumbnail"
+    },
+    {
+      "src": "https://bin.bnbstatic.com/image/julia/new-homepage/safu/forbes_dark.png",
+      "naturalWidth": 256,
+      "naturalHeight": 256,
+      "ratio": "1.00:1",
+      "renderedWidth": "64px",
+      "role": "thumbnail"
+    },
+    {
+      "src": "https://bin.bnbstatic.com/image-proxy/rs_md_webp/image/julia/new-homepage/safu/humans-luis-thumb.png",
+      "naturalWidth": 500,
+      "naturalHeight": 253,
+      "ratio": "1.98:1",
+      "renderedWidth": "384px",
+      "role": "feature"
+    }
+  ],
+  "spacingSamples": [
+    {
+      "tag": "h1",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "h2",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "h3",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "p",
+      "margin": "0px 0px 0px 6px",
+      "padding": "0px 4px",
+      "gap": "normal"
+    },
+    {
+      "tag": "ul",
+      "margin": "16px 0px 0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "button",
+      "margin": "0px",
+      "padding": "0px 10px",
+      "gap": "6px"
+    },
+    {
+      "tag": "footer",
+      "margin": "0px",
+      "padding": "64px 24px",
+      "gap": "normal"
+    }
+  ],
+  "sectionGaps": [],
+  "grid": {
+    "columns": 2,
+    "gap": "normal 24px",
+    "template": "235.188px 940.812px",
+    "selector": "div.footer-content"
+  },
+  "gridCount": 3,
+  "focusVisible": true,
+  "reducedMotion": true
+}

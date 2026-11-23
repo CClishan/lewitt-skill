@@ -1,0 +1,38 @@
+{
+  "source": "https://binance.com",
+  "domain": "binance.com",
+  "capturedAt": "2026-11-23T12:28:11+00:00",
+  "driver": "playwright(node, CDP evaluate; throwaway profile, channel=chromium, module=~/.npm/_npx/31e32ef8478fbf80/node_modules/playwright)",
+  "isolated": true,
+  "isolationNote": null,
+  "pages": [
+    {
+      "url": "https://www.binance.com/en/crypto/convert",
+      "shot": "viewport-2.png"
+    },
+    {
+      "url": "https://www.binance.com/en/markets/overview",
+      "shot": "viewport-3.png"
+    },
+    {
+      "url": "https://www.binance.com/en/futures/home",
+      "shot": "viewport-4.png"
+    },
+    {
+      "url": "https://binance.com"
+    }
+  ],
+  "crawl": {
+    "pages": [
+      "https://binance.com",
+      "https://www.binance.com/en/crypto/convert",
+      "https://www.binance.com/en/markets/overview",
+      "https://www.binance.com/en/futures/home"
+    ],
+    "budget": "1+3"
+  },
+  "errors": [],
+  "playwrightModule": "~/.npm/_npx/31e32ef8478fbf80/node_modules/playwright",
+  "viewport": "1440x900",
+  "title": "Binance Crypto Exchange: Buy, Sell Bitcoin, Ethereum, Stocks & More"
+}

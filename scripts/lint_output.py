@@ -357,8 +357,13 @@ def main() -> int:
                      "detail": "no --check-code supplied"})
 
     rows.append({"name": "visual fidelity", "result": "unverified", "detail": "requires specimen comparison at matching viewports"})
-    rows.append({"name": "full system/ site", "result": "n/a" if dna.get("meta", {}).get("mode") != "full" else "unverified",
-                 "detail": "DNA mode does not build system/"})
+    mode = (dna.get("meta") or {}).get("mode")
+    if mode == "full":
+        site = dest / "system" / "index.html"
+        rows.append({"name": "full system/ site", "result": "PASS" if site.exists() else "FAIL",
+                     "detail": "system/index.html present" if site.exists() else "mode=full but system/index.html is missing"})
+    else:
+        rows.append({"name": "full system/ site", "result": "n/a", "detail": "DNA mode does not build system/"})
 
     try:  # keep the rendered snapshot so `build_artifacts --incremental` can prove frozen blocks held
         previous = json.loads((dest / "verify.json").read_text(encoding="utf-8"))
