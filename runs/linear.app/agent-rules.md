@@ -53,15 +53,10 @@ _Use 1px inset/outset rings at 3-20% alpha; reserve soft blur for genuinely floa
 
 ## Tokens (copy values from tokens.css; never retype numbers)
 
-- `var(--ds-neutral-950)` — color/neutral/950 (color, observed)
-- `var(--ds-neutral-900)` — color/neutral/900 (color, observed)
-- `var(--ds-neutral-850)` — color/neutral/850 (color, observed)
-- `var(--ds-white)` — color/white (color, observed)
-- `var(--ds-grey-200)` — color/grey/200 (color, observed)
-- `var(--ds-grey-400)` — color/grey/400 (color, observed)
-- `var(--ds-grey-600)` — color/grey/600 (color, observed)
-- `var(--ds-grey-700)` — color/grey/700 (color, observed)
-- `var(--ds-highlight-one-off)` — color/highlight/one-off (color, observed)
+Use the semantic and component layers; reach for a primitive only when no role fits.
+
+### Semantic — roles to use
+
 - `var(--ds-canvas)` — color/canvas (color, observed)
 - `var(--ds-surface)` — color/surface (color, observed)
 - `var(--ds-ring)` — color/ring (color, observed)
@@ -70,10 +65,12 @@ _Use 1px inset/outset rings at 3-20% alpha; reserve soft blur for genuinely floa
 - `var(--ds-text-muted)` — color/text/muted (color, observed)
 - `var(--ds-action-bg)` — color/action/bg (color, observed)
 - `var(--ds-action-fg)` — color/action/fg (color, observed)
-- `var(--ds-font-sans)` — font/sans (fontFamily, observed)
-- `var(--ds-font-mono)` — font/mono (fontFamily, observed)
 - `var(--ds-font-body)` — font/body (fontFamily, observed)
 - `var(--ds-font-code)` — font/code (fontFamily, observed)
+- `var(--ds-radius-control)` — radius/control (dimension, observed)
+
+### Component — reusable parts
+
 - `var(--ds-type-display-1)` — type/display-1 (dimension, observed)
 - `var(--ds-type-display-2)` — type/display-2 (dimension, observed)
 - `var(--ds-type-title)` — type/title (dimension, observed)
@@ -83,24 +80,39 @@ _Use 1px inset/outset rings at 3-20% alpha; reserve soft blur for genuinely floa
 - `var(--ds-leading-display)` — leading/display (number, observed)
 - `var(--ds-leading-body)` — leading/body (number, observed)
 - `var(--ds-tracking-display)` — tracking/display (dimension, observed)
+- `var(--ds-depth-ring)` — depth/ring (shadow, observed)
+- `var(--ds-depth-ring-inset)` — depth/ring-inset (shadow, observed)
+- `var(--ds-depth-float)` — depth/float (shadow, observed)
+- `var(--ds-space-section-adjacent)` — space/section-adjacent (dimension, observed)
+- `var(--ds-space-section-breath)` — space/section-breath (dimension, observed)
+- `var(--ds-layout-sidebar)` — layout/sidebar (dimension, observed)
+
+### Primitives — raw values, last resort
+
+- `var(--ds-neutral-950)` — color/neutral/950 (color, observed)
+- `var(--ds-neutral-900)` — color/neutral/900 (color, observed)
+- `var(--ds-neutral-850)` — color/neutral/850 (color, observed)
+- `var(--ds-white)` — color/white (color, observed)
+- `var(--ds-grey-200)` — color/grey/200 (color, observed)
+- `var(--ds-grey-400)` — color/grey/400 (color, observed)
+- `var(--ds-grey-600)` — color/grey/600 (color, observed)
+- `var(--ds-grey-700)` — color/grey/700 (color, observed)
+- `var(--ds-highlight-one-off)` — color/highlight/one-off (color, observed)
+- `var(--ds-font-sans)` — font/sans (fontFamily, observed)
+- `var(--ds-font-mono)` — font/mono (fontFamily, observed)
 - `var(--ds-weight-body)` — weight/body (fontWeight, observed)
 - `var(--ds-weight-emphasis)` — weight/emphasis (fontWeight, observed)
 - `var(--ds-weight-subhead)` — weight/subhead (fontWeight, observed)
 - `var(--ds-radius-pill)` — radius/pill (dimension, observed)
 - `var(--ds-radius-md)` — radius/md (dimension, observed)
 - `var(--ds-radius-sm)` — radius/sm (dimension, observed)
-- `var(--ds-radius-control)` — radius/control (dimension, observed)
-- `var(--ds-depth-ring)` — depth/ring (shadow, observed)
-- `var(--ds-depth-ring-inset)` — depth/ring-inset (shadow, observed)
-- `var(--ds-depth-float)` — depth/float (shadow, observed)
 - `var(--ds-motion-fast)` — motion/duration-fast (duration, observed)
 - `var(--ds-motion-duration)` — motion/duration (duration, observed)
 - `var(--ds-motion-easing)` — motion/easing (easing, observed)
-- `var(--ds-space-section-adjacent)` — space/section-adjacent (dimension, observed)
-- `var(--ds-space-section-breath)` — space/section-breath (dimension, observed)
-- `var(--ds-layout-sidebar)` — layout/sidebar (dimension, observed)
 
 ## Verification
+
+Live specimens and motion replay: `preview.html` (single file, opens in any browser).
 
 Run before shipping UI built from these rules:
 

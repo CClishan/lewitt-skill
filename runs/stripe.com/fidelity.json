@@ -1,0 +1,18 @@
+{
+  "method": "side-by-side at equal width in system/index.html#fidelity; inspected by the agent that built the system",
+  "compared": ["hero composition (nav + headline + CTA + gradient band)"],
+  "agrees": [
+    "headline is light-weight (200-300) at display size with negative tracking",
+    "one indigo filled CTA plus one outlined secondary CTA in the hero",
+    "gradient occupies the hero's right half only; everything below the hero is flat",
+    "white canvas, body ink is blue-black rather than neutral grey"
+  ],
+  "deviations": [
+    "rebuilt headline is 32px (type/h2 token) while the source uses 48px (type/hero) — the rebuild copy is a different length",
+    "source nav has the announcement bar; the rebuild omits it",
+    "source gradient is a rendered artwork; the rebuild approximates it with a CSS gradient (proposed)",
+    "font rendering parity cannot be claimed: sohne-var is not shipped here"
+  ],
+  "status": "partial",
+  "note": "Layout, weight and spacing differences are visible to a reader; typography parity is out of scope in this environment."
+}

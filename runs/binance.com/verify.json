@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-23T12:32:50+00:00",
+  "generatedAt": "2026-11-23T12:44:29+00:00",
   "dest": "~/runs/binance.com",
   "meta": {
     "name": "Binance",
@@ -47,6 +47,16 @@
       "detail": "all artifacts are deterministic renders of dna.json, no post-render edits"
     },
     {
+      "name": "system/ colour scope",
+      "result": "PASS",
+      "detail": "canvas token #181A20 (dark); chrome shell dark"
+    },
+    {
+      "name": "preview.html (self-contained)",
+      "result": "PASS",
+      "detail": "single file, same-folder tokens.css, no remote assets"
+    },
+    {
       "name": "incremental freeze",
       "result": "PASS",
       "detail": "no frozen block changed since the last render"
@@ -68,13 +78,13 @@
     },
     {
       "name": "guardrail (generated code)",
-      "result": "PASS",
-      "detail": "0 violation(s)scanned ~/runs/binance.com/system"
+      "result": "unverified",
+      "detail": "no --check-code supplied"
     },
     {
       "name": "visual fidelity",
       "result": "unverified",
-      "detail": "requires specimen comparison at matching viewports"
+      "detail": "no fidelity.json — requires a side-by-side comparison at matching viewports"
     },
     {
       "name": "full system/ site",
@@ -82,7 +92,7 @@
       "detail": "system/index.html present"
     }
   ],
-  "renderedBy": "build_artifacts.py/v1",
+  "renderedBy": "build_artifacts.py/v2",
   "dna": {
     "meta": {
       "name": "Binance",

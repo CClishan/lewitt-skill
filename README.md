@@ -14,7 +14,9 @@ Merged from two skills and their strongest parts:
 ## The one idea
 
 `dna.json` is the only file you author. `taste.md`, `tokens.css`, `tokens.resolved.json`,
-`agent-rules.md` and `VERIFY.md` are deterministic renders of it. If a rendered file drifts,
+`agent-rules.md`, `preview.html` and `VERIFY.md` are deterministic renders of it. The preview is a
+single file with live swatches, type and motion specimens, taste cards and a copy/download bar —
+it renders in ~30 ms and needs no browser tooling. If a rendered file drifts,
 `lint_output.py` fails — so an analysis can never be half-updated.
 
 ```

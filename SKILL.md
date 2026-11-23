@@ -23,9 +23,11 @@ Turn a URL into one authored file — `dna.json` — and everything else is rend
 | `taste.md` | Design Map + Taste DNA, human-readable | `build_artifacts.py` |
 | `tokens.css` | `[data-ds]` scoped variables, primitive → semantic → component | `build_artifacts.py` |
 | `tokens.resolved.json` | flat values per mode | `build_artifacts.py` |
+| `preview.html` | single-file live specimens, motion replay, taste cards, source thumbnails, copy/download bar | `build_artifacts.py` |
 | `agent-rules.md` | hard constraints first, then principles, patterns, token list, verify command | `build_artifacts.py` |
 | `VERIFY.md` / `verify.json` | gate results, including explicit `unverified` rows | `lint_output.py` |
-| `system/` | runnable reference site (**`--full` only**) | you, then `lint_output.py --check-code` |
+| `system/` | runnable reference site — states, compositions, stress controls, fidelity (**`--full` only**) | you, then `lint_output.py --check-code` |
+| `fidelity.json` | side-by-side comparison record (`--full`): what agrees, what deviates | you |
 
 Output lives at `{dest}/{domain}/` so two sites never overwrite each other.
 
@@ -129,7 +131,8 @@ blocks. Tokens are layered: `primitive` (raw value) → `semantic` (role, aliase
 python3 "$SKILL/scripts/build_artifacts.py" "$DEST/$DOMAIN"
 ```
 
-It validates, then writes the four renders. A schema failure stops rendering — fix the source,
+It validates, then writes the five renders (including `preview.html`, which links the same-folder
+`tokens.css` and has no external dependency — `lint_output.py` gates that). A schema failure stops rendering — fix the source,
 never the output.
 
 Incremental form:

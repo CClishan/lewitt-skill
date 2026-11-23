@@ -1,0 +1,99 @@
+/* lewitt system/ — components built only from the extracted tokens in ../tokens.css.
+   Rule (dna.json t-gradient-budget): colour is a once-per-page event in the hero; no gradients on controls.
+   Rule (dna.json t-indigo-share): indigo appears on actions and links only. */
+
+.ds-scope {
+  background: var(--lw-canvas); color: var(--lw-text-body);
+  font-family: var(--lw-font-body); font-size: var(--lw-type-body); line-height: var(--lw-leading-prose);
+}
+
+/* ---------- buttons (default / hover / focus-visible / active / disabled are real states) */
+.ds-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: var(--lw-weight-regular) var(--lw-type-body)/1 var(--lw-font-body);
+  border-radius: var(--lw-radius-control); border: 1px solid transparent;
+  padding: 12px 20px; cursor: pointer; touch-action: manipulation;
+  transition: background-color var(--lw-motion-base) var(--lw-easing-out),
+              border-color var(--lw-motion-base) var(--lw-easing-out),
+              color var(--lw-motion-base) var(--lw-easing-out);
+}
+.ds-btn--primary { background: var(--lw-action-bg); color: var(--lw-action-fg); }
+.ds-btn--primary:hover { background: var(--lw-action-bg-alt); }
+.ds-btn--secondary { background: var(--lw-canvas); color: var(--lw-link); border-color: var(--lw-link); }
+.ds-btn--secondary:hover { background: var(--lw-surface-subtle); }
+.ds-btn--quiet { background: transparent; color: var(--lw-link); padding: 8px 4px; }
+.ds-btn:active { box-shadow: var(--lw-depth-ring-inset); }
+.ds-btn:focus-visible { outline: none; box-shadow: var(--lw-depth-ring-inset), var(--lw-depth-ring); }
+.ds-btn:disabled, .ds-btn[aria-disabled="true"] { opacity: .45; cursor: not-allowed; }
+
+/* ---------- fields */
+.ds-field { display: block; }
+.ds-field > span { display: block; color: var(--lw-text-muted); font-size: var(--lw-type-caption); margin-bottom: 6px; letter-spacing: .01em; }
+.ds-input {
+  width: 100%; font: inherit; color: var(--lw-text-heading);
+  background: var(--lw-canvas); border: 1px solid var(--lw-blue-tint-100);
+  border-radius: var(--lw-radius-control); padding: 12px 14px;
+  transition: border-color var(--lw-motion-base) var(--lw-easing-out), box-shadow var(--lw-motion-base) var(--lw-easing-out);
+}
+.ds-input:hover { border-color: var(--lw-text-muted); }
+.ds-input:focus-visible { outline: none; border-color: var(--lw-link); box-shadow: 0 0 0 3px rgba(83, 58, 253, .22); }
+.ds-input[aria-invalid="true"] { border-color: #b3261e; }
+.ds-input:disabled { background: var(--lw-canvas-tint); color: var(--lw-text-muted); }
+
+/* ---------- cards */
+.ds-card { background: var(--lw-canvas); border-radius: var(--lw-radius-card); border: 1px solid var(--lw-blue-tint-100); }
+.ds-card--float { box-shadow: var(--lw-depth-float); border-color: transparent; }
+.ds-card--tint { background: var(--lw-surface-subtle); border-color: transparent; }
+.ds-price-card { padding: 24px; display: grid; gap: 12px; }
+.ds-price-card--featured { box-shadow: var(--lw-depth-float-strong); border-color: transparent; }
+.ds-price { font-size: 32px; line-height: 1.1; font-weight: var(--lw-weight-light); color: var(--lw-text-heading); letter-spacing: var(--lw-tracking-h2); }
+
+/* ---------- text helpers */
+.ds-hero { font-size: var(--lw-type-hero); line-height: var(--lw-leading-prose); font-weight: var(--lw-weight-light); letter-spacing: var(--lw-tracking-hero); margin: 0; }
+.ds-h2 { font-size: var(--lw-type-h2); line-height: 1.15; font-weight: var(--lw-weight-light); letter-spacing: var(--lw-tracking-h2); margin: 0; }
+.ds-h3 { font-size: var(--lw-type-h3); font-weight: var(--lw-weight-light); margin: 0; }
+.ds-body { color: var(--lw-text-body); font-size: var(--lw-type-body); }
+.ds-muted { color: var(--lw-text-muted); }
+.ds-caption { font-size: var(--lw-type-caption); color: var(--lw-text-muted); }
+.ds-link { color: var(--lw-link); text-decoration: none; }
+.ds-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.ds-accent-ink { color: var(--lw-link); }
+
+/* ---------- composition: hero with gradient band (the one allowed gradient) */
+.ds-hero-band {
+  position: relative; overflow: hidden; border-radius: var(--lw-radius-card);
+  background: var(--lw-canvas); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+}
+.ds-hero-band::after {
+  content: ""; position: absolute; inset: -30% -12% -30% auto; width: 58%;
+  background-image: linear-gradient(100deg, #f8a8c8 0%, #c2a6ff 38%, #f6a03c 72%, #f8d6a8 100%);
+  filter: blur(10px); transform: rotate(-10deg); opacity: .95; z-index: 0;
+}
+.ds-hero-band { min-height: 320px; }
+.ds-hero-band > * { position: relative; z-index: 1; }
+.ds-hero-copy { padding: 40px; }
+.ds-nav { display: flex; gap: 20px; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--lw-blue-tint-100); }
+.ds-nav a { color: var(--lw-text-body); text-decoration: none; font-size: var(--lw-type-ui); }
+.ds-nav a[aria-current="page"] { color: var(--lw-text-heading); font-weight: var(--lw-weight-ui-strong); }
+.ds-topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; border-bottom: 1px solid var(--lw-blue-tint-100); }
+
+@media (max-width: 820px) {
+  .ds-hero-band { grid-template-columns: minmax(0, 1fr); }
+  .ds-hero-band::after { inset: auto -20% -10% auto; width: 80%; height: 60%; }
+  .ds-hero-copy { padding: 24px 20px; }
+  .ds-nav { overflow-x: auto; }
+}
+
+/* ---------- stress controls (scoped to the demo container only) */
+[data-stress="long"] .ds-stressable { max-width: 12ch; overflow-wrap: anywhere; }
+[data-stress="nogradient"] .ds-hero-band::after { display: none; }
+[data-stress="nomedia"] .ds-media { visibility: hidden; }
+.ds-media { display: grid; place-items: center; border-radius: var(--lw-radius-card); background: transparent; min-height: 120px; color: var(--lw-text-muted); }
+[data-stress="reduced"] *, [data-stress="reduced"] *::before, [data-stress="reduced"] *::after {
+  transition-duration: 1ms !important; animation-duration: 1ms !important;
+}
+
+/* ---------- side-by-side fidelity */
+.fid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+.fid img { width: 100%; border-radius: 8px; border: 1px solid var(--doc-line); display: block; }
+@media (max-width: 860px) { .fid { grid-template-columns: 1fr; } }

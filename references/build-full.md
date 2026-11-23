@@ -34,6 +34,22 @@ the documentation chrome never inherits the extracted component geometry.
 6. **Handoff** — download links for `tokens.css`, `tokens.resolved.json`, `taste.md`,
    `agent-rules.md`; evidence ids; `limitations`; what is proposed vs observed.
 
+## The four blocks that need judgement (not templated)
+
+1. **Anatomy and state matrix** — default / hover / focus-visible / active / disabled for buttons,
+   inputs, cards and links. Real states come from the browser; forced samples are labelled
+   "forced sample" and never replace real ones.
+2. **Compositions** — 2–3 blocks that carry the source's temperament (hero, pricing, checkout),
+   assembled from the same components. Copy that is not extracted is labelled replaced/proposed.
+3. **Stress controls** — long copy, missing media, no-gradient fallback, reduced motion, narrow
+   viewport. Toggles scope to the staged demo, never to the documentation.
+4. **Fidelity** — show the captured source next to the rebuild at equal width, then write
+   `fidelity.json` (`{method, compared[], agrees[], deviations[], status: partial|match|mismatch}`).
+   `lint_output.py` reports it as PARTIAL until every deviation is closed; never hand-promote it.
+
+The page itself must take its canvas from the system tokens (light system → light page); the
+navigation may keep the documentation chrome. `lint_output.py` checks the colour scope.
+
 ## Rules
 
 - Every displayed value comes from `tokens.resolved.json`; never retype a number in HTML.

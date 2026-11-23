@@ -1,94 +1,12 @@
 {
-  "generatedAt": "2026-11-23T12:22:09+00:00",
-  "dest": "~/runs/stripe.com",
-  "meta": {
-    "name": "Stripe",
-    "source": "https://stripe.com/",
-    "domain": "stripe.com",
-    "mode": "dna",
-    "capturedAt": "2026-11-23T12:17:46+00:00",
-    "viewport": "1440x900",
-    "captureIsolated": true,
-    "crawl": {
-      "pages": [
-        "https://stripe.com/",
-        "https://stripe.com/pricing",
-        "https://stripe.com/products",
-        "https://stripe.com/contact/sales"
-      ],
-      "budget": "1+3"
-    },
-    "limitations": [
-      "stripe.com redirects to /en-sg on this network; copy and pricing are the SG locale.",
-      "The hero gradient is an image (1392x975); its colours are sampled from pixels, not CSS.",
-      "Rendered font is sohne-var; the loaded face filename was not inspected.",
-      "Home page CSSOM scan found no :focus-visible/reduced-motion, while the pricing page did — scanning is per-page.",
-      "contact/sales (page 4) is a short form page and contributes little signal."
-    ],
-    "openQuestions": [
-      "Is the hero gradient CSS or an image asset on other locales?",
-      "Does the dark footer section count as a second surface mode?"
-    ]
-  },
-  "checks": [
-    {
-      "name": "dna.json contract",
-      "result": "PASS",
-      "detail": "SSOT valid (evidence/measurements/patterns/taste/tokens)"
-    },
-    {
-      "name": "token resolution",
-      "result": "PASS",
-      "detail": "all aliases resolve, no cycles"
-    },
-    {
-      "name": "single source (R3)",
-      "result": "PASS",
-      "detail": "all artifacts are deterministic renders of dna.json, no post-render edits"
-    },
-    {
-      "name": "incremental freeze",
-      "result": "PASS",
-      "detail": "no frozen block changed since the last render"
-    },
-    {
-      "name": "evidence coverage",
-      "result": "PASS",
-      "detail": "32 evidence entries cited"
-    },
-    {
-      "name": "restraint guardrails",
-      "result": "PASS",
-      "detail": "2/2 restraint principles carry machine-readable guardrails"
-    },
-    {
-      "name": "anti-slop (authored prose)",
-      "result": "PASS",
-      "detail": "0 hit(s)"
-    },
-    {
-      "name": "guardrail (generated code)",
-      "result": "unverified",
-      "detail": "no --check-code supplied"
-    },
-    {
-      "name": "visual fidelity",
-      "result": "unverified",
-      "detail": "requires specimen comparison at matching viewports"
-    },
-    {
-      "name": "full system/ site",
-      "result": "n/a",
-      "detail": "DNA mode does not build system/"
-    }
-  ],
-  "renderedBy": "build_artifacts.py/v1",
+  "generatedAt": "2026-11-23T12:44:29+00:00",
+  "renderedBy": "build_artifacts.py/v2",
   "dna": {
     "meta": {
       "name": "Stripe",
       "source": "https://stripe.com/",
       "domain": "stripe.com",
-      "mode": "dna",
+      "mode": "full",
       "capturedAt": "2026-11-23T12:17:46+00:00",
       "viewport": "1440x900",
       "captureIsolated": true,
@@ -111,7 +29,20 @@
       "openQuestions": [
         "Is the hero gradient CSS or an image asset on other locales?",
         "Does the dark footer section count as a second surface mode?"
-      ]
+      ],
+      "incremental": {
+        "targets": [
+          "taste"
+        ],
+        "frozen": [
+          "meta",
+          "evidence",
+          "measurements",
+          "patterns",
+          "tokens"
+        ],
+        "updatedAt": "2026-11-23T12:41:19+00:00"
+      }
     },
     "evidence": [
       {
@@ -971,7 +902,7 @@
         "guardrail": {
           "forbidCss": [],
           "forbidClass": [
-            "(^|-)bg-gradient-to-"
+            "(^|-)bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)"
           ],
           "max": {},
           "note": "Needs judgement: allow gradients only inside the hero band and on illustration. Elements at #533AFD are actions, not decoration."
@@ -997,7 +928,8 @@
         "guardrail": {
           "forbidCss": [],
           "forbidClass": [
-            "(^|-)bg-(indigo|violet|purple)-[4-7]00$"
+            "(^|-)bg-(indigo|violet|purple)-[4-7]00$",
+            "(^|-)bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)"
           ],
           "max": {},
           "note": "Allowed on buttons/links only; never on a section or card background."
@@ -1725,6 +1657,67 @@
       }
     ]
   },
-  "slop": [],
-  "guardrailViolations": []
+  "checks": [
+    {
+      "name": "dna.json contract",
+      "result": "PASS",
+      "detail": "SSOT valid (evidence/measurements/patterns/taste/tokens)"
+    },
+    {
+      "name": "token resolution",
+      "result": "PASS",
+      "detail": "all aliases resolve, no cycles"
+    },
+    {
+      "name": "single source (R3)",
+      "result": "PASS",
+      "detail": "all artifacts are deterministic renders of dna.json, no post-render edits"
+    },
+    {
+      "name": "system/ colour scope",
+      "result": "PASS",
+      "detail": "canvas token #FFFFFF (light); chrome shell dark"
+    },
+    {
+      "name": "preview.html (self-contained)",
+      "result": "PASS",
+      "detail": "single file, same-folder tokens.css, no remote assets"
+    },
+    {
+      "name": "incremental freeze",
+      "result": "PASS",
+      "detail": "no frozen block changed since the last render — scope ['taste'], frozen ['meta', 'evidence', 'measurements', 'patterns', 'tokens']"
+    },
+    {
+      "name": "evidence coverage",
+      "result": "PASS",
+      "detail": "32 evidence entries cited"
+    },
+    {
+      "name": "restraint guardrails",
+      "result": "PASS",
+      "detail": "2/2 restraint principles carry machine-readable guardrails; incremental targets=['taste'] frozen=['meta', 'evidence', 'measurements', 'patterns', 'tokens']"
+    },
+    {
+      "name": "anti-slop (authored prose)",
+      "result": "PASS",
+      "detail": "0 hit(s)"
+    },
+    {
+      "name": "guardrail (generated code)",
+      "result": "PASS",
+      "detail": "0 violation(s)scanned ~/runs/stripe.com/system"
+    },
+    {
+      "name": "visual fidelity",
+      "result": "PARTIAL",
+      "detail": "1 composition(s), 4 recorded deviation(s), status=partial"
+    },
+    {
+      "name": "full system/ site",
+      "result": "PASS",
+      "detail": "system/index.html present"
+    }
+  ],
+  "note": "verify.json: `dna` is the exact state last rendered; rerun lint_output.py to refresh checks"
 }

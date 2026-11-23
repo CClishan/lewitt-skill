@@ -7,14 +7,14 @@
 ### MUST NOT — Colour is a once-per-page event
 _One full-bleed gradient band in the hero; below it every surface is white or a pale blue tint._
 
-- Forbidden class patterns: `(^|-)bg-gradient-to-`
+- Forbidden class patterns: `(^|-)bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)`
 - Why: Readers need to trust the screenshots more than the scenery; once colour stops, the product becomes the subject.
 - Note: Needs judgement: allow gradients only inside the hero band and on illustration. Elements at #533AFD are actions, not decoration.
 
 ### MUST NOT — One indigo, only where you can click
 _Indigo only on the filled CTA, the outlined CTA border, and linked words; everything else is ink or tint._
 
-- Forbidden class patterns: `(^|-)bg-(indigo|violet|purple)-[4-7]00$`
+- Forbidden class patterns: `(^|-)bg-(indigo|violet|purple)-[4-7]00$`, `(^|-)bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)`
 - Why: At ~0.2% of the surface, indigo always means 'do something'; a larger share would make the page a brand poster and slow scanning.
 - Note: Allowed on buttons/links only; never on a section or card background.
 
@@ -58,15 +58,10 @@ _Indigo only on the filled CTA, the outlined CTA border, and linked words; every
 
 ## Tokens (copy values from tokens.css; never retype numbers)
 
-- `var(--lw-ink-900)` — color/ink/900 (color, observed)
-- `var(--lw-ink-700)` — color/ink/700 (color, observed)
-- `var(--lw-ink-600)` — color/ink/600 (color, observed)
-- `var(--lw-tint-100)` — color/blue-tint/100 (color, observed)
-- `var(--lw-tint-50)` — color/blue-tint/50 (color, observed)
-- `var(--lw-page-tint)` — color/blue-tint/25 (color, observed)
-- `var(--lw-white)` — color/white (color, observed)
-- `var(--lw-indigo-600)` — color/indigo/600 (color, observed)
-- `var(--lw-indigo-500)` — color/indigo/500 (color, observed)
+Use the semantic and component layers; reach for a primitive only when no role fits.
+
+### Semantic — roles to use
+
 - `var(--lw-canvas)` — color/canvas (color, observed)
 - `var(--lw-canvas-tint)` — color/canvas-tint (color, observed)
 - `var(--lw-surface-subtle)` — color/surface-subtle (color, observed)
@@ -77,10 +72,14 @@ _Indigo only on the filled CTA, the outlined CTA border, and linked words; every
 - `var(--lw-action-bg-alt)` — color/action/bg-alt (color, observed)
 - `var(--lw-action-fg)` — color/action/fg (color, observed)
 - `var(--lw-link)` — color/link (color, observed)
-- `var(--lw-font-sans)` — font/sans (fontFamily, observed)
-- `var(--lw-font-mono)` — font/mono (fontFamily, observed)
 - `var(--lw-font-body)` — font/body (fontFamily, observed)
 - `var(--lw-font-code)` — font/code (fontFamily, observed)
+- `var(--lw-radius-control)` — radius/control (dimension, observed)
+- `var(--lw-radius-control-alt)` — radius/control-alt (dimension, observed)
+- `var(--lw-radius-card)` — radius/card (dimension, observed)
+
+### Component — reusable parts
+
 - `var(--lw-type-hero)` — type/hero (dimension, observed)
 - `var(--lw-type-h2)` — type/h2 (dimension, observed)
 - `var(--lw-type-h3)` — type/h3 (dimension, observed)
@@ -90,25 +89,38 @@ _Indigo only on the filled CTA, the outlined CTA border, and linked words; every
 - `var(--lw-tracking-hero)` — tracking/hero (dimension, observed)
 - `var(--lw-tracking-h2)` — tracking/h2 (dimension, observed)
 - `var(--lw-leading-prose)` — leading/prose (number, observed)
-- `var(--lw-weight-light)` — weight/light (fontWeight, observed)
-- `var(--lw-weight-regular)` — weight/regular (fontWeight, observed)
-- `var(--lw-weight-ui-strong)` — weight/ui-strong (fontWeight, observed)
-- `var(--lw-radius-control)` — radius/control (dimension, observed)
-- `var(--lw-radius-control-alt)` — radius/control-alt (dimension, observed)
-- `var(--lw-radius-card)` — radius/card (dimension, observed)
 - `var(--lw-depth-float)` — depth/float (shadow, observed)
 - `var(--lw-depth-float-strong)` — depth/float-strong (shadow, observed)
 - `var(--lw-depth-ring)` — depth/ring (shadow, observed)
 - `var(--lw-depth-ring-inset)` — depth/ring-inset (shadow, observed)
+- `var(--lw-space-section)` — space/section (dimension, observed)
+- `var(--lw-layout-container)` — layout/container (dimension, inferred)
+
+### Primitives — raw values, last resort
+
+- `var(--lw-ink-900)` — color/ink/900 (color, observed)
+- `var(--lw-ink-700)` — color/ink/700 (color, observed)
+- `var(--lw-ink-600)` — color/ink/600 (color, observed)
+- `var(--lw-tint-100)` — color/blue-tint/100 (color, observed)
+- `var(--lw-tint-50)` — color/blue-tint/50 (color, observed)
+- `var(--lw-page-tint)` — color/blue-tint/25 (color, observed)
+- `var(--lw-white)` — color/white (color, observed)
+- `var(--lw-indigo-600)` — color/indigo/600 (color, observed)
+- `var(--lw-indigo-500)` — color/indigo/500 (color, observed)
+- `var(--lw-font-sans)` — font/sans (fontFamily, observed)
+- `var(--lw-font-mono)` — font/mono (fontFamily, observed)
+- `var(--lw-weight-light)` — weight/light (fontWeight, observed)
+- `var(--lw-weight-regular)` — weight/regular (fontWeight, observed)
+- `var(--lw-weight-ui-strong)` — weight/ui-strong (fontWeight, observed)
 - `var(--lw-motion-fast)` — motion/fast (duration, observed)
 - `var(--lw-motion-base)` — motion/base (duration, observed)
 - `var(--lw-motion-reveal)` — motion/reveal (duration, observed)
 - `var(--lw-easing-in-out)` — motion/easing-in-out (easing, observed)
 - `var(--lw-easing-out)` — motion/easing-out (easing, observed)
-- `var(--lw-space-section)` — space/section (dimension, observed)
-- `var(--lw-layout-container)` — layout/container (dimension, inferred)
 
 ## Verification
+
+Live specimens and motion replay: `preview.html` (single file, opens in any browser).
 
 Run before shipping UI built from these rules:
 

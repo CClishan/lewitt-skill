@@ -1,0 +1,60 @@
+/* lewitt system/ — documentation chrome only.
+   Extracted tokens and component geometry live in tokens.css / system.css and are scoped to [data-ds]. */
+:root {
+  --doc-bg: #0E1014;
+  --doc-panel: #14171D;
+  --doc-line: #262B34;
+  --doc-ink: #E8EAEE;
+  --doc-mute: #8B93A1;
+  --doc-accent: #F0B90B;
+  --doc-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation-duration: .001ms !important; transition-duration: .001ms !important; } }
+body {
+  margin: 0; background: var(--doc-bg); color: var(--doc-ink);
+  font: 15px/1.6 -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+a { color: var(--doc-accent); text-underline-offset: 3px; }
+.skip { position: absolute; left: -9999px; top: 8px; background: var(--doc-accent); color: #202630; padding: 8px 12px; border-radius: 6px; z-index: 99; }
+.skip:focus { left: 12px; }
+.layout { display: grid; grid-template-columns: 232px minmax(0, 1fr); min-height: 100vh; }
+nav.toc {
+  position: sticky; top: 0; align-self: start; height: 100vh; overflow: auto;
+  border-right: 1px solid var(--doc-line); padding: 24px 16px; background: var(--doc-panel);
+}
+nav.toc .brand { font-weight: 700; letter-spacing: .02em; margin-bottom: 4px; }
+nav.toc .sub { color: var(--doc-mute); font-size: 12px; margin-bottom: 20px; }
+nav.toc a { display: block; color: var(--doc-mute); text-decoration: none; padding: 6px 8px; border-radius: 6px; font-size: 13px; }
+nav.toc a:hover, nav.toc a:focus-visible { color: var(--doc-ink); background: #1B1F27; outline: 2px solid var(--doc-accent); outline-offset: -2px; }
+main { padding: 32px 40px 96px; max-width: 1180px; min-width: 0; }
+section { margin-bottom: 64px; scroll-margin-top: 16px; }
+h1 { font-size: 30px; margin: 0 0 8px; }
+h2 { font-size: 22px; margin: 0 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--doc-line); }
+h3 { font-size: 15px; margin: 24px 0 8px; color: var(--doc-ink); }
+p, li { color: #C7CDD8; }
+.lede { color: var(--doc-mute); max-width: 70ch; }
+.badge { display: inline-block; font: 11px/1 var(--doc-mono); padding: 4px 6px; border-radius: 4px; border: 1px solid var(--doc-line); color: var(--doc-mute); margin-right: 6px; text-transform: uppercase; letter-spacing: .04em; }
+.badge.observed { border-color: #2EBD85; color: #7FDDB9; }
+.badge.inferred { border-color: #F0B90B; color: #F0B90B; }
+.badge.proposed { border-color: #8B93A1; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--doc-line); vertical-align: top; }
+th { color: var(--doc-mute); font-weight: 500; font-size: 12px; }
+code, .mono { font-family: var(--doc-mono); font-size: 12px; color: #D7DCE4; }
+.note { border-left: 2px solid var(--doc-accent); padding: 8px 12px; background: #171A20; color: #C7CDD8; font-size: 13px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 900px) {
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  nav.toc { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--doc-line); }
+  nav.toc a { display: inline-block; margin: 2px 4px 2px 0; }
+  main { padding: 24px 16px 64px; min-width: 0; }
+  .grid-3, .grid-2 { grid-template-columns: minmax(0, 1fr); }
+  table { display: block; overflow-x: auto; }
+  main { overflow-x: clip; }
+  code, .mono { overflow-wrap: anywhere; }
+  ul { padding-left: 18px; }
+  li { overflow-wrap: anywhere; }
+}

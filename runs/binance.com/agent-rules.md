@@ -54,6 +54,46 @@ _BinanceNova everywhere; BinancePlex only on 10 nodes in 2 of 4 pages._
 
 ## Tokens (copy values from tokens.css; never retype numbers)
 
+Use the semantic and component layers; reach for a primitive only when no role fits.
+
+### Semantic — roles to use
+
+- `var(--lw-canvas)` — color/canvas (color, observed)
+- `var(--lw-surface)` — color/surface (color, observed)
+- `var(--lw-well)` — color/well (color, observed)
+- `var(--lw-border)` — color/border (color, observed)
+- `var(--lw-border-strong)` — color/border-strong (color, observed)
+- `var(--lw-text-primary)` — color/text/primary (color, observed)
+- `var(--lw-text-secondary)` — color/text/secondary (color, observed)
+- `var(--lw-text-tertiary)` — color/text/tertiary (color, observed)
+- `var(--lw-brand)` — color/brand (color, observed)
+- `var(--lw-action-bg)` — color/action/bg (color, observed)
+- `var(--lw-action-fg)` — color/action/fg (color, observed)
+- `var(--lw-trend-up)` — color/trend/up (color, observed)
+- `var(--lw-trend-down)` — color/trend/down (color, observed)
+- `var(--lw-font-body)` — font/body (fontFamily, observed)
+- `var(--lw-font-campaign)` — font/campaign (fontFamily, observed)
+- `var(--lw-radius-button)` — radius/button (dimension, observed)
+- `var(--lw-radius-card)` — radius/card (dimension, observed)
+- `var(--lw-radius-option)` — radius/option (dimension, observed)
+- `var(--lw-radius-chip)` — radius/chip (dimension, observed)
+
+### Component — reusable parts
+
+- `var(--lw-type-figure)` — type/figure (dimension, observed)
+- `var(--lw-type-headline)` — type/headline (dimension, observed)
+- `var(--lw-type-title)` — type/title (dimension, observed)
+- `var(--lw-type-ui)` — type/ui (dimension, observed)
+- `var(--lw-type-body)` — type/body (dimension, observed)
+- `var(--lw-type-legal)` — type/legal (dimension, observed)
+- `var(--lw-leading-body)` — leading/body (number, observed)
+- `var(--lw-depth-overlay)` — depth/overlay (shadow, observed)
+- `var(--lw-space-block)` — space/block (dimension, observed)
+- `var(--lw-layout-container)` — layout/container (dimension, observed)
+- `var(--lw-layout-pad)` — layout/container-pad (dimension, observed)
+
+### Primitives — raw values, last resort
+
 - `var(--lw-dark-900)` — color/dark/900 (color, observed)
 - `var(--lw-dark-1000)` — color/dark/1000 (color, observed)
 - `var(--lw-slate-700)` — color/slate/700 (color, observed)
@@ -68,51 +108,23 @@ _BinanceNova everywhere; BinancePlex only on 10 nodes in 2 of 4 pages._
 - `var(--lw-on-gold)` — color/on-gold (color, observed)
 - `var(--lw-up)` — color/up (color, observed)
 - `var(--lw-down)` — color/down (color, observed)
-- `var(--lw-canvas)` — color/canvas (color, observed)
-- `var(--lw-surface)` — color/surface (color, observed)
-- `var(--lw-well)` — color/well (color, observed)
-- `var(--lw-border)` — color/border (color, observed)
-- `var(--lw-border-strong)` — color/border-strong (color, observed)
-- `var(--lw-text-primary)` — color/text/primary (color, observed)
-- `var(--lw-text-secondary)` — color/text/secondary (color, observed)
-- `var(--lw-text-tertiary)` — color/text/tertiary (color, observed)
-- `var(--lw-brand)` — color/brand (color, observed)
-- `var(--lw-action-bg)` — color/action/bg (color, observed)
-- `var(--lw-action-fg)` — color/action/fg (color, observed)
-- `var(--lw-trend-up)` — color/trend/up (color, observed)
-- `var(--lw-trend-down)` — color/trend/down (color, observed)
 - `var(--lw-font-ui)` — font/ui (fontFamily, observed)
 - `var(--lw-font-display)` — font/display (fontFamily, observed)
-- `var(--lw-font-body)` — font/body (fontFamily, observed)
-- `var(--lw-font-campaign)` — font/campaign (fontFamily, observed)
-- `var(--lw-type-figure)` — type/figure (dimension, observed)
-- `var(--lw-type-headline)` — type/headline (dimension, observed)
-- `var(--lw-type-title)` — type/title (dimension, observed)
-- `var(--lw-type-ui)` — type/ui (dimension, observed)
-- `var(--lw-type-body)` — type/body (dimension, observed)
-- `var(--lw-type-legal)` — type/legal (dimension, observed)
-- `var(--lw-leading-body)` — leading/body (number, observed)
 - `var(--lw-weight-regular)` — weight/regular (fontWeight, observed)
 - `var(--lw-weight-medium)` — weight/medium (fontWeight, observed)
 - `var(--lw-weight-semibold)` — weight/semibold (fontWeight, observed)
 - `var(--lw-weight-bold)` — weight/bold (fontWeight, observed)
-- `var(--lw-radius-button)` — radius/button (dimension, observed)
-- `var(--lw-radius-card)` — radius/card (dimension, observed)
-- `var(--lw-radius-option)` — radius/option (dimension, observed)
-- `var(--lw-radius-chip)` — radius/chip (dimension, observed)
 - `var(--lw-radius-pill)` — radius/pill (dimension, observed)
-- `var(--lw-depth-overlay)` — depth/overlay (shadow, observed)
 - `var(--lw-motion-micro)` — motion/micro (duration, observed)
 - `var(--lw-motion-hover)` — motion/hover (duration, observed)
 - `var(--lw-motion-panel)` — motion/panel (duration, observed)
 - `var(--lw-easing-standard)` — motion/easing-standard (easing, observed)
 - `var(--lw-easing-panel)` — motion/easing-panel (easing, observed)
 - `var(--lw-space-unit)` — space/unit (dimension, observed)
-- `var(--lw-space-block)` — space/block (dimension, observed)
-- `var(--lw-layout-container)` — layout/container (dimension, observed)
-- `var(--lw-layout-pad)` — layout/container-pad (dimension, observed)
 
 ## Verification
+
+Live specimens and motion replay: `preview.html` (single file, opens in any browser).
 
 Run before shipping UI built from these rules:
 

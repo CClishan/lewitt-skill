@@ -7,6 +7,7 @@ SSOT contract (R3):
     tokens.css          :root variables + component aliases, scope [data-ds]
     tokens.resolved.json  flat resolved values for downstream tools
     agent-rules.md      rules block first, guardrails (Restraint) on top
+    preview.html        single-file live specimens + motion replay + taste cards (links ./tokens.css)
     verify.json         machine gate results (report is rendered by `lint`)
 
 Refuses to run in `--incremental` (frozen) mode unless the file is an explicit
@@ -27,7 +28,26 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-RENDERER_VERSION = "build_artifacts.py/v1"
+try:
+    import preview_template as _preview
+except ImportError:  # imported as a package
+    from . import preview_template as _preview
+PREVIEW_CSS, PREVIEW_JS = _preview.PREVIEW_CSS, _preview.PREVIEW_JS
+
+
+def render_preview_html(dna: dict, dest: Path | None = None) -> str:
+    shots = {
+        "viewport.png", "viewport-2.png", "viewport-3.png", "viewport-4.png",
+    }
+
+    def exists(name: str) -> bool:
+        if dest is None:
+            return True
+        return (dest / "capture" / name).exists()
+
+    return _preview.render_preview_html(dna, resolver=resolve_tokens, exists=exists)
+
+RENDERER_VERSION = "build_artifacts.py/v2"
 BLOCKS = ("meta", "evidence", "measurements", "patterns", "taste", "tokens")
 STATUSES = ("observed", "inferred", "proposed", "unknown")
 LAYERS = ("primitive", "semantic", "component")
@@ -512,10 +532,21 @@ def render_agent_rules(dna: dict) -> str:
     out.append("")
     out.append("## Tokens (copy values from tokens.css; never retype numbers)")
     out.append("")
-    for t in dna["tokens"]:
-        out.append(f"- `var({t['css']})` — {t['id']} ({t['type']}, {t['status']})")
+    out.append("Use the semantic and component layers; reach for a primitive only when no role fits.")
     out.append("")
+    for layer, heading in (("semantic", "Semantic — roles to use"), ("component", "Component — reusable parts"),
+                           ("primitive", "Primitives — raw values, last resort")):
+        layer_tokens = [t for t in dna["tokens"] if t["layer"] == layer]
+        if not layer_tokens:
+            continue
+        out.append(f"### {heading}")
+        out.append("")
+        for t in layer_tokens:
+            out.append(f"- `var({t['css']})` — {t['id']} ({t['type']}, {t['status']})")
+        out.append("")
     out.append("## Verification")
+    out.append("")
+    out.append("Live specimens and motion replay: `preview.html` (single file, opens in any browser).")
     out.append("")
     out.append("Run before shipping UI built from these rules:")
     out.append("")
@@ -646,6 +677,7 @@ def main() -> int:
         "tokens.css": render_tokens_css(dna),
         "tokens.resolved.json": render_resolved_json(dna),
         "agent-rules.md": render_agent_rules(dna),
+        "preview.html": render_preview_html(dna, dest),
     }
     for name, content in artifacts.items():
         (dest / name).write_text(content, encoding="utf-8")
@@ -674,3 +706,5 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
+

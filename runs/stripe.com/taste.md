@@ -1,8 +1,9 @@
 # Stripe — Design DNA
 
 - Source: https://stripe.com/
-- Mode: dna  ·  Captured: 2026-11-23T12:17:46+00:00
+- Mode: full  ·  Captured: 2026-11-23T12:17:46+00:00
 - Pages inspected: 4 (https://stripe.com/, https://stripe.com/pricing, https://stripe.com/products, https://stripe.com/contact/sales)
+- Incremental run: scope taste; frozen meta, evidence, measurements, patterns, tokens (at 2026-11-23T12:41:19+00:00)
 - Browser capture: isolated (fresh context)
 - Viewport: 1440x900
 - Limitations:
@@ -133,7 +134,7 @@
 - **Reason**: Readers need to trust the screenshots more than the scenery; once colour stops, the product becomes the subject.
 - **Evidence**: e-hero-band, e-canvas-light, e-sections-tinted  ·  patterns: p-hero-gradient
 - **Status**: Observed / 实测
-- **Guardrail (enforced)**: `{"forbidCss": [], "forbidClass": ["(^|-)bg-gradient-to-"], "max": {}, "note": "Needs judgement: allow gradients only inside the hero band and on illustration. Elements at #533AFD are actions, not decoration."}`
+- **Guardrail (enforced)**: `{"forbidCss": [], "forbidClass": ["(^|-)bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)"], "max": {}, "note": "Needs judgement: allow gradients only inside the hero band and on illustration. Elements at #533AFD are actions, not decoration."}`
 
 ### One indigo, only where you can click
 - **Kind**: restraint
@@ -143,7 +144,7 @@
 - **Reason**: At ~0.2% of the surface, indigo always means 'do something'; a larger share would make the page a brand poster and slow scanning.
 - **Evidence**: e-purple, e-canvas-light  ·  patterns: p-accent-share
 - **Status**: Observed / 实测
-- **Guardrail (enforced)**: `{"forbidCss": [], "forbidClass": ["(^|-)bg-(indigo|violet|purple)-[4-7]00$"], "max": {}, "note": "Allowed on buttons/links only; never on a section or card background."}`
+- **Guardrail (enforced)**: `{"forbidCss": [], "forbidClass": ["(^|-)bg-(indigo|violet|purple)-[4-7]00$", "(^|-)bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)"], "max": {}, "note": "Allowed on buttons/links only; never on a section or card background."}`
 
 ### Light weights carry the headline
 - **Kind**: craft

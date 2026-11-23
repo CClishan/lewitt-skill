@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-23T12:22:09+00:00",
+  "generatedAt": "2026-11-23T12:44:29+00:00",
   "dest": "~/runs/linear.app",
   "meta": {
     "name": "Linear",
@@ -40,8 +40,18 @@
     },
     {
       "name": "single source (R3)",
-      "result": "FAIL",
-      "detail": "VERIFY: last render used an older script; rerun build_artifacts.py"
+      "result": "PASS",
+      "detail": "all artifacts are deterministic renders of dna.json, no post-render edits"
+    },
+    {
+      "name": "system/ colour scope",
+      "result": "PASS",
+      "detail": "n/a (DNA mode has no system/ site)"
+    },
+    {
+      "name": "preview.html (self-contained)",
+      "result": "PASS",
+      "detail": "single file, same-folder tokens.css, no remote assets"
     },
     {
       "name": "incremental freeze",
@@ -71,7 +81,7 @@
     {
       "name": "visual fidelity",
       "result": "unverified",
-      "detail": "requires specimen comparison at matching viewports"
+      "detail": "no fidelity.json — requires a side-by-side comparison at matching viewports"
     },
     {
       "name": "full system/ site",
@@ -79,7 +89,7 @@
       "detail": "DNA mode does not build system/"
     }
   ],
-  "renderedBy": "build_artifacts.py/v1",
+  "renderedBy": "build_artifacts.py/v2",
   "dna": {
     "meta": {
       "name": "Linear",

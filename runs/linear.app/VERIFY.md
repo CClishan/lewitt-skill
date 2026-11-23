@@ -6,13 +6,15 @@ Renders are deterministic re-encodings of `dna.json`: byte-equality proves the a
 | --- | --- | --- |
 | dna.json contract | PASS | SSOT valid (evidence/measurements/patterns/taste/tokens) |
 | token resolution | PASS | all aliases resolve, no cycles |
-| single source (R3) | FAIL | VERIFY: last render used an older script; rerun build_artifacts.py |
+| single source (R3) | PASS | all artifacts are deterministic renders of dna.json, no post-render edits |
+| system/ colour scope | PASS | n/a (DNA mode has no system/ site) |
+| preview.html (self-contained) | PASS | single file, same-folder tokens.css, no remote assets |
 | incremental freeze | PASS | no frozen block changed since the last render |
 | evidence coverage | PASS | 28 evidence entries cited |
 | restraint guardrails | PASS | 2/2 restraint principles carry machine-readable guardrails |
 | anti-slop (authored prose) | PASS | 0 hit(s) |
 | guardrail (generated code) | unverified | no --check-code supplied |
-| visual fidelity | unverified | requires specimen comparison at matching viewports |
+| visual fidelity | unverified | no fidelity.json — requires a side-by-side comparison at matching viewports |
 | full system/ site | n/a | DNA mode does not build system/ |
 
-Generated at 2026-11-23T12:22:09+00:00.
+Generated at 2026-11-23T12:44:29+00:00.

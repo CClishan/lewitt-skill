@@ -1,0 +1,752 @@
+{
+  "source": "https://stripe.com/",
+  "capturedAt": "2026-11-23T12:17:46+00:00",
+  "evidence": [
+    {
+      "id": "e-canvas-light",
+      "url": "https://stripe.com/",
+      "locator": "page canvas + body background",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "white": "62.1%",
+        "pale blue rgb(229,237,245)": "12.2%",
+        "pale grey rgb(248,250,253)": "11.2%"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-canvas-pricing",
+      "url": "https://stripe.com/pricing",
+      "locator": "pricing canvas html background",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "rgb(246,249,252)": "49%",
+        "white cards": "40.3%"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-2.png"
+    },
+    {
+      "id": "e-sections-tinted",
+      "url": "https://stripe.com/products",
+      "locator": "product page sections",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "white": "68.2%",
+        "pale grey rgb(248,250,253)": "21%",
+        "blue veil rgba(22,88,188,0.03)": "9.4%"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-3.png"
+    },
+    {
+      "id": "e-ink",
+      "url": "https://stripe.com/",
+      "locator": "heading text",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "rgb(6, 27, 49)": "109 text nodes",
+        "rgb(10, 37, 64) on pricing": "323"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-ink-body",
+      "url": "https://stripe.com/",
+      "locator": "body/secondary text",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "rgb(80, 97, 122)": "152",
+        "rgb(100, 116, 141)": "60"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-ink-other",
+      "url": "https://stripe.com/pricing",
+      "locator": "pricing secondary text",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "rgb(66, 84, 102)": "159",
+        "rgb(114, 127, 150)": "82"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-2.png"
+    },
+    {
+      "id": "e-purple",
+      "url": "https://stripe.com/",
+      "locator": "primary button (Contact sales) + linked words",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "rgb(83, 58, 253)": "accent candidate x73; 0.2% of surface",
+        "rgb(99, 91, 255)": "pricing CTA x67"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-hero-band",
+      "url": "https://stripe.com/",
+      "locator": "hero right side",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "screenshot-pixels",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "rendered": "1392x975 image (ratio 1.43:1)",
+        "sampled pixels": "pink #E080E0-ish, orange #E08000-ish, lilac, all above 60% saturation"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png",
+      "limitations": [
+        "JPEG-free PNG sampled in 32px buckets; gradient is decorative, not a control colour"
+      ]
+    },
+    {
+      "id": "e-font-sohne",
+      "url": "https://stripe.com/",
+      "locator": "all text",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "family": "sohne-var",
+        "samples": "1986"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-font-mono",
+      "url": "https://stripe.com/",
+      "locator": "inline code/keys",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "family": "SourceCodePro",
+        "samples": "14"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png",
+      "limitations": [
+        "shown as monospace fallback; the loaded face was not verified"
+      ]
+    },
+    {
+      "id": "e-h1",
+      "url": "https://stripe.com/",
+      "locator": "hero headline",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "size": "48px",
+        "weight": "300",
+        "lineHeight": "~59px (1.2)",
+        "letterSpacing": "-0.96px"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-h2",
+      "url": "https://stripe.com/",
+      "locator": "section headline",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "size": "32px",
+        "weight": "300",
+        "letterSpacing": "-0.64px"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-h3",
+      "url": "https://stripe.com/",
+      "locator": "card headline",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "size": "26px",
+        "weight": "300",
+        "letterSpacing": "-0.26px"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-body-type",
+      "url": "https://stripe.com/",
+      "locator": "body copy",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "size": "16px",
+        "weight": "300 or 400",
+        "prose size": "32px/300 in a marketing block"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-size-dist",
+      "url": "https://stripe.com/",
+      "locator": "text size distribution",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "top": "16px x194, 10px x93, 14px x41, 26px x24, 22px x20, 48px x12"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-size-dist-pricing",
+      "url": "https://stripe.com/pricing",
+      "locator": "text size distribution",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "top": "15px x531, 14px x128, 12px x82, 18px x24"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-2.png"
+    },
+    {
+      "id": "e-weights",
+      "url": "https://stripe.com/",
+      "locator": "font-weight distribution",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "300": "x302",
+        "400": "x165"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-weights-pricing",
+      "url": "https://stripe.com/pricing",
+      "locator": "font-weight distribution",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "300": "x506",
+        "425": "x224",
+        "400": "x86",
+        "500": "x32"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-2.png"
+    },
+    {
+      "id": "e-radii",
+      "url": "https://stripe.com/",
+      "locator": "radius distribution",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "4px": "x78 (buttons, chips)",
+        "6px": "x36",
+        "5px": "x6",
+        "8px": "x4",
+        "16px": "x1"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-radii-pricing",
+      "url": "https://stripe.com/pricing",
+      "locator": "radius distribution",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "16.5px": "x54 (cards)",
+        "8px": "x24",
+        "4px": "x3"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-2.png"
+    },
+    {
+      "id": "e-shadow-soft",
+      "url": "https://stripe.com/",
+      "locator": "floating panels",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "rgba(50,50,93,0.12) 0 16px 32px": "x2",
+        "rgba(23,23,23,0.08) 0 15px 35px": "x1"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-shadow-layered",
+      "url": "https://stripe.com/pricing",
+      "locator": "pricing cards",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "rgba(50,50,93,0.25) 0 2px 5px -1px, rgba(0,0,0,0.3) 0 1px 3px": "x16",
+        "rgba(50,50,93,0.25) 0 13px 27px -5px, rgba(0,0,0,0.3) 0 8px 16px": "x6"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-2.png"
+    },
+    {
+      "id": "e-ring",
+      "url": "https://stripe.com/",
+      "locator": "button hairline (::before/::after computed)",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "rgb(255,255,255) 0 0 0 2px inset": "x1",
+        "rgb(83,58,253) 0 0 0 1px": "x2 on products"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-motion",
+      "url": "https://stripe.com/",
+      "locator": "transitions across pages",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "color": "0.3s cubic-bezier(0.25,1,0.5,1)",
+        "opacity": "0.24s cubic-bezier(0.45,0.05,0.55,0.95)",
+        "grid-template-rows": "0.4s cubic-bezier(0.65,0,0.35,1)"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-motion-support",
+      "url": "https://stripe.com/pricing",
+      "locator": "stylesheet scan (pricing)",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "cssom-scan",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "focusVisible": true,
+        "prefersReducedMotion": true
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-2.png",
+      "limitations": [
+        "home page returned false for both; the scan is per-page"
+      ]
+    },
+    {
+      "id": "e-space",
+      "url": "https://stripe.com/",
+      "locator": "spacing distribution",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "8px": "x65",
+        "6px": "x38",
+        "12px": "x34",
+        "16px": "x32",
+        "32px": "x26",
+        "64px": "x22"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-gaps-home",
+      "url": "https://stripe.com/",
+      "locator": "section gaps",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "160px": "hero→logos",
+        "408px": "logos→next",
+        "48px": "one tight pair"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-gaps-products",
+      "url": "https://stripe.com/products",
+      "locator": "section gaps",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "128px": "x7 (consistent)"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-3.png"
+    },
+    {
+      "id": "e-grid",
+      "url": "https://stripe.com/",
+      "locator": "footer + content grids",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "template": "12 x 88px, gap 16px",
+        "gridCount": 34
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-container",
+      "url": "https://stripe.com/pricing",
+      "locator": "pricing container",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "maxWidth": "1080px",
+        "rendered": "1080px"
+      },
+      "status": "inferred",
+      "artifact": "capture/viewport-2.png"
+    },
+    {
+      "id": "e-buttons",
+      "url": "https://stripe.com/",
+      "locator": "button typography",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "primary": "16px/400, radius 4px",
+        "secondary": "16px/400, border 1px purple",
+        "padded": "12px vertical"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-cookie-banner",
+      "url": "https://stripe.com/",
+      "locator": "cookie consent (screenshot)",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "screenshot",
+      "capturedAt": "2026-11-23T12:17:46+00:00",
+      "values": {
+        "rendered": "white panel, cookie copy"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    }
+  ],
+  "measurements": [
+    {
+      "id": "m-canvas",
+      "category": "Color / canvas",
+      "value": "white (62%) with two pale bands #E5EDF5 and #F8FAFD; pricing page is #F6F9FC under white cards",
+      "status": "observed",
+      "evidence": [
+        "e-canvas-light",
+        "e-canvas-pricing",
+        "e-sections-tinted"
+      ]
+    },
+    {
+      "id": "m-ink",
+      "category": "Color / text",
+      "value": "#061B31 headings (RGB 6,27,49), #50617A body, #64748D muted — all blue-tinted, no pure grey",
+      "status": "observed",
+      "evidence": [
+        "e-ink",
+        "e-ink-body",
+        "e-ink-other"
+      ]
+    },
+    {
+      "id": "m-accent",
+      "category": "Color / accent",
+      "value": "#533AFD primary fills and linked words (0.2% of surface), #635BFF CTA on pricing; secondary CTA is 1px purple outline",
+      "status": "observed",
+      "evidence": [
+        "e-purple",
+        "e-buttons"
+      ]
+    },
+    {
+      "id": "m-hero-gradient",
+      "category": "Color / hero",
+      "value": "full-bleed gradient band (pink/orange/lilac) occupying the hero's right half; decorative, 0% as a control colour",
+      "status": "observed",
+      "evidence": [
+        "e-hero-band"
+      ]
+    },
+    {
+      "id": "m-fonts",
+      "category": "Typography / families",
+      "value": "sohne-var (1986 nodes) + SourceCodePro for code/keys",
+      "status": "observed",
+      "evidence": [
+        "e-font-sohne",
+        "e-font-mono"
+      ]
+    },
+    {
+      "id": "m-type-scale",
+      "category": "Typography / scale",
+      "value": "H1 48/300/-0.96px, H2 32/300/-0.64px, H3 26/300/-0.26px, body 16-17px, prose 32px/300",
+      "status": "observed",
+      "evidence": [
+        "e-h1",
+        "e-h2",
+        "e-h3",
+        "e-body-type",
+        "e-size-dist"
+      ]
+    },
+    {
+      "id": "m-ui-density",
+      "category": "Typography / UI",
+      "value": "pricing/product UI sits at 15px x531 and 14px; 10px x93 on the home page is metadata, not body",
+      "status": "observed",
+      "evidence": [
+        "e-size-dist",
+        "e-size-dist-pricing"
+      ]
+    },
+    {
+      "id": "m-weights",
+      "category": "Typography / weights",
+      "value": "300 body/display dominates (x302 / x506), 400 secondary, 425/500 only in pricing UI; 700 only in 3 nodes",
+      "status": "observed",
+      "evidence": [
+        "e-weights",
+        "e-weights-pricing"
+      ]
+    },
+    {
+      "id": "m-radii",
+      "category": "Shape / radius",
+      "value": "4px controls, 6px secondary, 16.5px cards on pricing, 8px on secondary cards",
+      "status": "observed",
+      "evidence": [
+        "e-radii",
+        "e-radii-pricing"
+      ]
+    },
+    {
+      "id": "m-depth-float",
+      "category": "Shape / depth",
+      "value": "layered tinted shadows: rgba(50,50,93,.12) 0 16px 32px for floats; pricing cards rgba(50,50,93,.25) 0 13px 27px -5px + rgba(0,0,0,.3) 0 8px 16px",
+      "status": "observed",
+      "evidence": [
+        "e-shadow-soft",
+        "e-shadow-layered"
+      ]
+    },
+    {
+      "id": "m-depth-ring",
+      "category": "Shape / hairline",
+      "value": "button rings: inset 0 0 0 2px white, 0 0 0 1px purple on products",
+      "status": "observed",
+      "evidence": [
+        "e-ring"
+      ]
+    },
+    {
+      "id": "m-motion",
+      "category": "Motion",
+      "value": "0.24s opacity (cubic-bezier(.45,.05,.55,.95)), 0.3s color (cubic-bezier(.25,1,.5,1)), 0.4s grid-template-rows reveal",
+      "status": "observed",
+      "evidence": [
+        "e-motion"
+      ]
+    },
+    {
+      "id": "m-space",
+      "category": "Spacing",
+      "value": "8px base; 128px between sections on product pages, home hero→logos 160px then 408px",
+      "status": "observed",
+      "evidence": [
+        "e-space",
+        "e-gaps-home",
+        "e-gaps-products"
+      ]
+    },
+    {
+      "id": "m-grid",
+      "category": "Layout / grid",
+      "value": "12 x 88px with 16px gutters (footer + content), 1080px pricing container",
+      "status": "observed",
+      "evidence": [
+        "e-grid",
+        "e-container"
+      ]
+    }
+  ]
+}

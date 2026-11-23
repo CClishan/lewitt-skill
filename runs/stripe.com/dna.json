@@ -3,7 +3,7 @@
     "name": "Stripe",
     "source": "https://stripe.com/",
     "domain": "stripe.com",
-    "mode": "dna",
+    "mode": "full",
     "capturedAt": "2026-11-23T12:17:46+00:00",
     "viewport": "1440x900",
     "captureIsolated": true,
@@ -26,7 +26,20 @@
     "openQuestions": [
       "Is the hero gradient CSS or an image asset on other locales?",
       "Does the dark footer section count as a second surface mode?"
-    ]
+    ],
+    "incremental": {
+      "targets": [
+        "taste"
+      ],
+      "frozen": [
+        "meta",
+        "evidence",
+        "measurements",
+        "patterns",
+        "tokens"
+      ],
+      "updatedAt": "2026-11-23T12:41:19+00:00"
+    }
   },
   "evidence": [
     {
@@ -886,7 +899,7 @@
       "guardrail": {
         "forbidCss": [],
         "forbidClass": [
-          "(^|-)bg-gradient-to-"
+          "(^|-)bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)"
         ],
         "max": {},
         "note": "Needs judgement: allow gradients only inside the hero band and on illustration. Elements at #533AFD are actions, not decoration."
@@ -912,7 +925,8 @@
       "guardrail": {
         "forbidCss": [],
         "forbidClass": [
-          "(^|-)bg-(indigo|violet|purple)-[4-7]00$"
+          "(^|-)bg-(indigo|violet|purple)-[4-7]00$",
+          "(^|-)bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)"
         ],
         "max": {},
         "note": "Allowed on buttons/links only; never on a section or card background."

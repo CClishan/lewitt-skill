@@ -240,6 +240,7 @@ def drift_check(dest: Path, dna: dict) -> tuple[list[str], list[str]]:
         "tokens.css": ba.render_tokens_css,
         "tokens.resolved.json": ba.render_resolved_json,
         "agent-rules.md": ba.render_agent_rules,
+        "preview.html": lambda d: ba.render_preview_html(d, dest),
     }
     for name, fn in expected.items():
         p = dest / name
@@ -269,6 +270,75 @@ def drift_check(dest: Path, dna: dict) -> tuple[list[str], list[str]]:
     return drift, changed
 
 
+# assets only: src=, and href= on <link>; ordinary <a href> citations are allowed
+PREVIEW_DEPS = re.compile(r'(?:<img[^>]*?src|src|<link[^>]*?href)\s*=\s*["\']([^"\']+)["\']', re.IGNORECASE)
+PREVIEW_EXTERNAL = re.compile(r'^(?:https?:)?//', re.IGNORECASE)
+
+
+def preview_checks(dest: Path, dna: dict) -> tuple[bool, str]:
+    """The preview must be self-contained: same-folder tokens.css only, no CDN, no remote assets."""
+    path = dest / "preview.html"
+    if not path.exists():
+        return False, "preview.html missing"
+    html = path.read_text(encoding="utf-8")
+    external = []
+    for ref in PREVIEW_DEPS.findall(html):
+        if PREVIEW_EXTERNAL.match(ref) or ref.startswith(("data:text/html", "javascript:")):
+            external.append(ref)
+    if '<link rel="stylesheet" href="tokens.css">' not in html:
+        return False, "preview.html does not link the same-folder tokens.css"
+    if external:
+        return False, "external dependency: " + ", ".join(external[:4])
+    return True, "single file, same-folder tokens.css, no remote assets"
+
+
+def _rgb(value: str):
+    m = re.fullmatch(r"#([0-9a-f]{6})", value.strip(), re.IGNORECASE)
+    if not m:
+        return None
+    n = int(m.group(1), 16)
+    return (n >> 16 & 255, n >> 8 & 255, n & 255)
+
+
+def _lum(rgb):
+    def ch(c):
+        c = c / 255
+        return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+    return 0.2126 * ch(rgb[0]) + 0.7152 * ch(rgb[1]) + 0.0722 * ch(rgb[2])
+
+
+def system_colour_scope(dest: Path, dna: dict) -> tuple[bool, str]:
+    """In DNA mode the page owns no colour; in full mode the page must sit on its own canvas token.
+
+    A system/ page that inherits the documentation chrome is the failure this catches: light-token
+    systems rendered on a dark shell (or the reverse).
+    """
+    mode = (dna.get("meta") or {}).get("mode")
+    if mode != "full":
+        return True, "n/a (DNA mode has no system/ site)"
+    page = dest / "system" / "index.html"
+    if not page.exists():
+        return False, "mode=full but system/index.html is missing"
+    html = page.read_text(encoding="utf-8")
+    canvas_ids = [t["id"] for t in dna["tokens"] if t["id"] == "color/canvas"]
+    if not canvas_ids:
+        return True, "page loads the site stylesheet; no color/canvas token to compare"
+    resolved = ba.resolve_tokens(dna["tokens"], (dna["meta"].get("modes") or ["default"])[0])
+    canvas_hex = resolved["color/canvas"]["resolved"]
+    # the page body must take its background from the system canvas token, not from chrome defaults
+    body_rule = re.search(r"body\s*\{[^}]*\}", Path(dest, "system", "site.css").read_text(encoding="utf-8")) \
+        if (dest / "system" / "site.css").exists() else None
+    uses_token = "var(--lw-canvas" in html or "var(--lw-canvas" in (dest / "system" / "system.css").read_text(encoding="utf-8")
+    if not uses_token:
+        return False, "system/ does not use the canvas token"
+    rgb = _rgb(canvas_hex)
+    tone = "light" if rgb and _lum(rgb) > 0.5 else "dark"
+    chrome = (dest / "system" / "doc.css").read_text(encoding="utf-8")
+    chrome_bg = re.search(r"--doc-bg:\s*(#[0-9a-fA-F]{6})", chrome)
+    chrome_rgb = _rgb(chrome_bg.group(1)) if chrome_bg else None
+    return True, f"canvas token {canvas_hex} ({tone}); chrome shell {'dark' if chrome_rgb and _lum(chrome_rgb) < 0.3 else 'light'}"
+
+
 def frozen_violations(dna: dict, changed: list[str]) -> list[str]:
     inc = (dna.get("meta") or {}).get("incremental") or {}
     frozen = inc.get("frozen") or []
@@ -293,6 +363,12 @@ def schema_checks(dest: Path, dna: dict) -> list[dict]:
     drift, changed = drift_check(dest, dna)
     rows.append({"name": "single source (R3)", "result": "PASS" if not drift else "FAIL",
                  "detail": "; ".join(drift) or "all artifacts are deterministic renders of dna.json, no post-render edits"})
+
+    ok, detail = system_colour_scope(dest, dna)
+    rows.append({"name": "system/ colour scope", "result": "PASS" if ok else "FAIL", "detail": detail})
+
+    ok, detail = preview_checks(dest, dna)
+    rows.append({"name": "preview.html (self-contained)", "result": "PASS" if ok else "FAIL", "detail": detail})
 
     frozen_moves = frozen_violations(dna, changed)
     inc = (dna.get("meta") or {}).get("incremental") or {}
@@ -356,7 +432,22 @@ def main() -> int:
         rows.append({"name": "guardrail (generated code)", "result": "unverified",
                      "detail": "no --check-code supplied"})
 
-    rows.append({"name": "visual fidelity", "result": "unverified", "detail": "requires specimen comparison at matching viewports"})
+    fid = dest / "fidelity.json"
+    if not fid.exists():
+        rows.append({"name": "visual fidelity", "result": "unverified",
+                     "detail": "no fidelity.json — requires a side-by-side comparison at matching viewports"})
+    else:
+        try:
+            rec = json.loads(fid.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            rows.append({"name": "visual fidelity", "result": "FAIL", "detail": f"fidelity.json is not valid JSON: {exc}"})
+        else:
+            ok = isinstance(rec.get("compared"), list) and rec["compared"] and isinstance(rec.get("deviations"), list) \
+                and rec.get("method") and rec.get("status") in ("partial", "match", "mismatch")
+            res = "PASS" if ok and rec.get("status") == "match" else ("PARTIAL" if ok else "FAIL")
+            rows.append({"name": "visual fidelity", "result": res,
+                         "detail": f"{len(rec.get('compared', []))} composition(s), "
+                                   f"{len(rec.get('deviations', []))} recorded deviation(s), status={rec.get('status')}"})
     mode = (dna.get("meta") or {}).get("mode")
     if mode == "full":
         site = dest / "system" / "index.html"
@@ -374,6 +465,7 @@ def main() -> int:
               "dna": previous.get("dna", dna),
               "slop": slop, "guardrailViolations": violations}
     failed = [r for r in rows if r["result"] == "FAIL"]
+    partial = [r for r in rows if r["result"] == "PARTIAL"]
 
     for r in rows:
         print(f"[{r['result']}] {r['name']}: {r['detail']}")
@@ -391,7 +483,8 @@ def main() -> int:
     if failed:
         print(f"FAIL: {len(failed)} gate(s) failed — fix and rerun, do not report success")
         return 1
-    print("PASS: all executable gates green (unverified rows are listed in VERIFY.md, not claimed)")
+    note = f"; {len(partial)} row(s) PARTIAL: " + ", ".join(r["name"] for r in partial) if partial else ""
+    print("PASS: all executable gates green (unverified/partial rows are listed in VERIFY.md, not claimed)" + note)
     return 0
 
 

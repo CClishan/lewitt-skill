@@ -19,7 +19,10 @@ Exit code 0 means every executable gate passed. It does **not** mean the extract
 | `anti-slop` | zero banned words in authored prose (foils allowed) | whether a sentence is still vague |
 | `restraint guardrails` | every restraint carries a machine-readable guardrail | whether the guardrail is well chosen |
 | `guardrail (generated code)` | `--check-code` found no forbidden property, class pattern, or over-cap length | whether the code looks like the source |
-| `visual fidelity` | **always `unverified`** | requires a human/AI comparison at matching viewports |
+| `preview.html (self-contained)` | the preview links the same-folder `tokens.css` and loads no remote asset | rendering quality, copy tone |
+| `system/ colour scope` | full mode: the page takes its canvas from `color/canvas` and sits on the right tone | whether individual specimens look right |
+| `visual fidelity` | `unverified` without `fidelity.json`; `PARTIAL` while deviations are recorded; `PASS` only when `status: match` | that the reconstruction is correct — it records agreements and deviations for a reader |
+| `full system/ site` | full mode: `system/index.html` exists (`FAIL` if absent) | whether the site is good |
 | `full system/ site` | `n/a` in DNA mode | only meaningful with `--full` |
 
 ## `--check-code` details
