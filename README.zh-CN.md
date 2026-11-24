@@ -1,5 +1,7 @@
 # lewitt
 
+[在线页面](https://koroo.top/lewitt) · [工作原理](https://koroo.top/lewitt/about) · [下载 SKILL.md](https://koroo.top/lewitt/SKILL.md)
+
 > *"The idea becomes a machine that makes the art."* — Sol LeWitt
 
 **`lewitt`** 是一个 agent skill：给一个网址，产出一份靠测量得到的 token、一套可直接粘贴的 shadcn / Tailwind v4 主题、一份 agent 规则，以及 linter 能机械检查的 guardrail。

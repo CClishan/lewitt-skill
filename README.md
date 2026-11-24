@@ -1,5 +1,7 @@
 # lewitt
 
+[Live page](https://koroo.top/lewitt) · [How it works](https://koroo.top/lewitt/about) · [Download SKILL.md](https://koroo.top/lewitt/SKILL.md)
+
 **Turn a website's visual rules into measured tokens, a shadcn / Tailwind v4 theme, agent rules, and guardrails a linter can enforce.**
 
 Named after [Sol LeWitt](https://en.wikipedia.org/wiki/Sol_LeWitt), who wrote wall-drawing instructions precise enough for other people to execute. `lewitt` does that for UI: measurements come from a real browser, they land in one file (`dna.json`), and every artifact is compiled from it.
