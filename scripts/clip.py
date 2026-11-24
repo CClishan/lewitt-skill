@@ -66,12 +66,16 @@ FIND_JS = r"""
   // otherwise climb to the nearest block-looking ancestor (card / tile / panel / section).
   const looksLikeBlock = (node) => node && node.matches('article, li, section, [class*="card"], [class*="tile"], [class*="panel"], [class*="item"], [class*="box"]');
   let module = el;
+  // a text match lands on the trigger itself, so climb until the box is block-sized and tag-shaped;
+  // a selector names the trigger too, so the same rule applies to both paths.
   for (let i = 0; i < 6; i++) {
     const parent = module.parentElement;
     if (!parent || parent.tagName.toLowerCase() === 'body') break;
     module = parent;
     const mr = module.getBoundingClientRect();
-    if (looksLikeBlock(module) || (mr.width >= 280 && mr.height >= 100)) break;
+    const blocky = looksLikeBlock(module);
+    if (blocky && mr.width >= 280 && mr.height >= 100) break;
+    if (!blocky && mr.width >= 280 && mr.height >= 100 && mr.height <= 600 && /^(article|li|section|div)$/.test(module.tagName.toLowerCase()) && /card|tile|panel|item|box|hero|banner/i.test(String(module.className))) break;
   }
 
   // drop media beyond the first two: a brick is instructions, not an asset dump

@@ -1,0 +1,303 @@
+{
+  "version": "0.1.0",
+  "capturedAt": "2026-11-24T04:14:50+00:00",
+  "sourceRun": "stripe.com",
+  "schemaVersion": "1.1",
+  "action": "hover",
+  "camera": {
+    "width": 1440,
+    "height": 900
+  },
+  "source": {
+    "url": "http://127.0.0.1:8768/",
+    "how": "text-exact",
+    "trigger": "a.cta",
+    "triggerText": "See how it works",
+    "triggerTag": "a",
+    "module": "#gallery-tile",
+    "moduleBox": [
+      433,
+      60,
+      353,
+      288
+    ]
+  },
+  "states": {
+    "before": {
+      "rect": [
+        433,
+        60,
+        353,
+        288
+      ],
+      "opacity": "1",
+      "transform": "none",
+      "display": "block",
+      "visibility": "visible",
+      "background": "rgb(248, 250, 253)",
+      "color": "rgb(80, 97, 122)",
+      "border-radius": "16.5px",
+      "box-shadow": "none",
+      "transition": "transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s",
+      "animation": "none",
+      "anims": []
+    },
+    "during": {
+      "rect": [
+        433,
+        55,
+        353,
+        288
+      ],
+      "opacity": "1",
+      "transform": "matrix(1, 0, 0, 1, 0, -5.16169)",
+      "display": "block",
+      "visibility": "visible",
+      "background": "rgb(248, 250, 253)",
+      "color": "rgb(80, 97, 122)",
+      "border-radius": "16.5px",
+      "box-shadow": "rgba(50, 50, 93, 0.082) 0px 10.657px 21.314px 0px",
+      "transition": "transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s",
+      "animation": "none",
+      "anims": [
+        {
+          "name": "(transition)",
+          "playState": "running",
+          "currentTime": 117,
+          "effect": [
+            {
+              "offset": 0,
+              "props": [
+                "boxShadow",
+                "computedOffset"
+              ]
+            },
+            {
+              "offset": 1,
+              "props": [
+                "boxShadow",
+                "computedOffset"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "(transition)",
+          "playState": "running",
+          "currentTime": 117,
+          "effect": [
+            {
+              "offset": 0,
+              "props": [
+                "transform",
+                "computedOffset"
+              ]
+            },
+            {
+              "offset": 1,
+              "props": [
+                "transform",
+                "computedOffset"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "settled": {
+      "rect": [
+        433,
+        54,
+        353,
+        288
+      ],
+      "opacity": "1",
+      "transform": "matrix(1, 0, 0, 1, 0, -5.9902)",
+      "display": "block",
+      "visibility": "visible",
+      "background": "rgb(248, 250, 253)",
+      "color": "rgb(80, 97, 122)",
+      "border-radius": "16.5px",
+      "box-shadow": "rgba(50, 50, 93, 0.118) 0px 15.7356px 31.4711px 0px",
+      "transition": "transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s",
+      "animation": "none",
+      "anims": [
+        {
+          "name": "(transition)",
+          "playState": "running",
+          "currentTime": 250,
+          "effect": [
+            {
+              "offset": 0,
+              "props": [
+                "boxShadow",
+                "computedOffset"
+              ]
+            },
+            {
+              "offset": 1,
+              "props": [
+                "boxShadow",
+                "computedOffset"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "(transition)",
+          "playState": "running",
+          "currentTime": 250,
+          "effect": [
+            {
+              "offset": 0,
+              "props": [
+                "transform",
+                "computedOffset"
+              ]
+            },
+            {
+              "offset": 1,
+              "props": [
+                "transform",
+                "computedOffset"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "after": {
+      "rect": [
+        433,
+        60,
+        353,
+        288
+      ],
+      "opacity": "1",
+      "transform": "none",
+      "display": "block",
+      "visibility": "visible",
+      "background": "rgb(248, 250, 253)",
+      "color": "rgb(80, 97, 122)",
+      "border-radius": "16.5px",
+      "box-shadow": "none",
+      "transition": "transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s",
+      "animation": "none",
+      "anims": []
+    },
+    "_machine": [
+      {
+        "from": "idle",
+        "to": "hover",
+        "how": "pointer enters the module (CSS :hover or pointer handlers)",
+        "observed": true
+      },
+      {
+        "from": "hover",
+        "to": "settled",
+        "how": "transition finishes; nothing else moves",
+        "observed": true
+      },
+      {
+        "from": "settled",
+        "to": "idle",
+        "how": "pointer leaves the module; every computed value returns to baseline",
+        "observed": true
+      }
+    ]
+  },
+  "deltas": {
+    "module.hover": {
+      "rect": [
+        [
+          433,
+          60,
+          353,
+          288
+        ],
+        [
+          433,
+          55,
+          353,
+          288
+        ]
+      ],
+      "transform": [
+        "none",
+        "matrix(1, 0, 0, 1, 0, -5.16169)"
+      ],
+      "box-shadow": [
+        "none",
+        "rgba(50, 50, 93, 0.082) 0px 10.657px 21.314px 0px"
+      ]
+    },
+    "module.settled": {
+      "rect": [
+        [
+          433,
+          60,
+          353,
+          288
+        ],
+        [
+          433,
+          54,
+          353,
+          288
+        ]
+      ],
+      "transform": [
+        "none",
+        "matrix(1, 0, 0, 1, 0, -5.9902)"
+      ],
+      "box-shadow": [
+        "none",
+        "rgba(50, 50, 93, 0.118) 0px 15.7356px 31.4711px 0px"
+      ]
+    },
+    "stateful.open": {},
+    "stateful.closed": {}
+  },
+  "skin": {
+    "background": {
+      "value": "rgb(248, 250, 253)",
+      "slot": "color/surface-subtle",
+      "css": "--lw-surface-subtle",
+      "resolved": "#F8FAFD",
+      "delta": 0.0
+    },
+    "color": {
+      "value": "rgb(80, 97, 122)",
+      "slot": "color/text/body",
+      "css": "--lw-text-body",
+      "resolved": "#50617A",
+      "delta": 0.0
+    },
+    "__layout": {
+      "rows": [
+        {
+          "tag": "h3",
+          "role": "h3",
+          "text": "Gallery tile"
+        },
+        {
+          "tag": "a",
+          "role": "a",
+          "text": "See how it works"
+        }
+      ]
+    }
+  },
+  "notes": [
+    "Drive the state with a class the project owns (e.g. `is-open`), never with source-site classes.",
+    "Animate only the properties that changed: box-shadow, rect, transform.",
+    "Use the source's transition string for timing; replace colours and faces with the mapped slots above.",
+    "Keep the geometry contract: the module's box is [433, 60, 353, 288]. Layout inside it may change, the box may not.",
+    "If a property did not change in the recording, do not invent a transition for it."
+  ],
+  "cleanup": [
+    "Remove any injected helper styles before leaving the page.",
+    "Close any window an activation opened; the recording never submits forms or logs in.",
+    "Keep shots/ next to brick.md so the geometry can be re-checked after implementation."
+  ]
+}
