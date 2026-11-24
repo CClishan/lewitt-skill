@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lewitt certificate — http://127.0.0.1:8765/runs/binance.com/system/index.html</title>
+<style>:root { color-scheme: light; }
+/* ---- neutral base (body) ---------------------------------------------------
+   Every colour here is a neutral: the artifact's own system colour lives inside a Stage. */
+body {
+  --n-bg: #F6F6F5; --n-panel: #FFFFFF; --n-rail: #FAFAF9;
+  --n-ink: #18181B; --n-mute: #71717A; --n-faint: #A1A1AA;
+  --n-line: rgba(0,0,0,0.08); --n-line-strong: rgba(0,0,0,0.14);
+  --n-grid: rgba(0,0,0,0.06); --n-hover: rgba(0,0,0,0.035);
+  --n-ok: #1F7A4D; --n-warn: #8A5A00; --n-bad: #A33A2B; --n-neutral: #52525B;
+  --n-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --n-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --n-rail-w: 240px; --n-gutter: 48px;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--n-bg); color: var(--n-ink);
+  font: 15px/1.55 var(--n-sans); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--n-ink); outline-offset: 2px; }
+.num, .mono, td, th, code { font-variant-numeric: tabular-nums; }
+.mono { font-family: var(--n-mono); font-size: 12px; }
+
+.eyebrow { font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--n-mute); font-weight: 500; margin: 0 0 12px; }
+
+.chip { display: inline-flex; align-items: center; gap: 5px; font: 500 10.5px/1 var(--n-mono);
+  letter-spacing: .04em; text-transform: uppercase; padding: 3px 7px; border-radius: 999px;
+  border: 1px solid var(--n-line-strong); color: var(--n-mute); white-space: nowrap; }
+.chip.ok { color: var(--n-ok); border-color: color-mix(in srgb, var(--n-ok) 45%, transparent); }
+.chip.warn { color: var(--n-warn); border-color: color-mix(in srgb, var(--n-warn) 45%, transparent); }
+.chip.bad { color: var(--n-bad); border-color: color-mix(in srgb, var(--n-bad) 45%, transparent); }
+
+.stage { position: relative; border: 1px solid var(--n-line); border-radius: 2px;
+  background: var(--n-panel); overflow: hidden; }
+.stage-head { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 16px; border-bottom: 1px solid var(--n-line);
+  font: 500 11px/1.2 var(--n-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--n-mute); }
+.stage-body { padding: 48px; position: relative;
+  background-image: radial-gradient(circle at 1px 1px, var(--n-grid) 1px, transparent 0);
+  background-size: 14px 14px; }
+.stage-body.tight { padding: 24px 32px; }
+.stage-note { padding: 10px 16px; border-top: 1px solid var(--n-line); color: var(--n-mute); font-size: 12px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; font: 500 11px/1.2 var(--n-mono); letter-spacing: .06em; text-transform: uppercase;
+  color: var(--n-mute); padding: 0 16px 8px 0; border-bottom: 1px solid var(--n-line-strong); }
+td { padding: 12px 16px 12px 0; border-bottom: 1px solid var(--n-line); vertical-align: top; color: var(--n-ink); }
+tr:hover td { background: var(--n-hover); }
+table code { font-family: var(--n-mono); font-size: 12px; }
+
+/* a wide spec table scrolls in place; the page never overflows sideways */
+@media (max-width: 900px) {
+  .tbl { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tbl table { min-width: 520px; }
+}
+
+[data-copy] { cursor: copy; }
+.copied-note { position: fixed; z-index: 60; pointer-events: none; transform: translate(-50%, -140%);
+  font: 500 11px/1 var(--n-mono); letter-spacing: .04em; text-transform: uppercase;
+  background: var(--n-ink); color: var(--n-bg); padding: 6px 8px; border-radius: 2px;
+  opacity: 1; transition: opacity .35s ease; }
+.copied-note.out { opacity: 0; }
+
+details { border-top: 1px solid var(--n-line); margin-top: 12px; padding-top: 10px; }
+summary { cursor: pointer; font: 500 11px/1.4 var(--n-mono); letter-spacing: .06em;
+  text-transform: uppercase; color: var(--n-mute); }
+summary:hover { color: var(--n-ink); }
+details pre { margin: 10px 0 0; padding: 12px 14px; background: var(--n-bg); border: 1px solid var(--n-line);
+  border-radius: 2px; overflow-x: auto; font: 11.5px/1.6 var(--n-mono); color: var(--n-mute);
+  white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.code { position: relative; border: 1px solid var(--n-line); border-radius: 2px; background: var(--n-bg); }
+.code-head { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 8px 12px; border-bottom: 1px solid var(--n-line);
+  font: 500 11px/1 var(--n-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--n-mute); }
+.code pre { margin: 0; padding: 14px 16px; overflow: auto; max-height: 320px;
+  font: 12px/1.65 var(--n-mono); color: var(--n-ink); white-space: pre; }
+
+.mini-btn { font: 500 11px/1 var(--n-mono); letter-spacing: .05em; text-transform: uppercase;
+  background: transparent; color: var(--n-mute); border: 1px solid var(--n-line-strong);
+  border-radius: 2px; padding: 5px 8px; cursor: pointer; text-decoration: none; }
+.mini-btn:hover { color: var(--n-ink); border-color: var(--n-ink); }
+.mini-btn[aria-pressed="true"] { color: var(--n-ink); border-color: var(--n-ink); }
+
+.bezier .bg line { stroke: var(--n-line); stroke-width: .5; }
+.bezier .hz { stroke: var(--n-line-strong); stroke-width: .75; stroke-dasharray: 2 3; }
+.bezier .hn { fill: var(--n-panel); stroke: var(--n-mute); stroke-width: 1; }
+.bezier .curve { fill: none; stroke: var(--n-ink); stroke-width: 1.5; stroke-linecap: round; }
+.bezier .end { fill: var(--n-ink); }
+.bezier .axis { stroke: var(--n-line-strong); stroke-width: .75; }
+
+@media (max-width: 900px) {
+  .stage-body { padding: 28px 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+
+.cert { max-width: 1080px; margin: 0 auto; padding: 0 40px 120px; }
+/* the sheet reads as a print on paper: ink rule, 3px air, hairline — then the header content */
+.paper { border-top: 3px solid var(--n-ink); }
+.paper::before { content: ""; display: block; height: 2px; }
+.paper::after { content: ""; display: block; height: 1px; background: var(--n-ink); }
+.head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 40px;
+  align-items: start; padding: 40px 0 32px; border-bottom: 1px solid var(--n-line); }
+.head-main { display: grid; gap: 18px; min-width: 0; }
+.head .eyebrow { margin: 0; }
+.thumb { display: grid; gap: 8px; justify-items: stretch; text-align: center;
+  font: 500 10px/1.5 var(--n-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--n-mute);
+  border: 1px solid var(--n-ink); padding: 12px 14px 10px; min-width: 168px; }
+.thumb .lw-mark { color: var(--n-ink); margin: 0 auto 2px; }
+.thumb dl { margin: 0; display: grid; gap: 2px; justify-items: center; }
+.thumb dt { color: var(--n-faint); font-size: 9px; }
+.thumb dd { margin: 0; color: var(--n-ink); }
+.thumb dd.ok { color: var(--n-ok); } .thumb dd.warn { color: var(--n-warn); }
+.thumb dd.bad { color: var(--n-bad); }
+@media (max-width: 700px) {
+  .cert { padding: 0 20px 80px; }
+  .head { grid-template-columns: 1fr; }
+  .thumb { justify-self: start; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .meta { grid-template-columns: 1fr; }
+  section { overflow-x: auto; }
+}
+.head h1 { margin: 0; font-size: 34px; font-weight: 400; letter-spacing: -.02em; }
+.verdict { display: inline-flex; align-items: center; gap: 10px; font: 500 12px/1 var(--n-mono);
+  letter-spacing: .1em; text-transform: uppercase; padding: 8px 12px; border: 1px solid var(--n-line-strong);
+  border-radius: 2px; width: fit-content; }
+.verdict.ok { color: var(--n-ok); border-color: color-mix(in srgb, var(--n-ok) 55%, transparent); }
+.verdict.warn { color: var(--n-warn); border-color: color-mix(in srgb, var(--n-warn) 55%, transparent); }
+.verdict.bad { color: var(--n-bad); border-color: color-mix(in srgb, var(--n-bad) 55%, transparent); }
+.verdict .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px 28px; margin: 0; }
+.meta dd { overflow-wrap: anywhere; }
+.meta div { }
+.meta dt { font: 500 11px/1 var(--n-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--n-faint); }
+.meta dd { margin: 6px 0 0; font-size: 13px; }
+.meta dd code { font-family: var(--n-mono); font-size: 12px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px;
+  background: var(--n-line); border: 1px solid var(--n-line); margin: 32px 0 0; }
+.stat { background: var(--n-panel); padding: 18px 20px; }
+.stat b { display: block; font-size: 30px; font-weight: 400; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.stat span { font: 500 11px/1 var(--n-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--n-mute); }
+section { padding: 40px 0 0; }
+h2 { font-size: 13px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 16px; }
+h2 .count { font-family: var(--n-mono); font-size: 11px; letter-spacing: 0; color: var(--n-faint); }
+.empty { color: var(--n-mute); font-size: 13px; margin: 0; }
+.muted { color: var(--n-mute); }
+.tier { font: 500 10.5px/1 var(--n-mono); letter-spacing: .04em; text-transform: uppercase; padding: 3px 6px;
+  border-radius: 2px; border: 1px solid var(--n-line-strong); color: var(--n-mute); white-space: nowrap; }
+.tier.t1 { color: var(--n-ok); border-color: color-mix(in srgb, var(--n-ok) 45%, transparent); }
+.tier.t2 { color: var(--n-ink); }
+.tier.t3 { color: var(--n-warn); border-color: color-mix(in srgb, var(--n-warn) 45%, transparent); }
+.reason { color: var(--n-mute); font-size: 12.5px; }
+ul { color: var(--n-mute); font-size: 13px; padding-left: 18px; }
+footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--n-line);
+  color: var(--n-mute); font: 12px/1.6 var(--n-mono); }
+</style>
+</head>
+<body data-tone="light">
+<div class="cert">
+  <div class="paper">
+  <header class="head">
+   <div class="head-main">
+    <p class="eyebrow">lewitt · certificate of implementation</p>
+    <h1>This build is <span class="verdict ok"><span class="dot"></span>certified</span></h1>
+    <dl class="meta">
+      <div><dt>Target</dt><dd><code>http://127.0.0.1:8765/runs/binance.com/system/index.html</code></dd></div>
+      <div><dt>Instructions</dt><dd><code>binance.com</code> · schema 1.1</dd></div>
+      <div><dt>Issued</dt><dd>2026-11-24T09:17:10+00:00</dd></div>
+      <div><dt>Pages inspected</dt><dd>1</dd></div>
+      <div><dt>Re-render</dt><dd><code>python3 scripts/cert.py --url http://127.0.0.1:8765/runs/binance.com/system/index.html --dest runs/binance.com</code></dd></div>
+    </dl>
+   </div>
+    <aside class="thumb" aria-label="lewitt certificate stamp">
+      <svg class="lw-mark" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square"><path d="M7.5 0V7.5"/><path d="M8.5 8.5H16"/><path d="M0.5 8.5L7.5 15.5"/><path d="M15.5 8.5L8.5 15.5"/></g></svg>
+      <dl>
+        <dt>lewitt</dt><dd>cert · schema 1.1</dd>
+        <dt>verdict</dt><dd class="ok">certified</dd>
+        <dt>measured</dt><dd>19/19</dd>
+      </dl>
+    </aside>
+    <div class="stats">
+      <div class="stat"><span>Measured</span><b>19<small>/19</small></b></div>
+      <div class="stat"><span>Passed</span><b>19</b></div>
+      <div class="stat"><span>Intentional</span><b>0</b></div>
+      <div class="stat"><span>Violations</span><b>0</b></div>
+    </div>
+  </header>
+  </div>
+  <section><h2>Deviations to fix <span class="count">0</span></h2><p class="empty">No measured token deviates from the spec.</p></section>
+  <section><h2>Intentional (registered) <span class="count">0</span></h2><p class="empty">Nothing was excused.</p></section>
+  
+  <section><h2>Passing <span class="count">19</span></h2><table><thead><tr><th>Token</th><th>Spec</th><th>Rendered</th><th>Read from</th><th></th></tr></thead><tbody><tr><td><code>type/figure</code></td><td><code class="muted">72px</code></td><td><code>72px</code></td><td><span class="tier t2">L2 probe</span></td><td></td></tr><tr><td><code>type/headline</code></td><td><code class="muted">40px</code></td><td><code>40px</code></td><td><span class="tier t2">L2 probe</span></td><td></td></tr><tr><td><code>type/title</code></td><td><code class="muted">18px</code></td><td><code>18px</code></td><td><span class="tier t2">L2 probe</span></td><td></td></tr><tr><td><code>type/ui</code></td><td><code class="muted">14px</code></td><td><code>14px</code></td><td><span class="tier t2">L2 probe</span></td><td></td></tr><tr><td><code>type/body</code></td><td><code class="muted">12px</code></td><td><code>12px</code></td><td><span class="tier t2">L2 probe</span></td><td></td></tr><tr><td><code>type/legal</code></td><td><code class="muted">8px</code></td><td><code>8px</code></td><td><span class="tier t2">L2 probe</span></td><td></td></tr><tr><td><code>color/canvas</code></td><td><code class="muted">#181A20</code></td><td><code>rgb(24, 26, 32)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/surface</code></td><td><code class="muted">#29313D</code></td><td><code>rgb(41, 49, 61)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/well</code></td><td><code class="muted">#1E2329</code></td><td><code>rgb(30, 35, 41)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/border</code></td><td><code class="muted">#333B47</code></td><td><code>rgb(51, 59, 71)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/border-strong</code></td><td><code class="muted">#3D4452</code></td><td><code>rgb(61, 68, 82)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/text/primary</code></td><td><code class="muted">#EAECEF</code></td><td><code>rgb(234, 236, 239)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/text/secondary</code></td><td><code class="muted">#929AA5</code></td><td><code>rgb(146, 154, 165)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/text/tertiary</code></td><td><code class="muted">#707A8A</code></td><td><code>rgb(112, 122, 138)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/brand</code></td><td><code class="muted">#F0B90B</code></td><td><code>rgb(240, 185, 11)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/action/bg</code></td><td><code class="muted">#FCD535</code></td><td><code>rgb(252, 213, 53)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/action/fg</code></td><td><code class="muted">#202630</code></td><td><code>rgb(32, 38, 48)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/trend/up</code></td><td><code class="muted">#2EBD85</code></td><td><code>rgb(46, 189, 133)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/trend/down</code></td><td><code class="muted">#F6465D</code></td><td><code>rgb(246, 70, 93)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr></tbody></table></section>
+  <section><h2>Not measured <span class="count">0</span></h2><p class="empty">Every token in this run could be probed.</p></section>
+  <section><h2>Not certified</h2><ul><li>component geometry (padding, gaps, radii of specific elements) is not probed — only token values are</li><li>spacing scale, motion timing and hover/focus deltas on the live page are not asserted</li><li>visual resemblance to the source site is out of scope: this certificate is about instructions, not screenshots</li></ul></section>
+  <footer>Certificate signed over the page at <code>http://127.0.0.1:8765/runs/binance.com/system/index.html</code> for the run
+  <code>binance.com</code>, and reproducible with its re-render command.
+  A certificate covers the tokens above and nothing else. Anything this run could not probe is listed,
+  not assumed. Rendered by lewitt from cert.json.</footer>
+</div>
+</body>
+</html>

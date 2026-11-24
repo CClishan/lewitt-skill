@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>lewitt certificate — http://127.0.0.1:8765/</title>
-<style>/* ---- neutral base (body) ---------------------------------------------------
+<title>lewitt certificate — http://127.0.0.1:8765/runs/stripe.com/system/index.html</title>
+<style>:root { color-scheme: light; }
+/* ---- neutral base (body) ---------------------------------------------------
    Every colour here is a neutral: the artifact's own system colour lives inside a Stage. */
 body {
   --n-bg: #F6F6F5; --n-panel: #FFFFFF; --n-rail: #FAFAF9;
@@ -101,15 +102,32 @@ details pre { margin: 10px 0 0; padding: 12px 14px; background: var(--n-bg); bor
   * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
 }
 
-.cert { max-width: 1080px; margin: 0 auto; padding: 56px 40px 120px; }
+.cert { max-width: 1080px; margin: 0 auto; padding: 0 40px 120px; }
+/* the sheet reads as a print on paper: ink rule, 3px air, hairline — then the header content */
+.paper { border-top: 3px solid var(--n-ink); }
+.paper::before { content: ""; display: block; height: 2px; }
+.paper::after { content: ""; display: block; height: 1px; background: var(--n-ink); }
+.head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 40px;
+  align-items: start; padding: 40px 0 32px; border-bottom: 1px solid var(--n-line); }
+.head-main { display: grid; gap: 18px; min-width: 0; }
+.head .eyebrow { margin: 0; }
+.thumb { display: grid; gap: 8px; justify-items: stretch; text-align: center;
+  font: 500 10px/1.5 var(--n-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--n-mute);
+  border: 1px solid var(--n-ink); padding: 12px 14px 10px; min-width: 168px; }
+.thumb .lw-mark { color: var(--n-ink); margin: 0 auto 2px; }
+.thumb dl { margin: 0; display: grid; gap: 2px; justify-items: center; }
+.thumb dt { color: var(--n-faint); font-size: 9px; }
+.thumb dd { margin: 0; color: var(--n-ink); }
+.thumb dd.ok { color: var(--n-ok); } .thumb dd.warn { color: var(--n-warn); }
+.thumb dd.bad { color: var(--n-bad); }
 @media (max-width: 700px) {
-  .cert { padding: 32px 20px 80px; }
+  .cert { padding: 0 20px 80px; }
+  .head { grid-template-columns: 1fr; }
+  .thumb { justify-self: start; }
   .stats { grid-template-columns: 1fr 1fr; }
   .meta { grid-template-columns: 1fr; }
   section { overflow-x: auto; }
 }
-.head { display: grid; gap: 18px; padding-bottom: 32px; border-bottom: 1px solid var(--n-line); }
-.head .eyebrow { margin: 0; }
 .head h1 { margin: 0; font-size: 34px; font-weight: 400; letter-spacing: -.02em; }
 .verdict { display: inline-flex; align-items: center; gap: 10px; font: 500 12px/1 var(--n-mono);
   letter-spacing: .1em; text-transform: uppercase; padding: 8px 12px; border: 1px solid var(--n-line-strong);
@@ -118,7 +136,8 @@ details pre { margin: 10px 0 0; padding: 12px 14px; background: var(--n-bg); bor
 .verdict.warn { color: var(--n-warn); border-color: color-mix(in srgb, var(--n-warn) 55%, transparent); }
 .verdict.bad { color: var(--n-bad); border-color: color-mix(in srgb, var(--n-bad) 55%, transparent); }
 .verdict .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
-.meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin: 0; }
+.meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px 28px; margin: 0; }
+.meta dd { overflow-wrap: anywhere; }
 .meta div { }
 .meta dt { font: 500 11px/1 var(--n-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--n-faint); }
 .meta dd { margin: 6px 0 0; font-size: 13px; }
@@ -146,15 +165,27 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--n-line
 </head>
 <body data-tone="light">
 <div class="cert">
+  <div class="paper">
   <header class="head">
+   <div class="head-main">
     <p class="eyebrow">lewitt · certificate of implementation</p>
     <h1>This build is <span class="verdict ok"><span class="dot"></span>certified</span></h1>
     <dl class="meta">
-      <div><dt>Target</dt><dd><code>http://127.0.0.1:8765/</code></dd></div>
+      <div><dt>Target</dt><dd><code>http://127.0.0.1:8765/runs/stripe.com/system/index.html</code></dd></div>
       <div><dt>Instructions</dt><dd><code>stripe.com</code> · schema 1.1</dd></div>
-      <div><dt>Issued</dt><dd>2026-11-24T07:57:13+00:00</dd></div>
+      <div><dt>Issued</dt><dd>2026-11-24T09:16:54+00:00</dd></div>
       <div><dt>Pages inspected</dt><dd>1</dd></div>
+      <div><dt>Re-render</dt><dd><code>python3 scripts/cert.py --url http://127.0.0.1:8765/runs/stripe.com/system/index.html --dest runs/stripe.com</code></dd></div>
     </dl>
+   </div>
+    <aside class="thumb" aria-label="lewitt certificate stamp">
+      <svg class="lw-mark" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square"><path d="M7.5 0V7.5"/><path d="M8.5 8.5H16"/><path d="M0.5 8.5L7.5 15.5"/><path d="M15.5 8.5L8.5 15.5"/></g></svg>
+      <dl>
+        <dt>lewitt</dt><dd>cert · schema 1.1</dd>
+        <dt>verdict</dt><dd class="ok">certified</dd>
+        <dt>measured</dt><dd>16/16</dd>
+      </dl>
+    </aside>
     <div class="stats">
       <div class="stat"><span>Measured</span><b>16<small>/16</small></b></div>
       <div class="stat"><span>Passed</span><b>16</b></div>
@@ -162,13 +193,16 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--n-line
       <div class="stat"><span>Violations</span><b>0</b></div>
     </div>
   </header>
+  </div>
   <section><h2>Deviations to fix <span class="count">0</span></h2><p class="empty">No measured token deviates from the spec.</p></section>
   <section><h2>Intentional (registered) <span class="count">0</span></h2><p class="empty">Nothing was excused.</p></section>
   
-  <section><h2>Passing <span class="count">16</span></h2><table><thead><tr><th>Token</th><th>Spec</th><th>Rendered</th><th>Read from</th><th></th></tr></thead><tbody><tr><td><code>type/hero</code></td><td><code class="muted">48px</code></td><td><code>48px</code></td><td><span class="tier t3">L3 computed</span></td><td></td></tr><tr><td><code>type/h2</code></td><td><code class="muted">32px</code></td><td><code>32px</code></td><td><span class="tier t1">L1 --lw-*</span></td><td></td></tr><tr><td><code>type/h3</code></td><td><code class="muted">26px</code></td><td><code>26px</code></td><td><span class="tier t1">L1 --lw-*</span></td><td></td></tr><tr><td><code>type/body</code></td><td><code class="muted">16px</code></td><td><code>16px</code></td><td><span class="tier t1">L1 --lw-*</span></td><td></td></tr><tr><td><code>type/ui</code></td><td><code class="muted">15px</code></td><td><code>15px</code></td><td><span class="tier t1">L1 --lw-*</span></td><td></td></tr><tr><td><code>type/caption</code></td><td><code class="muted">10px</code></td><td><code>10px</code></td><td><span class="tier t1">L1 --lw-*</span></td><td></td></tr><tr><td><code>color/canvas</code></td><td><code class="muted">#FFFFFF</code></td><td><code>rgb(255, 255, 255)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/canvas-tint</code></td><td><code class="muted">#F6F9FC</code></td><td><code>rgb(246, 249, 252)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/surface-subtle</code></td><td><code class="muted">#F8FAFD</code></td><td><code>rgb(248, 250, 253)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/text/heading</code></td><td><code class="muted">#061B31</code></td><td><code>rgb(6, 27, 49)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/text/body</code></td><td><code class="muted">#50617A</code></td><td><code>rgb(80, 97, 122)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/text/muted</code></td><td><code class="muted">#64748D</code></td><td><code>rgb(100, 116, 141)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/action/bg</code></td><td><code class="muted">#533AFD</code></td><td><code>rgb(83, 58, 253)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/action/bg-alt</code></td><td><code class="muted">#635BFF</code></td><td><code>rgb(99, 91, 255)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/action/fg</code></td><td><code class="muted">#FFFFFF</code></td><td><code>rgb(255, 255, 255)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/link</code></td><td><code class="muted">#533AFD</code></td><td><code>rgb(83, 58, 253)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr></tbody></table></section>
+  <section><h2>Passing <span class="count">16</span></h2><table><thead><tr><th>Token</th><th>Spec</th><th>Rendered</th><th>Read from</th><th></th></tr></thead><tbody><tr><td><code>type/hero</code></td><td><code class="muted">48px</code></td><td><code>48px</code></td><td><span class="tier t2">L2 probe</span></td><td></td></tr><tr><td><code>type/h2</code></td><td><code class="muted">32px</code></td><td><code>32px</code></td><td><span class="tier t2">L2 probe</span></td><td></td></tr><tr><td><code>type/h3</code></td><td><code class="muted">26px</code></td><td><code>26px</code></td><td><span class="tier t2">L2 probe</span></td><td></td></tr><tr><td><code>type/body</code></td><td><code class="muted">16px</code></td><td><code>16px</code></td><td><span class="tier t2">L2 probe</span></td><td></td></tr><tr><td><code>type/ui</code></td><td><code class="muted">15px</code></td><td><code>15px</code></td><td><span class="tier t2">L2 probe</span></td><td></td></tr><tr><td><code>type/caption</code></td><td><code class="muted">10px</code></td><td><code>10px</code></td><td><span class="tier t2">L2 probe</span></td><td></td></tr><tr><td><code>color/canvas</code></td><td><code class="muted">#FFFFFF</code></td><td><code>rgb(255, 255, 255)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/canvas-tint</code></td><td><code class="muted">#F6F9FC</code></td><td><code>rgb(246, 249, 252)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/surface-subtle</code></td><td><code class="muted">#F8FAFD</code></td><td><code>rgb(248, 250, 253)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/text/heading</code></td><td><code class="muted">#061B31</code></td><td><code>rgb(6, 27, 49)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/text/body</code></td><td><code class="muted">#50617A</code></td><td><code>rgb(80, 97, 122)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/text/muted</code></td><td><code class="muted">#64748D</code></td><td><code>rgb(100, 116, 141)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/action/bg</code></td><td><code class="muted">#533AFD</code></td><td><code>rgb(83, 58, 253)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/action/bg-alt</code></td><td><code class="muted">#635BFF</code></td><td><code>rgb(99, 91, 255)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/action/fg</code></td><td><code class="muted">#FFFFFF</code></td><td><code>rgb(255, 255, 255)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/link</code></td><td><code class="muted">#533AFD</code></td><td><code>rgb(83, 58, 253)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr></tbody></table></section>
   <section><h2>Not measured <span class="count">0</span></h2><p class="empty">Every token in this run could be probed.</p></section>
   <section><h2>Not certified</h2><ul><li>component geometry (padding, gaps, radii of specific elements) is not probed — only token values are</li><li>spacing scale, motion timing and hover/focus deltas on the live page are not asserted</li><li>visual resemblance to the source site is out of scope: this certificate is about instructions, not screenshots</li></ul></section>
-  <footer>A certificate covers the tokens above and nothing else. Anything this run could not probe is listed,
+  <footer>Certificate signed over the page at <code>http://127.0.0.1:8765/runs/stripe.com/system/index.html</code> for the run
+  <code>stripe.com</code>, and reproducible with its re-render command.
+  A certificate covers the tokens above and nothing else. Anything this run could not probe is listed,
   not assumed. Rendered by lewitt from cert.json.</footer>
 </div>
 </body>

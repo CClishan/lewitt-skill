@@ -921,41 +921,73 @@ reads <code>../tokens.css</code>, a deterministic render of <code>dna.json</code
 """
 
     # ---------------------------------------------------------------- typography + type scale
+    # Specimens are neutral (Aa 0123456789 / placeholder sentences) and never borrow another site's copy.
+    # A numeral token is shown as a numeral, a text token as text: read the id, no guessing.
+    FIGURE = "337,527,796"
+    SENTENCE = "The quick brown fox jumps over the lazy dog"
+    NUMERIC = re.compile(r"figure|numeric|digit|number|num(?!eral-word)", re.IGNORECASE)
+    text_colour = next((f'var(--{t["css"].lstrip("-")})' for t in dna["tokens"]
+                        if t["type"] == "color" and t["layer"] == "semantic"
+                        and re.match(r"color/text/(heading|primary|title|body)$", t["id"])), None)
+    text_style = f"color:{text_colour};" if text_colour else ""
+
+    def type_tokens():
+        return [t for t in dna["tokens"] if t["type"] == "dimension" and t["id"].startswith("type/")]
+
+    def specimen(t) -> tuple[str, str]:
+        """(text, extra style). Numeral steps show digits in the system's own mono; text steps show a sentence."""
+        size = resolved[t["id"]]["resolved"]
+        if NUMERIC.search(t["id"].split("/")[-1]):
+            mono = resolved.get("font/mono", {}).get("resolved") or "var(--n-mono)"
+            return FIGURE, f";font-family:{mono};font-variant-numeric:tabular-nums;font-weight:400"
+        m = re.match(r"([0-9.]+)", str(size))
+        if m and float(m.group(1)) <= 14:
+            return "Aa 0123456789", ""
+        return SENTENCE, ""
+
+    # the run names its own weights (weight/light, weight/regular, weight/body…): take the first,
+    # and never borrow another run's name
+    weights = [t["id"] for t in dna["tokens"] if t["type"] == "fontWeight"]
+    light = next((w for w in weights if w.endswith(("light", "regular", "body"))), weights[0] if weights else None)
+    light_value = resolved[light]["resolved"] if light else "400"
+
     def type_rows() -> str:
         return "".join(
             f'<div class="type-row"><div class="type-params">'
             f'<span class="mono" data-copy="var(--{esc(t["css"].lstrip("-"))})">{esc(t["id"])}</span>'
             f'<dl><dt>size</dt><dd>{esc(resolved[t["id"]]["resolved"])}</dd>'
-            f'<dt>weight</dt><dd>{esc(resolved.get("weight/light", {}).get("resolved", "—"))}</dd></dl></div>'
+            f'<dt>weight</dt><dd>{esc(light_value)}</dd></dl></div>'
             f'<div class="type-specimen"><span class="spec" style="font-size:{esc(resolved[t["id"]]["resolved"])};'
-            f'font-weight:{esc(resolved.get("weight/light", {}).get("resolved", 400))};'
-            f'letter-spacing:{esc(resolved.get("tracking/hero", {}).get("resolved", "normal"))}">'
-            f'Financial infrastructure to grow your revenue</span></div></div>'
-            for t in dna["tokens"] if t["type"] == "dimension" and t["id"].startswith("type/"))
+            f'font-weight:{esc(light_value)};'
+            f'letter-spacing:{esc(resolved.get("tracking/hero", {}).get("resolved", "normal"))}'
+            f'{specimen(t)[1]}">{esc(specimen(t)[0])}</span></div></div>'
+            for t in type_tokens())
 
     weight_rows = "".join(
         f'<div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--{esc(t["css"].lstrip("-"))})">'
         f'{esc(t["id"])}</span><dl><dt>weight</dt><dd>{esc(resolved[t["id"]]["resolved"])}</dd></dl></div>'
         f'<div class="type-specimen"><span class="spec" style="font-size:32px;font-weight:{esc(resolved[t["id"]]["resolved"])}">'
-        f'Financial infrastructure to grow your revenue</span></div></div>'
+        f'{SENTENCE}</span></div></div>'
         for t in dna["tokens"] if t["type"] == "fontWeight")
     panels["typography"] = f"""
 <h1>Typography</h1>
-<p class="lede">Parameters on the left, the specimen on the right at its real size. Web fonts are not shipped;
-the specimen uses the declared stack and falls back where the face is missing.</p>
+<p class="lede">Parameters on the left, a neutral specimen on the right at its real size. Web fonts are not
+shipped; the specimen uses the declared stack and falls back where the face is missing.</p>
 {type_rows()}
 <h2>Weights</h2>
 {weight_rows}
 """
     panels["type-scale"] = f"""
 <h1>Type Scale</h1>
-<p class="lede">The full stack in reading order, drawn from the tokens exactly as a build would.</p>
+<p class="lede">The full stack in reading order, drawn from the tokens exactly as a build would.
+Numeral steps show digits, text steps show a sentence.</p>
 {stage("type scale · ratios between steps",
        ''.join(f'<div style="font-size:{esc(resolved[t["id"]]["resolved"])};line-height:1.12;'
-               f'font-weight:{esc(resolved.get("weight/light", {}).get("resolved", 400))};'
+               f'font-weight:{esc(light_value)};'
                f'letter-spacing:{esc(resolved.get("tracking/hero", {}).get("resolved", "normal"))};'
-               f'margin:0 0 18px;color:var(--lw-text-heading)">Financial infrastructure</div>'
-               for t in dna["tokens"] if t["type"] == "dimension" and t["id"].startswith("type/")),
+               f'margin:0 0 18px;{text_style}{specimen(t)[1]}">'
+               f'{esc(specimen(t)[0])}</div>'
+               for t in type_tokens()),
        meta_note="on var(--lw-canvas)")}
 """
 
@@ -965,15 +997,34 @@ the specimen uses the declared stack and falls back where the face is missing.</
         f'<div class="cap"><span data-copy="var(--{esc(t["css"].lstrip("-"))})">{esc(t["id"])}</span>'
         f'<span class="v">{esc(resolved[t["id"]]["resolved"])}</span></div></div>'
         for t in dna["tokens"] if t["type"] == "dimension" and t["id"].startswith("radius/"))
-    shadow_cells = "".join(
-        f'<div class="shape"><div class="obj" style="box-shadow:{esc(resolved[t["id"]]["resolved"])};border-color:transparent"></div>'
-        f'<div class="cap"><span data-copy="var(--{esc(t["css"].lstrip("-"))})">{esc(t["id"])}</span>'
-        f'<span class="v">{esc(resolved[t["id"]]["resolved"])}</span></div></div>'
-        for t in dna["tokens"] if t["type"] == "shadow")
+    # a shadow specimen paints through its token, never an inline literal: the token is the specimen,
+    # and a rule that forbids shadows must be able to see (and veto) the demo meant to show one
+    def shadow_allowed() -> bool:
+        for taste in dna["taste"]:
+            cap = ((taste.get("guardrail") or {}).get("max") or {}).get("box-shadow")
+            if cap and float(cap.get("value", 1)) < 4:
+                return False   # too tight to paint a specimen honestly; the token is shown as a value
+        return True
+
+    def shadow_cell(t) -> str:
+        css = f'var(--{esc(t["css"].lstrip("-"))})'
+        return (f'<div class="shape"><div class="obj" style="box-shadow:{css};border-color:transparent"></div>'
+                f'<div class="cap"><span data-copy="{css}">{esc(t["id"])}</span>'
+                f'<span class="v">{esc(resolved[t["id"]]["resolved"])}</span></div></div>')
+
+    shadow_tokens = [t for t in dna["tokens"] if t["type"] == "shadow"]
+    shadow_cells = "".join(shadow_cell(t) for t in shadow_tokens) if shadow_allowed() else ""
+    shadow_note = ("" if shadow_allowed() else
+                   '<p class="note">This run\'s restraint caps box-shadow below 4px, so the specimen is not '
+                   'painted here; the observed value stays a token:</p>'
+                   + "".join(f'<p class="mono">{esc(t["id"])} · <span data-copy="{esc(resolved[t["id"]]["resolved"])}">'
+                             f'{esc(resolved[t["id"]]["resolved"])}</span> · {badge(t["status"])}</p>'
+                             for t in shadow_tokens))
     panels["shape"] = f"""
 <h1>Radius &amp; Depth</h1>
 <p class="lede">Corners and layer separation as tokenised values.</p>
-<div class="grid-2">{radius_cells}{shadow_cells or '<div class="shape"><div class="cap"><span>no shadow tokens</span><span class="v">layers are separated with 1px borders</span></div></div>'}</div>
+<div class="grid-2">{radius_cells}{shadow_cells or ("" if shadow_tokens else '<div class="shape"><div class="cap"><span>no shadow tokens</span><span class="v">layers are separated with 1px borders</span></div></div>')}</div>
+{shadow_note}
 """
 
     # ---------------------------------------------------------------- components
@@ -1029,23 +1080,23 @@ stresses the demos while you look at them.</p>
 """
 
     # ---------------------------------------------------------------- compositions
-    probes = ["Financial infrastructure to grow your revenue",
-              "Accept payments and move money globally with a single integration",
-              "Transparent pricing that scales with volume"]
+    probes = ["A short line", "A longer line that wraps at narrow widths",
+              "One more line, same type step, to read the rhythm"]
     panels["compositions"] = f"""
 <h1>Compositions</h1>
 <p class="lede">Assembled only from the components above and the tokens in <code>../tokens.css</code>. Copy is
-sample text, never the source's.</p>
+neutral placeholder text, never the source's.</p>
 <h2>Marketing hero</h2>
 {stage("hero · display type, one action", '<div class="ds-scope" style="padding:48px">'
-       + "".join(f'<h2 class="ds-hero ds-stressable" style="font-size:var(--lw-type-h2);margin:0 0 18px">{p}</h2>' for p in probes)
-       + '<button class="ds-btn ds-btn--primary">Get started</button></div>',
+       + "".join(f'<h2 class="ds-hero ds-stressable" style="font-size:var(--lw-type-h2);margin:0 0 18px;{text_style}">{p}</h2>' for p in probes)
+       + '<button class="ds-btn ds-btn--primary">Primary action</button></div>',
        meta_note="display · 3 lengths", note="Long copy in the toolbar re-cuts these lines.")}
 <h2>Pricing rows</h2>
 {stage("pricing · three tiers", '<div class="ds-scope" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;padding:32px">'
-       + "".join(f'<div class="ds-card" style="padding:20px"><div class="ds-caption">Tier</div>'
-                 f'<div class="ds-price">{p}</div><button class="ds-btn ds-btn--secondary" style="margin-top:12px">Choose</button></div>'
-                 for p in ("2.9% + 30¢", "1.5%", "Custom")) + '</div>',
+       + "".join(f'<div class="ds-card" style="padding:20px"><div class="ds-caption">Caption</div>'
+                 f'<div class="ds-price" style="font-variant-numeric:tabular-nums">{p}</div>'
+                 f'<button class="ds-btn ds-btn--secondary" style="margin-top:12px">Action</button></div>'
+                 for p in ("10", "20", "30")) + '</div>',
        note="Card, caption and button states all come from the same tokens.")}
 """
 
@@ -1102,26 +1153,47 @@ sample text, never the source's.</p>
 """
 
     # ---------------------------------------------------------------- fidelity
-    fid_panel = f"""
-<h1>Fidelity vs Source</h1>
-<p class="lede">The capture on the left, the rebuild on the right, at equal width. Differences stay visible
-rather than claimed away.</p>
+    # A split slider needs two different pictures. Without a real rebuild shot it would compare the
+    # source with itself, so the default is the clean source capture plus the rebuild stated in words.
+    shots = sorted(p.name for p in (dest / "capture").glob("viewport*.png")) if (dest / "capture").exists() else []
+    source_shot = shots[0] if shots else None
+    rebuild_shot = next((n for n in ("rebuild.png", "rebuild-1.png") if (dest / "capture" / n).exists()), None)
+    # no rebuild shot: the clean source capture, then the rebuild stated in words (no fake split)
+    rebuild_note = f"""<div class="fid-note">
+  <h2>Rebuild</h2>
+  <p>No rebuild screenshot in <code>capture/</code>, so there is no split to drag: the rebuild is this page
+  itself — <a href="#compositions">Compositions</a> and <a href="#components">Components</a> — and it is not
+  painted over the source.</p>
+  <p class="mono">Record <code>capture/rebuild.png</code> at {esc(str((dna.get('meta') or {}).get('viewport') or 'the same viewport'))}
+  and rerun to enable pixel-against-pixel comparison.</p>
+</div>"""
+    if source_shot and rebuild_shot:
+        fidelity_body = f"""
 <div style="display:flex;justify-content:flex-end;margin:0 0 12px">
   <button class="tb-btn" id="compare-toggle" aria-pressed="true">Side by side</button>
 </div>
 <div class="compare" id="compare">
-  <img src="../capture/viewport.png" alt="captured source page">
-  <div class="layer b"><img src="../capture/viewport.png" alt=""></div>
+  <img src="../capture/{esc(source_shot)}" alt="captured source page">
+  <div class="layer b"><img src="../capture/{esc(rebuild_shot)}" alt="rebuilt page"></div>
   <div class="handle"></div>
-  <span class="lab l">source · capture/viewport.png</span><span class="lab r">split compare</span>
+  <span class="lab l">source · capture/{esc(source_shot)}</span><span class="lab r">rebuild · capture/{esc(rebuild_shot)}</span>
   <input id="split" type="range" min="0" max="100" value="50" aria-label="compare source and rebuild">
 </div>
 <div class="sbs" id="sbs" hidden>
-  <figure><img src="../capture/viewport.png" alt="captured source page" style="width:100%"><figcaption>source</figcaption></figure>
-  <figure><div class="stage" style="border:0"><div class="stage-body" style="min-height:200px"><div data-ds style="padding:16px">
-  the rebuild lives in <code>#compositions</code> and <code>#components</code> on this page</div></div></div>
-  <figcaption>rebuild · this page</figcaption></figure>
-</div>
+  <figure><img src="../capture/{esc(source_shot)}" alt="captured source page" style="width:100%"><figcaption>source · capture/{esc(source_shot)}</figcaption></figure>
+  <figure><img src="../capture/{esc(rebuild_shot)}" alt="rebuilt page" style="width:100%"><figcaption>rebuild · capture/{esc(rebuild_shot)}</figcaption></figure>
+</div>"""
+    elif source_shot:
+        fidelity_body = (f'<div class="fid"><div class="src-shot"><img src="../capture/{esc(source_shot)}" '
+                         f'alt="captured source page"></div>{rebuild_note}</div>')
+    else:
+        fidelity_body = ('<p class="lede">No capture was recorded for this run, so there is nothing to compare '
+                         'against.</p>')
+    fid_panel = f"""
+<h1>Fidelity vs Source</h1>
+<p class="lede">The captured source screen, then what the rebuild owes it. Differences stay visible
+rather than claimed away.</p>
+{fidelity_body}
 <p class="note">Type rendering cannot be matched because the source face is not shipped. Fidelity stays
 <strong>PARTIAL</strong> in VERIFY.md until every recorded deviation is closed.</p>
 """
@@ -1200,7 +1272,6 @@ rather than claimed away.</p>
   {code_block("tokens.css")}{code_block("shadcn-theme.css")}{code_block("agent-rules.md")}
 </div>
 <div class="tabpanel" id="sub-tokens" role="tabpanel" aria-labelledby="tab-tokens" hidden>
-  {sr.spec_table(["CSS var", "Token", "Layer", "Type", "Value", "Status"], [])}
   <table><thead><tr><th>CSS var</th><th>Token</th><th>Layer</th><th>Type</th><th>Value</th><th>Status</th></tr></thead>
   <tbody>{token_rows}</tbody></table>
 </div>
@@ -1214,10 +1285,12 @@ rather than claimed away.</p>
 """
 
     html = sr.app_shell(dna, resolved, panels, pages=len(pages))
-    # the promise that every specimen reads the run's tokens
+    # the promise that every specimen reads the run's tokens, plus the run's own 3px fingerprint
     html = html.replace('<link rel="stylesheet" href="site.css">',
                         '<link rel="stylesheet" href="site.css">\n<style>:root { --doc-bg: '
-                        + vb.TONES[tone]["bg"] + '; }</style>')
+                        + vb.TONES[tone]["bg"] + '; }\n'
+                        + vb.fingerprint_css(vb.fingerprint_stops(resolved, dna), selector="#fp")
+                        + '</style>')
     js = sr.ROUTER_JS + """
 // replay dots for the system/ motion panel
 (function () {

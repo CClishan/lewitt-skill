@@ -2,9 +2,10 @@
 
 **Verdict: CERTIFIED** · 16/16 token probes measured · 0 deviation(s) · 0 guardrail hit(s)
 
-- target: `http://127.0.0.1:8765/`
+- target: `http://127.0.0.1:8765/runs/stripe.com/system/index.html`
 - instructions: `stripe.com` (dna.json, schema 1.1)
-- issued: 2026-11-24T07:57:13+00:00 · pages inspected: 1
+- re-render: `python3 scripts/cert.py --url http://127.0.0.1:8765/runs/stripe.com/system/index.html --dest runs/stripe.com`
+- issued: 2026-11-24T09:16:54+00:00 · pages inspected: 1
 
 > sign this only for the tokens above; unmeasured rows are listed, not assumed
 
@@ -16,12 +17,12 @@ No deviation on the measured tokens.
 
 | Token | Value in tokens.css | Rendered value | Read from | Result |
 | --- | --- | --- | --- | --- |
-| `type/hero` | `48px` | `48px` | rendered element | match |
-| `type/h2` | `32px` | `32px` | page --lw-* var | match |
-| `type/h3` | `26px` | `26px` | page --lw-* var | match |
-| `type/body` | `16px` | `16px` | page --lw-* var | match |
-| `type/ui` | `15px` | `15px` | page --lw-* var | match |
-| `type/caption` | `10px` | `10px` | page --lw-* var | match |
+| `type/hero` | `48px` | `48px` | probe element | match |
+| `type/h2` | `32px` | `32px` | probe element | match |
+| `type/h3` | `26px` | `26px` | probe element | match |
+| `type/body` | `16px` | `16px` | probe element | match |
+| `type/ui` | `15px` | `15px` | probe element | match |
+| `type/caption` | `10px` | `10px` | probe element | match |
 | `color/canvas` | `#FFFFFF` | `rgb(255, 255, 255)` | page --lw-* var | match |
 | `color/canvas-tint` | `#F6F9FC` | `rgb(246, 249, 252)` | page --lw-* var | match |
 | `color/surface-subtle` | `#F8FAFD` | `rgb(248, 250, 253)` | page --lw-* var | match |

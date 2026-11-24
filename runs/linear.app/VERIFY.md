@@ -18,8 +18,8 @@ Renders are deterministic re-encodings of `dna.json`: byte-equality proves the a
 | evidence coverage | PASS | 28 evidence entries cited |
 | restraint guardrails | PASS | 2/2 restraint principles carry machine-readable guardrails |
 | anti-slop (authored prose) | PASS | 0 hit(s) |
-| guardrail (generated code) | unverified | no --check-code supplied |
+| guardrail (generated code) | PASS | 0 violation(s) — scanned linear.app |
 | visual fidelity | unverified | no fidelity.json — requires a side-by-side comparison at matching viewports |
 | full system/ site | n/a | DNA mode does not build system/ |
 
-Generated at 2026-11-24T07:57:27+00:00.
+Generated at 2026-11-24T09:17:50+00:00.

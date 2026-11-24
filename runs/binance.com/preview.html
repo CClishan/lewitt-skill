@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>lewitt specimen — Binance</title>
 <link rel="stylesheet" href="tokens.css">
-<style>/* ---- neutral base (body) ---------------------------------------------------
+<style>:root { color-scheme: dark; }
+/* ---- neutral base (body) ---------------------------------------------------
    Every colour here is a neutral: the artifact's own system colour lives inside a Stage. */
 body {
   --n-bg: #09090B; --n-panel: #111114; --n-rail: #0F0F12;
@@ -104,7 +105,14 @@ details pre { margin: 10px 0 0; padding: 12px 14px; background: var(--n-bg); bor
 
 /* preview.html — Architectural Specimen Book. Neutrals come from visual_base; the system's own
    colour only appears inside a Stage. */
-header.top{padding:56px 56px 28px;border-bottom:1px solid var(--n-line)}
+header.top{padding:40px 56px 28px;border-bottom:1px solid var(--n-line)}
+header.top{position:relative}
+header.top .fpl{position:absolute;left:0;right:0;bottom:-3px}
+.eyebrow{display:flex;align-items:center;gap:7px}
+.eyebrow .lw-mark{color:var(--n-ink);flex:none}
+.source-only{margin:0;border:1px solid var(--n-line);background:var(--n-panel)}
+.source-only img{display:block;width:100%}
+.source-only figcaption{font:11px/1.4 var(--n-mono);color:var(--n-mute);padding:8px 12px;border-top:1px solid var(--n-line)}
 .top .eyebrow{margin-bottom:14px}
 .top h1{font-size:34px;line-height:1.1;letter-spacing:-.02em;margin:0 0 12px;font-weight:400;max-width:24ch}
 .top .lede{color:var(--n-mute);max-width:70ch;margin:0 0 6px;font-size:14px}
@@ -220,11 +228,14 @@ footer{padding:32px 56px 64px;color:var(--n-mute);font-size:12px;font-family:var
   .motion .plot{border-right:0}
   .sbs{grid-template-columns:1fr}
 }
+.fpl { height: 3px; flex: none; }
+#fp-head { background: linear-gradient(90deg, #181A20 0% 60%, #29313D 60% 85%, #FCD535 85% 95%, #2EBD85 95% 100%); }
 </style>
 </head>
 <body data-tone="dark">
-<header class="top">
-  <p class="eyebrow">lewitt · design specimen · full mode</p>
+<header class="top" id="top">
+  <div class="fpl" id="fp-head" aria-hidden="true"></div>
+  <p class="eyebrow"><svg class="lw-mark" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square"><path d="M7.5 0V7.5"/><path d="M8.5 8.5H16"/><path d="M0.5 8.5L7.5 15.5"/><path d="M15.5 8.5L8.5 15.5"/></g></svg><span>lewitt · design specimen · full mode</span></p>
   <h1>Binance</h1>
   <p class="lede">Depth is a hairline, not a shadow: 1px hairlines plus a lifted fill, not a drop shadow on every card and panel.</p>
   <p class="lede">Every value below is a render of <code>dna.json</code> reading the same <code>tokens.css</code>
@@ -325,7 +336,7 @@ cubic-bezier(0, 0, 0.2, 1)
 
   <section aria-labelledby="s-shape">
     <h2 id="s-shape">Radius &amp; depth</h2>
-    <div class="grid-2"><div class="shape"><div class="obj" style="border-radius:10px"></div><div class="cap"><span class="mono" data-copy="var(--lw-radius-button)">radius/button</span><span class="mono" style="color:var(--n-mute)">10px</span></div></div><div class="shape"><div class="obj" style="border-radius:8px"></div><div class="cap"><span class="mono" data-copy="var(--lw-radius-card)">radius/card</span><span class="mono" style="color:var(--n-mute)">8px</span></div></div><div class="shape"><div class="obj" style="border-radius:16px"></div><div class="cap"><span class="mono" data-copy="var(--lw-radius-option)">radius/option</span><span class="mono" style="color:var(--n-mute)">16px</span></div></div><div class="shape"><div class="obj" style="border-radius:4px"></div><div class="cap"><span class="mono" data-copy="var(--lw-radius-chip)">radius/chip</span><span class="mono" style="color:var(--n-mute)">4px</span></div></div><div class="shape"><div class="obj" style="border-radius:9999px"></div><div class="cap"><span class="mono" data-copy="var(--lw-radius-pill)">radius/pill</span><span class="mono" style="color:var(--n-mute)">9999px</span></div></div><div class="shape"><div class="obj" style="box-shadow:-2px 0 14px rgba(0, 0, 0, 0.4), 0 0 6px rgba(0, 0, 0, 0.2);border-color:transparent"></div><div class="cap"><span class="mono" data-copy="var(--lw-depth-overlay)">depth/overlay</span><span class="mono" style="color:var(--n-mute);text-align:right;word-break:break-all">-2px 0 14px rgba(0, 0, 0, 0.4), 0 0 6px rgba(0, 0, 0, 0.2)</span></div></div></div>
+    <div class="grid-2"><div class="shape"><div class="obj" style="border-radius:10px"></div><div class="cap"><span class="mono" data-copy="var(--lw-radius-button)">radius/button</span><span class="mono" style="color:var(--n-mute)">10px</span></div></div><div class="shape"><div class="obj" style="border-radius:8px"></div><div class="cap"><span class="mono" data-copy="var(--lw-radius-card)">radius/card</span><span class="mono" style="color:var(--n-mute)">8px</span></div></div><div class="shape"><div class="obj" style="border-radius:16px"></div><div class="cap"><span class="mono" data-copy="var(--lw-radius-option)">radius/option</span><span class="mono" style="color:var(--n-mute)">16px</span></div></div><div class="shape"><div class="obj" style="border-radius:4px"></div><div class="cap"><span class="mono" data-copy="var(--lw-radius-chip)">radius/chip</span><span class="mono" style="color:var(--n-mute)">4px</span></div></div><div class="shape"><div class="obj" style="border-radius:9999px"></div><div class="cap"><span class="mono" data-copy="var(--lw-radius-pill)">radius/pill</span><span class="mono" style="color:var(--n-mute)">9999px</span></div></div><div class="shape"><div class="cap"><span class="mono" data-copy="var(--lw-depth-overlay)">depth/overlay</span><span class="mono" style="color:var(--n-mute);text-align:right;word-break:break-all">-2px 0 14px rgba(0, 0, 0, 0.4), 0 0 6px rgba(0, 0, 0, 0.2)</span><span class="mono" style="color:var(--n-faint)">value only · restraint caps box-shadow</span></div></div></div>
   </section>
 
   <section aria-labelledby="s-motion">
@@ -365,11 +376,9 @@ cubic-bezier(0, 0, 0.2, 1)
   <section aria-labelledby="s-source">
     <h2 id="s-source">Source record</h2>
     <p class="sect-note">The screenshots are the captured source pages, kept for comparison: they are not rebuilt by lewitt.</p>
-    <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
-      <button class="mini-btn" id="p-view-toggle" aria-pressed="true">Side by side</button>
-    </div>
-    <div class="compare" id="p-compare"><img class="layer a" src="capture/viewport.png" alt="captured source page"><div class="layer b"><img src="capture/viewport.png" alt=""></div><div class="handle"></div><span class="lab l">source · capture/viewport.png</span><span class="lab r">split compare</span><input id="p-split" type="range" min="0" max="100" value="50" aria-label="compare source and rebuild, drag or use arrow keys"></div>
-    <div class="sbs" id="p-sbs" hidden><figure><img src="capture/viewport.png" alt="captured source page"><figcaption>source · capture/viewport.png</figcaption></figure><figure><div class="stage" style="border:0"><div class="stage-body tight" style="min-height:180px"><p class="sect-note" style="margin:0">Rebuilt surfaces read <code>tokens.css</code>; open <code>system/index.html</code> (full mode) for the live rebuild.</p></div></div><figcaption>rebuild · this file</figcaption></figure></div>
+    
+    <figure class="source-only"><img src="capture/viewport.png" alt="captured source page"><figcaption>source · capture/viewport.png</figcaption></figure><p class="sect-note" style="margin:10px 0 0">No rebuild screenshot in <code>capture/</code>, so there is no split to drag: the rebuild is <code>system/index.html</code>, not painted over the source. Record <code>capture/rebuild.png</code> at the same viewport to enable the comparison.</p>
+    
     <div class="shots"><figure><img src="capture/viewport-2.png" alt="source page screenshot viewport-2.png" loading="lazy"><figcaption>viewport-2.png</figcaption></figure><figure><img src="capture/viewport-3.png" alt="source page screenshot viewport-3.png" loading="lazy"><figcaption>viewport-3.png</figcaption></figure><figure><img src="capture/viewport-4.png" alt="source page screenshot viewport-4.png" loading="lazy"><figcaption>viewport-4.png</figcaption></figure></div>
     <h3>Pages inspected</h3><ul class="plain"><li><a href="https://www.binance.com/en" rel="noreferrer">https://www.binance.com/en</a></li><li><a href="https://www.binance.com/en/crypto/convert" rel="noreferrer">https://www.binance.com/en/crypto/convert</a></li><li><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">https://www.binance.com/en/markets/overview</a></li><li><a href="https://www.binance.com/en/futures/home" rel="noreferrer">https://www.binance.com/en/futures/home</a></li></ul>
     <h3>Limitations</h3><ul class="plain"><li>binance.com redirects to www.binance.com/en; output folder keeps the requested binance.com name.</li><li>Menu dropdowns and modals were not opened (reversible-state risk); their states are unknown.</li><li>The homepage h1 is a 16px utility node, so display sizes were read from the hero figure and h2, not semantic tags.</li><li>prefers-reduced-motion was found on 2 of 4 pages; the CSSOM scan disagrees page to page.</li><li>BinancePlex appears on only 2 of 4 pages, so its role is inferred.</li></ul>

@@ -9,7 +9,7 @@ Renders are deterministic re-encodings of `dna.json`: byte-equality proves the a
 | single source (R3) | PASS | all artifacts are deterministic renders of dna.json, no post-render edits |
 | guardrail static conflicts | PASS | no bound forbids the property it bounds |
 | guardrail pattern self-test | PASS | every forbidClass pattern compiles and catches a known violation |
-| system/ colour scope | PASS | canvas token #181A20 (dark); chrome shell light |
+| system/ colour scope | PASS | canvas token #181A20 (dark); chrome shell dark |
 | interaction delta | unverified | no interactions block (schema 1.0 run or capture without probe) |
 | shadcn theme slots | PASS | all required slots mapped |
 | clip bricks | n/a | no clips/ directory |
@@ -18,8 +18,8 @@ Renders are deterministic re-encodings of `dna.json`: byte-equality proves the a
 | evidence coverage | PASS | 46 evidence entries cited |
 | restraint guardrails | PASS | 2/2 restraint principles carry machine-readable guardrails |
 | anti-slop (authored prose) | PASS | 0 hit(s) |
-| guardrail (generated code) | unverified | no --check-code supplied |
+| guardrail (generated code) | PASS | 0 violation(s) — scanned binance.com/system |
 | visual fidelity | unverified | no fidelity.json — requires a side-by-side comparison at matching viewports |
 | full system/ site | PASS | app shell present (rail + canvas + panel routing) |
 
-Generated at 2026-11-24T07:57:27+00:00.
+Generated at 2026-11-24T09:17:49+00:00.

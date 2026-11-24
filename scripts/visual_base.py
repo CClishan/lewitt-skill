@@ -260,7 +260,81 @@ details pre { margin: 10px 0 0; padding: 12px 14px; background: var(--n-bg); bor
 
 def base_css(tone: str, *, scope: str = "body") -> str:
     """Neutral tokens + reset + shared primitives, for the given tone."""
-    return _base_tokens(TONES[tone], scope) + BASE_RULES
+    pin = ":root { color-scheme: %s; }\n" % tone if scope == "body" else ""
+    return pin + _base_tokens(TONES[tone], scope) + BASE_RULES
+
+
+# ---------------------------------------------------------------------------- brand fingerprint
+# The source site's own role colours in measured proportions; the shell stays neutral around them.
+FINGERPRINT = (("canvas", 60), ("surface", 25), ("action", 10), ("accent", 5))
+
+
+def fingerprint_css(stops: list[tuple[str | None, int]], *, selector: str) -> str:
+    """3px band: one gradient stop per role, in proportion, read from the run's semantic colours."""
+    if not stops:
+        return ""
+    parts, acc = [], 0
+    for colour, ratio in stops:
+        acc += ratio
+        parts.append(f"{colour or 'var(--n-line-strong)'} {acc - ratio}% {acc}%")
+    return (".fpl { height: 3px; flex: none; }\n"
+            f"{selector} {{ background: linear-gradient(90deg, {', '.join(parts)}); }}\n")
+
+
+def fingerprint_stops(resolved: dict, dna: dict) -> list[tuple[str | None, int]]:
+    """canvas 60 · surface 25 · action 10 · one accent 5, from the run's own colour tokens.
+
+    Roles come first; a system that is almost monochrome (Linear: canvas #08090A, action white)
+    falls back to its declared brand surfaces and primitives so the band still names the site.
+    """
+    semantic = [t["id"] for t in dna["tokens"] if t["type"] == "color" and t["layer"] == "semantic"]
+    everything = [t["id"] for t in dna["tokens"] if t["type"] == "color" and not t["id"].startswith("color/text")]
+
+    def val(*ids):
+        for i in ids:
+            v = (resolved.get(i) or {}).get("resolved")
+            if color_rgb(v):
+                return v
+        return None
+
+    def first(*prefixes, pool=None):
+        for p in prefixes:
+            for i in (pool or semantic):
+                if i.startswith(p) and color_rgb(resolved[i]["resolved"]):
+                    return resolved[i]["resolved"]
+        return None
+
+    canvas = val("color/canvas")
+    surface = val("color/surface", "color/surface-subtle", "color/canvas-tint", "color/well")
+    surface = surface or first("color/wash", "color/neutral/900", "color/slate/900", "color/panel", pool=everything)
+    action = val("color/action/bg", "color/action/bg-alt")
+    action = action or first("color/white", "color/brand", "color/gold", "color/indigo", pool=everything)
+    accent = first("color/link", "color/trend/up", "color/canvas-tint", "color/brand", "color/ring",
+                   "color/border-strong")
+    accent = accent or first("color/ring", "color/canvas-tint", "color/neutral/850", "color/neutral/800",
+                             "color/slate/600", "color/primary", "color/indigo", pool=everything)
+    picked = (("canvas", canvas), ("surface", surface), ("action", action), ("accent", accent))
+    seen: list[str] = []
+    out = []
+    for (label, colour), ratio in zip(picked, (r for _, r in FINGERPRINT)):
+        if colour and colour not in seen:
+            seen.append(colour)
+            out.append((colour, ratio))
+    return out
+
+
+LINES_SVG = (
+    '<svg class="lw-mark" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">'
+    '<g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square">'
+    '<path d="M7.5 0V7.5"/><path d="M8.5 8.5H16"/>'
+    '<path d="M0.5 8.5L7.5 15.5"/><path d="M15.5 8.5L8.5 15.5"/>'
+    "</g></svg>"
+)
+"""Sol LeWitt four-quadrant line study: one line per quadrant, set off a 1px cross, in currentColor."""
+
+
+def lines_mark(cls: str = "lw-mark") -> str:
+    return LINES_SVG.replace('class="lw-mark"', f'class="{cls}"')
 
 
 COPY_JS = r"""

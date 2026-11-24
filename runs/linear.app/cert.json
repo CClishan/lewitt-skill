@@ -1,0 +1,181 @@
+{
+  "issuedAt": "2026-11-24T09:17:25+00:00",
+  "target": "http://127.0.0.1:8765/runs/linear.app/preview.html",
+  "renderer": "build_artifacts.py/v2",
+  "render": "python3 scripts/cert.py --url http://127.0.0.1:8765/runs/linear.app/preview.html --dest runs/linear.app",
+  "sourceRun": "linear.app",
+  "schemaVersion": "1.1",
+  "status": "certified",
+  "total": 14,
+  "measured": 14,
+  "deviations": [],
+  "intentional": [],
+  "guardrailHits": [],
+  "guardrailScope": "the audited page (http://127.0.0.1:8765/runs/linear.app/preview.html); scanned each element's class list, inline style and box-shadow",
+  "checks": [
+    {
+      "kind": "dimension",
+      "token": "type/display-1",
+      "css": "--ds-type-display-1",
+      "expected": "64px",
+      "actual": "64px",
+      "measured": true,
+      "ok": true,
+      "via": "probe element"
+    },
+    {
+      "kind": "dimension",
+      "token": "type/display-2",
+      "css": "--ds-type-display-2",
+      "expected": "48px",
+      "actual": "48px",
+      "measured": true,
+      "ok": true,
+      "via": "probe element"
+    },
+    {
+      "kind": "dimension",
+      "token": "type/title",
+      "css": "--ds-type-title",
+      "expected": "20px",
+      "actual": "20px",
+      "measured": true,
+      "ok": true,
+      "via": "probe element"
+    },
+    {
+      "kind": "dimension",
+      "token": "type/body",
+      "css": "--ds-type-body",
+      "expected": "15px",
+      "actual": "15px",
+      "measured": true,
+      "ok": true,
+      "via": "probe element"
+    },
+    {
+      "kind": "dimension",
+      "token": "type/ui",
+      "css": "--ds-type-ui",
+      "expected": "13px",
+      "actual": "13px",
+      "measured": true,
+      "ok": true,
+      "via": "probe element"
+    },
+    {
+      "kind": "dimension",
+      "token": "type/caption",
+      "css": "--ds-type-caption",
+      "expected": "12px",
+      "actual": "12px",
+      "measured": true,
+      "ok": true,
+      "via": "probe element"
+    },
+    {
+      "kind": "color",
+      "token": "color/canvas",
+      "css": "--ds-canvas",
+      "expected": "#08090A",
+      "source_seen": false,
+      "actual": "rgb(8, 9, 10)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true,
+      "via": "probe element"
+    },
+    {
+      "kind": "color",
+      "token": "color/surface",
+      "css": "--ds-surface",
+      "expected": "#0F1011",
+      "source_seen": false,
+      "actual": "rgb(15, 16, 17)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true,
+      "via": "probe element"
+    },
+    {
+      "kind": "color",
+      "token": "color/ring",
+      "css": "--ds-ring",
+      "expected": "#23252A",
+      "source_seen": false,
+      "actual": "rgb(35, 37, 42)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true,
+      "via": "probe element"
+    },
+    {
+      "kind": "color",
+      "token": "color/text/primary",
+      "css": "--ds-text-primary",
+      "expected": "#F7F8F8",
+      "source_seen": false,
+      "actual": "rgb(247, 248, 248)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true,
+      "via": "probe element"
+    },
+    {
+      "kind": "color",
+      "token": "color/text/body",
+      "css": "--ds-text-body",
+      "expected": "#D0D6E0",
+      "source_seen": false,
+      "actual": "rgb(208, 214, 224)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true,
+      "via": "probe element"
+    },
+    {
+      "kind": "color",
+      "token": "color/text/muted",
+      "css": "--ds-text-muted",
+      "expected": "#8A8F98",
+      "source_seen": false,
+      "actual": "rgb(138, 143, 152)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true,
+      "via": "probe element"
+    },
+    {
+      "kind": "color",
+      "token": "color/action/bg",
+      "css": "--ds-action-bg",
+      "expected": "#FFFFFF",
+      "source_seen": false,
+      "actual": "rgb(255, 255, 255)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true,
+      "via": "probe element"
+    },
+    {
+      "kind": "color",
+      "token": "color/action/fg",
+      "css": "--ds-action-fg",
+      "expected": "#08090A",
+      "source_seen": false,
+      "actual": "rgb(8, 9, 10)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true,
+      "via": "probe element"
+    }
+  ],
+  "pages": 1,
+  "unchecked": [
+    "this run has no system/ reference site (DNA mode): the wall audited is the page at http://127.0.0.1:8765/runs/linear.app/preview.html, whatever it was served from at issue time",
+    "component geometry (padding, gaps, radii of specific elements) is not probed — only token values are",
+    "spacing scale, motion timing and hover/focus deltas on the live page are not asserted",
+    "visual resemblance to the source site is out of scope: this certificate is about instructions, not screenshots"
+  ],
+  "note": "sign this only for the tokens above; unmeasured rows are listed, not assumed"
+}

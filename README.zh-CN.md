@@ -31,7 +31,7 @@
 
 **2. 完整模式（`--full`）**：额外生成可运行的 `system/` 参考站，页面底色取自源站自己的 canvas token（不会把深色文档主题硬套到浅色系统上）：组件解剖与状态矩阵、用同一套 token 拼出的真实组合（Hero / Pricing / Checkout）、5 个压力测试开关、与源站并排的保真度对照。
 
-![保真度对照：左为抓取的源站，右为用 token 重建的 Hero](docs/fidelity.png)
+![保真度对照：干净的源站截图，右侧是重建说明；只有存在真实 rebuild.png 时才出现分屏滑块](docs/fidelity.png)
 
 ### 3. 切片（`scripts/clip.py`）
 

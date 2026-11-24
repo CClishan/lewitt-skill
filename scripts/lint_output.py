@@ -514,7 +514,9 @@ def system_colour_scope(dest: Path, dna: dict) -> tuple[bool, str]:
     rgb = _rgb(canvas_hex)
     tone = "light" if rgb and _lum(rgb) > 0.5 else "dark"
     chrome = (dest / "system" / "doc.css").read_text(encoding="utf-8")
-    chrome_bg = re.search(r"--doc-bg:\s*(#[0-9a-fA-F]{6})", chrome)
+    # --doc-bg is tone-known only when the page renders, so it is declared inline on the page
+    chrome_bg = (re.search(r"--doc-bg:\s*(#[0-9a-fA-F]{6})", html)
+                 or re.search(r"--doc-bg:\s*(#[0-9a-fA-F]{6})", chrome))
     chrome_rgb = _rgb(chrome_bg.group(1)) if chrome_bg else None
     return True, f"canvas token {canvas_hex} ({tone}); chrome shell {'dark' if chrome_rgb and _lum(chrome_rgb) < 0.3 else 'light'}"
 

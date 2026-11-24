@@ -1,122 +1,5 @@
 {
-  "generatedAt": "2026-11-24T07:57:27+00:00",
-  "dest": "binance.com",
-  "meta": {
-    "name": "Binance",
-    "source": "https://www.binance.com/en",
-    "domain": "binance.com",
-    "mode": "full",
-    "capturedAt": "2026-11-23T12:28:11+00:00",
-    "viewport": "1440x900",
-    "captureIsolated": true,
-    "crawl": {
-      "pages": [
-        "https://www.binance.com/en",
-        "https://www.binance.com/en/crypto/convert",
-        "https://www.binance.com/en/markets/overview",
-        "https://www.binance.com/en/futures/home"
-      ],
-      "budget": "1+3"
-    },
-    "limitations": [
-      "binance.com redirects to www.binance.com/en; output folder keeps the requested binance.com name.",
-      "Menu dropdowns and modals were not opened (reversible-state risk); their states are unknown.",
-      "The homepage h1 is a 16px utility node, so display sizes were read from the hero figure and h2, not semantic tags.",
-      "prefers-reduced-motion was found on 2 of 4 pages; the CSSOM scan disagrees page to page.",
-      "BinancePlex appears on only 2 of 4 pages, so its role is inferred."
-    ],
-    "openQuestions": [
-      "Is #FCD535 a pressed state of #F0B90B or a separate brand token?",
-      "Does the futures floor #0B0E11 imply a second theme mode?"
-    ]
-  },
-  "checks": [
-    {
-      "name": "dna.json contract",
-      "result": "PASS",
-      "detail": "SSOT valid (evidence/measurements/patterns/taste/tokens)"
-    },
-    {
-      "name": "token resolution",
-      "result": "PASS",
-      "detail": "all aliases resolve, no cycles"
-    },
-    {
-      "name": "single source (R3)",
-      "result": "PASS",
-      "detail": "all artifacts are deterministic renders of dna.json, no post-render edits"
-    },
-    {
-      "name": "guardrail static conflicts",
-      "result": "PASS",
-      "detail": "no bound forbids the property it bounds"
-    },
-    {
-      "name": "guardrail pattern self-test",
-      "result": "PASS",
-      "detail": "every forbidClass pattern compiles and catches a known violation"
-    },
-    {
-      "name": "system/ colour scope",
-      "result": "PASS",
-      "detail": "canvas token #181A20 (dark); chrome shell light"
-    },
-    {
-      "name": "interaction delta",
-      "result": "unverified",
-      "detail": "no interactions block (schema 1.0 run or capture without probe)"
-    },
-    {
-      "name": "shadcn theme slots",
-      "result": "PASS",
-      "detail": "all required slots mapped"
-    },
-    {
-      "name": "clip bricks",
-      "result": "n/a",
-      "detail": "no clips/ directory"
-    },
-    {
-      "name": "preview.html (self-contained)",
-      "result": "PASS",
-      "detail": "single file, same-folder tokens.css, no remote assets"
-    },
-    {
-      "name": "incremental freeze",
-      "result": "PASS",
-      "detail": "no frozen block changed since the last render"
-    },
-    {
-      "name": "evidence coverage",
-      "result": "PASS",
-      "detail": "46 evidence entries cited"
-    },
-    {
-      "name": "restraint guardrails",
-      "result": "PASS",
-      "detail": "2/2 restraint principles carry machine-readable guardrails"
-    },
-    {
-      "name": "anti-slop (authored prose)",
-      "result": "PASS",
-      "detail": "0 hit(s)"
-    },
-    {
-      "name": "guardrail (generated code)",
-      "result": "unverified",
-      "detail": "no --check-code supplied"
-    },
-    {
-      "name": "visual fidelity",
-      "result": "unverified",
-      "detail": "no fidelity.json — requires a side-by-side comparison at matching viewports"
-    },
-    {
-      "name": "full system/ site",
-      "result": "PASS",
-      "detail": "app shell present (rail + canvas + panel routing)"
-    }
-  ],
+  "generatedAt": "2026-11-24T09:17:49+00:00",
   "renderedBy": "build_artifacts.py/v2",
   "dna": {
     "schemaVersion": "1.1",
@@ -2122,6 +2005,92 @@
       }
     ]
   },
-  "slop": [],
-  "guardrailViolations": []
+  "checks": [
+    {
+      "name": "dna.json contract",
+      "result": "PASS",
+      "detail": "SSOT valid (evidence/measurements/patterns/taste/tokens)"
+    },
+    {
+      "name": "token resolution",
+      "result": "PASS",
+      "detail": "all aliases resolve, no cycles"
+    },
+    {
+      "name": "single source (R3)",
+      "result": "PASS",
+      "detail": "all artifacts are deterministic renders of dna.json, no post-render edits"
+    },
+    {
+      "name": "guardrail static conflicts",
+      "result": "PASS",
+      "detail": "no bound forbids the property it bounds"
+    },
+    {
+      "name": "guardrail pattern self-test",
+      "result": "PASS",
+      "detail": "every forbidClass pattern compiles and catches a known violation"
+    },
+    {
+      "name": "system/ colour scope",
+      "result": "PASS",
+      "detail": "canvas token #181A20 (dark); chrome shell dark"
+    },
+    {
+      "name": "interaction delta",
+      "result": "unverified",
+      "detail": "no interactions block (schema 1.0 run or capture without probe)"
+    },
+    {
+      "name": "shadcn theme slots",
+      "result": "PASS",
+      "detail": "all required slots mapped"
+    },
+    {
+      "name": "clip bricks",
+      "result": "n/a",
+      "detail": "no clips/ directory"
+    },
+    {
+      "name": "preview.html (self-contained)",
+      "result": "PASS",
+      "detail": "single file, same-folder tokens.css, no remote assets"
+    },
+    {
+      "name": "incremental freeze",
+      "result": "PASS",
+      "detail": "no frozen block changed since the last render"
+    },
+    {
+      "name": "evidence coverage",
+      "result": "PASS",
+      "detail": "46 evidence entries cited"
+    },
+    {
+      "name": "restraint guardrails",
+      "result": "PASS",
+      "detail": "2/2 restraint principles carry machine-readable guardrails"
+    },
+    {
+      "name": "anti-slop (authored prose)",
+      "result": "PASS",
+      "detail": "0 hit(s)"
+    },
+    {
+      "name": "guardrail (generated code)",
+      "result": "PASS",
+      "detail": "0 violation(s) — scanned binance.com/system"
+    },
+    {
+      "name": "visual fidelity",
+      "result": "unverified",
+      "detail": "no fidelity.json — requires a side-by-side comparison at matching viewports"
+    },
+    {
+      "name": "full system/ site",
+      "result": "PASS",
+      "detail": "app shell present (rail + canvas + panel routing)"
+    }
+  ],
+  "note": "verify.json: `dna` is the exact state last rendered; rerun lint_output.py to refresh checks"
 }

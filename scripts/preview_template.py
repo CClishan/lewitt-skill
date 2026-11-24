@@ -9,7 +9,14 @@ SPECIMEN = "Aa 0123456789 The quick brown fox"
 PREVIEW_CSS = """
 /* preview.html — Architectural Specimen Book. Neutrals come from visual_base; the system's own
    colour only appears inside a Stage. */
-header.top{padding:56px 56px 28px;border-bottom:1px solid var(--n-line)}
+header.top{padding:40px 56px 28px;border-bottom:1px solid var(--n-line)}
+header.top{position:relative}
+header.top .fpl{position:absolute;left:0;right:0;bottom:-3px}
+.eyebrow{display:flex;align-items:center;gap:7px}
+.eyebrow .lw-mark{color:var(--n-ink);flex:none}
+.source-only{margin:0;border:1px solid var(--n-line);background:var(--n-panel)}
+.source-only img{display:block;width:100%}
+.source-only figcaption{font:11px/1.4 var(--n-mono);color:var(--n-mute);padding:8px 12px;border-top:1px solid var(--n-line)}
 .top .eyebrow{margin-bottom:14px}
 .top h1{font-size:34px;line-height:1.1;letter-spacing:-.02em;margin:0 0 12px;font-weight:400;max-width:24ch}
 .top .lede{color:var(--n-mute);max-width:70ch;margin:0 0 6px;font-size:14px}
@@ -312,11 +319,25 @@ def render_preview_html(dna: dict, resolver=None, exists=None) -> str:
             f'<div class="cap"><span class="mono" data-copy="var({_esc(t["css"])})">{_esc(t["id"])}</span>'
             f'<span class="mono" style="color:var(--n-mute)">{_esc(r)}</span></div></div>'
         )
+    # a shadow specimen paints through its token; one the run's own restraint caps below 4px is shown as
+    # a value instead, so the page never demos what the rules forbid
+    shadow_cap = None
+    for taste in dna["taste"]:
+        cap = ((taste.get("guardrail") or {}).get("max") or {}).get("box-shadow")
+        if cap:
+            shadow_cap = min(shadow_cap or 1e9, float(cap.get("value", 0)))
     shadow_cells = []
     for t in dna["tokens"]:
         if t["type"] != "shadow":
             continue
         sh = resolved[t["id"]]["resolved"]
+        if shadow_cap is not None and shadow_cap < 4:
+            shadow_cells.append(
+                f'<div class="shape"><div class="cap"><span class="mono" data-copy="var({_esc(t["css"])})">{_esc(t["id"])}</span>'
+                f'<span class="mono" style="color:var(--n-mute);text-align:right;word-break:break-all">{_esc(sh)}</span>'
+                f'<span class="mono" style="color:var(--n-faint)">value only · restraint caps box-shadow</span></div></div>'
+            )
+            continue
         shadow_cells.append(
             f'<div class="shape"><div class="obj" style="box-shadow:{_esc(sh)};border-color:transparent"></div>'
             f'<div class="cap"><span class="mono" data-copy="var({_esc(t["css"])})">{_esc(t["id"])}</span>'
@@ -400,26 +421,39 @@ def render_preview_html(dna: dict, resolver=None, exists=None) -> str:
 
     shots = [n for n in ("viewport.png", "viewport-2.png", "viewport-3.png", "viewport-4.png") if has_file(n)]
     hero = shots[0] if shots else None
+    # A split slider needs two different pictures; comparing the source with itself is a fake.
+    rebuild = next((n for n in ("rebuild.png", "rebuild-1.png") if has_file(n) and n != hero), None)
+    full = meta.get("mode") == "full"
+    rebuild_where = ("<code>system/index.html</code>" if full else
+                     "the rendered specimens on this page: every swatch, type step and stage reads "
+                     "<code>tokens.css</code>")
     compare_html = ""
-    if hero:
+    sbs_html = ""
+    toggle_html = ""
+    if hero and rebuild:
         compare_html = (
             '<div class="compare" id="p-compare"><img class="layer a" src="capture/' + _esc(hero) + '" alt="captured source page">'
-            '<div class="layer b"><img src="capture/' + _esc(hero) + '" alt=""></div>'
+            '<div class="layer b"><img src="capture/' + _esc(rebuild) + '" alt="rebuilt page"></div>'
             '<div class="handle"></div>'
             '<span class="lab l">source · capture/' + _esc(hero) + '</span>'
-            '<span class="lab r">split compare</span>'
+            '<span class="lab r">rebuild · capture/' + _esc(rebuild) + '</span>'
             '<input id="p-split" type="range" min="0" max="100" value="50" '
             'aria-label="compare source and rebuild, drag or use arrow keys"></div>'
         )
-    sbs_html = ""
-    if hero:
         sbs_html = (
             '<div class="sbs" id="p-sbs" hidden>'
             f'<figure><img src="capture/{_esc(hero)}" alt="captured source page"><figcaption>source · capture/{_esc(hero)}</figcaption></figure>'
-            '<figure><div class="stage" style="border:0"><div class="stage-body tight" style="min-height:180px">'
-            '<p class="sect-note" style="margin:0">Rebuilt surfaces read <code>tokens.css</code>; open '
-            '<code>system/index.html</code> (full mode) for the live rebuild.</p></div></div>'
-            '<figcaption>rebuild · this file</figcaption></figure></div>'
+            f'<figure><img src="capture/{_esc(rebuild)}" alt="rebuilt page"><figcaption>rebuild · capture/{_esc(rebuild)}</figcaption></figure></div>'
+        )
+        toggle_html = ('<div style="display:flex;justify-content:flex-end;margin-bottom:12px">'
+                       '<button class="mini-btn" id="p-view-toggle" aria-pressed="true">Side by side</button></div>')
+    elif hero:
+        compare_html = (
+            '<figure class="source-only"><img src="capture/' + _esc(hero) + '" alt="captured source page">'
+            '<figcaption>source · capture/' + _esc(hero) + '</figcaption></figure>'
+            '<p class="sect-note" style="margin:10px 0 0">No rebuild screenshot in <code>capture/</code>, so there is '
+            'no split to drag: the rebuild is ' + rebuild_where + ', not painted over the source. Record '
+            '<code>capture/rebuild.png</code> at the same viewport to enable the comparison.</p>'
         )
     other_shots = "".join(
         f'<figure><img src="capture/{_esc(n)}" alt="source page screenshot {_esc(n)}" loading="lazy">'
@@ -445,11 +479,12 @@ def render_preview_html(dna: dict, resolver=None, exists=None) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>lewitt specimen — {_esc(meta['name'])}</title>
 <link rel="stylesheet" href="tokens.css">
-<style>{vb.base_css(tone)}{PREVIEW_CSS}</style>
+<style>{vb.base_css(tone)}{PREVIEW_CSS}{vb.fingerprint_css(vb.fingerprint_stops(resolved, dna), selector="#fp-head")}</style>
 </head>
 <body data-tone="{tone}">
-<header class="top">
-  <p class="eyebrow">lewitt · design specimen · {_esc(meta['mode'])} mode</p>
+<header class="top" id="top">
+  <div class="fpl" id="fp-head" aria-hidden="true"></div>
+  <p class="eyebrow">{vb.lines_mark()}<span>lewitt · design specimen · {_esc(meta['mode'])} mode</span></p>
   <h1>{_esc(meta['name'])}</h1>
   <p class="lede">{_esc(principle['name'])}: {_esc(principle['chose'])}, not {_esc(principle['over'])}.</p>
   <p class="lede">Every value below is a render of <code>dna.json</code> reading the same <code>tokens.css</code>
@@ -515,9 +550,7 @@ def render_preview_html(dna: dict, resolver=None, exists=None) -> str:
   <section aria-labelledby="s-source">
     <h2 id="s-source">Source record</h2>
     <p class="sect-note">The screenshots are the captured source pages, kept for comparison: they are not rebuilt by lewitt.</p>
-    <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
-      <button class="mini-btn" id="p-view-toggle" aria-pressed="true">Side by side</button>
-    </div>
+    {toggle_html}
     {compare_html}
     {sbs_html}
     <div class="shots">{other_shots}</div>

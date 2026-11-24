@@ -126,25 +126,41 @@ SHADCN_RADIUS = "--radius"
 
 RENDERED_JS = r"""
 (specs) => {
-  // last resort: read what the page actually paints on its landmark elements
-  const pick = (sel) => { try { return document.querySelector(sel); } catch (e) { return null; } };
+  // What the page actually paints, matched to each token's own id. Reading every token off the
+  // first h1 is how a 48px spec "fails" against a 30px page title.
   const body = document.body;
-  const h1 = pick('h1, h2, [role="heading"]');
-  const primary = pick('button, [role="button"], a[class*="btn"], a[class*="button"]');
-  const card = pick('[class*="card"], article');
   const out = {};
-  if (body) { out['color/canvas'] = getComputedStyle(body).backgroundColor; out['color/text/body'] = getComputedStyle(body).color; }
-  if (h1) { out['color/text/heading'] = getComputedStyle(h1).color; out['type/hero'] = getComputedStyle(h1).fontSize; }
-  if (primary) { out['color/action/bg'] = getComputedStyle(primary).backgroundColor; out['color/action/fg'] = getComputedStyle(primary).color; out['radius/control'] = getComputedStyle(primary).borderRadius; }
-  if (card) { out['color/surface'] = getComputedStyle(card).backgroundColor; out['radius/card'] = getComputedStyle(card).borderRadius; }
+  const paint = (el, prop) => {
+    const v = el ? getComputedStyle(el)[prop] : null;
+    return v && v !== 'rgba(0, 0, 0, 0)' && v !== 'transparent' ? v : null;
+  };
+  const px = (v) => { const n = parseFloat(v || ''); return Number.isFinite(n) ? Math.round(n * 100) / 100 + 'px' : null; };
+  for (const spec of specs) {
+    const id = spec.token;
+    let v = null;
+    if (id === 'color/canvas') v = paint(body, 'backgroundColor');
+    else if (id === 'color/text/body') v = paint(body, 'color');
+    else if (spec.kind === 'dimension' && id.startsWith('type/')) {
+      const step = (id.slice(5).match(/^[a-z]+/) || [''])[0];
+      const el = (step && document.querySelector('.ds-' + step)) ||
+        Array.from(document.querySelectorAll('.type-specimen .spec, [data-ds] *')).find(
+          (e) => e.children.length === 0 && e.textContent.trim() &&
+                 Math.abs(parseFloat(getComputedStyle(e).fontSize) - parseFloat(spec.expected)) < 0.5);
+      v = el ? px(getComputedStyle(el).fontSize) : null;
+    } else if (spec.kind === 'radius') {
+      const el = document.querySelector('.ds-' + (id.split('/').pop().match(/^[a-z]+/) || [''])[0]);
+      v = el ? px(getComputedStyle(el).borderRadius) : null;
+    }
+    if (v) out[id] = v;
+  }
   return out;
 }
 """
 
 
-def rendered_fallback(url: str) -> dict:
-    got = page_probe.run(url, RENDERED_JS, None)
-    return {k: v for k, v in (got or {}).items() if v and v not in ("rgba(0, 0, 0, 0)", "initial")}
+def rendered_fallback(url: str, specs: list[dict] | None = None) -> dict:
+    got = page_probe.run(url, RENDERED_JS, specs or [])
+    return {k: v for k, v in (got or {}).items() if v and v != "initial"}
 
 
 def shadcn_radius(vars_map: dict) -> str | None:
@@ -337,7 +353,8 @@ LIVE_GUARDRAIL_JS = r"""
       if (shadowCap !== undefined) {
         const cs = getComputedStyle(el);
         const v = cs.boxShadow;
-        if (v && v !== 'none') {
+        // lengths are x/y/offset/blur: inset, a colour with numbers in it, and spread-only rings are not depth
+        if (v && v !== 'none' && !/inset/.test(v)) {
           const lengths = (v.match(/-?\d*\.?\d+px/g) || []).map((x) => Math.abs(parseFloat(x)));
           if (lengths.some((n) => n > parseFloat(String(shadowCap)))) {
             hits.push({ principle: g.principle, rule: 'max box-shadow <= ' + shadowCap + 'px', value: v.slice(0, 80), tag: el.tagName.toLowerCase() });
@@ -450,6 +467,8 @@ def render_md(cert: dict) -> str:
     out.append("")
     out.append(f"- target: `{cert['target']}`")
     out.append(f"- instructions: `{cert['sourceRun']}` (dna.json, schema {cert['schemaVersion']})")
+    if cert.get("render"):
+        out.append(f"- re-render: `{cert['render']}`")
     out.append(f"- issued: {cert['issuedAt']} · pages inspected: {cert['pages']}")
     out.append("")
     if cert.get("note"):
@@ -566,15 +585,32 @@ def render_html(cert: dict) -> str:
         for h in hits)
 
     css = vb.base_css(tone) + f"""
-.cert {{ max-width: 1080px; margin: 0 auto; padding: 56px 40px 120px; }}
+.cert {{ max-width: 1080px; margin: 0 auto; padding: 0 40px 120px; }}
+/* the sheet reads as a print on paper: ink rule, 3px air, hairline — then the header content */
+.paper {{ border-top: 3px solid var(--n-ink); }}
+.paper::before {{ content: ""; display: block; height: 2px; }}
+.paper::after {{ content: ""; display: block; height: 1px; background: var(--n-ink); }}
+.head {{ display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 40px;
+  align-items: start; padding: 40px 0 32px; border-bottom: 1px solid var(--n-line); }}
+.head-main {{ display: grid; gap: 18px; min-width: 0; }}
+.head .eyebrow {{ margin: 0; }}
+.thumb {{ display: grid; gap: 8px; justify-items: stretch; text-align: center;
+  font: 500 10px/1.5 var(--n-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--n-mute);
+  border: 1px solid var(--n-ink); padding: 12px 14px 10px; min-width: 168px; }}
+.thumb .lw-mark {{ color: var(--n-ink); margin: 0 auto 2px; }}
+.thumb dl {{ margin: 0; display: grid; gap: 2px; justify-items: center; }}
+.thumb dt {{ color: var(--n-faint); font-size: 9px; }}
+.thumb dd {{ margin: 0; color: var(--n-ink); }}
+.thumb dd.ok {{ color: var(--n-ok); }} .thumb dd.warn {{ color: var(--n-warn); }}
+.thumb dd.bad {{ color: var(--n-bad); }}
 @media (max-width: 700px) {{
-  .cert {{ padding: 32px 20px 80px; }}
+  .cert {{ padding: 0 20px 80px; }}
+  .head {{ grid-template-columns: 1fr; }}
+  .thumb {{ justify-self: start; }}
   .stats {{ grid-template-columns: 1fr 1fr; }}
   .meta {{ grid-template-columns: 1fr; }}
   section {{ overflow-x: auto; }}
 }}
-.head {{ display: grid; gap: 18px; padding-bottom: 32px; border-bottom: 1px solid var(--n-line); }}
-.head .eyebrow {{ margin: 0; }}
 .head h1 {{ margin: 0; font-size: 34px; font-weight: 400; letter-spacing: -.02em; }}
 .verdict {{ display: inline-flex; align-items: center; gap: 10px; font: 500 12px/1 var(--n-mono);
   letter-spacing: .1em; text-transform: uppercase; padding: 8px 12px; border: 1px solid var(--n-line-strong);
@@ -583,7 +619,8 @@ def render_html(cert: dict) -> str:
 .verdict.warn {{ color: var(--n-warn); border-color: color-mix(in srgb, var(--n-warn) 55%, transparent); }}
 .verdict.bad {{ color: var(--n-bad); border-color: color-mix(in srgb, var(--n-bad) 55%, transparent); }}
 .verdict .dot {{ width: 8px; height: 8px; border-radius: 50%; background: currentColor; }}
-.meta {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin: 0; }}
+.meta {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px 28px; margin: 0; }}
+.meta dd {{ overflow-wrap: anywhere; }}
 .meta div {{ }}
 .meta dt {{ font: 500 11px/1 var(--n-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--n-faint); }}
 .meta dd {{ margin: 6px 0 0; font-size: 13px; }}
@@ -618,7 +655,9 @@ footer {{ margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--n-lin
 </head>
 <body data-tone="{tone}">
 <div class="cert">
+  <div class="paper">
   <header class="head">
+   <div class="head-main">
     <p class="eyebrow">lewitt · certificate of implementation</p>
     <h1>This build is <span class="verdict {verdict_cls}"><span class="dot"></span>{esc(verdict)}</span></h1>
     <dl class="meta">
@@ -626,7 +665,17 @@ footer {{ margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--n-lin
       <div><dt>Instructions</dt><dd><code>{esc(cert.get('sourceRun') or '—')}</code> · schema {esc(str(cert.get('schemaVersion')))}</dd></div>
       <div><dt>Issued</dt><dd>{esc(cert['issuedAt'])}</dd></div>
       <div><dt>Pages inspected</dt><dd>{esc(str(cert.get('pages', 0)))}</dd></div>
+      <div><dt>Re-render</dt><dd><code>{esc(cert.get('render') or '—')}</code></dd></div>
     </dl>
+   </div>
+    <aside class="thumb" aria-label="lewitt certificate stamp">
+      {vb.lines_mark()}
+      <dl>
+        <dt>lewitt</dt><dd>cert · schema {esc(str(cert.get('schemaVersion')))}</dd>
+        <dt>verdict</dt><dd class="{verdict_cls}">{esc(verdict)}</dd>
+        <dt>measured</dt><dd>{esc(str(cert['measured']))}/{esc(str(cert['total']))}</dd>
+      </dl>
+    </aside>
     <div class="stats">
       <div class="stat"><span>Measured</span><b>{cert['measured']}<small>/{cert['total']}</small></b></div>
       <div class="stat"><span>Passed</span><b>{len(passed)}</b></div>
@@ -634,13 +683,16 @@ footer {{ margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--n-lin
       <div class="stat"><span>Violations</span><b>{len(deviations) + len(hits)}</b></div>
     </div>
   </header>
+  </div>
   {block("Deviations to fix", len(deviations), table(deviations, "deviation") if deviations else "", empty="No measured token deviates from the spec.")}
   {block("Intentional (registered)", len(intentional), table(intentional, "intentional"), empty="Nothing was excused.")}
   {f'<section><h2>Guardrail hits <span class="count">{len(hits)}</span></h2><ul>{guard_html}</ul></section>' if hits else ''}
   {block("Passing", len(passed), table(passed, "pass"), empty="Nothing measured yet.")}
   {block("Not measured", len(unmeasured), table(unmeasured, "unmeasured"), empty="Every token in this run could be probed.")}
   <section><h2>Not certified</h2><ul>{''.join(f'<li>{esc(u)}</li>' for u in cert['unchecked'])}</ul></section>
-  <footer>A certificate covers the tokens above and nothing else. Anything this run could not probe is listed,
+  <footer>Certificate signed over the page at <code>{esc(cert['target'])}</code> for the run
+  <code>{esc(cert.get('sourceRun') or '—')}</code>, and reproducible with its re-render command.
+  A certificate covers the tokens above and nothing else. Anything this run could not probe is listed,
   not assumed. Rendered by lewitt from cert.json.</footer>
 </div>
 </body>
@@ -685,8 +737,13 @@ def main() -> int:
         for t in dna["tokens"] if t["type"] == "color" and t["layer"] == "semantic"
     ]
     probed = probe(specs, work, run / "tokens.css", args.url)
+    # a resolved value is what the probe exists to find; keep it and remember where it came from, so the
+    # later "what the page paints" pass only fills gaps instead of overruling a measured token
+    probe_via = {}
     for spec in specs:
         rec = probed.get(spec["token"]) or {}
+        if rec.get("via") or rec.get("actual") is not None and not rec.get("missing"):
+            probe_via[spec["token"]] = rec.get("via") or "probe element"
         if rec.get("via"):
             continue
         css = spec.get("css") or ""
@@ -697,7 +754,7 @@ def main() -> int:
     page_vars = page_probe.read_vars(args.url)
     lewitt_vars = page_vars.get("lewitt", {})
     shadcn_vars = page_vars.get("shadcn", {})
-    rendered = rendered_fallback(args.url)
+    rendered = rendered_fallback(args.url, specs)
     sources = {}
     for spec in specs:
         token, kind = spec["token"], spec["kind"]
@@ -706,27 +763,26 @@ def main() -> int:
                 probed[token] = {"actual": lewitt_vars[spec["css"]].get("rgb"), "missing": False, "via": "page --lw-* var"}
                 sources[token] = "page --lw-* var"
             else:
-                for slot in SHADCN_SLOTS.get(token, []):
-                    if slot in shadcn_vars:
-                        probed[token] = {"actual": shadcn_vars[slot].get("rgb"), "missing": False, "via": f"page {slot}"}
-                        sources[token] = f"page {slot}"
-                        break
-                else:
-                    if token in rendered:
-                        probed[token] = {"actual": rendered[token], "missing": False, "via": "rendered element"}
-                        sources[token] = "rendered element"
+                slot = next((s_ for s_ in SHADCN_SLOTS.get(token, []) if s_ in shadcn_vars), None)
+                if slot:
+                    probed[token] = {"actual": shadcn_vars[slot].get("rgb"), "missing": False, "via": f"page {slot}"}
+                    sources[token] = f"page {slot}"
+                elif token not in probe_via and token in rendered:
+                    probed[token] = {"actual": rendered[token], "missing": False, "via": "rendered element"}
+                    sources[token] = "rendered element"
         elif kind == "radius" and SHADCN_RADIUS in shadcn_vars and spec["css"] not in lewitt_vars:
             probed[token] = {"actual": shadcn_radius(shadcn_vars), "missing": False, "via": "page --radius"}
             sources[token] = "page --radius"
-        elif kind == "dimension" and token in rendered:
+        elif kind == "dimension" and token not in probe_via and token in rendered:
             probed[token] = {"actual": rendered[token], "missing": False, "via": "rendered element"}
             sources[token] = "rendered element"
         elif kind == "font" and token in rendered:
             pass
     result = evaluate(dna, dom, resolved, probed)
     for c in result["checks"]:
-        c["via"] = sources.get(c["token"]) or probed.get(c["token"], {}).get("via") or (
-            "probe element" if c.get("measured") else "—")
+        c["via"] = (sources.get(c["token"]) or probe_via.get(c["token"])
+                    or probed.get(c["token"], {}).get("via")
+                    or ("probe element" if c.get("measured") else "—"))
     checks = apply_intentions(result["checks"], load_intentions(run))
 
     guardrails = check_guardrails(dna)
@@ -751,9 +807,18 @@ def main() -> int:
     if not (run / "tokens.css").exists():
         unchecked.insert(0, "tokens.css missing in the run directory; CSS values could not be applied")
 
+    import build_artifacts as _ba
+    render = f"python3 scripts/cert.py --url {args.url} --dest runs/{run.name}"
+    if args.pages != 1:
+        render += f" --pages {args.pages}"
+    if dna.get("meta", {}).get("mode") != "full":
+        unchecked.insert(0, "this run has no system/ reference site (DNA mode): the wall audited is the "
+                            f"page at {args.url}, whatever it was served from at issue time")
     cert = {
         "issuedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "target": args.url,
+        "renderer": _ba.RENDERER_VERSION,
+        "render": render,
         "sourceRun": run.name,
         "schemaVersion": dna.get("schemaVersion"),
         "status": status,
