@@ -10,6 +10,8 @@ Last run: **incremental** — scope `taste`; frozen `meta, evidence, measurement
 | token resolution | PASS | all aliases resolve, no cycles |
 | single source (R3) | PASS | all artifacts are deterministic renders of dna.json, no post-render edits |
 | system/ colour scope | PASS | canvas token #FFFFFF (light); chrome shell dark |
+| interaction delta | PASS | 2/3 targets recorded a hover/focus delta |
+| shadcn theme slots | PASS | all required slots mapped; 1 declared UNMAPPED: --destructive |
 | preview.html (self-contained) | PASS | single file, same-folder tokens.css, no remote assets |
 | incremental freeze | PASS | no frozen block changed since the last render — scope ['taste'], frozen ['meta', 'evidence', 'measurements', 'patterns', 'tokens'] |
 | evidence coverage | PASS | 32 evidence entries cited |
@@ -19,4 +21,4 @@ Last run: **incremental** — scope `taste`; frozen `meta, evidence, measurement
 | visual fidelity | PARTIAL | 1 composition(s), 4 recorded deviation(s), status=partial |
 | full system/ site | PASS | system/index.html present |
 
-Generated at 2026-11-23T14:30:12+00:00.
+Generated at 2026-11-24T02:21:37+00:00.

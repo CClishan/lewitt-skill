@@ -47,6 +47,19 @@ ln -s ~/Projects/skills/lewitt ~/.claude/skills/lewitt
 cd ~/Projects/skills/lewitt && bash scripts/setup.sh
 ```
 
+## 接进 shadcn/ui + Tailwind v4 项目
+
+```sh
+python3 scripts/build_artifacts.py --dest runs/stripe.com --export=shadcn   # 生成 shadcn-theme.css
+python3 scripts/build_artifacts.py --dest runs/stripe.com --print-theme     # 直接粘贴进 globals.css
+```
+
+`--background / --foreground / --card / --primary / --muted / --border / --ring / --radius` 等槽位
+从提取出的 **semantic** token 映射，外面套 Tailwind v4 的 `@theme inline`。源站没有对应 token 的
+槽位写成 `initial` 并在文件头列出——不编造。明暗色由 canvas token 的亮度自动判定。
+
+`dna.json` 是数据协议（schema 1.1），契约见 [`dna.schema.json`](dna.schema.json)，`validate()` 是可执行权威。
+
 ## 用 guardrail 检查你自己的代码
 
 ```sh

@@ -118,6 +118,25 @@ Use the semantic and component layers; reach for a primitive only when no role f
 - `var(--lw-easing-in-out)` — motion/easing-in-out (easing, observed)
 - `var(--lw-easing-out)` — motion/easing-out (easing, observed)
 
+## Interaction Delta (measured)
+
+Forced with a real mouse (CDP `Input.dispatchMouseEvent`) and `element.focus()`; only these properties are diffed: `background-color`, `color`, `border-color`, `box-shadow`, `outline`, `transform`.
+
+### button — `button.hds-button.CookieSettings_CookieSettings__HelmButton__69vhe`
+- Status: Observed / 实测 · evidence: e-buttons, e-purple
+- **hover**: `color`: `rgb(83, 58, 253)` → `rgb(46, 43, 140)`; `border-color`: `rgb(214, 217, 252)` → `rgb(64, 50, 200)`
+- **focus**: `outline`: `0px solid rgba(0, 0, 0, 0)` → `3px solid rgba(84, 82, 251, 0.75)`
+
+### button — `button.hds-ui-button.announcement-bar__dismiss`
+- Status: Observed / 实测 · evidence: e-buttons
+- **hover**: none (no computed change on the icon-only dismiss button)
+- **focus**: `outline`: `0px solid rgba(0, 0, 0, 0)` → `3px solid rgba(0, 0, 0, 0)`
+
+### card — `div.payments-graphic__checkout-item-card`
+- Status: Inferred / 推断 · evidence: e-shadow-soft
+- **hover**: none (No computed change; the card sits inside an animated illustration, so observed ≠ no hover style exists)
+- **focus**: none (Not focusable)
+
 ## Verification
 
 Live specimens and motion replay: `preview.html` (single file, opens in any browser).

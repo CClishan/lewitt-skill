@@ -19,6 +19,8 @@ Exit code 0 means every executable gate passed. It does **not** mean the extract
 | `anti-slop` | zero banned words in authored prose (foils allowed) | whether a sentence is still vague |
 | `restraint guardrails` | every restraint carries a machine-readable guardrail | whether the guardrail is well chosen |
 | `guardrail (generated code)` | `--check-code` found no forbidden property, class pattern, or over-cap length | whether the code looks like the source |
+| `interaction delta` | at least one `interactions[]` entry has a recorded hover/focus delta (`unverified` when the block is absent) | that the deltas are complete or representative |
+| `shadcn theme slots` | `shadcn-theme.css` exists, every required slot is present, one `@theme inline` block, unmapped slots declared | whether the mapping suits your app's semantics |
 | `preview.html (self-contained)` | the preview links the same-folder `tokens.css` and loads no remote asset | rendering quality, copy tone |
 | `system/ colour scope` | full mode: the page takes its canvas from `color/canvas` and sits on the right tone | whether individual specimens look right |
 | `visual fidelity` | `unverified` without `fidelity.json`; `PARTIAL` while deviations are recorded; `PASS` only when `status: match` | that the reconstruction is correct — it records agreements and deviations for a reader |

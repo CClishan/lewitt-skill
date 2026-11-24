@@ -28,6 +28,82 @@ async function launchIsolated() {
 (async () => {
   const jobs = JSON.parse(process.env.LEWITT_JOBS || '[]');
   const extractSrc = fs.readFileSync(process.env.LEWITT_EXTRACT, 'utf8');
+  const probeSrc = fs.existsSync(process.env.LEWITT_PROBE) ? fs.readFileSync(process.env.LEWITT_PROBE, 'utf8') : null;
+
+  // Interaction deltas need real input events. The callbacks below run in Node and dispatch CDP
+  // mouse events into the page, so the probe is async and must be awaited by the page.
+  async function probeInteractions(page, targets) {
+    if (!probeSrc || !targets || !targets.length) {
+      return { targets: [], skipped: !probeSrc ? "no probe script" : "no targets" };
+    }
+    const cdp = await page.context().newCDPSession(page);
+    try {
+      await cdp.send("Runtime.evaluate", { expression: probeSrc, returnByValue: false });
+      await new Promise((r) => setTimeout(r, 150));
+      await installInputHooks(cdp);
+      // Phase 1: the probe steps through targets, pausing on hover so Node can move the real mouse.
+      const plan = await cdp.send("Runtime.evaluate", {
+        expression: `window.lewittInteractionProbe(${JSON.stringify(targets)}, "plan")`,
+        awaitPromise: true,
+        returnByValue: true,
+      });
+      if (plan.exceptionDetails) {
+        const d = plan.exceptionDetails.exception;
+        return { targets: [], error: ((d && d.description) || "probe plan failed").slice(0, 200) };
+      }
+      const steps = plan.result.value || [];
+      const measured = [];
+      for (const step of steps) {
+        if (step.action === "hover") {
+          await cdp.send("Input.dispatchMouseEvent", { type: "mouseMoved", x: step.x, y: step.y, button: "none" });
+        } else if (step.action === "away") {
+          await cdp.send("Input.dispatchMouseEvent", { type: "mouseMoved", x: 1, y: 1, button: "none" });
+        } else if (step.action === "focus") {
+          await cdp.send("Runtime.evaluate", {
+            expression: `window.lewittFocus(${JSON.stringify(step.locator)})`, returnByValue: true,
+          });
+        }
+        if (step.action === "measure" || step.action === "hover" || step.action === "away") {
+          await new Promise((r) => setTimeout(r, step.wait || 0));
+        }
+        if (step.action === "snapshot") {
+          const snap = await cdp.send("Runtime.evaluate", {
+            expression: `window.lewittSnapshot(${JSON.stringify(step.locator)})`, returnByValue: true,
+          });
+          measured.push({ locator: step.locator, phase: step.phase, values: snap.result.value });
+        }
+      }
+      const r = await cdp.send("Runtime.evaluate", {
+        expression: `window.lewittInteractionReport(${JSON.stringify(measured)}, ${JSON.stringify(steps)})`,
+        returnByValue: true,
+      });
+      if (r.exceptionDetails) {
+        const d = r.exceptionDetails.exception;
+        return { targets: [], error: ((d && d.description) || "probe report failed").slice(0, 200) };
+      }
+      return r.result.value;
+      if (r.exceptionDetails) {
+        const d = r.exceptionDetails.exception;
+        return { targets: [], error: ((d && d.description) || "probe failed").slice(0, 200) };
+      }
+      return r.result.value;
+    } catch (e) {
+      return { targets: [], error: String(e).slice(0, 200) };
+    } finally {
+      await cdp.detach().catch(() => {});
+    }
+  }
+
+  async function installInputHooks(cdp) {
+    // Node-side mouse control exposed to the page as window.__lewittInput
+    await cdp.send("Runtime.evaluate", {
+      expression: `window.__lewittInput = {
+        hover: (x, y) => { window.__lewittHoverReq = [x, y]; },
+        mouseMove: (x, y) => { window.__lewittHoverReq = [x, y]; }
+      };`,
+    });
+  }
+
   const ctx = await launchIsolated();
   const channel = ctx.__channel || 'chromium';
   const results = [];
@@ -45,6 +121,9 @@ async function launchIsolated() {
         fullPng = job.fullPng;
       }
       const dom = await lewittEvaluate(page, extractSrc);
+      if (job.interactions !== false) {
+        dom.interactions = await probeInteractions(page, dom.interactionTargets);
+      }
       fs.writeFileSync(job.json, JSON.stringify(dom, null, 2));
       const extra = [];
       if (job.linksExpr && (job.maxPages || 1) > 1) {

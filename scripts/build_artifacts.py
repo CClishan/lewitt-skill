@@ -35,6 +35,140 @@ except ImportError:  # imported as a package
 PREVIEW_CSS, PREVIEW_JS = _preview.PREVIEW_CSS, _preview.PREVIEW_JS
 
 
+SHADCN_SLOTS = [
+    ("--background", ["color/canvas", "color/background", "color/surface/canvas"], "canvas"),
+    ("--foreground", ["color/text/primary", "color/text/heading", "color/text/body", "color/foreground"], "primary text"),
+    ("--card", ["color/surface", "color/card", "color/surface/raised", "color/canvas-tint"], "raised surface"),
+    ("--card-foreground", ["color/text/primary", "color/text/body"], "card text"),
+    ("--popover", ["color/surface", "color/overlay", "color/card", "color/canvas"], "overlay surface"),
+    ("--popover-foreground", ["color/text/primary", "color/text/body"], "overlay text"),
+    ("--primary", ["color/action/bg", "color/action/primary", "color/brand", "color/accent"], "action fill"),
+    ("--primary-foreground", ["color/action/fg", "color/on-brand", "color/text/on-action"], "action label"),
+    ("--secondary", ["color/surface-subtle", "color/surface/muted", "color/well", "color/surface"], "secondary fill"),
+    ("--secondary-foreground", ["color/text/primary", "color/text/body"], "secondary label"),
+    ("--muted", ["color/surface-subtle", "color/well", "color/surface/muted", "color/surface"], "muted fill"),
+    ("--muted-foreground", ["color/text/muted", "color/text/tertiary", "color/text/secondary"], "muted text"),
+    ("--accent", ["color/surface-subtle", "color/action/bg", "color/brand"], "hover fill"),
+    ("--accent-foreground", ["color/text/primary", "color/text/heading", "color/action/fg"], "hover label"),
+    ("--destructive", ["color/danger", "color/error", "color/trend/down", "color/down"], "destructive action"),
+    ("--border", ["color/border", "color/stroke", "color/divider", "color/canvas-tint"], "borders"),
+    ("--input", ["color/border-strong", "color/stroke/strong", "color/border", "color/canvas-tint"], "input borders"),
+    ("--ring", ["color/link", "color/focus", "color/action/bg", "color/brand"], "focus ring"),
+]
+SHADCN_RADIUS = [("--radius", ["radius/card", "radius/control", "radius/button"])]
+
+
+def _first_token(dna: dict, candidates: list[str], predicate=lambda t: True) -> str | None:
+    ids = [t["id"] for t in dna["tokens"] if predicate(t)]
+    for cand in candidates:
+        if cand in ids:
+            return cand
+    return None
+
+
+def render_theme_head(dna: dict, mode: str | None = None) -> str:
+    """Theme slots derived from tokens only; nothing is invented."""
+    mode = mode or (dna["meta"].get("modes") or ["default"])[0]
+    resolved = resolve_tokens(dna["tokens"], mode)
+    tokens = {t["id"]: t for t in dna["tokens"]}
+    out = ["  @layer base {", "    :root {"]
+    notes = []
+    for slot, candidates, _label in SHADCN_SLOTS:
+        tid = _first_token(dna, candidates, lambda t: t["type"] == "color")
+        if tid:
+            out.append(f"      {slot}: {resolved[tid]['resolved']}; /* {tid} */")
+        else:
+            notes.append(f"missing {slot}")
+    out.append("    }")
+    out.append("  }")
+    return "\n".join(out) + ("\n  /* unmapped: " + ", ".join(notes) + " */" if notes else "")
+
+
+def render_shadcn_theme(dna: dict) -> str:
+    mode = (dna["meta"].get("modes") or ["default"])[0]
+    resolved = resolve_tokens(dna["tokens"], mode)
+    meta = dna["meta"]
+    dark_roles = [t for t in dna["tokens"] if t["id"] == "color/canvas"]
+    canvas = resolved["color/canvas"]["resolved"] if dark_roles else "#ffffff"
+    rgb = _hex_rgb(canvas)
+    scheme = "dark" if rgb and _relative_luminance(rgb) < 0.35 else "light"
+
+    slots = []
+    for slot, candidates, label in SHADCN_SLOTS:
+        tid = _first_token(dna, candidates, lambda t: t["type"] == "color")
+        slots.append((slot, tid, label))
+    radius = None
+    for cand in SHADCN_RADIUS[0][1]:
+        if any(t["id"] == cand for t in dna["tokens"]):
+            radius = cand
+            break
+
+    lines = [
+        "@custom-variant dark (&:is(.dark *));",
+        "",
+        ":root {",
+    ]
+    unmapped = []
+    for slot, tid, label in slots:
+        if tid:
+            lines.append(f"  {slot}: {resolved[tid]['resolved']}; /* {tid} — {label} */")
+        else:
+            unmapped.append(f"{slot} ({label})")
+            lines.append(f"  {slot}: initial; /* UNMAPPED — no {label} token in dna.json */")
+    if radius:
+        lines.append(f"  {SHADCN_RADIUS[0][0]}: {resolved[radius]['resolved']}; /* {radius} */")
+    else:
+        unmapped.append("--radius")
+        lines.append("  --radius: 0.625rem; /* UNMAPPED — shadcn default kept */")
+    lines += [
+        "}",
+        "",
+        "@theme inline {",
+        *[f"  {slot}: var({slot});" for slot, _, _ in SHADCN_SLOTS],
+        "  --radius-sm: calc(var(--radius) - 4px);",
+        "  --radius-md: calc(var(--radius) - 2px);",
+        "  --radius-lg: var(--radius);",
+        "  --radius-xl: calc(var(--radius) + 4px);",
+        "}",
+        "",
+        "@layer base {",
+        "  * { @apply border-border outline-ring/50; }",
+        "  body { @apply bg-background text-foreground; }",
+        "}",
+        "",
+    ]
+    header = [
+        "/* shadcn/ui + Tailwind v4 theme — generated by lewitt from dna.json (R3: do not hand-edit).",
+        f"   source: {meta['source']} · extracted {str(meta.get('capturedAt', 'unknown'))[:10]} · colour scheme: {scheme}",
+        "   Paste into globals.css after `@import \"tailwindcss\";`. Every value maps to a token id below.",
+    ]
+    if unmapped:
+        header.append("   UNMAPPED slots (left as `initial` / shadcn default, never invented): " + ", ".join(unmapped))
+    header[-1] += " */"
+    return "\n".join(header + [""] + lines) + "\n"
+
+
+def _hex_rgb(value: str):
+    v = value.strip()
+    if v.startswith("rgb("):
+        parts = [p.strip() for p in v[4:-1].split(",")]
+        try:
+            return tuple(int(p) for p in parts[:3])
+        except ValueError:
+            return None
+    if re.fullmatch(r"#[0-9a-fA-F]{6}", v):
+        n = int(v[1:], 16)
+        return (n >> 16 & 255, n >> 8 & 255, n & 255)
+    return None
+
+
+def _relative_luminance(rgb) -> float:
+    def ch(c):
+        c = c / 255
+        return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+    return 0.2126 * ch(rgb[0]) + 0.7152 * ch(rgb[1]) + 0.0722 * ch(rgb[2])
+
+
 def render_preview_html(dna: dict, dest: Path | None = None) -> str:
     shots = {
         "viewport.png", "viewport-2.png", "viewport-3.png", "viewport-4.png",
@@ -48,7 +182,8 @@ def render_preview_html(dna: dict, dest: Path | None = None) -> str:
     return _preview.render_preview_html(dna, resolver=resolve_tokens, exists=exists)
 
 RENDERER_VERSION = "build_artifacts.py/v2"
-BLOCKS = ("meta", "evidence", "measurements", "patterns", "taste", "tokens")
+BLOCKS = ("meta", "evidence", "measurements", "patterns", "taste", "tokens", "interactions")
+REQUIRED_BLOCKS = ("meta", "evidence", "measurements", "patterns", "taste", "tokens")
 STATUSES = ("observed", "inferred", "proposed", "unknown")
 LAYERS = ("primitive", "semantic", "component")
 TOKEN_TYPES = (
@@ -58,7 +193,9 @@ TOKEN_TYPES = (
 UNIT_TYPES = ("dimension", "duration")
 # Any block can be rerun when the caller declares it. `evidence` is special: it is
 # append-only (re-observations add ids) and `meta` is tooling-owned.
-RERUNNABLE = ("evidence", "measurements", "patterns", "taste", "tokens")
+RERUNNABLE = ("evidence", "measurements", "patterns", "taste", "tokens", "interactions")
+SCHEMA_VERSION = "1.1"
+INTERACTION_PROPS = ("background-color", "color", "border-color", "box-shadow", "outline", "transform")
 
 BANNED = re.compile(
     r"\b(clean|modern|sleek|visually appealing|user-friendly|intuitive|seamless|"
@@ -82,12 +219,15 @@ def validate(dna: dict) -> list[str]:
     errors: list[str] = []
     if not isinstance(dna, dict):
         return ["root is not an object"]
-    missing = [b for b in BLOCKS if b not in dna]
+    missing = [b for b in REQUIRED_BLOCKS if b not in dna]
     if missing:
         err(errors, f"missing root blocks: {missing}")
-    extra = [k for k in dna if k not in BLOCKS]
+    extra = [k for k in dna if k not in BLOCKS and k != "schemaVersion" and not k.startswith("x-")]
     if extra:
         err(errors, f"unknown root blocks: {extra}")
+
+    if not isinstance(dna.get("schemaVersion"), str) or not dna["schemaVersion"].startswith("1."):
+        err(errors, "schemaVersion must be a string like \"1.1\" (see dna.schema.json)")
 
     meta = dna.get("meta") or {}
     for key in ("name", "source", "domain", "mode"):
@@ -237,6 +377,45 @@ def validate(dna: dict) -> list[str]:
     if taste and restrains < 1:
         err(errors, "at least one taste principle must be kind=restraint (with guardrail)")
 
+    interactions = dna.get("interactions")
+    if interactions is not None:
+        if not isinstance(interactions, list) or not interactions:
+            err(errors, "interactions must be a non-empty list when present")
+            interactions = []
+        seen_loc = set()
+        for it in interactions:
+            if not isinstance(it, dict):
+                err(errors, "interaction entries must be objects")
+                continue
+            loc = it.get("locator")
+            if not isinstance(loc, str) or not loc:
+                err(errors, "interaction.locator required")
+                continue
+            if loc in seen_loc:
+                err(errors, f"duplicate interaction locator: {loc}")
+            seen_loc.add(loc)
+            if it.get("kind") not in ("button", "link", "card", "input"):
+                err(errors, f"interaction[{loc}].kind must be button|link|card|input")
+            if it.get("status") not in STATUSES:
+                err(errors, f"interaction[{loc}].status must be one of {STATUSES}")
+            check_refs(f"interaction[{loc}].evidence", it.get("evidence"))
+            for phase in ("hover", "focus"):
+                delta = (it.get(phase) or {}).get("delta", {})
+                if not isinstance(delta, dict):
+                    err(errors, f"interaction[{loc}].{phase}.delta must be an object")
+                    continue
+                for prop, pair in delta.items():
+                    if prop not in INTERACTION_PROPS:
+                        err(errors, f"interaction[{loc}].{phase}.delta.{prop} is not a diffed property {INTERACTION_PROPS}")
+                    if not isinstance(pair, list) or len(pair) != 2:
+                        err(errors, f"interaction[{loc}].{phase}.delta.{prop} must be [before, after]")
+            recorded = [
+                k for k in ("hover", "focus")
+                if isinstance(it.get(k), dict) and isinstance(it[k].get("delta"), dict) and it[k]["delta"]
+            ]
+            if it.get("status") == "observed" and not recorded:
+                err(errors, f"interaction[{loc}] is observed but records no hover/focus delta")
+
     tokens = dna.get("tokens")
     if not isinstance(tokens, list) or not tokens:
         err(errors, "tokens must be a non-empty list")
@@ -366,6 +545,32 @@ def md(value) -> str:
     return str(value).replace("|", "\\|").replace("\n", " ")
 
 
+def _interaction_lines(dna: dict) -> list[str]:
+    items = dna.get("interactions") or []
+    if not items:
+        return []
+    out = ["## Interaction Delta (measured)", "",
+           "Forced with a real mouse (CDP `Input.dispatchMouseEvent`) and `element.focus()`; only these "
+           "properties are diffed: " + ", ".join("`" + p + "`" for p in INTERACTION_PROPS) + ".", ""]
+    for it in items:
+        out.append("### " + it["kind"] + " — `" + it["locator"] + "`")
+        out.append("- Status: " + LABEL.get(it["status"], it["status"]) +
+                   " · evidence: " + (", ".join(it.get("evidence") or []) or "—"))
+        for phase in ("hover", "focus"):
+            ph = it.get(phase) or {}
+            delta = ph.get("delta") or {}
+            if delta:
+                changes = "; ".join("`" + k + "`: `" + str(v[0]) + "` → `" + str(v[1]) + "`" for k, v in delta.items())
+                out.append("- **" + phase + "**: " + changes)
+            else:
+                note = ph.get("note") or ("measured, no computed change" if ph.get("measured", True) else "not measured")
+                if note and note[0].islower() and not note.startswith("no "):
+                    note = note[0].upper() + note[1:]
+                out.append("- **" + phase + "**: none (" + note + ")")
+        out.append("")
+    return out
+
+
 def render_taste_md(dna: dict) -> str:
     meta, res = dna["meta"], ""
     out: list[str] = []
@@ -438,6 +643,7 @@ def render_taste_md(dna: dict) -> str:
             g = t.get("guardrail")
             out.append(f"- **Guardrail (enforced)**: `{json.dumps(g, ensure_ascii=False)}`" if g else "- **Guardrail (enforced)**: MISSING — schema gate must fail")
         out.append("")
+    out.extend(_interaction_lines(dna))
     if meta.get("openQuestions"):
         out.append("## Open questions")
         out.append("")
@@ -544,6 +750,7 @@ def render_agent_rules(dna: dict) -> str:
         for t in layer_tokens:
             out.append(f"- `var({t['css']})` — {t['id']} ({t['type']}, {t['status']})")
         out.append("")
+    out.extend(_interaction_lines(dna))
     out.append("## Verification")
     out.append("")
     out.append("Live specimens and motion replay: `preview.html` (single file, opens in any browser).")
@@ -608,6 +815,9 @@ def main() -> int:
                     help="comma list of blocks this run may change; everything else is frozen. "
                          "Any of: evidence,measurements,patterns,taste,tokens")
     ap.add_argument("--check", action="store_true", help="validate only, write nothing")
+    ap.add_argument("--export", default="all", choices=["all", "shadcn", "css"],
+                    help="which generated stylesheets to write: all (default), shadcn-theme.css only, or tokens.css only")
+    ap.add_argument("--print-theme", action="store_true", help="print shadcn-theme.css to stdout and exit")
     ap.add_argument("--force", action="store_true", help="allow tokens to change in incremental mode")
     ap.add_argument("--updated-at", default=None, help="ISO timestamp recorded in meta.incremental")
     args = ap.parse_args()
@@ -664,7 +874,8 @@ def main() -> int:
             print(f"  - {e}")
         return 1
     print(f"OK: dna.json schema valid ({len(dna['evidence'])} evidence, {len(dna['measurements'])} measurements, "
-          f"{len(dna['patterns'])} patterns, {len(dna['taste'])} taste, {len(dna['tokens'])} tokens)")
+          f"{len(dna['patterns'])} patterns, {len(dna['taste'])} taste, {len(dna['tokens'])} tokens)",
+          file=(sys.stderr if args.print_theme else sys.stdout))
     if args.check:
         return 0
 
@@ -672,13 +883,19 @@ def main() -> int:
         (dest / "dna.json").write_text(json.dumps(dna, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(f"  recorded scope in {dest / 'dna.json'} (meta.incremental)")
 
+    if args.print_theme:
+        print(render_shadcn_theme(dna), end="")
+        return 0
     artifacts = {
         "taste.md": render_taste_md(dna),
-        "tokens.css": render_tokens_css(dna),
         "tokens.resolved.json": render_resolved_json(dna),
         "agent-rules.md": render_agent_rules(dna),
         "preview.html": render_preview_html(dna, dest),
     }
+    if args.export in ("all", "css"):
+        artifacts["tokens.css"] = render_tokens_css(dna)
+    if args.export in ("all", "shadcn"):
+        artifacts["shadcn-theme.css"] = render_shadcn_theme(dna)
     for name, content in artifacts.items():
         (dest / name).write_text(content, encoding="utf-8")
         print(f"  wrote {dest / name} ({len(content)} bytes)")

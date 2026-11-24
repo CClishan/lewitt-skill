@@ -48,6 +48,7 @@ Every run writes to an isolated `{dest}/{domain}/` directory:
 {dest}/{domain}/
 ├── dna.json               # single source of truth (evidence, measurements, patterns, taste, tokens)
 ├── preview.html           # zero-dependency interactive preview (every mode)
+├── shadcn-theme.css       # shadcn/ui + Tailwind v4 @theme slots (unmapped slots declared)
 ├── taste.md               # human-readable anatomy, token table and Taste DNA
 ├── agent-rules.md         # condensed rules for coding agents (MUST NOT guardrails on top)
 ├── tokens.css             # scoped CSS custom properties (--lw-*)
@@ -88,6 +89,30 @@ Use lewitt to analyze https://stripe.com              # DNA mode + preview.html
 Use lewitt to analyze https://stripe.com --full        # also build the system/ reference site
 Update the tokens and pricing evidence for stripe.com # incremental: only these blocks rerun
 ```
+
+## Bring It Into a shadcn/ui + Tailwind v4 Project
+
+```sh
+python3 scripts/build_artifacts.py --dest runs/stripe.com --export=shadcn   # write shadcn-theme.css
+python3 scripts/build_artifacts.py --dest runs/stripe.com --print-theme     # paste into globals.css
+```
+
+`shadcn-theme.css` maps `--background`, `--foreground`, `--card`, `--primary`, `--muted`,
+`--border`, `--ring`, `--radius` … from the extracted **semantic** tokens and wraps them in
+Tailwind v4's `@theme inline`. A slot the site does not define is written as `initial` and listed
+in the file header — nothing is invented. The dark/light scheme line is derived from the canvas
+token's luminance.
+
+## Data Contract (`dna.json` schema 1.1)
+
+`dna.json` is a protocol, not a workflow: `schemaVersion`, `meta`, `evidence`, `measurements`,
+`patterns`, `taste`, `tokens`, and (1.1) `interactions`. The contract lives in
+[`dna.schema.json`](dna.schema.json); `build_artifacts.py::validate` is the executable authority,
+and any companion tool that reads or writes this file stays compatible.
+
+Interaction deltas are measured, not guessed: the capture driver hovers representatives with a
+real CDP mouse and calls `element.focus()`, recording before→after values for
+`background-color, color, border-color, box-shadow, outline, transform`.
 
 ## Enforce Guardrails on Your Own Code
 

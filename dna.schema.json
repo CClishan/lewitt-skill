@@ -1,0 +1,558 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/CClishan/lewitt-skill/blob/main/dna.schema.json",
+  "title": "lewitt design DNA",
+  "description": "The data contract shared by every lewitt companion tool. schemaVersion 1.1 adds the optional interactions block. build_artifacts.py::validate is the executable authority; this file documents it for other tools.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "meta",
+    "evidence",
+    "measurements",
+    "patterns",
+    "taste",
+    "tokens"
+  ],
+  "additionalProperties": false,
+  "patternProperties": {
+    "^x-": {
+      "description": "vendor extensions must be prefixed x-"
+    }
+  },
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^1\\.",
+      "examples": [
+        "1.1"
+      ]
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "name",
+        "source",
+        "domain",
+        "mode"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "enum": [
+            "dna",
+            "full"
+          ]
+        },
+        "capturedAt": {
+          "type": "string"
+        },
+        "viewport": {
+          "type": "string"
+        },
+        "captureIsolated": {
+          "type": "boolean"
+        },
+        "isolationNote": {
+          "type": "string"
+        },
+        "modes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "crawl": {
+          "type": "object",
+          "properties": {
+            "pages": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "budget": {
+              "type": "string"
+            }
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "openQuestions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "incremental": {
+          "description": "tooling-owned; written by build_artifacts.py --incremental",
+          "type": "object",
+          "properties": {
+            "targets": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "frozen": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "updatedAt": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "url",
+          "locator",
+          "viewport",
+          "method",
+          "capturedAt",
+          "values",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string"
+          },
+          "locator": {
+            "type": "string"
+          },
+          "viewport": {
+            "type": "object",
+            "required": [
+              "width"
+            ]
+          },
+          "state": {
+            "type": "string"
+          },
+          "method": {
+            "type": "string"
+          },
+          "capturedAt": {
+            "type": "string"
+          },
+          "values": {
+            "type": "object",
+            "minProperties": 1
+          },
+          "status": {
+            "enum": [
+              "observed",
+              "inferred",
+              "proposed",
+              "unknown"
+            ]
+          },
+          "artifact": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "measurements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "category",
+          "value",
+          "status",
+          "evidence"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "observed",
+              "inferred",
+              "proposed",
+              "unknown"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "patterns": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "rule",
+          "goal",
+          "evidence"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rule": {
+            "type": "string",
+            "minLength": 1
+          },
+          "goal": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "taste": {
+      "type": "array",
+      "minItems": 1,
+      "description": "at least one item must have kind=restraint AND a guardrail",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "kind",
+          "trigger",
+          "decision",
+          "chose",
+          "over",
+          "reason",
+          "evidence",
+          "patterns",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "restraint",
+              "craft",
+              "system"
+            ]
+          },
+          "trigger": {
+            "type": "string"
+          },
+          "decision": {
+            "type": "string"
+          },
+          "chose": {
+            "type": "string"
+          },
+          "over": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "patterns": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "enum": [
+              "observed",
+              "inferred",
+              "proposed",
+              "unknown"
+            ]
+          },
+          "guardrail": {
+            "type": "object",
+            "description": "machine-readable constraint; required for kind=restraint",
+            "additionalProperties": false,
+            "properties": {
+              "forbidCss": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "requireCss": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "forbidClass": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "regex list, Tailwind v3 and v4 syntax alike"
+              },
+              "max": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object",
+                  "required": [
+                    "value"
+                  ],
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "unit": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "css",
+          "type",
+          "layer",
+          "status",
+          "values"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "css": {
+            "type": "string",
+            "pattern": "^--[a-z0-9-]+$"
+          },
+          "type": {
+            "enum": [
+              "color",
+              "dimension",
+              "number",
+              "duration",
+              "fontFamily",
+              "fontWeight",
+              "shadow",
+              "gradient",
+              "easing",
+              "string"
+            ]
+          },
+          "layer": {
+            "enum": [
+              "primitive",
+              "semantic",
+              "component"
+            ]
+          },
+          "status": {
+            "enum": [
+              "observed",
+              "inferred",
+              "proposed"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "values": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "object",
+                  "required": [
+                    "alias"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "alias": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "interactions": {
+      "type": "array",
+      "minItems": 1,
+      "description": "schema 1.1: forced hover / focus-visible deltas measured in the browser",
+      "items": {
+        "type": "object",
+        "required": [
+          "locator",
+          "kind",
+          "status",
+          "evidence"
+        ],
+        "properties": {
+          "locator": {
+            "type": "string",
+            "description": "tag + up to two classes, resolved with querySelector"
+          },
+          "kind": {
+            "enum": [
+              "button",
+              "link",
+              "card",
+              "input"
+            ]
+          },
+          "status": {
+            "enum": [
+              "observed",
+              "inferred",
+              "proposed",
+              "unknown"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "skipReason": {
+            "type": "string"
+          },
+          "hover": {
+            "$ref": "#/$defs/phase"
+          },
+          "focus": {
+            "$ref": "#/$defs/phase"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "phase": {
+      "type": "object",
+      "properties": {
+        "measured": {
+          "type": "boolean"
+        },
+        "note": {
+          "type": "string"
+        },
+        "delta": {
+          "type": "object",
+          "propertyNames": {
+            "enum": [
+              "background-color",
+              "color",
+              "border-color",
+              "box-shadow",
+              "outline",
+              "transform"
+            ]
+          },
+          "additionalProperties": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

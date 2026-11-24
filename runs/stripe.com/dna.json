@@ -1,4 +1,5 @@
 {
+  "schemaVersion": "1.1",
   "meta": {
     "name": "Stripe",
     "source": "https://stripe.com/",
@@ -1650,6 +1651,76 @@
       ],
       "values": {
         "default": "1080px"
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "locator": "button.hds-button.CookieSettings_CookieSettings__HelmButton__69vhe",
+      "kind": "button",
+      "status": "observed",
+      "evidence": [
+        "e-buttons",
+        "e-purple"
+      ],
+      "hover": {
+        "measured": true,
+        "delta": {
+          "color": [
+            "rgb(83, 58, 253)",
+            "rgb(46, 43, 140)"
+          ],
+          "border-color": [
+            "rgb(214, 217, 252)",
+            "rgb(64, 50, 200)"
+          ]
+        }
+      },
+      "focus": {
+        "measured": true,
+        "delta": {
+          "outline": [
+            "0px solid rgba(0, 0, 0, 0)",
+            "3px solid rgba(84, 82, 251, 0.75)"
+          ]
+        }
+      }
+    },
+    {
+      "locator": "button.hds-ui-button.announcement-bar__dismiss",
+      "kind": "button",
+      "status": "observed",
+      "evidence": [
+        "e-buttons"
+      ],
+      "hover": {
+        "measured": true,
+        "note": "no computed change on the icon-only dismiss button"
+      },
+      "focus": {
+        "measured": true,
+        "delta": {
+          "outline": [
+            "0px solid rgba(0, 0, 0, 0)",
+            "3px solid rgba(0, 0, 0, 0)"
+          ]
+        }
+      }
+    },
+    {
+      "locator": "div.payments-graphic__checkout-item-card",
+      "kind": "card",
+      "status": "inferred",
+      "evidence": [
+        "e-shadow-soft"
+      ],
+      "hover": {
+        "measured": true,
+        "note": "No computed change; the card sits inside an animated illustration, so observed ≠ no hover style exists"
+      },
+      "focus": {
+        "measured": false,
+        "note": "Not focusable"
       }
     }
   ]

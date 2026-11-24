@@ -33,7 +33,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-EXTRACT = HERE / "extract.js"
+EXTRACT = HERE / "extract-dom.js"      # generated from extract.js by split_extract.py
+PROBE = HERE / "interaction-probe.js"  # generated from the same file
 SKIP = r"/^(login|logout|signup|sign-in|register|auth|account|checkout|cart|password|reset)(/|$)/"
 NAV_LINKS = (
     "() => { const seen = new Set([location.pathname]); const re = new RegExp(" + json.dumps(SKIP) + ");"
@@ -207,7 +208,7 @@ class NodePW:
         proc = subprocess.run(
             ["node", str(HERE / "capture_node.js")],
             env={**os.environ, "LEWITT_JOBS": json.dumps(jobs), "LEWITT_EXTRACT": str(EXTRACT),
-                 "LEWITT_PLAYWRIGHT": str(self.module)},
+                 "LEWITT_PROBE": str(PROBE), "LEWITT_PLAYWRIGHT": str(self.module)},
             capture_output=True, text=True, timeout=600,
         )
         if proc.returncode != 0:

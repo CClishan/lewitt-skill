@@ -37,12 +37,27 @@ site". A user-requested exhaustive crawl overrides this; say so in `meta.crawl.b
 | `capture/viewport.png` | 1440×900 — the composition reference |
 | `capture/fullpage.png` | only if page ≤ 6 viewport heights; otherwise absent by design |
 | `capture/meta.json` | driver, isolation, pages, capturedAt, viewport, extract errors |
+| `dom.json > interactions` | forced hover / focus-visible before→after values per representative |
 
 `extract.js` measures only: colours with `areaPct`, text-colour counts, accent candidates,
 font families, heading styles, size/weight/spacing distributions, radii, shadows, transitions,
 cards, images, section gaps, largest grid, button typography, `:focus-visible` and
 `prefers-reduced-motion` presence, plus `errors[]` per section and a 60KB trim guard. If a
 section fails, its measurements are `inferred` from the screenshot or `unknown` — never invented.
+
+## Interaction probe
+
+After the measurement pass, `capture_node.js` picks up to five representatives (2 buttons, 1 link,
+1 card, 1 input) from `dom.json > interactionTargets`, then:
+
+1. scrolls each into view and dispatches a **real** `Input.dispatchMouseEvent` move to its centre;
+2. reads the diffed properties after the transition settles, then moves the mouse away;
+3. calls `element.focus()` (checks `:focus-visible` too) and reads again.
+
+Only `background-color, color, border-color, box-shadow, outline, transform` are compared; the
+method string in the payload records what was done. Hover is skipped when the page reports
+`(hover: none)`. If the probe fails, `interactions.error` says why and you record nothing rather
+than guessing.
 
 ## Screenshot vs DOM: how to resolve
 

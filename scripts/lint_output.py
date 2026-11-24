@@ -252,6 +252,7 @@ def drift_check(dest: Path, dna: dict) -> tuple[list[str], list[str]]:
         "tokens.resolved.json": ba.render_resolved_json,
         "agent-rules.md": ba.render_agent_rules,
         "preview.html": lambda d: ba.render_preview_html(d, dest),
+        "shadcn-theme.css": ba.render_shadcn_theme,
     }
     for name, fn in expected.items():
         p = dest / name
@@ -284,6 +285,27 @@ def drift_check(dest: Path, dna: dict) -> tuple[list[str], list[str]]:
 # assets only: src=, and href= on <link>; ordinary <a href> citations are allowed
 PREVIEW_DEPS = re.compile(r'(?:<img[^>]*?src|src|<link[^>]*?href)\s*=\s*["\']([^"\']+)["\']', re.IGNORECASE)
 PREVIEW_EXTERNAL = re.compile(r'^(?:https?:)?//', re.IGNORECASE)
+
+
+def theme_checks(dest: Path, dna: dict) -> tuple[bool, str]:
+    """Every shadcn slot must either map to a token or be declared UNMAPPED; never invented."""
+    path = dest / "shadcn-theme.css"
+    if not path.exists():
+        return False, "shadcn-theme.css missing"
+    css = path.read_text(encoding="utf-8")
+    required = ["--background", "--foreground", "--primary", "--primary-foreground",
+                "--muted-foreground", "--ring", "--radius"]
+    missing = [slot for slot in required if not re.search(rf"^\s*{re.escape(slot)}:\s*\S", css, re.M)]
+    if missing:
+        return False, "slots missing entirely: " + ", ".join(missing)
+    unmapped = re.findall(r"(--[a-z-]+): initial;", css)
+    loop = ["--theme inline {"] if css.count("@theme inline") != 1 else []
+    if loop:
+        return False, "@theme inline block missing or duplicated"
+    detail = "all required slots mapped"
+    if unmapped:
+        detail += f"; {len(unmapped)} declared UNMAPPED: " + ", ".join(unmapped)
+    return True, detail
 
 
 def preview_checks(dest: Path, dna: dict) -> tuple[bool, str]:
@@ -377,6 +399,17 @@ def schema_checks(dest: Path, dna: dict) -> list[dict]:
 
     ok, detail = system_colour_scope(dest, dna)
     rows.append({"name": "system/ colour scope", "result": "PASS" if ok else "FAIL", "detail": detail})
+
+    inter = dna.get("interactions") or []
+    if not inter:
+        rows.append({"name": "interaction delta", "result": "unverified", "detail": "no interactions block (schema 1.0 run or capture without probe)"})
+    else:
+        measured = [i for i in inter if ((i.get("hover") or {}).get("delta") or (i.get("focus") or {}).get("delta"))]
+        rows.append({"name": "interaction delta", "result": "PASS" if measured else "FAIL",
+                     "detail": f"{len(measured)}/{len(inter)} targets recorded a hover/focus delta"})
+
+    ok, detail = theme_checks(dest, dna)
+    rows.append({"name": "shadcn theme slots", "result": "PASS" if ok else "FAIL", "detail": detail})
 
     ok, detail = preview_checks(dest, dna)
     rows.append({"name": "preview.html (self-contained)", "result": "PASS" if ok else "FAIL", "detail": detail})

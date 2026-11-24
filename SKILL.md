@@ -24,6 +24,8 @@ Turn a URL into one authored file — `dna.json` — and everything else is rend
 | `tokens.css` | `[data-ds]` scoped variables, primitive → semantic → component | `build_artifacts.py` |
 | `tokens.resolved.json` | flat values per mode | `build_artifacts.py` |
 | `preview.html` | single-file live specimens, motion replay, taste cards, source thumbnails, copy/download bar | `build_artifacts.py` |
+| `shadcn-theme.css` | shadcn/ui + Tailwind v4 `@theme inline` slots mapped from semantic tokens; unmapped slots say `initial`, never invented | `build_artifacts.py` |
+| `dna.schema.json` | the v1.1 data contract other tools can validate against (repo root; `build_artifacts.validate` is the authority) | authored |
 | `agent-rules.md` | hard constraints first, then principles, patterns, token list, verify command | `build_artifacts.py` |
 | `VERIFY.md` / `verify.json` | gate results, including explicit `unverified` rows | `lint_output.py` |
 | `system/` | runnable reference site — states, compositions, stress controls, fidelity (**`--full` only**) | you, then `lint_output.py --check-code` |
@@ -42,7 +44,7 @@ Every taste principle carries a real rejected alternative (`chose` vs `over`), a
 is a **restraint** with a machine-readable `guardrail`. If a principle could be written without
 ever seeing this site, delete it.
 
-**R3 — Single source.** `dna.json` is authored; artifacts are renders. Never hand-edit
+**R3 — Single source.** `dna.json` (schema **1.1**) is authored; artifacts are renders. Never hand-edit
 `taste.md`, `tokens.css`, `agent-rules.md`, or `tokens.resolved.json`; `lint_output.py` fails when
 they drift. The same registry feeds the documentation, the CSS, the exports, and `system/`.
 
@@ -97,7 +99,7 @@ python3 "$SKILL/scripts/capture.py" <url> --dest "$DEST" --pages 4
 
 `capture.py` finds playwright via `LEWITT_PW_DIR` → the skill's own `node_modules` → global/npx,
 so a fresh clone only needs `bash scripts/setup.sh`. It refuses to run without an isolated driver — a logged-in or wrong surface is a
-failed capture, not a weaker one. It writes `capture/dom.json`, `capture/viewport.png`,
+failed capture, not a weaker one. It writes `capture/dom.json` (with `interactions`: forced hover / focus-visible deltas), `capture/viewport.png`,
 `capture/fullpage.png` (only when ≤ 6 viewports tall), `capture/dom-N.json` for extra pages, and
 `capture/meta.json`. Read the screenshots: composition is judged visually, values come from the
 DOM, and disagreements are recorded as `conflict`, not silently resolved.
@@ -114,6 +116,12 @@ Read each reference when you reach it; do not preload all three.
 3. **Taste** — [references/infer-taste.md](references/infer-taste.md): 3–4 principles with
    `trigger / decision / chose / over / reason / evidence / patterns`. At least one `kind:
    restraint`, and each restraint carries a `guardrail`.
+
+**Interaction deltas.** `capture.py` also forces hover (real CDP mouse) and `:focus-visible` on up to
+5 representatives (2 buttons, a link, a card, an input) and records before→after values for
+`background-color, color, border-color, box-shadow, outline, transform`. Copy those into
+`dna.json > interactions[]` verbatim (status `observed`, citing evidence ids). Do not report a
+delta you did not measure; "none (measured, no computed change)" is a valid, useful result.
 
 Cross-page agreement is the strongest evidence: a value on 2+ pages is a system signal; one
 page only is local — keep it, but weight it lower and say so.
@@ -134,6 +142,13 @@ python3 "$SKILL/scripts/build_artifacts.py" "$DEST/$DOMAIN"
 It validates, then writes the five renders (including `preview.html`, which links the same-folder
 `tokens.css` and has no external dependency — `lint_output.py` gates that). A schema failure stops rendering — fix the source,
 never the output.
+
+Theme export (always written; or on demand):
+
+```sh
+python3 "$SKILL/scripts/build_artifacts.py" "$DEST/$DOMAIN" --export=shadcn   # only shadcn-theme.css
+python3 "$SKILL/scripts/build_artifacts.py" "$DEST/$DOMAIN" --print-theme     # paste into globals.css
+```
 
 Incremental form:
 

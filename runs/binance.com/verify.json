@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-23T14:30:12+00:00",
+  "generatedAt": "2026-11-24T02:21:36+00:00",
   "dest": "binance.com",
   "meta": {
     "name": "Binance",
@@ -52,6 +52,16 @@
       "detail": "canvas token #181A20 (dark); chrome shell dark"
     },
     {
+      "name": "interaction delta",
+      "result": "unverified",
+      "detail": "no interactions block (schema 1.0 run or capture without probe)"
+    },
+    {
+      "name": "shadcn theme slots",
+      "result": "PASS",
+      "detail": "all required slots mapped"
+    },
+    {
       "name": "preview.html (self-contained)",
       "result": "PASS",
       "detail": "single file, same-folder tokens.css, no remote assets"
@@ -94,6 +104,7 @@
   ],
   "renderedBy": "build_artifacts.py/v2",
   "dna": {
+    "schemaVersion": "1.1",
     "meta": {
       "name": "Binance",
       "source": "https://www.binance.com/en",

@@ -3,8 +3,11 @@
 `dna.json` is the only authored file. Six root blocks, no extras:
 
 ```
-meta · evidence · measurements · patterns · taste · tokens
+schemaVersion · meta · evidence · measurements · patterns · taste · tokens · interactions
 ```
+
+`schemaVersion` is `"1.1"`; the full contract (including the optional `interactions` block) ships
+as `dna.schema.json` at the repo root so other tools can validate without running Python.
 
 `build_artifacts.py` validates all of it before rendering. Read the error, fix the source,
 rerun. Never patch a rendered file.
@@ -36,6 +39,22 @@ relations enforced by the validator:
 - `taste.evidence` → existing evidence ids, `taste.patterns` → existing pattern ids;
 - at least one `taste.kind == "restraint"`, and each restraint has a non-empty `guardrail`;
 - `taste.chose != taste.over`.
+
+## interactions (schema 1.1)
+
+```json
+{"locator": "button.hds-button.primary", "kind": "button", "status": "observed",
+ "evidence": ["e-buttons"],
+ "hover": {"measured": true, "delta": {"color": ["rgb(83, 58, 253)", "rgb(46, 43, 140)"]}},
+ "focus": {"measured": true, "delta": {"outline": ["0px solid rgba(0, 0, 0, 0)", "3px solid rgba(84, 82, 251, 0.75)"]}}}
+```
+
+- `locator` is `tag` plus up to two classes, resolvable with `querySelector`;
+- `kind` is `button | link | card | input`;
+- only the six diffed properties are legal inside `delta`, always `[before, after]`;
+- a phase that produced nothing carries `{"measured": true, "note": "no computed change"}`;
+- an unmeasured phase carries `{"measured": false, "note": "not focusable"}` and must not claim `delta`;
+- omit the whole block when nothing was measured — an empty array is a schema error.
 
 ## tokens — three layers
 

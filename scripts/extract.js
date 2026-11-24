@@ -1,3 +1,7 @@
+// lewitt — measurement-side source of truth.
+//   scripts/extract-dom.js        (bare function expression; page.evaluate body, returns data)
+//   scripts/interaction-probe.js  (phase B: forced hover / focus-visible deltas)
+// Both are generated from THIS file by scripts/split_extract.py — edit here, then re-split.
 // lewitt — DOM extractor. Runs inside the target page; measures only, never interprets.
 // (Interpretation lives in references/infer-*.md. Output contract -> references/sense.md.)
 //
@@ -52,6 +56,69 @@
         : "";
     return tag + cls;
   };
+
+
+  // ---------- interaction targets: representative, stable locators ----------
+  // Runs before style sampling so the main measurement pass stays untouched.
+  data.interactionTargets = [];
+  try {
+    const describe = (el) => {
+      const tag = el.tagName.toLowerCase();
+      const cls = el.className && typeof el.className === "string" ? el.className.trim().split(/\s+/).slice(0, 2).join(".") : "";
+      let nth = 0;
+      const parent = el.parentElement;
+      if (parent) {
+        for (const c of parent.children) { if (c === el) break; if (c.tagName === el.tagName) nth++; }
+      }
+      return tag + (cls ? "." + cls : "");
+    };
+    const firstVisible = (list) => list.filter(isRendered).filter((el) => {
+      const r = el.getBoundingClientRect();
+      return r.left >= 0 && r.top >= 0 && r.right <= innerWidth + 1 && r.bottom <= innerHeight * 3;
+    });
+    const kindOf = (el) => {
+      const tag = el.tagName.toLowerCase();
+      if (/^(input|textarea|select)$/.test(tag)) return "input";
+      const role = (el.getAttribute("role") || "").toLowerCase();
+      if (role === "button" || role === "tab" || tag === "button") return "button";
+      if (tag === "a") return "link";
+      if (tag === "article" || /card|panel|tile/i.test(String(el.className || ""))) return "card";
+      return null;
+    };
+    const score = (el) => {
+      const s = getComputedStyle(el);
+      let n = 0;
+      if (el.tagName === "BUTTON") n -= 30;
+      if (el.getAttribute("role") === "button") n -= 10;
+      if (/primary|cta|accent|contained/i.test(String(el.className || ""))) n -= 25;
+      const bg = s.backgroundColor;                    // skipBg() is declared later in this function
+      const filled = bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent';
+      if (filled) n -= 15;                             // filled buttons are the visual primary
+      if (s.borderStyle !== "none" && parseFloat(s.borderWidth) > 0) n -= 5;
+      if (parseFloat(s.paddingLeft) >= 12) n -= 3;
+      if (/nav|menu|footer|breadcrumb|skip/i.test(String(el.className || ""))) n += 20;
+      return n;
+    };
+    // one stable element per kind, sampled document order, best-scoring inside the first screens
+    const seenLoc = new Set();
+    const candidates = Array.from(document.querySelectorAll("button, [role='button'], [role='tab'], a[href], input, textarea, select, article, [class*='card']"));
+    const buckets = { button: [], link: [], card: [], input: [] };
+    for (const el of firstVisible(candidates)) {
+      const kind = kindOf(el);
+      if (!kind) continue;
+      const loc = describe(el);
+      if (seenLoc.has(loc)) continue;
+      seenLoc.add(loc);
+      buckets[kind].push({ el, loc, score: score(el) });
+    }
+    const take = (kind, n) => buckets[kind].sort((a, b) => a.score - b.score).slice(0, n)
+      .map((x) => ({ locator: x.loc, tag: x.el.tagName.toLowerCase(), kind, score: -x.score }));
+    data.interactionTargets = [
+      ...take("button", 2), ...take("link", 1), ...take("card", 1), ...take("input", 1),
+    ].filter((t) => buckets[t.kind].length > 0);
+  } catch (e) {
+    data.errors.push({ section: "interactionTargets", error: e.message });
+  }
 
   // ---------- gather elements (two pools) ----------
   // styleEls: full-page rendered elements for color/font/effect/section sampling.
@@ -396,3 +463,84 @@
 
   return data;
 }
+
+// ---------- interaction probe (phase B) ----------
+// Called three times by the driver with a shared plan, because hover needs the real mouse from
+// Node while style reads happen in the page:
+//   mode "plan"     -> step list: [{action:"snapshot"|"hover"|"away", ...}]
+//   window.lewittSnapshot(locator) -> computed values for the diffed properties
+//   window.lewittInteractionReport(measured, steps) -> grouped deltas per target
+// Only these properties are diffed: background-color, color, border-color, box-shadow, outline, transform.
+window.lewittInteractionProbe = function (targets, mode) {
+  if (mode !== "plan") return [];
+  const steps = [];
+  let i = 0;
+  let skipped = 0;
+  for (const t of targets || []) {
+    const el = (() => { try { return document.querySelector(t.locator); } catch (e) { return null; } })();
+    if (!el) { skipped++; continue; }
+    el.scrollIntoView({ block: "center", inline: "center" });
+    const r = el.getBoundingClientRect();
+    const x = Math.round(r.left + r.width / 2);
+    const y = Math.round(r.top + r.height / 2);
+    const base = { index: i, locator: t.locator, kind: t.kind, x, y };
+    steps.push({ ...base, action: "snapshot", phase: "before" });
+    steps.push({ ...base, action: "hover", wait: 320 });
+    steps.push({ ...base, action: "snapshot", phase: "hover" });
+    steps.push({ ...base, action: "away", x: 2, y: 2, wait: 200 });
+    steps.push({ ...base, action: "focus", wait: 260 });   // focus happens inside the page
+    steps.push({ ...base, action: "snapshot", phase: "focus" });
+    i++;
+  }
+  return steps;
+};
+
+window.lewittFocus = function (locator) {
+  const el = (() => { try { return document.querySelector(locator); } catch (e) { return null; } })();
+  if (!el || !el.matches("button, a[href], input, textarea, select, [tabindex]")) return { focused: false };
+  el.focus({ preventScroll: true });
+  return { focused: true, focusVisible: el.matches(":focus-visible") };
+};
+
+window.lewittSnapshot = function (locator) {
+  const PROPS = ["background-color", "color", "border-color", "box-shadow", "outline", "transform"];
+  const el = (() => { try { return document.querySelector(locator); } catch (e) { return null; } })();
+  if (!el) return null;
+  const s = getComputedStyle(el);
+  const out = { rect: null, focusVisible: el.matches(":focus-visible") };
+  const r = el.getBoundingClientRect();
+  out.rect = [Math.round(r.left), Math.round(r.top), Math.round(r.width), Math.round(r.height)];
+  for (const p of PROPS) out[p] = s.getPropertyValue(p);
+  out.transition = s.transition.slice(0, 160);
+  return out;
+};
+
+window.lewittInteractionReport = function (measured, steps) {
+  // steps: the plan the driver executed (see lewittInteractionProbe)
+  const byIndex = {};
+  for (const m of measured) {
+    const step = steps.find((s) => s.locator === m.locator && s.phase === m.phase);
+    if (!step) continue;
+    byIndex[step.index] = byIndex[step.index] || { locator: m.locator, kind: step.kind, phases: {} };
+    byIndex[step.index].phases[m.phase] = m.values;
+  }
+  const diff = (a, b) => {
+    const d = {};
+    if (!a || !b) return d;
+    for (const k of Object.keys(a)) {
+      if (k === "rect" || k === "transition" || k === "focusVisible") continue;
+      if (a[k] !== b[k]) d[k] = [a[k], b[k]];
+    }
+    return d;
+  };
+  return {
+    method: "cdp-mouse hover + element.focus() + getComputedStyle diff",
+    targets: Object.values(byIndex).map((t) => ({
+      locator: t.locator, kind: t.kind, available: !!t.phases.before,
+      before: t.phases.before || null,
+      hover: { delta: diff(t.phases.before, t.phases.hover) },
+      focus: { delta: diff(t.phases.before, t.phases.focus), focusVisible: t.phases.focus ? t.phases.focus.focusVisible : null },
+    })),
+  };
+};
+
