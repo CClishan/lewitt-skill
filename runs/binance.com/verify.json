@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-24T03:34:48+00:00",
+  "generatedAt": "2026-11-24T04:12:53+00:00",
   "dest": "binance.com",
   "meta": {
     "name": "Binance",
@@ -70,6 +70,11 @@
       "name": "shadcn theme slots",
       "result": "PASS",
       "detail": "all required slots mapped"
+    },
+    {
+      "name": "clip bricks",
+      "result": "n/a",
+      "detail": "no clips/ directory"
     },
     {
       "name": "preview.html (self-contained)",

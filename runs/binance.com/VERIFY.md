@@ -12,6 +12,7 @@ Renders are deterministic re-encodings of `dna.json`: byte-equality proves the a
 | system/ colour scope | PASS | canvas token #181A20 (dark); chrome shell light |
 | interaction delta | unverified | no interactions block (schema 1.0 run or capture without probe) |
 | shadcn theme slots | PASS | all required slots mapped |
+| clip bricks | n/a | no clips/ directory |
 | preview.html (self-contained) | PASS | single file, same-folder tokens.css, no remote assets |
 | incremental freeze | PASS | no frozen block changed since the last render |
 | evidence coverage | PASS | 46 evidence entries cited |
@@ -21,4 +22,4 @@ Renders are deterministic re-encodings of `dna.json`: byte-equality proves the a
 | visual fidelity | unverified | no fidelity.json — requires a side-by-side comparison at matching viewports |
 | full system/ site | PASS | app shell present (rail + canvas + panel routing) |
 
-Generated at 2026-11-24T03:34:48+00:00.
+Generated at 2026-11-24T04:12:53+00:00.

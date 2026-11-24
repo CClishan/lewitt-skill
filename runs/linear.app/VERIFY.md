@@ -12,6 +12,7 @@ Renders are deterministic re-encodings of `dna.json`: byte-equality proves the a
 | system/ colour scope | PASS | n/a (DNA mode has no system/ site) |
 | interaction delta | unverified | no interactions block (schema 1.0 run or capture without probe) |
 | shadcn theme slots | PASS | all required slots mapped; 3 declared UNMAPPED: --destructive, --border, --input |
+| clip bricks | n/a | no clips/ directory |
 | preview.html (self-contained) | PASS | single file, same-folder tokens.css, no remote assets |
 | incremental freeze | PASS | no frozen block changed since the last render |
 | evidence coverage | PASS | 28 evidence entries cited |
@@ -21,4 +22,4 @@ Renders are deterministic re-encodings of `dna.json`: byte-equality proves the a
 | visual fidelity | unverified | no fidelity.json — requires a side-by-side comparison at matching viewports |
 | full system/ site | n/a | DNA mode does not build system/ |
 
-Generated at 2026-11-24T03:34:48+00:00.
+Generated at 2026-11-24T04:12:52+00:00.

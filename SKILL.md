@@ -184,7 +184,7 @@ every `FAIL`/`unverified` row. Do not claim a site is ready when a gate failed.
 Subcommands stay small on purpose: `cert` and `remix` live in their own references
 ([cert.md](references/cert.md)) so this file stays the contract, not a manual.
 
-**Certiry a build** — once an app (or the generated `system/`) runs locally, audit it against the
+**Certify a build** — once an app (or the generated `system/`) runs locally, audit it against the
 same `dna.json`:
 
 ```sh
@@ -194,6 +194,14 @@ python3 "$SKILL/scripts/cert.py" --url http://localhost:3000 --dest "$DEST/$DOMA
 It writes `cert.md` / `cert.html` / `cert.json` with a verdict (`certified`, `warned`, `rejected`,
 `inconclusive`), measured token deltas and guardrail hits on the live page. Read
 [references/cert.md](references/cert.md) for what is and is not certified.
+
+**Clip a block** — lift one module with its interaction, skin stripped, from any live page:
+
+```sh
+python3 "$SKILL/scripts/clip.py" --url <url> --find "<visible text>" --dest "$DEST/$DOMAIN"
+```
+
+Read [references/clip.md](references/clip.md).
 
 ## Banned vocabulary
 

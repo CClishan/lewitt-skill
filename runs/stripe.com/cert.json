@@ -1,5 +1,5 @@
 {
-  "issuedAt": "2026-11-24T03:35:00+00:00",
+  "issuedAt": "2026-11-24T03:57:49+00:00",
   "target": "http://127.0.0.1:8765/",
   "sourceRun": "stripe.com",
   "schemaVersion": "1.1",
@@ -7,6 +7,7 @@
   "total": 16,
   "measured": 16,
   "deviations": [],
+  "intentional": [],
   "guardrailHits": [],
   "guardrailScope": "the audited page (http://127.0.0.1:8765/); scanned each element's class list, inline style and box-shadow",
   "checks": [
@@ -17,7 +18,8 @@
       "expected": "48px",
       "actual": "48px",
       "measured": true,
-      "ok": true
+      "ok": true,
+      "via": "rendered element"
     },
     {
       "kind": "dimension",
@@ -26,7 +28,8 @@
       "expected": "32px",
       "actual": "32px",
       "measured": true,
-      "ok": true
+      "ok": true,
+      "via": "probe element"
     },
     {
       "kind": "dimension",
@@ -35,7 +38,8 @@
       "expected": "26px",
       "actual": "26px",
       "measured": true,
-      "ok": true
+      "ok": true,
+      "via": "probe element"
     },
     {
       "kind": "dimension",
@@ -44,7 +48,8 @@
       "expected": "16px",
       "actual": "16px",
       "measured": true,
-      "ok": true
+      "ok": true,
+      "via": "probe element"
     },
     {
       "kind": "dimension",
@@ -53,7 +58,8 @@
       "expected": "15px",
       "actual": "15px",
       "measured": true,
-      "ok": true
+      "ok": true,
+      "via": "probe element"
     },
     {
       "kind": "dimension",
@@ -62,7 +68,8 @@
       "expected": "10px",
       "actual": "10px",
       "measured": true,
-      "ok": true
+      "ok": true,
+      "via": "probe element"
     },
     {
       "kind": "color",
@@ -73,7 +80,8 @@
       "actual": "rgb(255, 255, 255)",
       "delta": 0.0,
       "ok": true,
-      "measured": true
+      "measured": true,
+      "via": "page --lw-* var"
     },
     {
       "kind": "color",
@@ -84,7 +92,8 @@
       "actual": "rgb(246, 249, 252)",
       "delta": 0.0,
       "ok": true,
-      "measured": true
+      "measured": true,
+      "via": "page --lw-* var"
     },
     {
       "kind": "color",
@@ -95,7 +104,8 @@
       "actual": "rgb(248, 250, 253)",
       "delta": 0.0,
       "ok": true,
-      "measured": true
+      "measured": true,
+      "via": "page --lw-* var"
     },
     {
       "kind": "color",
@@ -106,7 +116,8 @@
       "actual": "rgb(6, 27, 49)",
       "delta": 0.0,
       "ok": true,
-      "measured": true
+      "measured": true,
+      "via": "page --lw-* var"
     },
     {
       "kind": "color",
@@ -117,7 +128,8 @@
       "actual": "rgb(80, 97, 122)",
       "delta": 0.0,
       "ok": true,
-      "measured": true
+      "measured": true,
+      "via": "page --lw-* var"
     },
     {
       "kind": "color",
@@ -128,7 +140,8 @@
       "actual": "rgb(100, 116, 141)",
       "delta": 0.0,
       "ok": true,
-      "measured": true
+      "measured": true,
+      "via": "page --lw-* var"
     },
     {
       "kind": "color",
@@ -139,7 +152,8 @@
       "actual": "rgb(83, 58, 253)",
       "delta": 0.0,
       "ok": true,
-      "measured": true
+      "measured": true,
+      "via": "page --lw-* var"
     },
     {
       "kind": "color",
@@ -150,7 +164,8 @@
       "actual": "rgb(99, 91, 255)",
       "delta": 0.0,
       "ok": true,
-      "measured": true
+      "measured": true,
+      "via": "page --lw-* var"
     },
     {
       "kind": "color",
@@ -161,7 +176,8 @@
       "actual": "rgb(255, 255, 255)",
       "delta": 0.0,
       "ok": true,
-      "measured": true
+      "measured": true,
+      "via": "page --lw-* var"
     },
     {
       "kind": "color",
@@ -172,7 +188,8 @@
       "actual": "rgb(83, 58, 253)",
       "delta": 0.0,
       "ok": true,
-      "measured": true
+      "measured": true,
+      "via": "page --lw-* var"
     }
   ],
   "pages": 1,

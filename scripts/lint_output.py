@@ -488,6 +488,31 @@ def schema_checks(dest: Path, dna: dict) -> list[dict]:
     ok, detail = theme_checks(dest, dna)
     rows.append({"name": "shadcn theme slots", "result": "PASS" if ok else "FAIL", "detail": detail})
 
+    bdir = dest / "clips"
+    if bdir.is_dir() and any(bdir.glob("*/brick.json")):
+        problems = []
+        for f in sorted(bdir.glob("*/brick.json")):
+            try:
+                b = json.loads(f.read_text())
+            except json.JSONDecodeError as exc:
+                problems.append(f"{f.parent.name}: invalid JSON ({exc})")
+                continue
+            if not b.get("states") or "before" not in b["states"]:
+                problems.append(f"{f.parent.name}: no 'before' state")
+            for target, d in (b.get("deltas") or {}).items():
+                for prop, pair in d.items():
+                    if not isinstance(pair, list) or len(pair) != 2:
+                        problems.append(f"{f.parent.name}: {target}.{prop} is not a [before, after] pair")
+            for k, v in (b.get("skin") or {}).items():
+                if k.startswith("__"):
+                    continue
+                if isinstance(v, dict) and not v.get("slot") and v.get("value"):
+                    problems.append(f"{f.parent.name}: skin {k} mapped to no slot")
+        rows.append({"name": "clip bricks", "result": "PASS" if not problems else "FAIL",
+                     "detail": "; ".join(problems[:4]) or f"{len(list(bdir.glob('*/brick.json')))} brick(s) valid"})
+    else:
+        rows.append({"name": "clip bricks", "result": "n/a", "detail": "no clips/ directory"})
+
     ok, detail = preview_checks(dest, dna)
     rows.append({"name": "preview.html (self-contained)", "result": "PASS" if ok else "FAIL", "detail": detail})
 

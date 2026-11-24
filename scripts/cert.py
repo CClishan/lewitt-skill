@@ -29,6 +29,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+import page_probe  # noqa: E402  shared live-page reader
 
 TOL = {"color": 4, "dimension": 1.0, "radius": 1.0}
 WEIGHTS = {"color": 3, "dimension": 2, "radius": 1, "weight": 2, "font": 2, "mode": 3}
@@ -106,60 +107,56 @@ def capture(url: str, workdir: Path, pages: int) -> tuple[dict, dict]:
 
 
 # ------------------------------------------------------------------ checks
-CSS_VARS_JS = r"""
-() => {
+SHADCN_SLOTS = {
+    "color/canvas": ["--background", "--card"],
+    "color/surface": ["--card", "--secondary", "--background"],
+    "color/surface-subtle": ["--muted", "--secondary", "--accent"],
+    "color/text/heading": ["--foreground", "--card-foreground"],
+    "color/text/body": ["--foreground"],
+    "color/text/primary": ["--foreground"],
+    "color/text/muted": ["--muted-foreground"],
+    "color/text/secondary": ["--muted-foreground"],
+    "color/action/bg": ["--primary"],
+    "color/action/fg": ["--primary-foreground"],
+    "color/link": ["--primary", "--ring"],
+    "color/border": ["--border", "--input"],
+    "color/ink-tint": ["--foreground"],
+}
+SHADCN_RADIUS = "--radius"
+
+RENDERED_JS = r"""
+(specs) => {
+  // last resort: read what the page actually paints on its landmark elements
+  const pick = (sel) => { try { return document.querySelector(sel); } catch (e) { return null; } };
+  const body = document.body;
+  const h1 = pick('h1, h2, [role="heading"]');
+  const primary = pick('button, [role="button"], a[class*="btn"], a[class*="button"]');
+  const card = pick('[class*="card"], article');
   const out = {};
-  for (const sheet of document.styleSheets) {
-    let rules;
-    try { rules = sheet.cssRules; } catch (e) { continue; }
-    if (!rules) continue;
-    for (const rule of rules) {
-      if (!rule.style) continue;
-      for (const name of rule.style) {
-        if (!name.startsWith('--lw-')) continue;
-        const v = rule.style.getPropertyValue(name).trim();
-        if (!v) continue;
-        const probe = document.createElement('span');
-        probe.style.color = v;
-        document.body.appendChild(probe);
-        out[name] = getComputedStyle(probe).color;
-        probe.remove();
-      }
-    }
-  }
+  if (body) { out['color/canvas'] = getComputedStyle(body).backgroundColor; out['color/text/body'] = getComputedStyle(body).color; }
+  if (h1) { out['color/text/heading'] = getComputedStyle(h1).color; out['type/hero'] = getComputedStyle(h1).fontSize; }
+  if (primary) { out['color/action/bg'] = getComputedStyle(primary).backgroundColor; out['color/action/fg'] = getComputedStyle(primary).color; out['radius/control'] = getComputedStyle(primary).borderRadius; }
+  if (card) { out['color/surface'] = getComputedStyle(card).backgroundColor; out['radius/card'] = getComputedStyle(card).borderRadius; }
   return out;
 }
 """
 
 
-def target_css_colours(url: str) -> dict:
-    """--lw-* custom properties the local page itself declares, resolved to rgb."""
-    script = f"""
-const {{ chromium }} = require(process.env.LEWITT_PLAYWRIGHT || 'playwright');
-(async () => {{
-  const browser = await chromium.launch({{ headless: true }});
-  const page = await browser.newPage();
-  await page.goto({json.dumps(url)}, {{ waitUntil: 'domcontentloaded', timeout: 45000 }});
-  await page.waitForTimeout(1500);
-  const out = await page.evaluate({CSS_VARS_JS});
-  await browser.close();
-  process.stdout.write(JSON.stringify(out));
-}})().catch((e) => {{ console.error(String(e)); process.exit(1); }});
-"""
-    with __import__("tempfile").TemporaryDirectory() as tmp:
-        f = Path(tmp) / "vars.js"
-        f.write_text(script)
-        env = dict(__import__("os").environ)
-        mod = __import__("capture").resolve_playwright()
-        if mod:
-            env["LEWITT_PLAYWRIGHT"] = str(mod)
-        proc = subprocess.run(["node", str(f)], capture_output=True, text=True, env=env, timeout=180)
-    if proc.returncode != 0:
-        return {}
-    try:
-        return json.loads(proc.stdout.strip().splitlines()[-1])
-    except (json.JSONDecodeError, IndexError):
-        return {}
+def rendered_fallback(url: str) -> dict:
+    got = page_probe.run(url, RENDERED_JS, None)
+    return {k: v for k, v in (got or {}).items() if v and v not in ("rgba(0, 0, 0, 0)", "initial")}
+
+
+def shadcn_radius(vars_map: dict) -> str | None:
+    entry = vars_map.get(SHADCN_RADIUS)
+    if not entry:
+        return None
+    raw = entry.get("raw", "")
+    m = re.match(r"(-?\d*\.?\d+)(px|rem|em)?", raw)
+    if not m:
+        return None
+    n = float(m.group(1))
+    return f"{n * 16:g}px" if m.group(2) in ("rem", "em") else f"{n:g}px"
 
 
 def check_colours(dna: dict, dom: dict, resolved: dict) -> list[dict]:
@@ -408,9 +405,32 @@ const {{ chromium }} = require(process.env.LEWITT_PLAYWRIGHT || 'playwright');
 
 
 # ------------------------------------------------------------------ verdict + report
+def load_intentions(run: Path) -> list[dict]:
+    """cert.config.json: {"intentional": [{"token": "color/link", "reason": "brand accent", "actual": "#..."}]}"""
+    cfg = run / "cert.config.json"
+    if not cfg.exists():
+        return []
+    try:
+        data = json.loads(cfg.read_text())
+    except json.JSONDecodeError:
+        return []
+    items = data.get("intentional") or data.get("allowedDeviations") or []
+    return [i for i in items if isinstance(i, dict) and i.get("token") and i.get("reason")]
+
+
+def apply_intentions(checks: list[dict], intentions: list[dict]) -> list[dict]:
+    by_token = {i["token"]: i for i in intentions}
+    for c in checks:
+        note = by_token.get(c["token"])
+        if note and c.get("ok") is False:
+            c["intentional"] = True
+            c["reason"] = note["reason"]
+    return checks
+
+
 def verdict(checks: list[dict], guard_hits: list[dict]) -> str:
     measured = [c for c in checks if c.get("measured")]
-    failed = [c for c in measured if c.get("ok") is False]
+    failed = [c for c in measured if c.get("ok") is False and not c.get("intentional")]
     score = sum(WEIGHTS.get(c["kind"], 1) for c in failed)
     if guard_hits:
         return "rejected"
@@ -453,11 +473,22 @@ def render_md(cert: dict) -> str:
         out.append("")
     out.append("## What was measured")
     out.append("")
-    out.append("| Token | Value in tokens.css | Rendered value | Result |")
-    out.append("| --- | --- | --- | --- |")
+    out.append("| Token | Value in tokens.css | Rendered value | Read from | Result |")
+    out.append("| --- | --- | --- | --- | --- |")
     for c in cert["checks"]:
-        res = "not measured" if not c.get("measured") else ("match" if c.get("ok") else "deviation")
-        out.append(f"| `{c['token']}` | `{c['expected']}` | `{c.get('actual', '—')}` | {res} |")
+        if not c.get("measured"):
+            res = "not measured"
+        elif c.get("intentional"):
+            res = "intentional deviation"
+        else:
+            res = "match" if c.get("ok") else "deviation"
+        out.append(f"| `{c['token']}` | `{c['expected']}` | `{c.get('actual', '—')}` | {c.get('via', '—')} | {res} |")
+    if cert.get("intentional"):
+        out.append("")
+        out.append("## Intentional deviations (cert.config.json)")
+        out.append("")
+        for c in cert["intentional"]:
+            out.append(f"- `{c['token']}` — {c.get('reason')} (rendered `{c.get('actual')}, extracted `{c.get('expected')}`)")
     out.append("")
     out.append("## Not certified")
     out.append("")
@@ -535,13 +566,42 @@ def main() -> int:
         for t in dna["tokens"] if t["type"] == "color" and t["layer"] == "semantic"
     ]
     probed = probe(specs, work, run / "tokens.css", args.url)
-    page_vars = target_css_colours(args.url)
+    # three tiers, in this order: the page's own --lw-* vars, then shadcn/Tailwind slots,
+    # then what the page actually paints. A shadcn build must not read as "nothing measured".
+    page_vars = page_probe.read_vars(args.url)
+    lewitt_vars = page_vars.get("lewitt", {})
+    shadcn_vars = page_vars.get("shadcn", {})
+    rendered = rendered_fallback(args.url)
+    sources = {}
     for spec in specs:
-        if spec["kind"] == "color" and spec["css"] in page_vars:
-            probed.setdefault(spec["token"], {})
-            probed[spec["token"]] = {"actual": page_vars[spec["css"]], "missing": False, "via": "page css custom property"}
+        token, kind = spec["token"], spec["kind"]
+        if kind == "color":
+            if spec["css"] in lewitt_vars:
+                probed[token] = {"actual": lewitt_vars[spec["css"]].get("rgb"), "missing": False, "via": "page --lw-* var"}
+                sources[token] = "page --lw-* var"
+            else:
+                for slot in SHADCN_SLOTS.get(token, []):
+                    if slot in shadcn_vars:
+                        probed[token] = {"actual": shadcn_vars[slot].get("rgb"), "missing": False, "via": f"page {slot}"}
+                        sources[token] = f"page {slot}"
+                        break
+                else:
+                    if token in rendered:
+                        probed[token] = {"actual": rendered[token], "missing": False, "via": "rendered element"}
+                        sources[token] = "rendered element"
+        elif kind == "radius" and SHADCN_RADIUS in shadcn_vars:
+            probed[token] = {"actual": shadcn_radius(shadcn_vars), "missing": False, "via": "page --radius"}
+            sources[token] = "page --radius"
+        elif kind == "dimension" and token in rendered:
+            probed[token] = {"actual": rendered[token], "missing": False, "via": "rendered element"}
+            sources[token] = "rendered element"
+        elif kind == "font" and token in rendered:
+            pass
     result = evaluate(dna, dom, resolved, probed)
-    checks = result["checks"]
+    for c in result["checks"]:
+        c["via"] = sources.get(c["token"]) or probed.get(c["token"], {}).get("via") or (
+            "probe element" if c.get("measured") else "—")
+    checks = apply_intentions(result["checks"], load_intentions(run))
 
     guardrails = check_guardrails(dna)
     hits = live_guardrails(guardrails, args.url).get("hits", []) if guardrails else []
@@ -549,7 +609,8 @@ def main() -> int:
     if guardrails and not hits:
         guard_scope += "; scanned each element's class list, inline style and box-shadow"
     measured = [c for c in checks if c.get("measured")]
-    deviations = [c for c in measured if c.get("ok") is False]
+    deviations = [c for c in measured if c.get("ok") is False and not c.get("intentional")]
+    excused = [c for c in measured if c.get("intentional")]
     status = verdict(checks, hits)
 
     unchecked = [
@@ -573,6 +634,7 @@ def main() -> int:
         "total": len(checks),
         "measured": len(measured),
         "deviations": [d for d in deviations],
+        "intentional": excused,
         "guardrailHits": hits,
         "guardrailScope": guard_scope,
         "checks": checks,

@@ -4,7 +4,7 @@
 
 - target: `http://127.0.0.1:8765/`
 - instructions: `stripe.com` (dna.json, schema 1.1)
-- issued: 2026-11-24T03:35:00+00:00 · pages inspected: 1
+- issued: 2026-11-24T03:57:49+00:00 · pages inspected: 1
 
 > sign this only for the tokens above; unmeasured rows are listed, not assumed
 
@@ -14,24 +14,24 @@ No deviation on the measured tokens.
 
 ## What was measured
 
-| Token | Value in tokens.css | Rendered value | Result |
-| --- | --- | --- | --- |
-| `type/hero` | `48px` | `48px` | match |
-| `type/h2` | `32px` | `32px` | match |
-| `type/h3` | `26px` | `26px` | match |
-| `type/body` | `16px` | `16px` | match |
-| `type/ui` | `15px` | `15px` | match |
-| `type/caption` | `10px` | `10px` | match |
-| `color/canvas` | `#FFFFFF` | `rgb(255, 255, 255)` | match |
-| `color/canvas-tint` | `#F6F9FC` | `rgb(246, 249, 252)` | match |
-| `color/surface-subtle` | `#F8FAFD` | `rgb(248, 250, 253)` | match |
-| `color/text/heading` | `#061B31` | `rgb(6, 27, 49)` | match |
-| `color/text/body` | `#50617A` | `rgb(80, 97, 122)` | match |
-| `color/text/muted` | `#64748D` | `rgb(100, 116, 141)` | match |
-| `color/action/bg` | `#533AFD` | `rgb(83, 58, 253)` | match |
-| `color/action/bg-alt` | `#635BFF` | `rgb(99, 91, 255)` | match |
-| `color/action/fg` | `#FFFFFF` | `rgb(255, 255, 255)` | match |
-| `color/link` | `#533AFD` | `rgb(83, 58, 253)` | match |
+| Token | Value in tokens.css | Rendered value | Read from | Result |
+| --- | --- | --- | --- | --- |
+| `type/hero` | `48px` | `48px` | rendered element | match |
+| `type/h2` | `32px` | `32px` | probe element | match |
+| `type/h3` | `26px` | `26px` | probe element | match |
+| `type/body` | `16px` | `16px` | probe element | match |
+| `type/ui` | `15px` | `15px` | probe element | match |
+| `type/caption` | `10px` | `10px` | probe element | match |
+| `color/canvas` | `#FFFFFF` | `rgb(255, 255, 255)` | page --lw-* var | match |
+| `color/canvas-tint` | `#F6F9FC` | `rgb(246, 249, 252)` | page --lw-* var | match |
+| `color/surface-subtle` | `#F8FAFD` | `rgb(248, 250, 253)` | page --lw-* var | match |
+| `color/text/heading` | `#061B31` | `rgb(6, 27, 49)` | page --lw-* var | match |
+| `color/text/body` | `#50617A` | `rgb(80, 97, 122)` | page --lw-* var | match |
+| `color/text/muted` | `#64748D` | `rgb(100, 116, 141)` | page --lw-* var | match |
+| `color/action/bg` | `#533AFD` | `rgb(83, 58, 253)` | page --lw-* var | match |
+| `color/action/bg-alt` | `#635BFF` | `rgb(99, 91, 255)` | page --lw-* var | match |
+| `color/action/fg` | `#FFFFFF` | `rgb(255, 255, 255)` | page --lw-* var | match |
+| `color/link` | `#533AFD` | `rgb(83, 58, 253)` | page --lw-* var | match |
 
 ## Not certified
 

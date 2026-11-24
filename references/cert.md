@@ -14,6 +14,22 @@ directory**. It never edits `dna.json` or any render.
 
 ## What is measured
 
+### Where a value is read from (three tiers)
+
+Real projects do not all declare `--lw-*`: a shadcn/ui + Tailwind v4 app only has
+`--background / --foreground / --primary / --muted-foreground / --border / --radius`. `cert` reads
+each check through these tiers and records which one answered in the "Read from" column:
+
+1. **`--lw-*` on the page** — the variables lewitt exports;
+2. **shadcn / Tailwind v4 slots** — `--background`, `--foreground`, `--primary`,
+   `--primary-foreground`, `--muted`, `--muted-foreground`, `--card`, `--border`, `--radius`
+   (radius converted from `rem` to `px`);
+3. **what the page actually paints** — `body` background/colour, `h1` colour and font size, the first
+   button's fill/label/radius, the first card's surface/radius.
+
+A token answered by tier 1 or 2 is a declaration check; tier 3 is a rendering check. A token no
+tier can answer is reported as **not measured**, never as a pass.
+
 | Group | How | Pass rule |
 | --- | --- | --- |
 | component type sizes (`type/*`) | each variable is applied to a probe element on **your page** and read back | within 1px |
@@ -24,6 +40,21 @@ directory**. It never edits `dna.json` or any render.
 
 A variable your page never defines is reported as **not measured**, not as a pass. The report
 always ends with a "not certified" list (component geometry, spacing, motion, resemblance).
+
+## Intentional deviations
+
+Some differences are decisions. Declare them next to `dna.json`:
+
+```json
+// {run_dir}/cert.config.json
+{"intentional": [
+  {"token": "color/text/body", "reason": "this build uses the heading ink on purpose"},
+  {"token": "type/h2", "reason": "h2 scale not implemented yet"}
+]}
+```
+
+Matching deviations are listed under *Intentional deviations* with their reason and no longer count
+towards `rejected`. A reason is mandatory; an entry without one is ignored.
 
 ## Verdict
 

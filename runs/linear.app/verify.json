@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-24T03:34:48+00:00",
+  "generatedAt": "2026-11-24T04:12:52+00:00",
   "dest": "linear.app",
   "meta": {
     "name": "Linear",
@@ -67,6 +67,11 @@
       "name": "shadcn theme slots",
       "result": "PASS",
       "detail": "all required slots mapped; 3 declared UNMAPPED: --destructive, --border, --input"
+    },
+    {
+      "name": "clip bricks",
+      "result": "n/a",
+      "detail": "no clips/ directory"
     },
     {
       "name": "preview.html (self-contained)",

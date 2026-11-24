@@ -1,0 +1,228 @@
+{
+  "version": "0.1.0",
+  "capturedAt": "2026-11-24T04:11:36+00:00",
+  "sourceRun": "stripe.com",
+  "schemaVersion": "1.1",
+  "action": "toggle",
+  "camera": {
+    "width": 1440,
+    "height": 900
+  },
+  "source": {
+    "url": "http://127.0.0.1:8768/",
+    "how": "selector",
+    "trigger": "button.cta",
+    "triggerText": "Show details",
+    "triggerTag": "button",
+    "module": "#exp",
+    "moduleBox": [
+      60,
+      388,
+      1320,
+      113
+    ]
+  },
+  "states": {
+    "before": {
+      "rect": [
+        60,
+        388,
+        1320,
+        113
+      ],
+      "opacity": "1",
+      "transform": "none",
+      "display": "block",
+      "visibility": "visible",
+      "background": "rgb(248, 250, 253)",
+      "color": "rgb(80, 97, 122)",
+      "border-radius": "16.5px",
+      "box-shadow": "none",
+      "transition": "all",
+      "animation": "none",
+      "anims": []
+    },
+    "before_target": {
+      "rect": [
+        76,
+        485,
+        1288,
+        0
+      ],
+      "opacity": "1",
+      "transform": "none",
+      "display": "block",
+      "visibility": "visible",
+      "background": "rgba(0, 0, 0, 0)",
+      "color": "rgb(80, 97, 122)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "transition": "max-height 0.4s",
+      "animation": "none",
+      "anims": []
+    },
+    "during": {
+      "rect": [
+        76,
+        485,
+        1288,
+        50
+      ],
+      "opacity": "1",
+      "transform": "none",
+      "display": "block",
+      "visibility": "visible",
+      "background": "rgba(0, 0, 0, 0)",
+      "color": "rgb(80, 97, 122)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "transition": "max-height 0.4s",
+      "animation": "none",
+      "anims": [
+        {
+          "name": "(transition)",
+          "playState": "running",
+          "currentTime": 83,
+          "effect": [
+            {
+              "offset": 0,
+              "props": [
+                "maxHeight",
+                "computedOffset"
+              ]
+            },
+            {
+              "offset": 1,
+              "props": [
+                "maxHeight",
+                "computedOffset"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "after": {
+      "rect": [
+        76,
+        485,
+        1288,
+        50
+      ],
+      "opacity": "1",
+      "transform": "none",
+      "display": "block",
+      "visibility": "visible",
+      "background": "rgba(0, 0, 0, 0)",
+      "color": "rgb(80, 97, 122)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "transition": "max-height 0.4s",
+      "animation": "none",
+      "anims": []
+    },
+    "restored": {
+      "rect": [
+        76,
+        485,
+        1288,
+        0
+      ],
+      "opacity": "1",
+      "transform": "none",
+      "display": "block",
+      "visibility": "visible",
+      "background": "rgba(0, 0, 0, 0)",
+      "color": "rgb(80, 97, 122)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "transition": "max-height 0.4s",
+      "animation": "none",
+      "anims": []
+    },
+    "_machine": [
+      {
+        "from": "idle",
+        "to": "open",
+        "how": "click (or keyboard equivalent) on the trigger",
+        "observed": true
+      },
+      {
+        "from": "open",
+        "to": "idle",
+        "how": "second click, Escape, or click outside",
+        "observed": true
+      }
+    ]
+  },
+  "deltas": {
+    "module.hover": {},
+    "module.settled": {},
+    "stateful.open": {
+      "rect": [
+        [
+          76,
+          485,
+          1288,
+          0
+        ],
+        [
+          76,
+          485,
+          1288,
+          50
+        ]
+      ]
+    },
+    "stateful.closed": {}
+  },
+  "skin": {
+    "background": {
+      "value": "rgb(248, 250, 253)",
+      "slot": "color/action/fg",
+      "css": "--lw-action-fg",
+      "resolved": "#FFFFFF",
+      "delta": 7.0
+    },
+    "color": {
+      "value": "rgb(80, 97, 122)",
+      "slot": "color/action/bg",
+      "css": "--lw-action-bg",
+      "resolved": "#533AFD",
+      "delta": 131.0
+    },
+    "background_during": {
+      "value": "rgba(0, 0, 0, 0)",
+      "slot": "color/canvas",
+      "css": "--lw-canvas",
+      "resolved": "#FFFFFF",
+      "delta": 0.0
+    },
+    "__layout": {
+      "rows": [
+        {
+          "tag": "button",
+          "role": "button",
+          "text": "Show details"
+        },
+        {
+          "tag": "p",
+          "role": "p",
+          "text": "Panel content here."
+        }
+      ]
+    }
+  },
+  "notes": [
+    "Drive the state with a class the project owns (e.g. `is-open`), never with source-site classes.",
+    "Animate only the properties that changed: background, border-radius, rect.",
+    "Use the source's transition string for timing; replace colours and faces with the mapped slots above.",
+    "Keep the geometry contract: the module's box is [60, 388, 1320, 113]. Layout inside it may change, the box may not.",
+    "If a property did not change in the recording, do not invent a transition for it."
+  ],
+  "cleanup": [
+    "Remove any injected helper styles before leaving the page.",
+    "Close any window an activation opened; the recording never submits forms or logs in.",
+    "Keep shots/ next to brick.md so the geometry can be re-checked after implementation."
+  ]
+}
