@@ -22,4 +22,4 @@ Renders are deterministic re-encodings of `dna.json`: byte-equality proves the a
 | visual fidelity | unverified | no fidelity.json — requires a side-by-side comparison at matching viewports |
 | full system/ site | PASS | app shell present (rail + canvas + panel routing) |
 
-Generated at 2026-11-24T04:12:53+00:00.
+Generated at 2026-11-24T04:15:56+00:00.
