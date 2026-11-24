@@ -7,14 +7,15 @@
 ### MUST NOT — Colour is a once-per-page event
 _One full-bleed gradient band in the hero; below it every surface is white or a pale blue tint._
 
-- Forbidden class patterns: `(^|-)bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)`
+- Forbidden class patterns: `(?:^|[^a-z0-9-])bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)`, `shadow-(?!(?:none|sm|inner)\b)[a-z0-9]+`
+- Upper bound: `border-width` ≤ 1px
 - Why: Readers need to trust the screenshots more than the scenery; once colour stops, the product becomes the subject.
-- Note: Needs judgement: allow gradients only inside the hero band and on illustration. Elements at #533AFD are actions, not decoration.
+- Note: Gradients outside the hero band and any non-ring shadow class are violations; hairlines (1px) are the intended depth signal.
 
 ### MUST NOT — One indigo, only where you can click
 _Indigo only on the filled CTA, the outlined CTA border, and linked words; everything else is ink or tint._
 
-- Forbidden class patterns: `(^|-)bg-(indigo|violet|purple)-[4-7]00$`, `(^|-)bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)`
+- Forbidden class patterns: `(?:^|[^a-z0-9-])bg-(?:indigo|violet|purple)-(?:4|5|6|7)\d\d$`, `(?:^|[^a-z0-9-])bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)`
 - Why: At ~0.2% of the surface, indigo always means 'do something'; a larger share would make the page a brand poster and slow scanning.
 - Note: Allowed on buttons/links only; never on a section or card background.
 

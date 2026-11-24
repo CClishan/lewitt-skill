@@ -1170,7 +1170,7 @@
       "guardrail": {
         "forbidCss": [],
         "forbidClass": [
-          "(^|-)shadow-(?!none|sm|inner)[a-z]+-[a-z]+"
+          "shadow-(?!(?:none|sm|inner)\\b)[a-z0-9]+"
         ],
         "max": {
           "box-shadow": {

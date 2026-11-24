@@ -7,7 +7,7 @@
 ### MUST NOT — Depth is a hairline, not a shadow
 _Separate layers with #333B47 1px borders over a #29313D fill; one shadow exists in the whole sample._
 
-- Forbidden class patterns: `(^|-)shadow-(?!none|sm|inner)[a-z]+-[a-z]+`
+- Forbidden class patterns: `shadow-(?!(?:none|sm|inner)\b)[a-z0-9]+`
 - Upper bound: `box-shadow` ≤ 0px
 - Why: On a dark canvas a shadow is invisible until it is strong enough to smear the 12px digits sitting on it.
 - Note: Exception: the single floating overlay panel measured at 14px/6px blur. Everything else is a 1px border.

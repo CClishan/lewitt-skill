@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-24T03:04:33+00:00",
+  "generatedAt": "2026-11-24T03:34:48+00:00",
   "dest": "binance.com",
   "meta": {
     "name": "Binance",
@@ -45,6 +45,16 @@
       "name": "single source (R3)",
       "result": "PASS",
       "detail": "all artifacts are deterministic renders of dna.json, no post-render edits"
+    },
+    {
+      "name": "guardrail static conflicts",
+      "result": "PASS",
+      "detail": "no bound forbids the property it bounds"
+    },
+    {
+      "name": "guardrail pattern self-test",
+      "result": "PASS",
+      "detail": "every forbidClass pattern compiles and catches a known violation"
     },
     {
       "name": "system/ colour scope",
@@ -1275,7 +1285,7 @@
         "guardrail": {
           "forbidCss": [],
           "forbidClass": [
-            "(^|-)shadow-(?!none|sm|inner)[a-z]+-[a-z]+"
+            "shadow-(?!(?:none|sm|inner)\\b)[a-z0-9]+"
           ],
           "max": {
             "box-shadow": {

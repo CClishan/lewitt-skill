@@ -1,0 +1,185 @@
+{
+  "issuedAt": "2026-11-24T03:35:00+00:00",
+  "target": "http://127.0.0.1:8765/",
+  "sourceRun": "stripe.com",
+  "schemaVersion": "1.1",
+  "status": "certified",
+  "total": 16,
+  "measured": 16,
+  "deviations": [],
+  "guardrailHits": [],
+  "guardrailScope": "the audited page (http://127.0.0.1:8765/); scanned each element's class list, inline style and box-shadow",
+  "checks": [
+    {
+      "kind": "dimension",
+      "token": "type/hero",
+      "css": "--lw-type-hero",
+      "expected": "48px",
+      "actual": "48px",
+      "measured": true,
+      "ok": true
+    },
+    {
+      "kind": "dimension",
+      "token": "type/h2",
+      "css": "--lw-type-h2",
+      "expected": "32px",
+      "actual": "32px",
+      "measured": true,
+      "ok": true
+    },
+    {
+      "kind": "dimension",
+      "token": "type/h3",
+      "css": "--lw-type-h3",
+      "expected": "26px",
+      "actual": "26px",
+      "measured": true,
+      "ok": true
+    },
+    {
+      "kind": "dimension",
+      "token": "type/body",
+      "css": "--lw-type-body",
+      "expected": "16px",
+      "actual": "16px",
+      "measured": true,
+      "ok": true
+    },
+    {
+      "kind": "dimension",
+      "token": "type/ui",
+      "css": "--lw-type-ui",
+      "expected": "15px",
+      "actual": "15px",
+      "measured": true,
+      "ok": true
+    },
+    {
+      "kind": "dimension",
+      "token": "type/caption",
+      "css": "--lw-type-caption",
+      "expected": "10px",
+      "actual": "10px",
+      "measured": true,
+      "ok": true
+    },
+    {
+      "kind": "color",
+      "token": "color/canvas",
+      "css": "--lw-canvas",
+      "expected": "#FFFFFF",
+      "source_seen": false,
+      "actual": "rgb(255, 255, 255)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true
+    },
+    {
+      "kind": "color",
+      "token": "color/canvas-tint",
+      "css": "--lw-canvas-tint",
+      "expected": "#F6F9FC",
+      "source_seen": false,
+      "actual": "rgb(246, 249, 252)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true
+    },
+    {
+      "kind": "color",
+      "token": "color/surface-subtle",
+      "css": "--lw-surface-subtle",
+      "expected": "#F8FAFD",
+      "source_seen": false,
+      "actual": "rgb(248, 250, 253)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true
+    },
+    {
+      "kind": "color",
+      "token": "color/text/heading",
+      "css": "--lw-text-heading",
+      "expected": "#061B31",
+      "source_seen": false,
+      "actual": "rgb(6, 27, 49)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true
+    },
+    {
+      "kind": "color",
+      "token": "color/text/body",
+      "css": "--lw-text-body",
+      "expected": "#50617A",
+      "source_seen": false,
+      "actual": "rgb(80, 97, 122)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true
+    },
+    {
+      "kind": "color",
+      "token": "color/text/muted",
+      "css": "--lw-text-muted",
+      "expected": "#64748D",
+      "source_seen": false,
+      "actual": "rgb(100, 116, 141)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true
+    },
+    {
+      "kind": "color",
+      "token": "color/action/bg",
+      "css": "--lw-action-bg",
+      "expected": "#533AFD",
+      "source_seen": false,
+      "actual": "rgb(83, 58, 253)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true
+    },
+    {
+      "kind": "color",
+      "token": "color/action/bg-alt",
+      "css": "--lw-action-bg-alt",
+      "expected": "#635BFF",
+      "source_seen": false,
+      "actual": "rgb(99, 91, 255)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true
+    },
+    {
+      "kind": "color",
+      "token": "color/action/fg",
+      "css": "--lw-action-fg",
+      "expected": "#FFFFFF",
+      "source_seen": false,
+      "actual": "rgb(255, 255, 255)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true
+    },
+    {
+      "kind": "color",
+      "token": "color/link",
+      "css": "--lw-link",
+      "expected": "#533AFD",
+      "source_seen": false,
+      "actual": "rgb(83, 58, 253)",
+      "delta": 0.0,
+      "ok": true,
+      "measured": true
+    }
+  ],
+  "pages": 1,
+  "unchecked": [
+    "component geometry (padding, gaps, radii of specific elements) is not probed — only token values are",
+    "spacing scale, motion timing and hover/focus deltas on the live page are not asserted",
+    "visual resemblance to the source site is out of scope: this certificate is about instructions, not screenshots"
+  ],
+  "note": "sign this only for the tokens above; unmeasured rows are listed, not assumed"
+}

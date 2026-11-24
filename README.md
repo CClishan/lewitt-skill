@@ -49,6 +49,7 @@ Every run writes to an isolated `{dest}/{domain}/` directory:
 ├── dna.json               # single source of truth (evidence, measurements, patterns, taste, tokens)
 ├── preview.html           # zero-dependency interactive preview (every mode)
 ├── shadcn-theme.css       # shadcn/ui + Tailwind v4 @theme slots (unmapped slots declared)
+├── cert.md / cert.json    # `lewitt cert` verdict for a running build
 ├── taste.md               # human-readable anatomy, token table and Taste DNA
 ├── agent-rules.md         # condensed rules for coding agents (MUST NOT guardrails on top)
 ├── tokens.css             # scoped CSS custom properties (--lw-*)
@@ -113,6 +114,19 @@ and any companion tool that reads or writes this file stays compatible.
 Interaction deltas are measured, not guessed: the capture driver hovers representatives with a
 real CDP mouse and calls `element.focus()`, recording before→after values for
 `background-color, color, border-color, box-shadow, outline, transform`.
+
+## Certify What You Built (`lewitt cert`)
+
+```sh
+python3 scripts/cert.py --url http://localhost:3000 --dest runs/stripe.com
+```
+
+Like the certificate LeWitt signed once an assistant had executed the wall drawing, `cert` audits a
+running page against the extraction: token values read from **your page's own** CSS custom
+properties, component type sizes and radii applied to a probe element, plus a scan of every element's
+classes and `box-shadow` for guardrail hits. It writes `cert.md` / `cert.html` / `cert.json` with a
+verdict — `certified`, `warned`, `rejected`, `inconclusive` — and exits non-zero on anything but a
+clean pass. Anything it could not measure is listed, never assumed.
 
 ## Enforce Guardrails on Your Own Code
 

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-24T03:04:33+00:00",
+  "generatedAt": "2026-11-24T03:34:48+00:00",
   "dest": "stripe.com",
   "meta": {
     "name": "Stripe",
@@ -60,6 +60,16 @@
       "detail": "all artifacts are deterministic renders of dna.json, no post-render edits"
     },
     {
+      "name": "guardrail static conflicts",
+      "result": "PASS",
+      "detail": "no bound forbids the property it bounds"
+    },
+    {
+      "name": "guardrail pattern self-test",
+      "result": "PASS",
+      "detail": "every forbidClass pattern compiles and catches a known violation"
+    },
+    {
       "name": "system/ colour scope",
       "result": "PASS",
       "detail": "canvas token #FFFFFF (light); chrome shell light"
@@ -101,8 +111,8 @@
     },
     {
       "name": "guardrail (generated code)",
-      "result": "unverified",
-      "detail": "no --check-code supplied"
+      "result": "PASS",
+      "detail": "0 violation(s) — scanned stripe.com/system"
     },
     {
       "name": "visual fidelity",
@@ -1018,10 +1028,16 @@
         "guardrail": {
           "forbidCss": [],
           "forbidClass": [
-            "(^|-)bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)"
+            "(?:^|[^a-z0-9-])bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)",
+            "shadow-(?!(?:none|sm|inner)\\b)[a-z0-9]+"
           ],
-          "max": {},
-          "note": "Needs judgement: allow gradients only inside the hero band and on illustration. Elements at #533AFD are actions, not decoration."
+          "max": {
+            "border-width": {
+              "value": "1",
+              "unit": "px"
+            }
+          },
+          "note": "Gradients outside the hero band and any non-ring shadow class are violations; hairlines (1px) are the intended depth signal."
         }
       },
       {
@@ -1044,8 +1060,8 @@
         "guardrail": {
           "forbidCss": [],
           "forbidClass": [
-            "(^|-)bg-(indigo|violet|purple)-[4-7]00$",
-            "(^|-)bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)"
+            "(?:^|[^a-z0-9-])bg-(?:indigo|violet|purple)-(?:4|5|6|7)\\d\\d$",
+            "(?:^|[^a-z0-9-])bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)"
           ],
           "max": {},
           "note": "Allowed on buttons/links only; never on a section or card background."

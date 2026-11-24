@@ -124,7 +124,7 @@
 - **Reason**: On #08090A a white pill is already the loudest possible element; a coloured button would read as a template and compete with the product screenshot.
 - **Evidence**: e-nav-cta, e-text-pink-hero, e-text-primary  ·  patterns: p-accent-restraint
 - **Status**: Observed / 实测
-- **Guardrail (enforced)**: `{"forbidCss": [], "forbidClass": ["(^|-)bg-(?!white|black|transparent|gray|neutral|zinc|slate|none)[a-z]+-(4|5|6|7)\\d\\d$", "(^|-)text-(?!white|black|transparent)[a-z]+-(4|5|6)\\d\\d$"], "max": {}, "note": "Any saturated fill/stroke belongs to illustration only, never to a control."}`
+- **Guardrail (enforced)**: `{"forbidCss": [], "forbidClass": ["(?:^|[^a-z0-9-])bg-(?!white\\b|black\\b|transparent\\b|gray\\b|neutral\\b|zinc\\b|slate\\b|none\\b)[a-z]+-(?:4|5|6|7)\\d\\d$", "(^|-)text-(?!white|black|transparent)[a-z]+-(4|5|6)\\d\\d$"], "max": {}, "note": "Any saturated fill/stroke belongs to illustration only, never to a control."}`
 
 ### Voice comes from weight, not from size
 - **Kind**: craft
@@ -152,7 +152,7 @@
 - **Reason**: On #08090A a drop shadow is invisible and a strong one muddies the surface; a hairline ring holds the edge without stacking depth.
 - **Evidence**: e-shadows, e-shadows-other, e-home-surface  ·  patterns: p-ring-depth
 - **Status**: Observed / 实测
-- **Guardrail (enforced)**: `{"forbidCss": [], "requireCss": [], "forbidClass": ["(^|-)shadow-(?!none|sm|inner)[a-z]+-[a-z]+"], "max": {"box-shadow": {"value": "1", "unit": "px"}}, "note": "Offsets must stay 0; blur is allowed only on floating overlays."}`
+- **Guardrail (enforced)**: `{"forbidCss": [], "requireCss": [], "forbidClass": ["shadow-(?!(?:none|sm|inner)\\b)[a-z0-9]+"], "max": {"box-shadow": {"value": "1", "unit": "px"}}, "note": "Offsets must stay 0; blur is allowed only on floating overlays."}`
 
 ## Open questions
 

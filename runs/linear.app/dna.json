@@ -781,7 +781,7 @@
       "guardrail": {
         "forbidCss": [],
         "forbidClass": [
-          "(^|-)bg-(?!white|black|transparent|gray|neutral|zinc|slate|none)[a-z]+-(4|5|6|7)\\d\\d$",
+          "(?:^|[^a-z0-9-])bg-(?!white\\b|black\\b|transparent\\b|gray\\b|neutral\\b|zinc\\b|slate\\b|none\\b)[a-z]+-(?:4|5|6|7)\\d\\d$",
           "(^|-)text-(?!white|black|transparent)[a-z]+-(4|5|6)\\d\\d$"
         ],
         "max": {},
@@ -849,7 +849,7 @@
         "forbidCss": [],
         "requireCss": [],
         "forbidClass": [
-          "(^|-)shadow-(?!none|sm|inner)[a-z]+-[a-z]+"
+          "shadow-(?!(?:none|sm|inner)\\b)[a-z0-9]+"
         ],
         "max": {
           "box-shadow": {

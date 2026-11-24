@@ -287,6 +287,51 @@ PREVIEW_DEPS = re.compile(r'(?:<img[^>]*?src|src|<link[^>]*?href)\s*=\s*["\']([^
 PREVIEW_EXTERNAL = re.compile(r'^(?:https?:)?//', re.IGNORECASE)
 
 
+SELF_TEST = [
+    # (pattern family, sample class, should match)
+    ("shadow-floor", "shadow-lg", True), ("shadow-floor", "shadow-2xl", True),
+    ("shadow-floor", "shadow-sm", False), ("shadow-floor", "shadow-inner", False),
+    ("gradient", "bg-gradient-to-r", True), ("gradient", "btn bg-linear-to-r", True),
+    ("gradient", "bg-blue-100", False),
+    ("bg-role", "bg-indigo-600", True), ("bg-role", "bg-white", False), ("bg-role", "bg-slate-100", False),
+]
+
+
+def guardrail_selftest(dna: dict) -> list[str]:
+    """Regression net: a guardrail that compiles but matches nothing is worse than none."""
+    bad = []
+    for t in dna["taste"]:
+        g = t.get("guardrail") or {}
+        for pattern in g.get("forbidClass", []):
+            try:
+                re.compile(pattern)
+            except re.error as exc:
+                bad.append(f"{t['id']}: /{pattern[:40]}/ does not compile ({exc})")
+                continue
+            sample = None
+            if "shadow" in pattern:
+                sample = "btn shadow-lg"
+            elif "gradient-to-" in pattern or "linear-to-" in pattern:
+                sample = "bg-gradient-to-r"
+            elif pattern.startswith("(?:^|[^a-z0-9-])bg-") or "bg-(?!" in pattern:
+                sample = "bg-indigo-600"
+            if sample and not re.search(pattern, sample):
+                bad.append(f"{t['id']}: /{pattern[:48]}/ matches nothing (tried {sample!r})")
+    return bad
+
+
+def guardrail_static_conflicts(dna: dict) -> list[str]:
+    """A min/max bound that also forbids the same property is unsatisfiable — catch it here, not at audit time."""
+    bad = []
+    for t in dna["taste"]:
+        g = t.get("guardrail") or {}
+        forbid = {p.lower() for p in g.get("forbidCss", [])}
+        for prop in (g.get("max") or {}):
+            if prop.lower() in forbid:
+                bad.append(f"{t['id']}: '{prop}' is both required to stay under a bound and forbidden")
+    return bad
+
+
 def theme_checks(dest: Path, dna: dict) -> tuple[bool, str]:
     """Every shadcn slot must either map to a token or be declared UNMAPPED; never invented."""
     path = dest / "shadcn-theme.css"
@@ -420,6 +465,14 @@ def schema_checks(dest: Path, dna: dict) -> list[dict]:
     drift, changed = drift_check(dest, dna)
     rows.append({"name": "single source (R3)", "result": "PASS" if not drift else "FAIL",
                  "detail": "; ".join(drift) or "all artifacts are deterministic renders of dna.json, no post-render edits"})
+
+    conflicts = guardrail_static_conflicts(dna)
+    rows.append({"name": "guardrail static conflicts", "result": "PASS" if not conflicts else "FAIL",
+                 "detail": "; ".join(conflicts) or "no bound forbids the property it bounds"})
+
+    selftest = guardrail_selftest(dna)
+    rows.append({"name": "guardrail pattern self-test", "result": "PASS" if not selftest else "FAIL",
+                 "detail": "; ".join(selftest[:4]) or "every forbidClass pattern compiles and catches a known violation"})
 
     ok, detail = system_colour_scope(dest, dna)
     rows.append({"name": "system/ colour scope", "result": "PASS" if ok else "FAIL", "detail": detail})

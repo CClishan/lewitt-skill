@@ -150,7 +150,7 @@
 - **Reason**: On a dark canvas a shadow is invisible until it is strong enough to smear the 12px digits sitting on it.
 - **Evidence**: e-surface-raised, e-stroke-strong, e-shadow  ·  patterns: p-nested-surfaces
 - **Status**: Observed / 实测
-- **Guardrail (enforced)**: `{"forbidCss": [], "forbidClass": ["(^|-)shadow-(?!none|sm|inner)[a-z]+-[a-z]+"], "max": {"box-shadow": {"value": "0", "unit": "px"}}, "note": "Exception: the single floating overlay panel measured at 14px/6px blur. Everything else is a 1px border."}`
+- **Guardrail (enforced)**: `{"forbidCss": [], "forbidClass": ["shadow-(?!(?:none|sm|inner)\\b)[a-z0-9]+"], "max": {"box-shadow": {"value": "0", "unit": "px"}}, "note": "Exception: the single floating overlay panel measured at 14px/6px blur. Everything else is a 1px border."}`
 
 ### Data outranks copy
 - **Kind**: craft

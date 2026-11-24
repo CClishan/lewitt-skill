@@ -7,14 +7,14 @@
 ### MUST NOT — Brand lives in white, not in colour
 _Use white (#FFFFFF) on #08090A for the only high-contrast action and let everything else be grey._
 
-- Forbidden class patterns: `(^|-)bg-(?!white|black|transparent|gray|neutral|zinc|slate|none)[a-z]+-(4|5|6|7)\d\d$`, `(^|-)text-(?!white|black|transparent)[a-z]+-(4|5|6)\d\d$`
+- Forbidden class patterns: `(?:^|[^a-z0-9-])bg-(?!white\b|black\b|transparent\b|gray\b|neutral\b|zinc\b|slate\b|none\b)[a-z]+-(?:4|5|6|7)\d\d$`, `(^|-)text-(?!white|black|transparent)[a-z]+-(4|5|6)\d\d$`
 - Why: On #08090A a white pill is already the loudest possible element; a coloured button would read as a template and compete with the product screenshot.
 - Note: Any saturated fill/stroke belongs to illustration only, never to a control.
 
 ### MUST NOT — Depth is a ring, never a shadow ladder
 _Use 1px inset/outset rings at 3-20% alpha; reserve soft blur for genuinely floating panels._
 
-- Forbidden class patterns: `(^|-)shadow-(?!none|sm|inner)[a-z]+-[a-z]+`
+- Forbidden class patterns: `shadow-(?!(?:none|sm|inner)\b)[a-z0-9]+`
 - Upper bound: `box-shadow` ≤ 1px
 - Why: On #08090A a drop shadow is invisible and a strong one muddies the surface; a hairline ring holds the edge without stacking depth.
 - Note: Offsets must stay 0; blur is allowed only on floating overlays.

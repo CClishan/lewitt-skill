@@ -184,6 +184,17 @@ every `FAIL`/`unverified` row. Do not claim a site is ready when a gate failed.
 Subcommands stay small on purpose: `cert` and `remix` live in their own references
 ([cert.md](references/cert.md)) so this file stays the contract, not a manual.
 
+**Certiry a build** — once an app (or the generated `system/`) runs locally, audit it against the
+same `dna.json`:
+
+```sh
+python3 "$SKILL/scripts/cert.py" --url http://localhost:3000 --dest "$DEST/$DOMAIN"
+```
+
+It writes `cert.md` / `cert.html` / `cert.json` with a verdict (`certified`, `warned`, `rejected`,
+`inconclusive`), measured token deltas and guardrail hits on the live page. Read
+[references/cert.md](references/cert.md) for what is and is not certified.
+
 ## Banned vocabulary
 
 `clean, modern, sleek, visually appealing, user-friendly, intuitive, seamless, elegant,

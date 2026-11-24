@@ -900,10 +900,16 @@
       "guardrail": {
         "forbidCss": [],
         "forbidClass": [
-          "(^|-)bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)"
+          "(?:^|[^a-z0-9-])bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)",
+          "shadow-(?!(?:none|sm|inner)\\b)[a-z0-9]+"
         ],
-        "max": {},
-        "note": "Needs judgement: allow gradients only inside the hero band and on illustration. Elements at #533AFD are actions, not decoration."
+        "max": {
+          "border-width": {
+            "value": "1",
+            "unit": "px"
+          }
+        },
+        "note": "Gradients outside the hero band and any non-ring shadow class are violations; hairlines (1px) are the intended depth signal."
       }
     },
     {
@@ -926,8 +932,8 @@
       "guardrail": {
         "forbidCss": [],
         "forbidClass": [
-          "(^|-)bg-(indigo|violet|purple)-[4-7]00$",
-          "(^|-)bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)"
+          "(?:^|[^a-z0-9-])bg-(?:indigo|violet|purple)-(?:4|5|6|7)\\d\\d$",
+          "(?:^|[^a-z0-9-])bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)"
         ],
         "max": {},
         "note": "Allowed on buttons/links only; never on a section or card background."
