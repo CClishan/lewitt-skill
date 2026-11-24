@@ -295,7 +295,8 @@ def evaluate(dna: dict, dom: dict, resolved: dict, probed: dict) -> dict:
                 checks.append({**spec, "actual": actual, "measured": False, "ok": None,
                                "note": "the page never applies this variable (rendered at the CSS initial)"})
             else:
-                checks.append({**spec, "actual": actual, "measured": True, "ok": abs(e - a) <= tol})
+                checks.append({**spec, "actual": actual, "measured": True, "ok": abs(e - a) <= tol,
+                               "via": got.get("via") or "probe element"})
         else:  # font
             fam = (spec["expected"].split(",")[0] or "").strip("'\" ")
             ok = actual is not None and fam.split()[0].lower() in (actual or "").lower()
@@ -501,31 +502,149 @@ def render_md(cert: dict) -> str:
     return "\n".join(out)
 
 
+TIER_LABEL = (("--lw-", "L1 --lw-*"), ("rendered element", "L3 computed"))
+
+
+def tier_of(via: str | None) -> tuple[str, str]:
+    """(short label, css class) for the column that says which tier answered."""
+    via = via or ""
+    if via.startswith("page --lw"):
+        return "L1 --lw-*", "t1"
+    if via.startswith("page --") or via.startswith("page css"):
+        return "L2 shadcn", "t2"
+    if "rendered" in via:
+        return "L3 computed", "t3"
+    if "probe" in via:
+        return "L2 probe", "t2"
+    return "—", ""
+
+
 def render_html(cert: dict) -> str:
-    rows = "".join(
-        f'<tr><td><code>{c["token"]}</code></td><td><code>{c["expected"]}</code></td>'
-        f'<td><code>{c.get("actual", "—")}</code></td>'
-        f'<td>{"not measured" if not c.get("measured") else ("match" if c.get("ok") else "deviation")}</td></tr>'
-        for c in cert["checks"])
-    devs = "".join(f'<li><code>{d["token"]}</code>: expected <code>{d["expected"]}</code>, got <code>{d["actual"]}</code></li>' for d in cert["deviations"])
-    gh = "".join(f'<li><code>{h["principle"]}</code> — {h["rule"]} on &lt;{h["tag"]}&gt;</li>' for h in cert["guardrailHits"])
-    colour = {"certified": "#2f9e75", "warned": "#b8912f", "rejected": "#c0392b", "inconclusive": "#6b7484"}[cert["status"]]
-    return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><title>lewitt certificate — {cert['target']}</title>
-<style>body{{font:15px/1.6 -apple-system,Helvetica,Arial,sans-serif;max-width:920px;margin:40px auto;padding:0 20px;color:#1d2430}}
-h1{{font-size:24px}}code{{font-family:ui-monospace,Menlo,monospace;font-size:12px}}
-.banner{{background:{colour};color:#fff;padding:14px 18px;border-radius:10px;font-weight:600}}
-table{{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}}th,td{{text-align:left;padding:7px 9px;border-bottom:1px solid #e5edf5}}
-.meta{{color:#64748d;font-size:13px}}</style></head><body>
-<h1>lewitt certificate</h1>
-<div class="banner">Verdict: {cert['status'].upper()} — {cert['measured']}/{cert['total']} probes measured, {len(cert['deviations'])} deviation(s)</div>
-<p class="meta">target <code>{cert['target']}</code> · instructions <code>{cert['sourceRun']}</code> · issued {cert['issuedAt']}</p>
-<h2>Deviations</h2><ul>{devs or '<li>none on the measured tokens</li>'}</ul>
-<h2>Guardrail hits</h2><ul>{gh or '<li>none</li>'}</ul>
-<h2>What was measured</h2>
-<table><thead><tr><th>Token</th><th>tokens.css</th><th>Rendered</th><th>Result</th></tr></thead><tbody>{rows}</tbody></table>
-<h2>Not certified</h2><ul>{''.join(f'<li>{u}</li>' for u in cert['unchecked'])}</ul>
-</body></html>
+    import visual_base as vb
+
+    esc = __import__("html").escape
+    tone = "light"
+    t = vb.TONES[tone]
+    passed = [c for c in cert["checks"] if c.get("measured") and c.get("ok")]
+    deviations = cert["deviations"]
+    intentional = cert.get("intentional") or []
+    unmeasured = [c for c in cert["checks"] if not c.get("measured")]
+    hits = cert.get("guardrailHits") or []
+    verdict = cert["status"]
+    verdict_cls = {"certified": "ok", "warned": "warn", "rejected": "bad", "inconclusive": ""}.get(verdict, "")
+
+    def rows(items: list[dict], kind: str) -> str:
+        out = []
+        for c in items:
+            tier, cls = tier_of(c.get("via"))
+            tail = ""
+            if kind == "intentional":
+                tail = f'<span class="reason">{esc(c.get("reason") or "")}</span>'
+            elif kind == "unmeasured":
+                tail = f'<span class="reason">{esc(c.get("note") or "not measured")}</span>'
+            out.append(
+                f'<tr><td><code>{esc(c["token"])}</code></td>'
+                f'<td><code class="muted">{esc(str(c.get("expected", "—")))}</code></td>'
+                f'<td><code>{esc(str(c.get("actual") or "—"))}</code></td>'
+                f'<td><span class="tier {cls}">{esc(tier)}</span></td>'
+                f'<td>{tail or ("Δ " + str(c["delta"]) if c.get("delta") is not None else "")}</td></tr>'
+            )
+        return "".join(out)
+
+    def block(title: str, count: int, body: str, *, empty: str) -> str:
+        if count == 0:
+            return (f'<section><h2>{esc(title)} <span class="count">0</span></h2>'
+                    f'<p class="empty">{esc(empty)}</p></section>')
+        return f'<section><h2>{esc(title)} <span class="count">{count}</span></h2>{body}</section>' 
+
+    def table(items: list[dict], kind: str) -> str:
+        return ('<table><thead><tr><th>Token</th><th>Spec</th><th>Rendered</th><th>Read from</th><th></th></tr></thead>'
+                f'<tbody>{rows(items, kind)}</tbody></table>')
+
+    guard_html = "".join(
+        f'<li><code>{esc(h.get("principle", ""))}</code> — {esc(h.get("rule", ""))} on &lt;{esc(h.get("tag", ""))}&gt;</li>'
+        for h in hits)
+
+    css = vb.base_css(tone) + f"""
+.cert {{ max-width: 1080px; margin: 0 auto; padding: 56px 40px 120px; }}
+@media (max-width: 700px) {{
+  .cert {{ padding: 32px 20px 80px; }}
+  .stats {{ grid-template-columns: 1fr 1fr; }}
+  .meta {{ grid-template-columns: 1fr; }}
+  section {{ overflow-x: auto; }}
+}}
+.head {{ display: grid; gap: 18px; padding-bottom: 32px; border-bottom: 1px solid var(--n-line); }}
+.head .eyebrow {{ margin: 0; }}
+.head h1 {{ margin: 0; font-size: 34px; font-weight: 400; letter-spacing: -.02em; }}
+.verdict {{ display: inline-flex; align-items: center; gap: 10px; font: 500 12px/1 var(--n-mono);
+  letter-spacing: .1em; text-transform: uppercase; padding: 8px 12px; border: 1px solid var(--n-line-strong);
+  border-radius: 2px; width: fit-content; }}
+.verdict.ok {{ color: var(--n-ok); border-color: color-mix(in srgb, var(--n-ok) 55%, transparent); }}
+.verdict.warn {{ color: var(--n-warn); border-color: color-mix(in srgb, var(--n-warn) 55%, transparent); }}
+.verdict.bad {{ color: var(--n-bad); border-color: color-mix(in srgb, var(--n-bad) 55%, transparent); }}
+.verdict .dot {{ width: 8px; height: 8px; border-radius: 50%; background: currentColor; }}
+.meta {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin: 0; }}
+.meta div {{ }}
+.meta dt {{ font: 500 11px/1 var(--n-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--n-faint); }}
+.meta dd {{ margin: 6px 0 0; font-size: 13px; }}
+.meta dd code {{ font-family: var(--n-mono); font-size: 12px; }}
+.stats {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px;
+  background: var(--n-line); border: 1px solid var(--n-line); margin: 32px 0 0; }}
+.stat {{ background: var(--n-panel); padding: 18px 20px; }}
+.stat b {{ display: block; font-size: 30px; font-weight: 400; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }}
+.stat span {{ font: 500 11px/1 var(--n-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--n-mute); }}
+section {{ padding: 40px 0 0; }}
+h2 {{ font-size: 13px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 16px; }}
+h2 .count {{ font-family: var(--n-mono); font-size: 11px; letter-spacing: 0; color: var(--n-faint); }}
+.empty {{ color: var(--n-mute); font-size: 13px; margin: 0; }}
+.muted {{ color: var(--n-mute); }}
+.tier {{ font: 500 10.5px/1 var(--n-mono); letter-spacing: .04em; text-transform: uppercase; padding: 3px 6px;
+  border-radius: 2px; border: 1px solid var(--n-line-strong); color: var(--n-mute); white-space: nowrap; }}
+.tier.t1 {{ color: var(--n-ok); border-color: color-mix(in srgb, var(--n-ok) 45%, transparent); }}
+.tier.t2 {{ color: var(--n-ink); }}
+.tier.t3 {{ color: var(--n-warn); border-color: color-mix(in srgb, var(--n-warn) 45%, transparent); }}
+.reason {{ color: var(--n-mute); font-size: 12.5px; }}
+ul {{ color: var(--n-mute); font-size: 13px; padding-left: 18px; }}
+footer {{ margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--n-line);
+  color: var(--n-mute); font: 12px/1.6 var(--n-mono); }}
+"""
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lewitt certificate — {esc(cert['target'])}</title>
+<style>{css}</style>
+</head>
+<body data-tone="{tone}">
+<div class="cert">
+  <header class="head">
+    <p class="eyebrow">lewitt · certificate of implementation</p>
+    <h1>This build is <span class="verdict {verdict_cls}"><span class="dot"></span>{esc(verdict)}</span></h1>
+    <dl class="meta">
+      <div><dt>Target</dt><dd><code>{esc(cert['target'])}</code></dd></div>
+      <div><dt>Instructions</dt><dd><code>{esc(cert.get('sourceRun') or '—')}</code> · schema {esc(str(cert.get('schemaVersion')))}</dd></div>
+      <div><dt>Issued</dt><dd>{esc(cert['issuedAt'])}</dd></div>
+      <div><dt>Pages inspected</dt><dd>{esc(str(cert.get('pages', 0)))}</dd></div>
+    </dl>
+    <div class="stats">
+      <div class="stat"><span>Measured</span><b>{cert['measured']}<small>/{cert['total']}</small></b></div>
+      <div class="stat"><span>Passed</span><b>{len(passed)}</b></div>
+      <div class="stat"><span>Intentional</span><b>{len(intentional)}</b></div>
+      <div class="stat"><span>Violations</span><b>{len(deviations) + len(hits)}</b></div>
+    </div>
+  </header>
+  {block("Deviations to fix", len(deviations), table(deviations, "deviation") if deviations else "", empty="No measured token deviates from the spec.")}
+  {block("Intentional (registered)", len(intentional), table(intentional, "intentional"), empty="Nothing was excused.")}
+  {f'<section><h2>Guardrail hits <span class="count">{len(hits)}</span></h2><ul>{guard_html}</ul></section>' if hits else ''}
+  {block("Passing", len(passed), table(passed, "pass"), empty="Nothing measured yet.")}
+  {block("Not measured", len(unmeasured), table(unmeasured, "unmeasured"), empty="Every token in this run could be probed.")}
+  <section><h2>Not certified</h2><ul>{''.join(f'<li>{esc(u)}</li>' for u in cert['unchecked'])}</ul></section>
+  <footer>A certificate covers the tokens above and nothing else. Anything this run could not probe is listed,
+  not assumed. Rendered by lewitt from cert.json.</footer>
+</div>
+</body>
+</html>
 """
 
 
@@ -566,6 +685,13 @@ def main() -> int:
         for t in dna["tokens"] if t["type"] == "color" and t["layer"] == "semantic"
     ]
     probed = probe(specs, work, run / "tokens.css", args.url)
+    for spec in specs:
+        rec = probed.get(spec["token"]) or {}
+        if rec.get("via"):
+            continue
+        css = spec.get("css") or ""
+        rec["via"] = ("page --lw-* var" if css.lstrip("-").startswith("lw-") else
+                      "page css custom property" if css else "probe element")
     # three tiers, in this order: the page's own --lw-* vars, then shadcn/Tailwind slots,
     # then what the page actually paints. A shadcn build must not read as "nothing measured".
     page_vars = page_probe.read_vars(args.url)
@@ -589,7 +715,7 @@ def main() -> int:
                     if token in rendered:
                         probed[token] = {"actual": rendered[token], "missing": False, "via": "rendered element"}
                         sources[token] = "rendered element"
-        elif kind == "radius" and SHADCN_RADIUS in shadcn_vars:
+        elif kind == "radius" and SHADCN_RADIUS in shadcn_vars and spec["css"] not in lewitt_vars:
             probed[token] = {"actual": shadcn_radius(shadcn_vars), "missing": False, "via": "page --radius"}
             sources[token] = "page --radius"
         elif kind == "dimension" and token in rendered:

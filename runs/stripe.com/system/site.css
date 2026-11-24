@@ -1,42 +1,75 @@
-/* lewitt system/ — the canvas takes the system's own canvas token, so a light system is documented
-   on a light page. Only the rail and toolbar keep the dark shell chrome. */
-.scroll, .panel { background: var(--lw-canvas); color: var(--lw-text-body); }
-.panel h1, .panel h2, .panel h3, .panel strong { color: var(--lw-text-heading); }
-.panel h2 { border-bottom-color: var(--lw-tint-100); }
-.panel h2.ds-hero, .panel h3.ds-hero { border-bottom: 0; font-weight: var(--lw-weight-light); }
-.panel p, .panel li { color: var(--lw-text-body); }
-.panel th, .panel td { border-bottom-color: var(--lw-tint-100); }
-.panel th { color: var(--lw-text-muted); }
-.panel .note { background: var(--lw-surface-subtle); border-left-color: var(--lw-link); color: var(--lw-text-body); }
-.panel .card, .panel .matrix .ds-card { background: var(--lw-canvas); border-color: var(--lw-tint-100); }
-.panel .card .mono, .panel .ds-caption, .panel .ds-muted { color: var(--lw-text-muted); }
-.subtabs { border-bottom-color: var(--lw-tint-100); }
-.subtabs button { color: var(--lw-text-muted); }
-.subtabs button[aria-selected="true"] { color: var(--lw-text-heading); border-bottom-color: var(--lw-link); }
-.skip { position: absolute; left: -9999px; }
-.skip:focus { left: 16px; top: 12px; background: var(--lw-link); color: #fff; padding: 8px 12px; border-radius: var(--lw-radius-control); z-index: 99; }
 
-/* a .ds-scope inside the panel must not re-paint the canvas or shrink the matrix */
-.panel .matrix.ds-scope, .panel .compact.ds-scope { background: transparent; }
-.panel .matrix, .panel .grid-3.ds-scope { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+/* site.css — what the system/ page adds on top of the neutral chrome. The system's own colour
+   only appears inside [data-ds]; everything else is chrome. */
 
-/* demo components keep their own surface even though the panel is light */
-.panel .ds-card, .panel .ds-card--tint, .panel .ds-card--float { background: var(--lw-canvas); color: var(--lw-text-body); }
-.panel .ds-card--tint { background: var(--lw-surface-subtle); }
-.panel .ds-card--float { background: var(--lw-canvas); }
-.scroll { scroll-padding-top: 8px; }
+/* ---- typography seen from the catalogue */
+.type-row { display: grid; grid-template-columns: 220px minmax(0, 1fr); border-top: 1px solid var(--n-line); }
+.type-row:last-child { border-bottom: 1px solid var(--n-line); }
+.type-params { padding: 20px 24px 20px 0; border-right: 1px solid var(--n-line); }
+.type-params .mono { color: var(--n-ink); display: block; margin-bottom: 8px; }
+.type-params dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 3px 14px; font: 11.5px/1.5 var(--n-mono); }
+.type-params dt { color: var(--n-faint); }
+.type-params dd { margin: 0; color: var(--n-ink); text-align: right; }
+.type-specimen { padding: 20px 0 20px 32px; overflow: hidden; }
+.type-specimen .spec { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  color: var(--n-ink); letter-spacing: -.02em; line-height: 1.1; }
 
-/* the canvas carries the demo scope: keep body copy light */
-.panel .ds-scope, .panel .ds-scope p, .panel .ds-scope .ds-body { color: var(--lw-text-body); }
-.panel .ds-scope h1, .panel .ds-scope h2, .panel .ds-scope h3 { color: var(--lw-text-heading); }
-/* no .ds-scope on the canvas: keep panel chrome readable */
-.panel.ds-scope { background: var(--lw-canvas); }
+/* ---- colour catalogue */
+.sw { display: grid; grid-template-columns: repeat(auto-fill, minmax(188px, 1fr)); gap: 0;
+  border: 1px solid var(--n-line); border-right: 0; border-bottom: 0; }
+.swatch { border-right: 1px solid var(--n-line); border-bottom: 1px solid var(--n-line); background: var(--n-panel); }
+.swatch .fill { height: 96px; border-bottom: 1px solid var(--n-line); }
+.swatch .line { display: flex; justify-content: space-between; gap: 8px; padding: 10px 12px 0;
+  font: 12px/1.3 var(--n-mono); }
+.swatch .line .hex { color: var(--n-mute); }
+.swatch .sub { padding: 4px 12px 12px; }
+.pairs { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px;
+  background: var(--n-line); border: 1px solid var(--n-line); }
+.pair { background: var(--n-panel); padding: 18px 20px; }
+.pair .sample { padding: 14px 16px; border-radius: 2px; font-size: 14px; }
+.pair .pmeta { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 12px; }
+.pair .pmeta .mono { color: var(--n-mute); font-size: 11px; }
 
-/* dense spec tables: keep ids on one line, shorten the status chip */
-.panel table td:first-child, .panel table td.mono { white-space: nowrap; }
-.panel td .badge { white-space: nowrap; font-size: 10px; padding: 3px 5px; }
+/* ---- shape */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1px;
+  background: var(--n-line); border: 1px solid var(--n-line); }
+.shape { background: var(--n-panel); padding: 20px; }
+.shape .obj { height: 72px; background: var(--n-hover); border: 1px solid var(--n-line-strong); }
+.shape .cap { display: flex; justify-content: space-between; gap: 8px; margin-top: 12px; font: 12px/1.4 var(--n-mono); }
+.shape .cap .v { color: var(--n-mute); text-align: right; word-break: break-all; }
 
-/* one accent line under a panel title; the sticky toolbar sits above it */
-.panel > h1 { margin: 56px 0 0; padding-bottom: 10px; border-bottom: 1px solid var(--lw-tint-100); }
-.panel > h1:first-child { margin-top: 0; }
-.scroll { scroll-padding-top: 64px; }
+/* ---- compositions and fields sit on the system surface inside a stage */
+.comp { padding: 0; }
+.comp .stage-body { padding: 0; }
+.comp [data-ds] { padding: 0; }
+
+/* ---- taste cards */
+.taste { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1px;
+  background: var(--n-line); border: 1px solid var(--n-line); }
+.tcard { background: var(--n-panel); padding: 24px; display: grid; gap: 12px; }
+.tcard .head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.tcard h4 { margin: 0; font-size: 15px; font-weight: 500; }
+.tcard .ab { display: grid; grid-template-columns: 1fr 22px 1fr; gap: 10px; align-items: center; font-size: 13px; }
+.tcard .ab .v { padding: 10px 12px; border: 1px solid var(--n-line-strong); border-radius: 2px; background: var(--n-bg); }
+.tcard .ab .over { color: var(--n-mute); text-decoration: line-through; }
+.tcard .ab .vs { text-align: center; color: var(--n-faint); font: 11px/1 var(--n-mono); }
+.tcard .why { margin: 0; font-size: 13px; color: var(--n-mute); }
+
+/* ---- motion */
+.motion { display: grid; grid-template-columns: 196px minmax(0, 1fr) 120px; align-items: center;
+  border-top: 1px solid var(--n-line); }
+.motion:last-child { border-bottom: 1px solid var(--n-line); }
+.motion .plot { padding: 16px 24px 16px 0; border-right: 1px solid var(--n-line); display: flex; align-items: center; }
+.motion .mid { padding: 16px 24px; }
+.motion .mid .ease { color: var(--n-mute); font: 11px/1.5 var(--n-mono); margin-top: 4px; word-break: break-all; }
+.motion .act { padding: 16px 0; text-align: right; }
+.track { height: 2px; background: var(--n-line-strong); margin-top: 14px; position: relative; }
+.track .dot { position: absolute; top: -5px; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--n-ink); }
+
+@media (max-width: 900px) {
+  .type-row { grid-template-columns: 1fr; }
+  .type-params { border-right: 0; border-bottom: 1px solid var(--n-line); padding-right: 0; }
+  .type-specimen { padding-left: 0; }
+  .motion { grid-template-columns: 1fr; }
+  .motion .plot { border-right: 0; }
+}

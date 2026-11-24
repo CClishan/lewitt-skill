@@ -3,130 +3,416 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>lewitt preview — Stripe</title>
+<title>lewitt specimen — Stripe</title>
 <link rel="stylesheet" href="tokens.css">
-<style>
-:root{--p-bg:#0d0f13;--p-panel:#15181e;--p-line:#262b34;--p-ink:#e8eaee;--p-mute:#8b93a1;--p-accent:#e2b53f;
---p-mono:ui-monospace,SFMono-Regular,Menlo,monospace}
-*{box-sizing:border-box}
-body{margin:0;background:var(--p-bg);color:var(--p-ink);font:15px/1.6 -apple-system,"Helvetica Neue",Arial,sans-serif}
-header{padding:32px 40px 16px;border-bottom:1px solid var(--p-line)}
-h1{font-size:26px;margin:0 0 6px}
-h2{font-size:19px;margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid var(--p-line)}
-h3{font-size:14px;margin:18px 0 8px;color:var(--p-ink)}
-p,li{color:#c3c9d3}
-.lede{color:var(--p-mute);max-width:78ch;margin:6px 0}
-main{padding:24px 40px 96px;max-width:1240px}
-section{margin-bottom:48px}
-.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.tag{font:11px/1 var(--p-mono);padding:4px 7px;border-radius:4px;border:1px solid var(--p-line);color:var(--p-mute);text-transform:uppercase;letter-spacing:.04em}
-.tag.observed{border-color:#2f9e75;color:#7fd7b4}
-.tag.inferred{border-color:#b8912f;color:#e2c06a}
-.tag.proposed{border-color:#6b7484;color:#aab3c2}
-code,.mono{font-family:var(--p-mono);font-size:12px;color:#d7dce4}
-.row{display:flex;flex-wrap:wrap;gap:16px}
-.card{background:var(--p-panel);border:1px solid var(--p-line);border-radius:10px;padding:16px}
-.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
-.chip{height:44px;border-radius:8px;border:1px solid rgba(255,255,255,.06);cursor:pointer;position:relative}
-.chip:focus-visible{outline:2px solid var(--p-accent);outline-offset:2px}
-.copy-all{display:block;padding:8px}
-.copy-all:hover{background:#1b1f27}
-table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}
-td,th{overflow-wrap:anywhere}
-.mono{overflow-wrap:anywhere}
-th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--p-line);vertical-align:top}
-th{color:var(--p-mute);font-weight:500;font-size:12px}
-button{font:inherit}
-.btn{background:var(--p-panel);color:var(--p-ink);border:1px solid var(--p-line);border-radius:8px;padding:7px 12px;cursor:pointer}
-.btn:hover{border-color:#4a5263}
-.btn:focus-visible{outline:2px solid var(--p-accent);outline-offset:2px}
-.status{min-height:18px;font-size:12px;color:var(--p-mute);font-family:var(--p-mono)}
-.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;background:rgba(13,15,19,.94);padding:10px 0;z-index:5;border-bottom:1px solid var(--p-line)}
-.shot{width:100%;border-radius:8px;border:1px solid var(--p-line);display:block}
-.taste{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
-.ab{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.ab div{border-radius:8px;padding:10px;font-size:13px}
-.chose{background:#12261f;border:1px solid #2f9e75}
-.over{background:#261618;border:1px solid #a3475a;text-decoration:line-through;text-decoration-color:#a3475a}
-.guard{font-family:var(--p-mono);font-size:11px;color:#e2b53f;word-break:break-all;margin-top:8px}
-footer{padding:24px 40px;border-top:1px solid var(--p-line);color:var(--p-mute);font-size:12px}
-@media(max-width:760px){header,main,footer{padding-left:16px;padding-right:16px}main{overflow-x:clip}}
-body{overflow-x:hidden}
-@media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+<style>/* ---- neutral base (body) ---------------------------------------------------
+   Every colour here is a neutral: the artifact's own system colour lives inside a Stage. */
+body {
+  --n-bg: #F6F6F5; --n-panel: #FFFFFF; --n-rail: #FAFAF9;
+  --n-ink: #18181B; --n-mute: #71717A; --n-faint: #A1A1AA;
+  --n-line: rgba(0,0,0,0.08); --n-line-strong: rgba(0,0,0,0.14);
+  --n-grid: rgba(0,0,0,0.06); --n-hover: rgba(0,0,0,0.035);
+  --n-ok: #1F7A4D; --n-warn: #8A5A00; --n-bad: #A33A2B; --n-neutral: #52525B;
+  --n-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --n-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --n-rail-w: 240px; --n-gutter: 48px;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--n-bg); color: var(--n-ink);
+  font: 15px/1.55 var(--n-sans); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--n-ink); outline-offset: 2px; }
+.num, .mono, td, th, code { font-variant-numeric: tabular-nums; }
+.mono { font-family: var(--n-mono); font-size: 12px; }
+
+.eyebrow { font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--n-mute); font-weight: 500; margin: 0 0 12px; }
+
+.chip { display: inline-flex; align-items: center; gap: 5px; font: 500 10.5px/1 var(--n-mono);
+  letter-spacing: .04em; text-transform: uppercase; padding: 3px 7px; border-radius: 999px;
+  border: 1px solid var(--n-line-strong); color: var(--n-mute); white-space: nowrap; }
+.chip.ok { color: var(--n-ok); border-color: color-mix(in srgb, var(--n-ok) 45%, transparent); }
+.chip.warn { color: var(--n-warn); border-color: color-mix(in srgb, var(--n-warn) 45%, transparent); }
+.chip.bad { color: var(--n-bad); border-color: color-mix(in srgb, var(--n-bad) 45%, transparent); }
+
+.stage { position: relative; border: 1px solid var(--n-line); border-radius: 2px;
+  background: var(--n-panel); overflow: hidden; }
+.stage-head { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 16px; border-bottom: 1px solid var(--n-line);
+  font: 500 11px/1.2 var(--n-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--n-mute); }
+.stage-body { padding: 48px; position: relative;
+  background-image: radial-gradient(circle at 1px 1px, var(--n-grid) 1px, transparent 0);
+  background-size: 14px 14px; }
+.stage-body.tight { padding: 24px 32px; }
+.stage-note { padding: 10px 16px; border-top: 1px solid var(--n-line); color: var(--n-mute); font-size: 12px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; font: 500 11px/1.2 var(--n-mono); letter-spacing: .06em; text-transform: uppercase;
+  color: var(--n-mute); padding: 0 16px 8px 0; border-bottom: 1px solid var(--n-line-strong); }
+td { padding: 12px 16px 12px 0; border-bottom: 1px solid var(--n-line); vertical-align: top; color: var(--n-ink); }
+tr:hover td { background: var(--n-hover); }
+table code { font-family: var(--n-mono); font-size: 12px; }
+
+/* a wide spec table scrolls in place; the page never overflows sideways */
+@media (max-width: 900px) {
+  .tbl { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tbl table { min-width: 520px; }
+}
+
+[data-copy] { cursor: copy; }
+.copied-note { position: fixed; z-index: 60; pointer-events: none; transform: translate(-50%, -140%);
+  font: 500 11px/1 var(--n-mono); letter-spacing: .04em; text-transform: uppercase;
+  background: var(--n-ink); color: var(--n-bg); padding: 6px 8px; border-radius: 2px;
+  opacity: 1; transition: opacity .35s ease; }
+.copied-note.out { opacity: 0; }
+
+details { border-top: 1px solid var(--n-line); margin-top: 12px; padding-top: 10px; }
+summary { cursor: pointer; font: 500 11px/1.4 var(--n-mono); letter-spacing: .06em;
+  text-transform: uppercase; color: var(--n-mute); }
+summary:hover { color: var(--n-ink); }
+details pre { margin: 10px 0 0; padding: 12px 14px; background: var(--n-bg); border: 1px solid var(--n-line);
+  border-radius: 2px; overflow-x: auto; font: 11.5px/1.6 var(--n-mono); color: var(--n-mute);
+  white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.code { position: relative; border: 1px solid var(--n-line); border-radius: 2px; background: var(--n-bg); }
+.code-head { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 8px 12px; border-bottom: 1px solid var(--n-line);
+  font: 500 11px/1 var(--n-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--n-mute); }
+.code pre { margin: 0; padding: 14px 16px; overflow: auto; max-height: 320px;
+  font: 12px/1.65 var(--n-mono); color: var(--n-ink); white-space: pre; }
+
+.mini-btn { font: 500 11px/1 var(--n-mono); letter-spacing: .05em; text-transform: uppercase;
+  background: transparent; color: var(--n-mute); border: 1px solid var(--n-line-strong);
+  border-radius: 2px; padding: 5px 8px; cursor: pointer; text-decoration: none; }
+.mini-btn:hover { color: var(--n-ink); border-color: var(--n-ink); }
+.mini-btn[aria-pressed="true"] { color: var(--n-ink); border-color: var(--n-ink); }
+
+.bezier .bg line { stroke: var(--n-line); stroke-width: .5; }
+.bezier .hz { stroke: var(--n-line-strong); stroke-width: .75; stroke-dasharray: 2 3; }
+.bezier .hn { fill: var(--n-panel); stroke: var(--n-mute); stroke-width: 1; }
+.bezier .curve { fill: none; stroke: var(--n-ink); stroke-width: 1.5; stroke-linecap: round; }
+.bezier .end { fill: var(--n-ink); }
+.bezier .axis { stroke: var(--n-line-strong); stroke-width: .75; }
+
+@media (max-width: 900px) {
+  .stage-body { padding: 28px 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+
+/* preview.html — Architectural Specimen Book. Neutrals come from visual_base; the system's own
+   colour only appears inside a Stage. */
+header.top{padding:56px 56px 28px;border-bottom:1px solid var(--n-line)}
+.top .eyebrow{margin-bottom:14px}
+.top h1{font-size:34px;line-height:1.1;letter-spacing:-.02em;margin:0 0 12px;font-weight:400;max-width:24ch}
+.top .lede{color:var(--n-mute);max-width:70ch;margin:0 0 6px;font-size:14px}
+.top .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+main{padding:0 56px 120px;max-width:1180px}
+.bar{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  padding:12px 0;margin:0 0 8px;background:var(--n-bg);border-bottom:1px solid var(--n-line)}
+.bar .grow{flex:1}
+section{padding:56px 0;border-bottom:1px solid var(--n-line)}
+section:last-of-type{border-bottom:0}
+h2{font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--n-ink);
+  margin:0 0 6px;display:flex;align-items:baseline;gap:12px}
+h2 .count{color:var(--n-faint);font-family:var(--n-mono);letter-spacing:0;font-size:11px}
+.sect-note{color:var(--n-mute);font-size:13px;margin:0 0 28px;max-width:72ch}
+h3{font-size:12px;font-weight:500;margin:32px 0 12px;color:var(--n-mute);letter-spacing:.05em;text-transform:uppercase}
+
+/* ---- colour: 96px chips, two lines underneath, WCAG badges on real pairs */
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:1px;background:var(--n-line);
+  border:1px solid var(--n-line);border-right:0;border-bottom:0}
+.sw .swatch{border-right:1px solid var(--n-line);border-bottom:1px solid var(--n-line)}
+.swatch{background:var(--n-panel);padding:0 0 12px;cursor:copy}
+.swatch .fill{height:96px;border-bottom:1px solid var(--n-line)}
+.swatch .fill.checker{background-image:linear-gradient(45deg,var(--n-hover) 25%,transparent 25%,transparent 75%,var(--n-hover) 75%),linear-gradient(45deg,var(--n-hover) 25%,transparent 25%,transparent 75%,var(--n-hover) 75%);background-size:10px 10px;background-position:0 0,5px 5px}
+.swatch .line{padding:10px 12px 0;display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.swatch .tok{font:12px/1.3 var(--n-mono);color:var(--n-ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.swatch .hex{font:11px/1.3 var(--n-mono);color:var(--n-mute);font-variant-numeric:tabular-nums}
+.swatch .sub{padding:2px 12px 0;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.pairs{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--n-line);border:1px solid var(--n-line)}
+.pair{background:var(--n-panel);padding:18px 20px}
+.pair .sample{padding:14px 16px;border-radius:2px;font-size:14px}
+.pair .pmeta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
+.pair .pmeta .mono{color:var(--n-mute);font-size:11px}
+
+/* ---- typography: parameters left, specimen right */
+.type-row{display:grid;grid-template-columns:220px minmax(0,1fr);gap:0;border-top:1px solid var(--n-line)}
+.type-row:last-child{border-bottom:1px solid var(--n-line)}
+.type-params{padding:20px 24px 20px 0;border-right:1px solid var(--n-line)}
+.type-params dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font:11.5px/1.5 var(--n-mono)}
+.type-params dt{color:var(--n-faint)}
+.type-params dd{margin:0;color:var(--n-ink);text-align:right}
+.type-params .tok{font:12px/1.4 var(--n-mono);color:var(--n-ink);display:block;margin-bottom:8px}
+.type-specimen{padding:20px 0 20px 32px;overflow:hidden;color:var(--n-ink)}
+.type-specimen .spec{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;display:block}
+.type-specimen .wide{white-space:normal}
+.wspec{display:flex;align-items:baseline;gap:18px;padding:14px 0 14px 32px}
+.wspec b{font-size:28px;font-weight:inherit}
+
+/* ---- shape */
+.grid-2{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:var(--n-line);border:1px solid var(--n-line)}
+.shape{background:var(--n-panel);padding:20px}
+.shape .obj{height:72px;background:var(--n-hover);border:1px solid var(--n-line-strong)}
+.shape .cap{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;gap:8px}
+
+/* ---- motion: easing plot + duration + replay */
+.motion{display:grid;grid-template-columns:196px minmax(0,1fr) 120px;gap:0;border-top:1px solid var(--n-line);align-items:center}
+.motion:last-child{border-bottom:1px solid var(--n-line)}
+.motion .plot{padding:16px 24px 16px 0;border-right:1px solid var(--n-line);display:flex;align-items:center}
+.motion .mid{padding:16px 24px}
+.motion .mid .tok{font:12px/1.4 var(--n-mono)}
+.motion .mid .ease{color:var(--n-mute);font:11px/1.5 var(--n-mono);margin-top:4px;word-break:break-all}
+.motion .act{padding:16px 0;text-align:right}
+.track{height:2px;background:var(--n-line-strong);margin-top:14px;position:relative}
+.track .dot{position:absolute;top:-5px;left:0;width:12px;height:12px;border-radius:50%;background:var(--n-ink)}
+
+/* ---- taste: structured cards, machine rule folded away */
+.taste{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1px;background:var(--n-line);border:1px solid var(--n-line)}
+.tcard{background:var(--n-panel);padding:24px 24px 20px;display:flex;flex-direction:column;gap:12px}
+.tcard .head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tcard h4{margin:0;font-size:15px;font-weight:500;letter-spacing:-.005em}
+.tcard .ab{display:grid;grid-template-columns:1fr 22px 1fr;gap:10px;align-items:center;font-size:13px}
+.tcard .ab .v{padding:10px 12px;border:1px solid var(--n-line-strong);border-radius:2px;background:var(--n-bg)}
+.tcard .ab .over{color:var(--n-mute);text-decoration:line-through;text-decoration-color:var(--n-line-strong)}
+.tcard .ab .vs{text-align:center;color:var(--n-faint);font:11px/1 var(--n-mono)}
+.tcard .why{margin:0;font-size:13px;color:var(--n-mute)}
+.rules{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.rule{font:500 10.5px/1 var(--n-mono);letter-spacing:.06em;text-transform:uppercase;padding:4px 7px;
+  border-radius:2px;border:1px solid var(--n-line-strong);color:var(--n-mute)}
+.rule.forbid{color:var(--n-bad);border-color:color-mix(in srgb,var(--n-bad) 45%,transparent)}
+.rule.max{color:var(--n-warn);border-color:color-mix(in srgb,var(--n-warn) 45%,transparent)}
+.rule.require{color:var(--n-ok);border-color:color-mix(in srgb,var(--n-ok) 45%,transparent)}
+
+/* ---- source record: split compare */
+.compare{position:relative;border:1px solid var(--n-line);overflow:hidden;background:var(--n-panel);touch-action:none}
+.compare .layer{display:block;width:100%}
+.compare .layer.b{position:absolute;inset:0;clip-path:inset(0 50% 0 0)}
+.compare .layer.b img{width:100%;display:block}
+.compare img{display:block;width:100%}
+.compare .handle{position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--n-ink);pointer-events:none}
+.compare .handle::after{content:'';position:absolute;top:50%;left:50%;width:28px;height:28px;margin:-14px 0 0 -14px;
+  border-radius:50%;border:1px solid var(--n-ink);background:var(--n-bg)}
+.compare input[type=range]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.compare .lab{position:absolute;bottom:10px;font:10.5px/1 var(--n-mono);letter-spacing:.06em;text-transform:uppercase;
+  background:var(--n-bg);color:var(--n-mute);padding:5px 7px;border:1px solid var(--n-line-strong)}
+.compare .lab.l{left:10px} .compare .lab.r{right:10px}
+.sbs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--n-line);border:1px solid var(--n-line)}
+.sbs figure{margin:0;background:var(--n-panel);padding:12px}
+.sbs img{width:100%;display:block;border:1px solid var(--n-line)}
+.sbs figcaption{font:11px/1.4 var(--n-mono);color:var(--n-mute);margin-top:8px}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;margin-top:20px}
+.shots figure{margin:0}
+.shots img{width:100%;border:1px solid var(--n-line);display:block}
+.shots figcaption{font:11px/1.4 var(--n-mono);color:var(--n-mute);margin-top:6px}
+ul.plain{margin:0;padding-left:18px;color:var(--n-mute);font-size:13px}
+ul.plain li{margin:4px 0}
+footer{padding:32px 56px 64px;color:var(--n-mute);font-size:12px;font-family:var(--n-mono)}
+@media(max-width:900px){
+  header.top,main,footer{padding-left:20px;padding-right:20px}
+  main{padding-bottom:80px}
+  .type-row{grid-template-columns:1fr}
+  .type-params{border-right:0;padding-right:0;border-bottom:1px solid var(--n-line)}
+  .type-specimen{padding-left:0}
+  .motion{grid-template-columns:1fr}
+  .motion .plot{border-right:0}
+  .sbs{grid-template-columns:1fr}
+}
 </style>
 </head>
-<body>
-<header>
-  <h1>Stripe — live design preview</h1>
-  <p class="lede">Rendered from <code>dna.json</code> by lewitt. Colour, type and motion read the same
-  <code>tokens.css</code> the rest of the system uses; every value carries its evidence id and status.</p>
-  <p class="lede">Sharpest principle — <strong>Colour is a once-per-page event</strong>: a single decorative gradient confined to the hero over gradient text, gradient buttons, and gradient section backgrounds (the common fintech treatment).</p>
+<body data-tone="light">
+<header class="top">
+  <p class="eyebrow">lewitt · design specimen · full mode</p>
+  <h1>Stripe</h1>
+  <p class="lede">Colour is a once-per-page event: a single decorative gradient confined to the hero, not gradient text, gradient buttons, and gradient section backgrounds (the common fintech treatment).</p>
+  <p class="lede">Every value below is a render of <code>dna.json</code> reading the same <code>tokens.css</code>
+  a build would import. Click any swatch, token name or value to copy it.</p>
   <div class="meta">
-    <span class="tag">full mode</span>
-    <span class="tag">4 pages</span>
-    <span class="tag">captured 2026-11-23T12:17:46</span>
-    <span class="tag">isolated</span>
-    <span class="tag">49 tokens</span>
+    <span class="chip">4 pages</span>
+    <span class="chip">49 tokens</span>
+    <span class="chip">32 evidence</span>
+    <span class="chip">captured 2026-11-23</span>
+    <span class="chip">isolated browser</span>
   </div>
 </header>
 <main>
   <div class="bar" role="toolbar" aria-label="Handoff">
-    <button class="btn" id="copy-all">Copy all token values</button>
-    <a class="btn" href="tokens.css" download>tokens.css</a>
-    <a class="btn" href="tokens.resolved.json" download>tokens.resolved.json</a>
-    <a class="btn" href="agent-rules.md" download>agent-rules.md</a>
-    <a class="btn" href="taste.md" download>taste.md</a>
-    <a class="btn" href="shadcn-theme.css" download>shadcn-theme.css</a>
-    <span class="status" id="p-status" aria-live="polite"></span>
+    <button class="mini-btn" id="copy-all" data-copy="#061B31
+#50617A
+#64748D
+#E5EDF5
+#F8FAFD
+#F6F9FC
+#FFFFFF
+#533AFD
+#635BFF
+#FFFFFF
+#F6F9FC
+#F8FAFD
+#061B31
+#50617A
+#64748D
+#533AFD
+#635BFF
+#FFFFFF
+#533AFD
+'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif
+'SourceCodePro', ui-monospace, SFMono-Regular, monospace
+'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif
+'SourceCodePro', ui-monospace, SFMono-Regular, monospace
+48px
+32px
+26px
+16px
+15px
+10px
+-0.02em
+-0.015em
+1.2
+300
+400
+500
+4px
+6px
+16.5px
+0 16px 32px rgba(50, 50, 93, 0.12)
+0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3)
+0 0 0 1px #533AFD
+inset 0 0 0 2px #FFFFFF
+240ms
+300ms
+400ms
+cubic-bezier(0.45, 0.05, 0.55, 0.95)
+cubic-bezier(0.25, 1, 0.5, 1)
+128px
+1080px">Copy all values</button>
+    <a class="mini-btn" href="tokens.css" download>tokens.css</a>
+    <a class="mini-btn" href="shadcn-theme.css" download>shadcn-theme.css</a>
+    <a class="mini-btn" href="agent-rules.md" download>agent-rules.md</a>
+    <a class="mini-btn" href="taste.md" download>taste.md</a>
+    <span class="grow"></span>
+    <label class="mono" for="p-slow" style="color:var(--n-mute)">replay</label>
+    <input id="p-slow" type="range" min="0.25" max="4" step="0.25" value="1" aria-label="slow motion factor" style="width:96px">
+    <span class="mono" id="p-status" aria-live="polite" style="color:var(--n-mute)"></span>
   </div>
 
   <section aria-labelledby="s-color">
-    <h2 id="s-color">Colour — live swatches</h2>
-    <p>Click any swatch to copy its value; roles are listed before raw primitives.</p>
-    <h3>Semantic roles</h3><div class="sw"><div class="card" style="padding:10px"><div class="chip" style="background:#FFFFFF" tabindex="0" role="button" title="color/canvas" data-copy="#FFFFFF" aria-label="copy color/canvas value #FFFFFF"></div><div class="mono" style="margin-top:8px">color/canvas</div><div class="mono" style="color:var(--p-mute)">→ color/white · e-canvas-light</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div><div class="card" style="padding:10px"><div class="chip" style="background:#F6F9FC" tabindex="0" role="button" title="color/canvas-tint" data-copy="#F6F9FC" aria-label="copy color/canvas-tint value #F6F9FC"></div><div class="mono" style="margin-top:8px">color/canvas-tint</div><div class="mono" style="color:var(--p-mute)">→ color/blue-tint/25 · e-canvas-pricing</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div><div class="card" style="padding:10px"><div class="chip" style="background:#F8FAFD" tabindex="0" role="button" title="color/surface-subtle" data-copy="#F8FAFD" aria-label="copy color/surface-subtle value #F8FAFD"></div><div class="mono" style="margin-top:8px">color/surface-subtle</div><div class="mono" style="color:var(--p-mute)">→ color/blue-tint/50 · e-canvas-light</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div><div class="card" style="padding:10px"><div class="chip" style="background:#061B31" tabindex="0" role="button" title="color/text/heading" data-copy="#061B31" aria-label="copy color/text/heading value #061B31"></div><div class="mono" style="margin-top:8px">color/text/heading</div><div class="mono" style="color:var(--p-mute)">→ color/ink/900 · e-ink</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div><div class="card" style="padding:10px"><div class="chip" style="background:#50617A" tabindex="0" role="button" title="color/text/body" data-copy="#50617A" aria-label="copy color/text/body value #50617A"></div><div class="mono" style="margin-top:8px">color/text/body</div><div class="mono" style="color:var(--p-mute)">→ color/ink/700 · e-ink-body</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div><div class="card" style="padding:10px"><div class="chip" style="background:#64748D" tabindex="0" role="button" title="color/text/muted" data-copy="#64748D" aria-label="copy color/text/muted value #64748D"></div><div class="mono" style="margin-top:8px">color/text/muted</div><div class="mono" style="color:var(--p-mute)">→ color/ink/600 · e-ink-body</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div><div class="card" style="padding:10px"><div class="chip" style="background:#533AFD" tabindex="0" role="button" title="color/action/bg" data-copy="#533AFD" aria-label="copy color/action/bg value #533AFD"></div><div class="mono" style="margin-top:8px">color/action/bg</div><div class="mono" style="color:var(--p-mute)">→ color/indigo/600 · e-purple</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div><div class="card" style="padding:10px"><div class="chip" style="background:#635BFF" tabindex="0" role="button" title="color/action/bg-alt" data-copy="#635BFF" aria-label="copy color/action/bg-alt value #635BFF"></div><div class="mono" style="margin-top:8px">color/action/bg-alt</div><div class="mono" style="color:var(--p-mute)">→ color/indigo/500 · e-purple</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div><div class="card" style="padding:10px"><div class="chip" style="background:#FFFFFF" tabindex="0" role="button" title="color/action/fg" data-copy="#FFFFFF" aria-label="copy color/action/fg value #FFFFFF"></div><div class="mono" style="margin-top:8px">color/action/fg</div><div class="mono" style="color:var(--p-mute)">→ color/white · e-buttons</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div><div class="card" style="padding:10px"><div class="chip" style="background:#533AFD" tabindex="0" role="button" title="color/link" data-copy="#533AFD" aria-label="copy color/link value #533AFD"></div><div class="mono" style="margin-top:8px">color/link</div><div class="mono" style="color:var(--p-mute)">→ color/indigo/600 · e-purple</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div></div><h3>Primitives</h3><div class="sw"><div class="card" style="padding:10px"><div class="chip" style="background:#061B31" tabindex="0" role="button" title="color/ink/900" data-copy="#061B31" aria-label="copy color/ink/900 value #061B31"></div><div class="mono" style="margin-top:8px">color/ink/900</div><div class="mono" style="color:var(--p-mute)">#061B31 · e-ink</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div><div class="card" style="padding:10px"><div class="chip" style="background:#50617A" tabindex="0" role="button" title="color/ink/700" data-copy="#50617A" aria-label="copy color/ink/700 value #50617A"></div><div class="mono" style="margin-top:8px">color/ink/700</div><div class="mono" style="color:var(--p-mute)">#50617A · e-ink-body</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div><div class="card" style="padding:10px"><div class="chip" style="background:#64748D" tabindex="0" role="button" title="color/ink/600" data-copy="#64748D" aria-label="copy color/ink/600 value #64748D"></div><div class="mono" style="margin-top:8px">color/ink/600</div><div class="mono" style="color:var(--p-mute)">#64748D · e-ink-body</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div><div class="card" style="padding:10px"><div class="chip" style="background:#E5EDF5" tabindex="0" role="button" title="color/blue-tint/100" data-copy="#E5EDF5" aria-label="copy color/blue-tint/100 value #E5EDF5"></div><div class="mono" style="margin-top:8px">color/blue-tint/100</div><div class="mono" style="color:var(--p-mute)">#E5EDF5 · e-canvas-light</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div><div class="card" style="padding:10px"><div class="chip" style="background:#F8FAFD" tabindex="0" role="button" title="color/blue-tint/50" data-copy="#F8FAFD" aria-label="copy color/blue-tint/50 value #F8FAFD"></div><div class="mono" style="margin-top:8px">color/blue-tint/50</div><div class="mono" style="color:var(--p-mute)">#F8FAFD · e-canvas-light, e-sections-tinted</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div><div class="card" style="padding:10px"><div class="chip" style="background:#F6F9FC" tabindex="0" role="button" title="color/blue-tint/25" data-copy="#F6F9FC" aria-label="copy color/blue-tint/25 value #F6F9FC"></div><div class="mono" style="margin-top:8px">color/blue-tint/25</div><div class="mono" style="color:var(--p-mute)">#F6F9FC · e-canvas-pricing</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div><div class="card" style="padding:10px"><div class="chip" style="background:#FFFFFF" tabindex="0" role="button" title="color/white" data-copy="#FFFFFF" aria-label="copy color/white value #FFFFFF"></div><div class="mono" style="margin-top:8px">color/white</div><div class="mono" style="color:var(--p-mute)">#FFFFFF · e-canvas-light</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div><div class="card" style="padding:10px"><div class="chip" style="background:#533AFD" tabindex="0" role="button" title="color/indigo/600" data-copy="#533AFD" aria-label="copy color/indigo/600 value #533AFD"></div><div class="mono" style="margin-top:8px">color/indigo/600</div><div class="mono" style="color:var(--p-mute)">#533AFD · e-purple</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div><div class="card" style="padding:10px"><div class="chip" style="background:#635BFF" tabindex="0" role="button" title="color/indigo/500" data-copy="#635BFF" aria-label="copy color/indigo/500 value #635BFF"></div><div class="mono" style="margin-top:8px">color/indigo/500</div><div class="mono" style="color:var(--p-mute)">#635BFF · e-purple</div><div style="margin-top:6px"><span class="tag observed">observed</span></div></div></div>
+    <h2 id="s-color">Colour <span class="count">19</span></h2>
+    <p class="sect-note">Roles first, primitives after. Each block is the token's resolved value; the ratio
+    beside a real pair is measured from those two values, not estimated from the screenshot.</p>
+    <h3>Semantic roles <span class="count" style="font-family:var(--n-mono);font-size:11px;color:var(--n-faint);text-transform:none;letter-spacing:0">· 10</span></h3><div class="sw"><div class="swatch" data-copy="#FFFFFF" tabindex="0" role="button" aria-label="copy color/canvas value #FFFFFF"><div class="fill" style="background:#FFFFFF"></div><div class="line"><span class="tok">color/canvas</span><span class="hex">#FFFFFF</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)">color/white</span><span class="chip ok">observed</span></div></div><div class="swatch" data-copy="#F6F9FC" tabindex="0" role="button" aria-label="copy color/canvas-tint value #F6F9FC"><div class="fill" style="background:#F6F9FC"></div><div class="line"><span class="tok">color/canvas-tint</span><span class="hex">#F6F9FC</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)">color/blue-tint/25</span><span class="chip ok">observed</span></div></div><div class="swatch" data-copy="#F8FAFD" tabindex="0" role="button" aria-label="copy color/surface-subtle value #F8FAFD"><div class="fill" style="background:#F8FAFD"></div><div class="line"><span class="tok">color/surface-subtle</span><span class="hex">#F8FAFD</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)">color/blue-tint/50</span><span class="chip ok">observed</span></div></div><div class="swatch" data-copy="#061B31" tabindex="0" role="button" aria-label="copy color/text/heading value #061B31"><div class="fill" style="background:#061B31"></div><div class="line"><span class="tok">color/text/heading</span><span class="hex">#061B31</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)">color/ink/900</span><span class="chip ok">observed</span></div></div><div class="swatch" data-copy="#50617A" tabindex="0" role="button" aria-label="copy color/text/body value #50617A"><div class="fill" style="background:#50617A"></div><div class="line"><span class="tok">color/text/body</span><span class="hex">#50617A</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)">color/ink/700</span><span class="chip ok">observed</span></div></div><div class="swatch" data-copy="#64748D" tabindex="0" role="button" aria-label="copy color/text/muted value #64748D"><div class="fill" style="background:#64748D"></div><div class="line"><span class="tok">color/text/muted</span><span class="hex">#64748D</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)">color/ink/600</span><span class="chip ok">observed</span></div></div><div class="swatch" data-copy="#533AFD" tabindex="0" role="button" aria-label="copy color/action/bg value #533AFD"><div class="fill" style="background:#533AFD"></div><div class="line"><span class="tok">color/action/bg</span><span class="hex">#533AFD</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)">color/indigo/600</span><span class="chip ok">observed</span></div></div><div class="swatch" data-copy="#635BFF" tabindex="0" role="button" aria-label="copy color/action/bg-alt value #635BFF"><div class="fill" style="background:#635BFF"></div><div class="line"><span class="tok">color/action/bg-alt</span><span class="hex">#635BFF</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)">color/indigo/500</span><span class="chip ok">observed</span></div></div><div class="swatch" data-copy="#FFFFFF" tabindex="0" role="button" aria-label="copy color/action/fg value #FFFFFF"><div class="fill" style="background:#FFFFFF"></div><div class="line"><span class="tok">color/action/fg</span><span class="hex">#FFFFFF</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)">color/white</span><span class="chip ok">observed</span></div></div><div class="swatch" data-copy="#533AFD" tabindex="0" role="button" aria-label="copy color/link value #533AFD"><div class="fill" style="background:#533AFD"></div><div class="line"><span class="tok">color/link</span><span class="hex">#533AFD</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)">color/indigo/600</span><span class="chip ok">observed</span></div></div></div><h3>Primitives <span class="count" style="font-family:var(--n-mono);font-size:11px;color:var(--n-faint);text-transform:none;letter-spacing:0">· 9</span></h3><div class="sw"><div class="swatch" data-copy="#061B31" tabindex="0" role="button" aria-label="copy color/ink/900 value #061B31"><div class="fill" style="background:#061B31"></div><div class="line"><span class="tok">color/ink/900</span><span class="hex">#061B31</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)"> </span><span class="chip ok">observed</span></div></div><div class="swatch" data-copy="#50617A" tabindex="0" role="button" aria-label="copy color/ink/700 value #50617A"><div class="fill" style="background:#50617A"></div><div class="line"><span class="tok">color/ink/700</span><span class="hex">#50617A</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)"> </span><span class="chip ok">observed</span></div></div><div class="swatch" data-copy="#64748D" tabindex="0" role="button" aria-label="copy color/ink/600 value #64748D"><div class="fill" style="background:#64748D"></div><div class="line"><span class="tok">color/ink/600</span><span class="hex">#64748D</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)"> </span><span class="chip ok">observed</span></div></div><div class="swatch" data-copy="#E5EDF5" tabindex="0" role="button" aria-label="copy color/blue-tint/100 value #E5EDF5"><div class="fill" style="background:#E5EDF5"></div><div class="line"><span class="tok">color/blue-tint/100</span><span class="hex">#E5EDF5</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)"> </span><span class="chip ok">observed</span></div></div><div class="swatch" data-copy="#F8FAFD" tabindex="0" role="button" aria-label="copy color/blue-tint/50 value #F8FAFD"><div class="fill" style="background:#F8FAFD"></div><div class="line"><span class="tok">color/blue-tint/50</span><span class="hex">#F8FAFD</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)"> </span><span class="chip ok">observed</span></div></div><div class="swatch" data-copy="#F6F9FC" tabindex="0" role="button" aria-label="copy color/blue-tint/25 value #F6F9FC"><div class="fill" style="background:#F6F9FC"></div><div class="line"><span class="tok">color/blue-tint/25</span><span class="hex">#F6F9FC</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)"> </span><span class="chip ok">observed</span></div></div><div class="swatch" data-copy="#FFFFFF" tabindex="0" role="button" aria-label="copy color/white value #FFFFFF"><div class="fill" style="background:#FFFFFF"></div><div class="line"><span class="tok">color/white</span><span class="hex">#FFFFFF</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)"> </span><span class="chip ok">observed</span></div></div><div class="swatch" data-copy="#533AFD" tabindex="0" role="button" aria-label="copy color/indigo/600 value #533AFD"><div class="fill" style="background:#533AFD"></div><div class="line"><span class="tok">color/indigo/600</span><span class="hex">#533AFD</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)"> </span><span class="chip ok">observed</span></div></div><div class="swatch" data-copy="#635BFF" tabindex="0" role="button" aria-label="copy color/indigo/500 value #635BFF"><div class="fill" style="background:#635BFF"></div><div class="line"><span class="tok">color/indigo/500</span><span class="hex">#635BFF</span></div><div class="sub"><span class="mono" style="color:var(--n-faint)"> </span><span class="chip ok">observed</span></div></div></div>
+    <h3>Pairs in use</h3>
+    <div class="pairs"><div class="pair"><div class="sample" style="background:#FFFFFF;color:#061B31">heading / canvas</div><div class="pmeta"><span class="mono">display copy</span><span class="chip ok">17.4:1 · AAA</span></div></div><div class="pair"><div class="sample" style="background:#FFFFFF;color:#50617A">body / canvas</div><div class="pmeta"><span class="mono">paragraphs</span><span class="chip ok">6.3:1 · AA</span></div></div><div class="pair"><div class="sample" style="background:#F8FAFD;color:#50617A">body / subtle</div><div class="pmeta"><span class="mono">cards, raised rows</span><span class="chip ok">6.0:1 · AA</span></div></div><div class="pair"><div class="sample" style="background:#533AFD;color:#FFFFFF">action-fg / action-bg</div><div class="pmeta"><span class="mono">primary button</span><span class="chip ok">6.2:1 · AA</span></div></div><div class="pair"><div class="sample" style="background:#FFFFFF;color:#533AFD">link / canvas</div><div class="pmeta"><span class="mono">inline links</span><span class="chip ok">6.2:1 · AA</span></div></div></div>
   </section>
 
   <section aria-labelledby="s-type">
-    <h2 id="s-type">Typography — real sizes and weights</h2>
-    <table><thead><tr><th>Token</th><th>Value</th><th>Specimen</th><th>Status</th></tr></thead><tbody><tr><td class="mono"><span data-copy="var(--lw-type-hero)">type/hero</span></td><td class="mono">48px</td><td><span style="font-size:48px;line-height:1.1;display:inline-block">Aa 0123456789 The quick brown fox</span></td><td><span class="tag observed">observed</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-type-h2)">type/h2</span></td><td class="mono">32px</td><td><span style="font-size:32px;line-height:1.1;display:inline-block">Aa 0123456789 The quick brown fox</span></td><td><span class="tag observed">observed</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-type-h3)">type/h3</span></td><td class="mono">26px</td><td><span style="font-size:26px;line-height:1.1;display:inline-block">Aa 0123456789 The quick brown fox</span></td><td><span class="tag observed">observed</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-type-body)">type/body</span></td><td class="mono">16px</td><td><span style="font-size:16px;line-height:1.1;display:inline-block">Aa 0123456789 The quick brown fox</span></td><td><span class="tag observed">observed</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-type-ui)">type/ui</span></td><td class="mono">15px</td><td><span style="font-size:15px;line-height:1.1;display:inline-block">Aa 0123456789 The quick brown fox</span></td><td><span class="tag observed">observed</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-type-caption)">type/caption</span></td><td class="mono">10px</td><td><span style="font-size:10px;line-height:1.1;display:inline-block">Aa 0123456789 The quick brown fox</span></td><td><span class="tag observed">observed</span></td></tr></tbody></table>
-    <h3>Weights</h3>
-    <table><thead><tr><th>Token</th><th>Value</th><th>Specimen</th></tr></thead><tbody><tr><td class="mono"><span data-copy="var(--lw-weight-light)">weight/light</span></td><td class="mono">300</td><td><span style="font-weight:300;font-size:20px">Hierarchy weight</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-weight-regular)">weight/regular</span></td><td class="mono">400</td><td><span style="font-weight:400;font-size:20px">Hierarchy weight</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-weight-ui-strong)">weight/ui-strong</span></td><td class="mono">500</td><td><span style="font-weight:500;font-size:20px">Hierarchy weight</span></td></tr></tbody></table>
+    <h2 id="s-type">Typography</h2>
+    <p class="sect-note">Parameters on the left, the specimen on the right at its real size. Web fonts are not
+    shipped: the specimen uses the declared stack and falls back where the face is missing.</p>
+    <div class="type-row"><div class="type-params"><span class="tok" data-copy="var(--lw-type-hero)">type/hero</span><dl><dt>size</dt><dd>48px</dd><dt>colour</dt><dd>var(--n-ink)</dd><dt>tracking</dt><dd>-0.02em</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:48px;line-height:1.12">Aa 0123456789 The quick brown fox</span></div></div><div class="type-row"><div class="type-params"><span class="tok" data-copy="var(--lw-type-h2)">type/h2</span><dl><dt>size</dt><dd>32px</dd><dt>colour</dt><dd>var(--n-ink)</dd><dt>tracking</dt><dd>-0.02em</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:32px;line-height:1.12">Aa 0123456789 The quick brown fox</span></div></div><div class="type-row"><div class="type-params"><span class="tok" data-copy="var(--lw-type-h3)">type/h3</span><dl><dt>size</dt><dd>26px</dd><dt>colour</dt><dd>var(--n-ink)</dd><dt>tracking</dt><dd>-0.02em</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:26px;line-height:1.12">Aa 0123456789 The quick brown fox</span></div></div><div class="type-row"><div class="type-params"><span class="tok" data-copy="var(--lw-type-body)">type/body</span><dl><dt>size</dt><dd>16px</dd><dt>colour</dt><dd>var(--n-ink)</dd><dt>tracking</dt><dd>-0.02em</dd></dl></div><div class="type-specimen"><span class="spec wide" style="font-size:16px;line-height:1.12">Aa 0123456789 The quick brown fox</span></div></div><div class="type-row"><div class="type-params"><span class="tok" data-copy="var(--lw-type-ui)">type/ui</span><dl><dt>size</dt><dd>15px</dd><dt>colour</dt><dd>var(--n-ink)</dd><dt>tracking</dt><dd>-0.02em</dd></dl></div><div class="type-specimen"><span class="spec wide" style="font-size:15px;line-height:1.12">Aa 0123456789 The quick brown fox</span></div></div><div class="type-row"><div class="type-params"><span class="tok" data-copy="var(--lw-type-caption)">type/caption</span><dl><dt>size</dt><dd>10px</dd><dt>colour</dt><dd>var(--n-ink)</dd><dt>tracking</dt><dd>-0.02em</dd></dl></div><div class="type-specimen"><span class="spec wide" style="font-size:10px;line-height:1.12">Aa 0123456789 The quick brown fox</span></div></div>
+    <div class="type-row"><div class="type-params"><span class="tok" data-copy="var(--lw-weight-light)">weight/light</span><dl><dt>weight</dt><dd>300</dd></dl></div><div class="wspec" style="font-weight:300"><b>Aa 0123456789 The quick brown fox</b></div></div><div class="type-row"><div class="type-params"><span class="tok" data-copy="var(--lw-weight-regular)">weight/regular</span><dl><dt>weight</dt><dd>400</dd></dl></div><div class="wspec" style="font-weight:400"><b>Aa 0123456789 The quick brown fox</b></div></div><div class="type-row"><div class="type-params"><span class="tok" data-copy="var(--lw-weight-ui-strong)">weight/ui-strong</span><dl><dt>weight</dt><dd>500</dd></dl></div><div class="wspec" style="font-weight:500"><b>Aa 0123456789 The quick brown fox</b></div></div>
   </section>
 
   <section aria-labelledby="s-shape">
     <h2 id="s-shape">Radius &amp; depth</h2>
-    <div class="sw"><div class="card" style="padding:12px"><div style="height:56px;border:1px solid #3a4150;background:#1d222b;border-radius:4px"></div><div class="mono" style="margin-top:8px"><span data-copy="var(--lw-radius-control)">radius/control</span></div><div class="mono" style="color:var(--p-mute)">4px</div></div><div class="card" style="padding:12px"><div style="height:56px;border:1px solid #3a4150;background:#1d222b;border-radius:6px"></div><div class="mono" style="margin-top:8px"><span data-copy="var(--lw-radius-control-alt)">radius/control-alt</span></div><div class="mono" style="color:var(--p-mute)">6px</div></div><div class="card" style="padding:12px"><div style="height:56px;border:1px solid #3a4150;background:#1d222b;border-radius:16.5px"></div><div class="mono" style="margin-top:8px"><span data-copy="var(--lw-radius-card)">radius/card</span></div><div class="mono" style="color:var(--p-mute)">16.5px</div></div></div>
-    <h3>Shadows</h3>
-    <div class="sw"><div class="card" style="padding:16px;background:#10131a"><div style="height:52px;background:#1b2029;border-radius:8px;box-shadow:0 16px 32px rgba(50, 50, 93, 0.12)"></div><div class="mono" style="margin-top:10px"><span data-copy="var(--lw-depth-float)">depth/float</span></div><div class="mono" style="color:var(--p-mute);word-break:break-all">0 16px 32px rgba(50, 50, 93, 0.12)</div></div><div class="card" style="padding:16px;background:#10131a"><div style="height:52px;background:#1b2029;border-radius:8px;box-shadow:0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3)"></div><div class="mono" style="margin-top:10px"><span data-copy="var(--lw-depth-float-strong)">depth/float-strong</span></div><div class="mono" style="color:var(--p-mute);word-break:break-all">0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3)</div></div><div class="card" style="padding:16px;background:#10131a"><div style="height:52px;background:#1b2029;border-radius:8px;box-shadow:0 0 0 1px #533AFD"></div><div class="mono" style="margin-top:10px"><span data-copy="var(--lw-depth-ring)">depth/ring</span></div><div class="mono" style="color:var(--p-mute);word-break:break-all">0 0 0 1px #533AFD</div></div><div class="card" style="padding:16px;background:#10131a"><div style="height:52px;background:#1b2029;border-radius:8px;box-shadow:inset 0 0 0 2px #FFFFFF"></div><div class="mono" style="margin-top:10px"><span data-copy="var(--lw-depth-ring-inset)">depth/ring-inset</span></div><div class="mono" style="color:var(--p-mute);word-break:break-all">inset 0 0 0 2px #FFFFFF</div></div></div>
+    <div class="grid-2"><div class="shape"><div class="obj" style="border-radius:4px"></div><div class="cap"><span class="mono" data-copy="var(--lw-radius-control)">radius/control</span><span class="mono" style="color:var(--n-mute)">4px</span></div></div><div class="shape"><div class="obj" style="border-radius:6px"></div><div class="cap"><span class="mono" data-copy="var(--lw-radius-control-alt)">radius/control-alt</span><span class="mono" style="color:var(--n-mute)">6px</span></div></div><div class="shape"><div class="obj" style="border-radius:16.5px"></div><div class="cap"><span class="mono" data-copy="var(--lw-radius-card)">radius/card</span><span class="mono" style="color:var(--n-mute)">16.5px</span></div></div><div class="shape"><div class="obj" style="box-shadow:0 16px 32px rgba(50, 50, 93, 0.12);border-color:transparent"></div><div class="cap"><span class="mono" data-copy="var(--lw-depth-float)">depth/float</span><span class="mono" style="color:var(--n-mute);text-align:right;word-break:break-all">0 16px 32px rgba(50, 50, 93, 0.12)</span></div></div><div class="shape"><div class="obj" style="box-shadow:0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3);border-color:transparent"></div><div class="cap"><span class="mono" data-copy="var(--lw-depth-float-strong)">depth/float-strong</span><span class="mono" style="color:var(--n-mute);text-align:right;word-break:break-all">0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3)</span></div></div><div class="shape"><div class="obj" style="box-shadow:0 0 0 1px #533AFD;border-color:transparent"></div><div class="cap"><span class="mono" data-copy="var(--lw-depth-ring)">depth/ring</span><span class="mono" style="color:var(--n-mute);text-align:right;word-break:break-all">0 0 0 1px #533AFD</span></div></div><div class="shape"><div class="obj" style="box-shadow:inset 0 0 0 2px #FFFFFF;border-color:transparent"></div><div class="cap"><span class="mono" data-copy="var(--lw-depth-ring-inset)">depth/ring-inset</span><span class="mono" style="color:var(--n-mute);text-align:right;word-break:break-all">inset 0 0 0 2px #FFFFFF</span></div></div></div>
   </section>
 
   <section aria-labelledby="s-motion">
-    <h2 id="s-motion">Motion replay</h2>
-    <p>Each row replays the actual duration token with the system's easing. Reduced motion is respected.</p>
-    <table><thead><tr><th>Duration</th><th>Value</th><th>Specimen</th><th></th></tr></thead><tbody><tr><td class="mono"><span data-copy="var(--lw-motion-fast)">motion/fast</span></td><td class="mono">240ms</td><td><div id="m-fast" style="width:120px;height:28px;border-radius:6px;background:linear-gradient(90deg,#e2b53f,#8a6d24)"></div></td><td><button class="btn" data-replay="m-fast" data-dur="240ms" data-ease="cubic-bezier(0.45, 0.05, 0.55, 0.95)">Replay</button></td></tr><tr><td class="mono"><span data-copy="var(--lw-motion-base)">motion/base</span></td><td class="mono">300ms</td><td><div id="m-base" style="width:120px;height:28px;border-radius:6px;background:linear-gradient(90deg,#e2b53f,#8a6d24)"></div></td><td><button class="btn" data-replay="m-base" data-dur="300ms" data-ease="cubic-bezier(0.45, 0.05, 0.55, 0.95)">Replay</button></td></tr><tr><td class="mono"><span data-copy="var(--lw-motion-reveal)">motion/reveal</span></td><td class="mono">400ms</td><td><div id="m-reveal" style="width:120px;height:28px;border-radius:6px;background:linear-gradient(90deg,#e2b53f,#8a6d24)"></div></td><td><button class="btn" data-replay="m-reveal" data-dur="400ms" data-ease="cubic-bezier(0.45, 0.05, 0.55, 0.95)">Replay</button></td></tr></tbody></table>
-    <h3>Easings observed</h3><ul><li class="mono">motion/easing-in-out · cubic-bezier(0.45, 0.05, 0.55, 0.95)</li><li class="mono">motion/easing-out · cubic-bezier(0.25, 1, 0.5, 1)</li></ul>
+    <h2 id="s-motion">Motion</h2>
+    <p class="sect-note">Each curve is plotted from the token's own cubic-bezier, with its control handles.
+    Replay runs the real duration on the track; the slider above slows every replay.</p>
+    <div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.45 0.05 0.55 0.95: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="76.6" y2="74.6" /><line class="hz" x1="158.0" y1="10.0" x2="91.4" y2="13.4" /><circle class="hn" cx="76.6" cy="74.6" r="2" /><circle class="hn" cx="91.4" cy="13.4" r="2" /><path class="curve" d="M 10.0 78.0 C 76.6 74.6 91.4 13.4 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="tok" data-copy="var(--lw-motion-fast)">motion/fast · 240ms</div><div class="ease">cubic-bezier(0.45, 0.05, 0.55, 0.95)</div><div class="track"><span class="dot" id="dot-fast"></span></div></div><div class="act"><button class="mini-btn" data-replay="dot-fast" data-dur="240ms" data-ease="cubic-bezier(0.45, 0.05, 0.55, 0.95)">Replay</button></div></div><div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.45 0.05 0.55 0.95: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="76.6" y2="74.6" /><line class="hz" x1="158.0" y1="10.0" x2="91.4" y2="13.4" /><circle class="hn" cx="76.6" cy="74.6" r="2" /><circle class="hn" cx="91.4" cy="13.4" r="2" /><path class="curve" d="M 10.0 78.0 C 76.6 74.6 91.4 13.4 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="tok" data-copy="var(--lw-motion-base)">motion/base · 300ms</div><div class="ease">cubic-bezier(0.45, 0.05, 0.55, 0.95)</div><div class="track"><span class="dot" id="dot-base"></span></div></div><div class="act"><button class="mini-btn" data-replay="dot-base" data-dur="300ms" data-ease="cubic-bezier(0.45, 0.05, 0.55, 0.95)">Replay</button></div></div><div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.45 0.05 0.55 0.95: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="76.6" y2="74.6" /><line class="hz" x1="158.0" y1="10.0" x2="91.4" y2="13.4" /><circle class="hn" cx="76.6" cy="74.6" r="2" /><circle class="hn" cx="91.4" cy="13.4" r="2" /><path class="curve" d="M 10.0 78.0 C 76.6 74.6 91.4 13.4 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="tok" data-copy="var(--lw-motion-reveal)">motion/reveal · 400ms</div><div class="ease">cubic-bezier(0.45, 0.05, 0.55, 0.95)</div><div class="track"><span class="dot" id="dot-reveal"></span></div></div><div class="act"><button class="mini-btn" data-replay="dot-reveal" data-dur="400ms" data-ease="cubic-bezier(0.45, 0.05, 0.55, 0.95)">Replay</button></div></div>
+    <div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.45 0.05 0.55 0.95: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="76.6" y2="74.6" /><line class="hz" x1="158.0" y1="10.0" x2="91.4" y2="13.4" /><circle class="hn" cx="76.6" cy="74.6" r="2" /><circle class="hn" cx="91.4" cy="13.4" r="2" /><path class="curve" d="M 10.0 78.0 C 76.6 74.6 91.4 13.4 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="tok" data-copy="var(--lw-easing-in-out)">motion/easing-in-out</div><div class="ease">cubic-bezier(0.45, 0.05, 0.55, 0.95)</div></div><div class="act"><span class="chip">observed</span></div></div><div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.25 1 0.5 1: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="47.0" y2="10.0" /><line class="hz" x1="158.0" y1="10.0" x2="84.0" y2="10.0" /><circle class="hn" cx="47.0" cy="10.0" r="2" /><circle class="hn" cx="84.0" cy="10.0" r="2" /><path class="curve" d="M 10.0 78.0 C 47.0 10.0 84.0 10.0 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="tok" data-copy="var(--lw-easing-out)">motion/easing-out</div><div class="ease">cubic-bezier(0.25, 1, 0.5, 1)</div></div><div class="act"><span class="chip">observed</span></div></div>
   </section>
 
   <section aria-labelledby="s-taste">
-    <h2 id="s-taste">Taste DNA</h2>
-    <div class="taste"><div class="card"><div class="mono" style="color:var(--p-mute)">restraint · e-hero-band, e-canvas-light, e-sections-tinted <span class="tag observed">observed</span></div><h3 style="font-size:16px">Colour is a once-per-page event</h3><div class="ab" aria-label="chosen versus rejected"><div class="chose"><strong>Chose</strong><br>a single decorative gradient confined to the hero</div><div class="over"><strong>Over</strong><br>gradient text, gradient buttons, and gradient section backgrounds (the common fintech treatment)</div></div><p style="margin:10px 0 0"><span class="mono">Why</span> Readers need to trust the screenshots more than the scenery; once colour stops, the product becomes the subject.</p><div class="guard">{&quot;forbidCss&quot;: [], &quot;forbidClass&quot;: [&quot;(?:^|[^a-z0-9-])bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)&quot;, &quot;shadow-(?!(?:none|sm|inner)\\b)[a-z0-9]+&quot;], &quot;max&quot;: {&quot;border-width&quot;: {&quot;value&quot;: &quot;1&quot;, &quot;unit&quot;: &quot;px&quot;}}, &quot;note&quot;: &quot;Gradients outside the hero band and any non-ring shadow class are violations; hairlines (1px) are the intended depth signal.&quot;}</div></div><div class="card"><div class="mono" style="color:var(--p-mute)">restraint · e-purple, e-canvas-light <span class="tag observed">observed</span></div><h3 style="font-size:16px">One indigo, only where you can click</h3><div class="ab" aria-label="chosen versus rejected"><div class="chose"><strong>Chose</strong><br>indigo restricted to actions and links</div><div class="over"><strong>Over</strong><br>indigo section backgrounds, indigo icons, and indigo headings</div></div><p style="margin:10px 0 0"><span class="mono">Why</span> At ~0.2% of the surface, indigo always means 'do something'; a larger share would make the page a brand poster and slow scanning.</p><div class="guard">{&quot;forbidCss&quot;: [], &quot;forbidClass&quot;: [&quot;(?:^|[^a-z0-9-])bg-(?:indigo|violet|purple)-(?:4|5|6|7)\\d\\d$&quot;, &quot;(?:^|[^a-z0-9-])bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)&quot;], &quot;max&quot;: {}, &quot;note&quot;: &quot;Allowed on buttons/links only; never on a section or card background.&quot;}</div></div><div class="card"><div class="mono" style="color:var(--p-mute)">craft · e-weights, e-h1, e-h2, e-h3 <span class="tag observed">observed</span></div><h3 style="font-size:16px">Light weights carry the headline</h3><div class="ab" aria-label="chosen versus rejected"><div class="chose"><strong>Chose</strong><br>variable 300 at every display size</div><div class="over"><strong>Over</strong><br>600-700 headline weights with a 1.33x type ramp</div></div><p style="margin:10px 0 0"><span class="mono">Why</span> A light face over a heavy gradient leaves the gradient as the loudest thing; bold type would fight the artwork and the screenshots.</p></div><div class="card"><div class="mono" style="color:var(--p-mute)">craft · e-ink, e-ink-body <span class="tag observed">observed</span></div><h3 style="font-size:16px">Blue-black ink instead of grey</h3><div class="ab" aria-label="chosen versus rejected"><div class="chose"><strong>Chose</strong><br>blue-tinted neutrals</div><div class="over"><strong>Over</strong><br>pure greys (#111, #666) or neutral-warm text</div></div><p style="margin:10px 0 0"><span class="mono">Why</span> Grey text on a white page beside indigo reads as unfinished; shared hue makes the colour look chosen rather than added.</p></div><div class="card"><div class="mono" style="color:var(--p-mute)">system · e-motion, e-motion-support <span class="tag observed">observed</span></div><h3 style="font-size:16px">Motion is tiered by job</h3><div class="ab" aria-label="chosen versus rejected"><div class="chose"><strong>Chose</strong><br>three job-specific durations</div><div class="over"><strong>Over</strong><br>one global 200ms ease on everything</div></div><p style="margin:10px 0 0"><span class="mono">Why</span> Colour has to feel immediate on hover while a layout reveal needs room to read; one duration would make one of them wrong.</p></div></div>
+    <h2 id="s-taste">Taste &amp; guardrails</h2>
+    <p class="sect-note">The decision in words, the rule it compiles to, and the machine pattern behind it.
+    A build that violates a capsule fails <code>lint_output.py</code>.</p>
+    <div class="taste"><article class="tcard"><div class="head"><span class="chip ok">observed</span><span class="mono" style="color:var(--n-faint)">restraint · e-hero-band, e-canvas-light, e-sections-tinted</span></div><h4>Colour is a once-per-page event</h4><div class="ab"><div class="v">a single decorative gradient confined to the hero</div><div class="vs">over</div><div class="v over">gradient text, gradient buttons, and gradient section backgrounds (the common fintech treatment)</div></div><p class="why">Readers need to trust the screenshots more than the scenery; once colour stops, the product becomes the subject.</p><ul class="rules"><li class="rule forbid">forbid · 2 class pattern(s)</li><li class="rule max">max · border-width ≤ 1px</li></ul><details><summary>Machine rule</summary><pre>{
+ &quot;forbidCss&quot;: [],
+ &quot;forbidClass&quot;: [
+  &quot;(?:^|[^a-z0-9-])bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)&quot;,
+  &quot;shadow-(?!(?:none|sm|inner)\\b)[a-z0-9]+&quot;
+ ],
+ &quot;max&quot;: {
+  &quot;border-width&quot;: {
+   &quot;value&quot;: &quot;1&quot;,
+   &quot;unit&quot;: &quot;px&quot;
+  }
+ },
+ &quot;note&quot;: &quot;Gradients outside the hero band and any non-ring shadow class are violations; hairlines (1px) are the intended depth signal.&quot;
+}</pre></details></article><article class="tcard"><div class="head"><span class="chip ok">observed</span><span class="mono" style="color:var(--n-faint)">restraint · e-purple, e-canvas-light</span></div><h4>One indigo, only where you can click</h4><div class="ab"><div class="v">indigo restricted to actions and links</div><div class="vs">over</div><div class="v over">indigo section backgrounds, indigo icons, and indigo headings</div></div><p class="why">At ~0.2% of the surface, indigo always means 'do something'; a larger share would make the page a brand poster and slow scanning.</p><ul class="rules"><li class="rule forbid">forbid · 2 class pattern(s)</li></ul><details><summary>Machine rule</summary><pre>{
+ &quot;forbidCss&quot;: [],
+ &quot;forbidClass&quot;: [
+  &quot;(?:^|[^a-z0-9-])bg-(?:indigo|violet|purple)-(?:4|5|6|7)\\d\\d$&quot;,
+  &quot;(?:^|[^a-z0-9-])bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)&quot;
+ ],
+ &quot;max&quot;: {},
+ &quot;note&quot;: &quot;Allowed on buttons/links only; never on a section or card background.&quot;
+}</pre></details></article><article class="tcard"><div class="head"><span class="chip ok">observed</span><span class="mono" style="color:var(--n-faint)">craft · e-weights, e-h1, e-h2, e-h3</span></div><h4>Light weights carry the headline</h4><div class="ab"><div class="v">variable 300 at every display size</div><div class="vs">over</div><div class="v over">600-700 headline weights with a 1.33x type ramp</div></div><p class="why">A light face over a heavy gradient leaves the gradient as the loudest thing; bold type would fight the artwork and the screenshots.</p></article><article class="tcard"><div class="head"><span class="chip ok">observed</span><span class="mono" style="color:var(--n-faint)">craft · e-ink, e-ink-body</span></div><h4>Blue-black ink instead of grey</h4><div class="ab"><div class="v">blue-tinted neutrals</div><div class="vs">over</div><div class="v over">pure greys (#111, #666) or neutral-warm text</div></div><p class="why">Grey text on a white page beside indigo reads as unfinished; shared hue makes the colour look chosen rather than added.</p></article><article class="tcard"><div class="head"><span class="chip ok">observed</span><span class="mono" style="color:var(--n-faint)">system · e-motion, e-motion-support</span></div><h4>Motion is tiered by job</h4><div class="ab"><div class="v">three job-specific durations</div><div class="vs">over</div><div class="v over">one global 200ms ease on everything</div></div><p class="why">Colour has to feel immediate on hover while a layout reveal needs room to read; one duration would make one of them wrong.</p></article></div>
   </section>
 
   <section aria-labelledby="s-source">
     <h2 id="s-source">Source record</h2>
-    <p class="lede">Screenshots below are the captured source pages, shown for comparison — they are not rebuilt by lewitt.</p>
-    <div class="sw" style="grid-template-columns:repeat(auto-fill,minmax(320px,1fr))"><figure style="margin:0"><img class="shot" src="capture/viewport.png" alt="source page screenshot viewport.png" onerror="this.closest('figure').style.display='none'"><figcaption class="mono" style="color:var(--p-mute);margin-top:6px">viewport.png — captured, not rebuilt</figcaption></figure><figure style="margin:0"><img class="shot" src="capture/viewport-2.png" alt="source page screenshot viewport-2.png" onerror="this.closest('figure').style.display='none'"><figcaption class="mono" style="color:var(--p-mute);margin-top:6px">viewport-2.png — captured, not rebuilt</figcaption></figure><figure style="margin:0"><img class="shot" src="capture/viewport-3.png" alt="source page screenshot viewport-3.png" onerror="this.closest('figure').style.display='none'"><figcaption class="mono" style="color:var(--p-mute);margin-top:6px">viewport-3.png — captured, not rebuilt</figcaption></figure><figure style="margin:0"><img class="shot" src="capture/viewport-4.png" alt="source page screenshot viewport-4.png" onerror="this.closest('figure').style.display='none'"><figcaption class="mono" style="color:var(--p-mute);margin-top:6px">viewport-4.png — captured, not rebuilt</figcaption></figure></div>
-    <h3>Pages inspected</h3><ul><li class="mono"><a href="https://stripe.com/" rel="noreferrer">https://stripe.com/</a></li><li class="mono"><a href="https://stripe.com/pricing" rel="noreferrer">https://stripe.com/pricing</a></li><li class="mono"><a href="https://stripe.com/products" rel="noreferrer">https://stripe.com/products</a></li><li class="mono"><a href="https://stripe.com/contact/sales" rel="noreferrer">https://stripe.com/contact/sales</a></li></ul>
-    <h3>Limitations</h3><ul><li>stripe.com redirects to /en-sg on this network; copy and pricing are the SG locale.</li><li>The hero gradient is an image (1392x975); its colours are sampled from pixels, not CSS.</li><li>Rendered font is sohne-var; the loaded face filename was not inspected.</li><li>Home page CSSOM scan found no :focus-visible/reduced-motion, while the pricing page did — scanning is per-page.</li><li>contact/sales (page 4) is a short form page and contributes little signal.</li></ul>
+    <p class="sect-note">The screenshots are the captured source pages, kept for comparison: they are not rebuilt by lewitt.</p>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+      <button class="mini-btn" id="p-view-toggle" aria-pressed="true">Side by side</button>
+    </div>
+    <div class="compare" id="p-compare"><img class="layer a" src="capture/viewport.png" alt="captured source page"><div class="layer b"><img src="capture/viewport.png" alt=""></div><div class="handle"></div><span class="lab l">source · capture/viewport.png</span><span class="lab r">split compare</span><input id="p-split" type="range" min="0" max="100" value="50" aria-label="compare source and rebuild, drag or use arrow keys"></div>
+    <div class="sbs" id="p-sbs" hidden><figure><img src="capture/viewport.png" alt="captured source page"><figcaption>source · capture/viewport.png</figcaption></figure><figure><div class="stage" style="border:0"><div class="stage-body tight" style="min-height:180px"><p class="sect-note" style="margin:0">Rebuilt surfaces read <code>tokens.css</code>; open <code>system/index.html</code> (full mode) for the live rebuild.</p></div></div><figcaption>rebuild · this file</figcaption></figure></div>
+    <div class="shots"><figure><img src="capture/viewport-2.png" alt="source page screenshot viewport-2.png" loading="lazy"><figcaption>viewport-2.png</figcaption></figure><figure><img src="capture/viewport-3.png" alt="source page screenshot viewport-3.png" loading="lazy"><figcaption>viewport-3.png</figcaption></figure><figure><img src="capture/viewport-4.png" alt="source page screenshot viewport-4.png" loading="lazy"><figcaption>viewport-4.png</figcaption></figure></div>
+    <h3>Pages inspected</h3><ul class="plain"><li><a href="https://stripe.com/" rel="noreferrer">https://stripe.com/</a></li><li><a href="https://stripe.com/pricing" rel="noreferrer">https://stripe.com/pricing</a></li><li><a href="https://stripe.com/products" rel="noreferrer">https://stripe.com/products</a></li><li><a href="https://stripe.com/contact/sales" rel="noreferrer">https://stripe.com/contact/sales</a></li></ul>
+    <h3>Limitations</h3><ul class="plain"><li>stripe.com redirects to /en-sg on this network; copy and pricing are the SG locale.</li><li>The hero gradient is an image (1392x975); its colours are sampled from pixels, not CSS.</li><li>Rendered font is sohne-var; the loaded face filename was not inspected.</li><li>Home page CSSOM scan found no :focus-visible/reduced-motion, while the pricing page did — scanning is per-page.</li><li>contact/sales (page 4) is a short form page and contributes little signal.</li></ul>
   </section>
 
   <section aria-labelledby="s-tokens">
     <h2 id="s-tokens">Every token</h2>
-    <table><thead><tr><th>CSS var</th><th>Token</th><th>Layer</th><th>Type</th><th>Value</th></tr></thead><tbody><tr><td class="mono"><span data-copy="var(--lw-ink-900)">--lw-ink-900</span></td><td class="mono">color/ink/900</td><td>primitive</td><td>color</td><td class="mono"><span data-copy="#061B31">#061B31</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-ink-700)">--lw-ink-700</span></td><td class="mono">color/ink/700</td><td>primitive</td><td>color</td><td class="mono"><span data-copy="#50617A">#50617A</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-ink-600)">--lw-ink-600</span></td><td class="mono">color/ink/600</td><td>primitive</td><td>color</td><td class="mono"><span data-copy="#64748D">#64748D</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-tint-100)">--lw-tint-100</span></td><td class="mono">color/blue-tint/100</td><td>primitive</td><td>color</td><td class="mono"><span data-copy="#E5EDF5">#E5EDF5</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-tint-50)">--lw-tint-50</span></td><td class="mono">color/blue-tint/50</td><td>primitive</td><td>color</td><td class="mono"><span data-copy="#F8FAFD">#F8FAFD</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-page-tint)">--lw-page-tint</span></td><td class="mono">color/blue-tint/25</td><td>primitive</td><td>color</td><td class="mono"><span data-copy="#F6F9FC">#F6F9FC</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-white)">--lw-white</span></td><td class="mono">color/white</td><td>primitive</td><td>color</td><td class="mono"><span data-copy="#FFFFFF">#FFFFFF</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-indigo-600)">--lw-indigo-600</span></td><td class="mono">color/indigo/600</td><td>primitive</td><td>color</td><td class="mono"><span data-copy="#533AFD">#533AFD</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-indigo-500)">--lw-indigo-500</span></td><td class="mono">color/indigo/500</td><td>primitive</td><td>color</td><td class="mono"><span data-copy="#635BFF">#635BFF</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-canvas)">--lw-canvas</span></td><td class="mono">color/canvas</td><td>semantic</td><td>color</td><td class="mono"><span data-copy="#FFFFFF">#FFFFFF</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-canvas-tint)">--lw-canvas-tint</span></td><td class="mono">color/canvas-tint</td><td>semantic</td><td>color</td><td class="mono"><span data-copy="#F6F9FC">#F6F9FC</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-surface-subtle)">--lw-surface-subtle</span></td><td class="mono">color/surface-subtle</td><td>semantic</td><td>color</td><td class="mono"><span data-copy="#F8FAFD">#F8FAFD</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-text-heading)">--lw-text-heading</span></td><td class="mono">color/text/heading</td><td>semantic</td><td>color</td><td class="mono"><span data-copy="#061B31">#061B31</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-text-body)">--lw-text-body</span></td><td class="mono">color/text/body</td><td>semantic</td><td>color</td><td class="mono"><span data-copy="#50617A">#50617A</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-text-muted)">--lw-text-muted</span></td><td class="mono">color/text/muted</td><td>semantic</td><td>color</td><td class="mono"><span data-copy="#64748D">#64748D</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-action-bg)">--lw-action-bg</span></td><td class="mono">color/action/bg</td><td>semantic</td><td>color</td><td class="mono"><span data-copy="#533AFD">#533AFD</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-action-bg-alt)">--lw-action-bg-alt</span></td><td class="mono">color/action/bg-alt</td><td>semantic</td><td>color</td><td class="mono"><span data-copy="#635BFF">#635BFF</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-action-fg)">--lw-action-fg</span></td><td class="mono">color/action/fg</td><td>semantic</td><td>color</td><td class="mono"><span data-copy="#FFFFFF">#FFFFFF</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-link)">--lw-link</span></td><td class="mono">color/link</td><td>semantic</td><td>color</td><td class="mono"><span data-copy="#533AFD">#533AFD</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-font-sans)">--lw-font-sans</span></td><td class="mono">font/sans</td><td>primitive</td><td>fontFamily</td><td class="mono"><span data-copy="'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif">'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-font-mono)">--lw-font-mono</span></td><td class="mono">font/mono</td><td>primitive</td><td>fontFamily</td><td class="mono"><span data-copy="'SourceCodePro', ui-monospace, SFMono-Regular, monospace">'SourceCodePro', ui-monospace, SFMono-Regular, monospace</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-font-body)">--lw-font-body</span></td><td class="mono">font/body</td><td>semantic</td><td>fontFamily</td><td class="mono"><span data-copy="'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif">'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-font-code)">--lw-font-code</span></td><td class="mono">font/code</td><td>semantic</td><td>fontFamily</td><td class="mono"><span data-copy="'SourceCodePro', ui-monospace, SFMono-Regular, monospace">'SourceCodePro', ui-monospace, SFMono-Regular, monospace</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-type-hero)">--lw-type-hero</span></td><td class="mono">type/hero</td><td>component</td><td>dimension</td><td class="mono"><span data-copy="48px">48px</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-type-h2)">--lw-type-h2</span></td><td class="mono">type/h2</td><td>component</td><td>dimension</td><td class="mono"><span data-copy="32px">32px</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-type-h3)">--lw-type-h3</span></td><td class="mono">type/h3</td><td>component</td><td>dimension</td><td class="mono"><span data-copy="26px">26px</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-type-body)">--lw-type-body</span></td><td class="mono">type/body</td><td>component</td><td>dimension</td><td class="mono"><span data-copy="16px">16px</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-type-ui)">--lw-type-ui</span></td><td class="mono">type/ui</td><td>component</td><td>dimension</td><td class="mono"><span data-copy="15px">15px</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-type-caption)">--lw-type-caption</span></td><td class="mono">type/caption</td><td>component</td><td>dimension</td><td class="mono"><span data-copy="10px">10px</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-tracking-hero)">--lw-tracking-hero</span></td><td class="mono">tracking/hero</td><td>component</td><td>dimension</td><td class="mono"><span data-copy="-0.02em">-0.02em</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-tracking-h2)">--lw-tracking-h2</span></td><td class="mono">tracking/h2</td><td>component</td><td>dimension</td><td class="mono"><span data-copy="-0.015em">-0.015em</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-leading-prose)">--lw-leading-prose</span></td><td class="mono">leading/prose</td><td>component</td><td>number</td><td class="mono"><span data-copy="1.2">1.2</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-weight-light)">--lw-weight-light</span></td><td class="mono">weight/light</td><td>primitive</td><td>fontWeight</td><td class="mono"><span data-copy="300">300</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-weight-regular)">--lw-weight-regular</span></td><td class="mono">weight/regular</td><td>primitive</td><td>fontWeight</td><td class="mono"><span data-copy="400">400</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-weight-ui-strong)">--lw-weight-ui-strong</span></td><td class="mono">weight/ui-strong</td><td>primitive</td><td>fontWeight</td><td class="mono"><span data-copy="500">500</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-radius-control)">--lw-radius-control</span></td><td class="mono">radius/control</td><td>semantic</td><td>dimension</td><td class="mono"><span data-copy="4px">4px</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-radius-control-alt)">--lw-radius-control-alt</span></td><td class="mono">radius/control-alt</td><td>semantic</td><td>dimension</td><td class="mono"><span data-copy="6px">6px</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-radius-card)">--lw-radius-card</span></td><td class="mono">radius/card</td><td>semantic</td><td>dimension</td><td class="mono"><span data-copy="16.5px">16.5px</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-depth-float)">--lw-depth-float</span></td><td class="mono">depth/float</td><td>component</td><td>shadow</td><td class="mono"><span data-copy="0 16px 32px rgba(50, 50, 93, 0.12)">0 16px 32px rgba(50, 50, 93, 0.12)</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-depth-float-strong)">--lw-depth-float-strong</span></td><td class="mono">depth/float-strong</td><td>component</td><td>shadow</td><td class="mono"><span data-copy="0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3)">0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3)</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-depth-ring)">--lw-depth-ring</span></td><td class="mono">depth/ring</td><td>component</td><td>shadow</td><td class="mono"><span data-copy="0 0 0 1px #533AFD">0 0 0 1px #533AFD</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-depth-ring-inset)">--lw-depth-ring-inset</span></td><td class="mono">depth/ring-inset</td><td>component</td><td>shadow</td><td class="mono"><span data-copy="inset 0 0 0 2px #FFFFFF">inset 0 0 0 2px #FFFFFF</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-motion-fast)">--lw-motion-fast</span></td><td class="mono">motion/fast</td><td>primitive</td><td>duration</td><td class="mono"><span data-copy="240ms">240ms</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-motion-base)">--lw-motion-base</span></td><td class="mono">motion/base</td><td>primitive</td><td>duration</td><td class="mono"><span data-copy="300ms">300ms</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-motion-reveal)">--lw-motion-reveal</span></td><td class="mono">motion/reveal</td><td>primitive</td><td>duration</td><td class="mono"><span data-copy="400ms">400ms</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-easing-in-out)">--lw-easing-in-out</span></td><td class="mono">motion/easing-in-out</td><td>primitive</td><td>easing</td><td class="mono"><span data-copy="cubic-bezier(0.45, 0.05, 0.55, 0.95)">cubic-bezier(0.45, 0.05, 0.55, 0.95)</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-easing-out)">--lw-easing-out</span></td><td class="mono">motion/easing-out</td><td>primitive</td><td>easing</td><td class="mono"><span data-copy="cubic-bezier(0.25, 1, 0.5, 1)">cubic-bezier(0.25, 1, 0.5, 1)</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-space-section)">--lw-space-section</span></td><td class="mono">space/section</td><td>component</td><td>dimension</td><td class="mono"><span data-copy="128px">128px</span></td></tr><tr><td class="mono"><span data-copy="var(--lw-layout-container)">--lw-layout-container</span></td><td class="mono">layout/container</td><td>component</td><td>dimension</td><td class="mono"><span data-copy="1080px">1080px</span></td></tr></tbody></table>
+    <div class="tbl"><table><thead><tr><th>CSS var</th><th>Token</th><th>Layer</th><th>Type</th><th>Value</th><th>Status</th></tr></thead>
+    <tbody><tr><td><code data-copy="var(--lw-ink-900)">--lw-ink-900</code></td><td><code>color/ink/900</code></td><td>primitive</td><td>color</td><td><code data-copy="#061B31">#061B31</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-ink-700)">--lw-ink-700</code></td><td><code>color/ink/700</code></td><td>primitive</td><td>color</td><td><code data-copy="#50617A">#50617A</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-ink-600)">--lw-ink-600</code></td><td><code>color/ink/600</code></td><td>primitive</td><td>color</td><td><code data-copy="#64748D">#64748D</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-tint-100)">--lw-tint-100</code></td><td><code>color/blue-tint/100</code></td><td>primitive</td><td>color</td><td><code data-copy="#E5EDF5">#E5EDF5</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-tint-50)">--lw-tint-50</code></td><td><code>color/blue-tint/50</code></td><td>primitive</td><td>color</td><td><code data-copy="#F8FAFD">#F8FAFD</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-page-tint)">--lw-page-tint</code></td><td><code>color/blue-tint/25</code></td><td>primitive</td><td>color</td><td><code data-copy="#F6F9FC">#F6F9FC</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-white)">--lw-white</code></td><td><code>color/white</code></td><td>primitive</td><td>color</td><td><code data-copy="#FFFFFF">#FFFFFF</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-indigo-600)">--lw-indigo-600</code></td><td><code>color/indigo/600</code></td><td>primitive</td><td>color</td><td><code data-copy="#533AFD">#533AFD</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-indigo-500)">--lw-indigo-500</code></td><td><code>color/indigo/500</code></td><td>primitive</td><td>color</td><td><code data-copy="#635BFF">#635BFF</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-canvas)">--lw-canvas</code></td><td><code>color/canvas</code></td><td>semantic</td><td>color</td><td><code data-copy="#FFFFFF">#FFFFFF</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-canvas-tint)">--lw-canvas-tint</code></td><td><code>color/canvas-tint</code></td><td>semantic</td><td>color</td><td><code data-copy="#F6F9FC">#F6F9FC</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-surface-subtle)">--lw-surface-subtle</code></td><td><code>color/surface-subtle</code></td><td>semantic</td><td>color</td><td><code data-copy="#F8FAFD">#F8FAFD</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-text-heading)">--lw-text-heading</code></td><td><code>color/text/heading</code></td><td>semantic</td><td>color</td><td><code data-copy="#061B31">#061B31</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-text-body)">--lw-text-body</code></td><td><code>color/text/body</code></td><td>semantic</td><td>color</td><td><code data-copy="#50617A">#50617A</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-text-muted)">--lw-text-muted</code></td><td><code>color/text/muted</code></td><td>semantic</td><td>color</td><td><code data-copy="#64748D">#64748D</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-action-bg)">--lw-action-bg</code></td><td><code>color/action/bg</code></td><td>semantic</td><td>color</td><td><code data-copy="#533AFD">#533AFD</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-action-bg-alt)">--lw-action-bg-alt</code></td><td><code>color/action/bg-alt</code></td><td>semantic</td><td>color</td><td><code data-copy="#635BFF">#635BFF</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-action-fg)">--lw-action-fg</code></td><td><code>color/action/fg</code></td><td>semantic</td><td>color</td><td><code data-copy="#FFFFFF">#FFFFFF</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-link)">--lw-link</code></td><td><code>color/link</code></td><td>semantic</td><td>color</td><td><code data-copy="#533AFD">#533AFD</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-font-sans)">--lw-font-sans</code></td><td><code>font/sans</code></td><td>primitive</td><td>fontFamily</td><td><code data-copy="'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif">'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-font-mono)">--lw-font-mono</code></td><td><code>font/mono</code></td><td>primitive</td><td>fontFamily</td><td><code data-copy="'SourceCodePro', ui-monospace, SFMono-Regular, monospace">'SourceCodePro', ui-monospace, SFMono-Regular, monospace</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-font-body)">--lw-font-body</code></td><td><code>font/body</code></td><td>semantic</td><td>fontFamily</td><td><code data-copy="'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif">'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-font-code)">--lw-font-code</code></td><td><code>font/code</code></td><td>semantic</td><td>fontFamily</td><td><code data-copy="'SourceCodePro', ui-monospace, SFMono-Regular, monospace">'SourceCodePro', ui-monospace, SFMono-Regular, monospace</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-type-hero)">--lw-type-hero</code></td><td><code>type/hero</code></td><td>component</td><td>dimension</td><td><code data-copy="48px">48px</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-type-h2)">--lw-type-h2</code></td><td><code>type/h2</code></td><td>component</td><td>dimension</td><td><code data-copy="32px">32px</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-type-h3)">--lw-type-h3</code></td><td><code>type/h3</code></td><td>component</td><td>dimension</td><td><code data-copy="26px">26px</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-type-body)">--lw-type-body</code></td><td><code>type/body</code></td><td>component</td><td>dimension</td><td><code data-copy="16px">16px</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-type-ui)">--lw-type-ui</code></td><td><code>type/ui</code></td><td>component</td><td>dimension</td><td><code data-copy="15px">15px</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-type-caption)">--lw-type-caption</code></td><td><code>type/caption</code></td><td>component</td><td>dimension</td><td><code data-copy="10px">10px</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-tracking-hero)">--lw-tracking-hero</code></td><td><code>tracking/hero</code></td><td>component</td><td>dimension</td><td><code data-copy="-0.02em">-0.02em</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-tracking-h2)">--lw-tracking-h2</code></td><td><code>tracking/h2</code></td><td>component</td><td>dimension</td><td><code data-copy="-0.015em">-0.015em</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-leading-prose)">--lw-leading-prose</code></td><td><code>leading/prose</code></td><td>component</td><td>number</td><td><code data-copy="1.2">1.2</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-weight-light)">--lw-weight-light</code></td><td><code>weight/light</code></td><td>primitive</td><td>fontWeight</td><td><code data-copy="300">300</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-weight-regular)">--lw-weight-regular</code></td><td><code>weight/regular</code></td><td>primitive</td><td>fontWeight</td><td><code data-copy="400">400</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-weight-ui-strong)">--lw-weight-ui-strong</code></td><td><code>weight/ui-strong</code></td><td>primitive</td><td>fontWeight</td><td><code data-copy="500">500</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-radius-control)">--lw-radius-control</code></td><td><code>radius/control</code></td><td>semantic</td><td>dimension</td><td><code data-copy="4px">4px</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-radius-control-alt)">--lw-radius-control-alt</code></td><td><code>radius/control-alt</code></td><td>semantic</td><td>dimension</td><td><code data-copy="6px">6px</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-radius-card)">--lw-radius-card</code></td><td><code>radius/card</code></td><td>semantic</td><td>dimension</td><td><code data-copy="16.5px">16.5px</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-depth-float)">--lw-depth-float</code></td><td><code>depth/float</code></td><td>component</td><td>shadow</td><td><code data-copy="0 16px 32px rgba(50, 50, 93, 0.12)">0 16px 32px rgba(50, 50, 93, 0.12)</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-depth-float-strong)">--lw-depth-float-strong</code></td><td><code>depth/float-strong</code></td><td>component</td><td>shadow</td><td><code data-copy="0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3)">0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3)</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-depth-ring)">--lw-depth-ring</code></td><td><code>depth/ring</code></td><td>component</td><td>shadow</td><td><code data-copy="0 0 0 1px #533AFD">0 0 0 1px #533AFD</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-depth-ring-inset)">--lw-depth-ring-inset</code></td><td><code>depth/ring-inset</code></td><td>component</td><td>shadow</td><td><code data-copy="inset 0 0 0 2px #FFFFFF">inset 0 0 0 2px #FFFFFF</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-motion-fast)">--lw-motion-fast</code></td><td><code>motion/fast</code></td><td>primitive</td><td>duration</td><td><code data-copy="240ms">240ms</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-motion-base)">--lw-motion-base</code></td><td><code>motion/base</code></td><td>primitive</td><td>duration</td><td><code data-copy="300ms">300ms</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-motion-reveal)">--lw-motion-reveal</code></td><td><code>motion/reveal</code></td><td>primitive</td><td>duration</td><td><code data-copy="400ms">400ms</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-easing-in-out)">--lw-easing-in-out</code></td><td><code>motion/easing-in-out</code></td><td>primitive</td><td>easing</td><td><code data-copy="cubic-bezier(0.45, 0.05, 0.55, 0.95)">cubic-bezier(0.45, 0.05, 0.55, 0.95)</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-easing-out)">--lw-easing-out</code></td><td><code>motion/easing-out</code></td><td>primitive</td><td>easing</td><td><code data-copy="cubic-bezier(0.25, 1, 0.5, 1)">cubic-bezier(0.25, 1, 0.5, 1)</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-space-section)">--lw-space-section</code></td><td><code>space/section</code></td><td>component</td><td>dimension</td><td><code data-copy="128px">128px</code></td><td><span class="chip ok">observed</span></td></tr><tr><td><code data-copy="var(--lw-layout-container)">--lw-layout-container</code></td><td><code>layout/container</code></td><td>component</td><td>dimension</td><td><code data-copy="1080px">1080px</code></td><td><span class="chip warn">inferred</span></td></tr></tbody></table></div>
   </section>
 </main>
-<footer>Generated by lewitt from dna.json — do not edit by hand. Re-render with <code>build_artifacts.py</code>.</footer>
+<footer>Rendered by lewitt from dna.json — do not edit by hand. Re-render with build_artifacts.py.</footer>
 <script>
+// shared copy affordance: click any [data-copy], a note fades away next to it
+(function () {
+  function note(el, text) {
+    var old = document.querySelector('.copied-note');
+    if (old) old.remove();
+    var r = el.getBoundingClientRect();
+    var n = document.createElement('span');
+    n.className = 'copied-note';
+    n.textContent = text || 'Copied';
+    n.style.left = Math.round(r.left + r.width / 2) + 'px';
+    n.style.top = Math.round(r.top) + 'px';
+    document.body.appendChild(n);
+    window.setTimeout(function () { n.classList.add('out'); }, 1000);
+    window.setTimeout(function () { n.remove(); }, 1400);
+  }
+  function copy(el, text) {
+    var done = function () { note(el, text.indexOf('\n') > -1 ? 'Copied block' : 'Copied'); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { note(el, 'Clipboard blocked'); });
+    } else { note(el, 'Clipboard unavailable'); }
+  }
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-copy]');
+    if (!el) return;
+    if (el.matches('button, a')) { e.preventDefault(); e.stopPropagation(); }
+    copy(el, el.getAttribute('data-copy'));
+  }, true);
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var el = e.target.closest('[data-copy][tabindex]');
+    if (!el) return;
+    e.preventDefault();
+    copy(el, el.getAttribute('data-copy'));
+  });
+})();
+
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var status = document.getElementById('p-status');
@@ -137,38 +423,52 @@ body{overflow-x:hidden}
     if(!m) return 300;
     return m[2] && m[2].toLowerCase() === 's' ? parseFloat(m[1]) * 1000 : parseFloat(m[1]);
   }
-  function copyAll(btn, text){
-    var done = function(){ say('copied ' + (text.indexOf('\n') > -1 ? 'token set' : text)); };
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(done, function(){ say('clipboard blocked — select the text instead'); });
-    } else { say('clipboard unavailable — select the text instead'); }
-  }
-  Array.prototype.forEach.call(document.querySelectorAll('[data-copy]'), function(el){
-    el.addEventListener('click', function(){ copyAll(el, el.getAttribute('data-copy')); });
-    el.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); copyAll(el, el.getAttribute('data-copy')); } });
-  });
-  var all = document.getElementById('copy-all');
-  if(all) all.addEventListener('click', function(){
-    var lines = Array.prototype.map.call(document.querySelectorAll('[data-copy]'), function(el){ return el.getAttribute('data-copy'); });
-    copyAll(all, lines.join('\n'));
-  });
-  // motion replay: read duration/easing from the stylesheet's custom properties
+  // slow-motion factor shared by every replay control (0.25x .. 4x)
+  var slow = 1;
+  var slowEl = document.getElementById('p-slow');
+  if(slowEl) slowEl.addEventListener('input', function(){ slow = parseFloat(slowEl.value) || 1; say('replay speed ' + slow + 'x'); });
+
   Array.prototype.forEach.call(document.querySelectorAll('[data-replay]'), function(btn){
-    var box = document.getElementById(btn.getAttribute('data-replay'));
-    if(!box) return;
+    var dot = document.getElementById(btn.getAttribute('data-replay'));
+    if(!dot) return;
     var dur = btn.getAttribute('data-dur'), ease = btn.getAttribute('data-ease');
     btn.addEventListener('click', function(){
-      box.style.transition = 'none';
-      box.style.transform = 'none';
-      box.style.opacity = '1';
-      void box.offsetWidth;
+      dot.style.transition = 'none'; dot.style.transform = 'translateX(0)'; void dot.offsetWidth;
       if(reduce){ say('reduced motion: replay skipped'); return; }
-      box.style.transition = 'transform ' + dur + ' ' + ease + ', opacity ' + dur + ' ' + ease;
-      box.style.transform = 'translateX(56px) scale(.96)';
-      box.style.opacity = '0.55';
-      say('replaying ' + dur + ' ' + ease);
-      window.setTimeout(function(){ box.style.transform = 'none'; box.style.opacity = '1'; }, msFrom(dur) + 60);
+      var ms = msFrom(dur) * slow;
+      dot.style.transition = 'transform ' + ms + 'ms ' + ease;
+      dot.style.transform = 'translateX(calc(100% - 12px))';
+      say('replaying ' + dur + ' at ' + slow + 'x');
+      window.setTimeout(function(){ dot.style.transition = 'transform ' + ms + 'ms ' + ease; dot.style.transform = 'translateX(0)'; }, ms + 120);
     });
+    btn.addEventListener('mouseenter', function(){ if(!reduce) dot.style.transition = 'transform ' + (msFrom(dur) * slow) + 'ms ' + ease; });
+  });
+
+  // fidelity: split compare by default, side-by-side on request
+  var cmp = document.getElementById('p-compare');
+  var sbs = document.getElementById('p-sbs');
+  var toggle = document.getElementById('p-view-toggle');
+  if(toggle && cmp && sbs){
+    toggle.addEventListener('click', function(){
+      var split = toggle.getAttribute('aria-pressed') === 'true';
+      toggle.setAttribute('aria-pressed', split ? 'false' : 'true');
+      toggle.textContent = split ? 'Side by side' : 'Split compare';
+      cmp.hidden = split ? true : false;
+      sbs.hidden = split ? false : true;
+    });
+  }
+  var range = document.getElementById('p-split');
+  if(range && cmp){
+    var apply = function(){ cmp.style.setProperty('--split', range.value + '%');
+      var b = cmp.querySelector('.layer.b'); if(b) b.style.clipPath = 'inset(0 ' + (100 - range.value) + '% 0 0)';
+      var h = cmp.querySelector('.handle'); if(h) h.style.left = range.value + '%'; };
+    range.addEventListener('input', apply); apply();
+  }
+  document.addEventListener('keydown', function(e){
+    if(!range || (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight')) return;
+    var step = e.shiftKey ? 10 : 2;
+    range.value = Math.max(0, Math.min(100, parseFloat(range.value) + (e.key === 'ArrowRight' ? step : -step)));
+    range.dispatchEvent(new Event('input'));
   });
 })();
 </script>

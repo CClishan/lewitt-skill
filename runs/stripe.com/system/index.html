@@ -8,37 +8,17 @@
 <link rel="stylesheet" href="doc.css">
 <link rel="stylesheet" href="system.css">
 <link rel="stylesheet" href="site.css">
-<style>
-.is-hover.ds-btn--primary { background: var(--lw-action-bg-alt); }
-.is-focus.ds-btn { box-shadow: var(--lw-depth-ring-inset), var(--lw-depth-ring); }
-.is-active.ds-btn { box-shadow: var(--lw-depth-ring-inset); }
-.is-hover.ds-input { border-color: var(--lw-text-muted); }
-.is-focus.ds-input { border-color: var(--lw-link); box-shadow: 0 0 0 3px rgba(83,58,253,.22); }
-.is-invalid.ds-input { border-color: #b3261e; }
-.matrix { display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px;align-items:end; }
-</style>
+<style>:root { --doc-bg: #F6F6F5; }</style>
+<script>document.documentElement.classList.add('js');</script>
 </head>
-<body data-view="panel" data-site="Stripe design system">
+<body data-view="panel" data-site="Stripe design system" data-tone="light">
 <a class="skip" href="#canvas">Skip to canvas</a>
 <div class="shell">
   <aside class="rail" id="rail" aria-label="Sections">
-    <div class="brand">lewitt · Stripe<small>4 pages · full mode</small></div>
+    <div class="brand"><span class="brand-name">lewitt<span class="rail-x"> · </span>Stripe</span>
+      <small>4 pages · full mode</small></div>
     <button class="chip-btn rail-toggle" id="rail-toggle" aria-expanded="false" aria-controls="rail-nav">Menu</button>
-    <nav id="rail-nav">
-      <div><div class="group-label">Foundations</div>
-        <a class="nav-item" href="#overview">Overview</a>
-        <a class="nav-item" href="#colour">Colour</a>
-        <a class="nav-item" href="#typography">Typography</a>
-        <a class="nav-item" href="#shape">Radius &amp; Depth</a></div>
-      <div><div class="group-label">Interactive Lab</div>
-        <a class="nav-item" href="#components">Components &amp; States</a>
-        <a class="nav-item" href="#compositions">Compositions</a>
-        <a class="nav-item" href="#motion">Motion</a>
-        <a class="nav-item" href="#fidelity">Fidelity vs Source</a></div>
-      <div><div class="group-label">Specs &amp; Handoff</div>
-        <a class="nav-item" href="#system">System &amp; Taste</a>
-        <a class="nav-item" href="#specs">Evidence &amp; Downloads</a></div>
-    </nav>
+    <nav id="rail-nav"><div class="nav-group"><div class="group-label">Foundations</div><a class="nav-item" href="#overview">Overview</a><a class="nav-item" href="#colour">Colour</a><a class="nav-item" href="#typography">Typography</a><a class="nav-item" href="#shape">Radius &amp; Depth</a><a class="nav-item" href="#type-scale">Type Scale</a></div><div class="nav-group"><div class="group-label">Interactive Lab</div><a class="nav-item" href="#components">Components &amp; States</a><a class="nav-item" href="#compositions">Compositions</a><a class="nav-item" href="#states">Field States</a><a class="nav-item" href="#motion">Motion</a><a class="nav-item" href="#fidelity">Fidelity vs Source</a></div><div class="nav-group"><div class="group-label">Specs &amp; Handoff</div><a class="nav-item" href="#system">System &amp; Taste</a><a class="nav-item" href="#specs">Evidence &amp; Downloads</a></div></nav>
     <div class="rail-actions">
       <button class="chip-btn" id="view-print" aria-pressed="false">Print view</button>
     </div>
@@ -46,198 +26,670 @@
   <div class="canvas">
     <div class="toolbar" role="toolbar" aria-label="Stress controls">
       <span class="tb-label">Stress</span>
-      <button class="tb-btn" data-stress-toggle="long" aria-pressed="false">Long copy</button>
-      <button class="tb-btn" data-stress-toggle="nogradient" aria-pressed="false">No gradient</button>
-      <button class="tb-btn" data-stress-toggle="nomedia" aria-pressed="false">Missing media</button>
-      <button class="tb-btn" data-stress-toggle="reduced" aria-pressed="false">Reduced motion</button>
+      <button class="tb-btn" data-stress-toggle="long" aria-pressed="false">Long copy</button><button class="tb-btn" data-stress-toggle="nogradient" aria-pressed="false">No gradient</button><button class="tb-btn" data-stress-toggle="nomedia" aria-pressed="false">Missing media</button><button class="tb-btn" data-stress-toggle="reduced" aria-pressed="false">Reduced motion</button>
       <button class="tb-btn" id="viewport-390" aria-pressed="false">Narrow 390</button>
       <span class="tb-status" id="tb-status" aria-live="polite"></span>
     </div>
-    <div class="scroll" id="canvas" tabindex="-1">
+    <div class="scroll" id="canvas" tabindex="-1"><section class="panel" id="overview" data-panel="overview">
+<h1>Stripe — extracted design system</h1>
+<p class="lede">https://stripe.com/ · captured 2026-11-23T12:17:46 · every specimen below
+reads <code>../tokens.css</code>, a deterministic render of <code>dna.json</code>.</p>
+<div class="note"><strong>Colour is a once-per-page event</strong> — Readers need to trust the screenshots more than the scenery; once colour stops, the product becomes the subject.</div>
+<h2>By the numbers</h2>
+<table><thead><tr><th></th><th>Value</th><th>Reads</th></tr></thead><tbody><tr><td>Tokens</td><td>49</td><td>semantic → component → primitive</td></tr><tr><td>Evidence</td><td>32</td><td>every value cites an id</td></tr><tr><td>Pages</td><td>4</td><td>entry plus representative subpages</td></tr><tr><td>Interactions</td><td>3</td><td>measured with real pointer and focus input</td></tr></tbody></table>
+<h2>Limitations</h2>
+<ul><li>stripe.com redirects to /en-sg on this network; copy and pricing are the SG locale.</li><li>The hero gradient is an image (1392x975); its colours are sampled from pixels, not CSS.</li><li>Rendered font is sohne-var; the loaded face filename was not inspected.</li><li>Home page CSSOM scan found no :focus-visible/reduced-motion, while the pricing page did — scanning is per-page.</li><li>contact/sales (page 4) is a short form page and contributes little signal.</li></ul>
+</section><section class="panel" id="colour" data-panel="colour">
+<h1>Colour</h1>
+<p class="lede">Roles before primitives. Ratios are computed from the two token values, not sampled from a screenshot.</p>
+<h3>semantic · 10</h3><div class="sw"><div class="swatch"><div class="fill" style="background:#FFFFFF"></div><div class="line"><span data-copy="#FFFFFF">color/canvas</span><span class="hex" data-copy="var(--lw-canvas)">#FFFFFF</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#F6F9FC"></div><div class="line"><span data-copy="#F6F9FC">color/canvas-tint</span><span class="hex" data-copy="var(--lw-canvas-tint)">#F6F9FC</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#F8FAFD"></div><div class="line"><span data-copy="#F8FAFD">color/surface-subtle</span><span class="hex" data-copy="var(--lw-surface-subtle)">#F8FAFD</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#061B31"></div><div class="line"><span data-copy="#061B31">color/text/heading</span><span class="hex" data-copy="var(--lw-text-heading)">#061B31</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#50617A"></div><div class="line"><span data-copy="#50617A">color/text/body</span><span class="hex" data-copy="var(--lw-text-body)">#50617A</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#64748D"></div><div class="line"><span data-copy="#64748D">color/text/muted</span><span class="hex" data-copy="var(--lw-text-muted)">#64748D</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#533AFD"></div><div class="line"><span data-copy="#533AFD">color/action/bg</span><span class="hex" data-copy="var(--lw-action-bg)">#533AFD</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#635BFF"></div><div class="line"><span data-copy="#635BFF">color/action/bg-alt</span><span class="hex" data-copy="var(--lw-action-bg-alt)">#635BFF</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#FFFFFF"></div><div class="line"><span data-copy="#FFFFFF">color/action/fg</span><span class="hex" data-copy="var(--lw-action-fg)">#FFFFFF</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#533AFD"></div><div class="line"><span data-copy="#533AFD">color/link</span><span class="hex" data-copy="var(--lw-link)">#533AFD</span></div><div class="sub"><span class="badge observed">observed</span></div></div></div><h3>primitive · 9</h3><div class="sw"><div class="swatch"><div class="fill" style="background:#061B31"></div><div class="line"><span data-copy="#061B31">color/ink/900</span><span class="hex" data-copy="var(--lw-ink-900)">#061B31</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#50617A"></div><div class="line"><span data-copy="#50617A">color/ink/700</span><span class="hex" data-copy="var(--lw-ink-700)">#50617A</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#64748D"></div><div class="line"><span data-copy="#64748D">color/ink/600</span><span class="hex" data-copy="var(--lw-ink-600)">#64748D</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#E5EDF5"></div><div class="line"><span data-copy="#E5EDF5">color/blue-tint/100</span><span class="hex" data-copy="var(--lw-tint-100)">#E5EDF5</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#F8FAFD"></div><div class="line"><span data-copy="#F8FAFD">color/blue-tint/50</span><span class="hex" data-copy="var(--lw-tint-50)">#F8FAFD</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#F6F9FC"></div><div class="line"><span data-copy="#F6F9FC">color/blue-tint/25</span><span class="hex" data-copy="var(--lw-page-tint)">#F6F9FC</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#FFFFFF"></div><div class="line"><span data-copy="#FFFFFF">color/white</span><span class="hex" data-copy="var(--lw-white)">#FFFFFF</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#533AFD"></div><div class="line"><span data-copy="#533AFD">color/indigo/600</span><span class="hex" data-copy="var(--lw-indigo-600)">#533AFD</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#635BFF"></div><div class="line"><span data-copy="#635BFF">color/indigo/500</span><span class="hex" data-copy="var(--lw-indigo-500)">#635BFF</span></div><div class="sub"><span class="badge observed">observed</span></div></div></div>
+<h2>Pairs in use</h2>
+<div class="pairs"><div class="pair"><div class="sample" style="background:#FFFFFF;color:#061B31">heading / canvas</div><div class="pmeta"><span class="mono">display copy</span><span class="chip ok">17.4:1 · AAA</span></div></div><div class="pair"><div class="sample" style="background:#FFFFFF;color:#50617A">body / canvas</div><div class="pmeta"><span class="mono">paragraphs</span><span class="chip ok">6.3:1 · AA</span></div></div><div class="pair"><div class="sample" style="background:#F8FAFD;color:#50617A">body / subtle</div><div class="pmeta"><span class="mono">cards, raised rows</span><span class="chip ok">6.0:1 · AA</span></div></div><div class="pair"><div class="sample" style="background:#533AFD;color:#FFFFFF">action-fg / action-bg</div><div class="pmeta"><span class="mono">primary button</span><span class="chip ok">6.2:1 · AA</span></div></div><div class="pair"><div class="sample" style="background:#FFFFFF;color:#533AFD">link / canvas</div><div class="pmeta"><span class="mono">inline links</span><span class="chip ok">6.2:1 · AA</span></div></div></div>
+</section><section class="panel" id="typography" data-panel="typography">
+<h1>Typography</h1>
+<p class="lede">Parameters on the left, the specimen on the right at its real size. Web fonts are not shipped;
+the specimen uses the declared stack and falls back where the face is missing.</p>
+<div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-hero)">type/hero</span><dl><dt>size</dt><dd>48px</dd><dt>weight</dt><dd>300</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:48px;font-weight:300;letter-spacing:-0.02em">Financial infrastructure to grow your revenue</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-h2)">type/h2</span><dl><dt>size</dt><dd>32px</dd><dt>weight</dt><dd>300</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:32px;font-weight:300;letter-spacing:-0.02em">Financial infrastructure to grow your revenue</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-h3)">type/h3</span><dl><dt>size</dt><dd>26px</dd><dt>weight</dt><dd>300</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:26px;font-weight:300;letter-spacing:-0.02em">Financial infrastructure to grow your revenue</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-body)">type/body</span><dl><dt>size</dt><dd>16px</dd><dt>weight</dt><dd>300</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:16px;font-weight:300;letter-spacing:-0.02em">Financial infrastructure to grow your revenue</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-ui)">type/ui</span><dl><dt>size</dt><dd>15px</dd><dt>weight</dt><dd>300</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:15px;font-weight:300;letter-spacing:-0.02em">Financial infrastructure to grow your revenue</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-caption)">type/caption</span><dl><dt>size</dt><dd>10px</dd><dt>weight</dt><dd>300</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:10px;font-weight:300;letter-spacing:-0.02em">Financial infrastructure to grow your revenue</span></div></div>
+<h2>Weights</h2>
+<div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-weight-light)">weight/light</span><dl><dt>weight</dt><dd>300</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:32px;font-weight:300">Financial infrastructure to grow your revenue</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-weight-regular)">weight/regular</span><dl><dt>weight</dt><dd>400</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:32px;font-weight:400">Financial infrastructure to grow your revenue</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-weight-ui-strong)">weight/ui-strong</span><dl><dt>weight</dt><dd>500</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:32px;font-weight:500">Financial infrastructure to grow your revenue</span></div></div>
+</section><section class="panel" id="type-scale" data-panel="type-scale">
+<h1>Type Scale</h1>
+<p class="lede">The full stack in reading order, drawn from the tokens exactly as a build would.</p>
+<div class="stage"><div class="stage-head"><span>type scale · ratios between steps</span><span>on var(--lw-canvas)</span></div><div class="stage-body"><div data-ds><div style="font-size:48px;line-height:1.12;font-weight:300;letter-spacing:-0.02em;margin:0 0 18px;color:var(--lw-text-heading)">Financial infrastructure</div><div style="font-size:32px;line-height:1.12;font-weight:300;letter-spacing:-0.02em;margin:0 0 18px;color:var(--lw-text-heading)">Financial infrastructure</div><div style="font-size:26px;line-height:1.12;font-weight:300;letter-spacing:-0.02em;margin:0 0 18px;color:var(--lw-text-heading)">Financial infrastructure</div><div style="font-size:16px;line-height:1.12;font-weight:300;letter-spacing:-0.02em;margin:0 0 18px;color:var(--lw-text-heading)">Financial infrastructure</div><div style="font-size:15px;line-height:1.12;font-weight:300;letter-spacing:-0.02em;margin:0 0 18px;color:var(--lw-text-heading)">Financial infrastructure</div><div style="font-size:10px;line-height:1.12;font-weight:300;letter-spacing:-0.02em;margin:0 0 18px;color:var(--lw-text-heading)">Financial infrastructure</div></div></div></div>
+</section><section class="panel" id="shape" data-panel="shape">
+<h1>Radius &amp; Depth</h1>
+<p class="lede">Corners and layer separation as tokenised values.</p>
+<div class="grid-2"><div class="shape"><div class="obj" style="border-radius:4px"></div><div class="cap"><span data-copy="var(--lw-radius-control)">radius/control</span><span class="v">4px</span></div></div><div class="shape"><div class="obj" style="border-radius:6px"></div><div class="cap"><span data-copy="var(--lw-radius-control-alt)">radius/control-alt</span><span class="v">6px</span></div></div><div class="shape"><div class="obj" style="border-radius:16.5px"></div><div class="cap"><span data-copy="var(--lw-radius-card)">radius/card</span><span class="v">16.5px</span></div></div><div class="shape"><div class="obj" style="box-shadow:0 16px 32px rgba(50, 50, 93, 0.12);border-color:transparent"></div><div class="cap"><span data-copy="var(--lw-depth-float)">depth/float</span><span class="v">0 16px 32px rgba(50, 50, 93, 0.12)</span></div></div><div class="shape"><div class="obj" style="box-shadow:0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3);border-color:transparent"></div><div class="cap"><span data-copy="var(--lw-depth-float-strong)">depth/float-strong</span><span class="v">0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3)</span></div></div><div class="shape"><div class="obj" style="box-shadow:0 0 0 1px #533AFD;border-color:transparent"></div><div class="cap"><span data-copy="var(--lw-depth-ring)">depth/ring</span><span class="v">0 0 0 1px #533AFD</span></div></div><div class="shape"><div class="obj" style="box-shadow:inset 0 0 0 2px #FFFFFF;border-color:transparent"></div><div class="cap"><span data-copy="var(--lw-depth-ring-inset)">depth/ring-inset</span><span class="v">inset 0 0 0 2px #FFFFFF</span></div></div></div>
+</section><section class="panel" id="components" data-panel="components">
+<h1>Components &amp; States</h1>
+<p class="lede">Every state is a real browser state; forced samples are labelled as such. The toolbar above
+stresses the demos while you look at them.</p>
+<div class="stage"><div class="stage-head"><span>Button · default, hover, focus-visible, active, disabled</span><span>reads ../tokens.css</span></div><div class="stage-body"><div data-ds><div class="matrix"><figure><div class="mono" style="color:var(--lw-text-muted);margin-bottom:6px">default</div><button class="ds-btn ds-btn--primary">Get started</button></figure><figure><div class="mono" style="color:var(--lw-text-muted);margin-bottom:6px">hover · forced</div><button class="ds-btn ds-btn--primary is-hover">Get started</button></figure><figure><div class="mono" style="color:var(--lw-text-muted);margin-bottom:6px">focus-visible · forced</div><button class="ds-btn ds-btn--primary is-focus">Get started</button></figure><figure><div class="mono" style="color:var(--lw-text-muted);margin-bottom:6px">active · forced</div><button class="ds-btn ds-btn--primary is-active">Get started</button></figure><figure><div class="mono" style="color:var(--lw-text-muted);margin-bottom:6px">disabled · disabled</div><button class="ds-btn ds-btn--primary" disabled>Get started</button></figure></div></div></div><div class="stage-note">Hover and focus are real: move the pointer or press Tab.</div></div>
+<h2>Input</h2><div class="stage"><div class="stage-head"><span>Input · default, hover, focus-visible, invalid, disabled</span><span></span></div><div class="stage-body"><div data-ds><div class="matrix"><figure><div class="mono" style="color:var(--lw-text-muted);margin-bottom:6px">default</div><label class="ds-field"><span>Email</span><input class="ds-input " placeholder="you@company.com"></label></figure><figure><div class="mono" style="color:var(--lw-text-muted);margin-bottom:6px">hover · forced</div><label class="ds-field"><span>Email</span><input class="ds-input is-hover" placeholder="you@company.com"></label></figure><figure><div class="mono" style="color:var(--lw-text-muted);margin-bottom:6px">focus-visible · forced</div><label class="ds-field"><span>Email</span><input class="ds-input is-focus" placeholder="you@company.com"></label></figure><figure><div class="mono" style="color:var(--lw-text-muted);margin-bottom:6px">invalid · state</div><label class="ds-field"><span>Email</span><input class="ds-input is-invalid" placeholder="you@company.com" aria-invalid="true"></label></figure><figure><div class="mono" style="color:var(--lw-text-muted);margin-bottom:6px">disabled · disabled</div><label class="ds-field"><span>Email</span><input class="ds-input " placeholder="you@company.com" disabled></label></figure></div></div></div><div class="stage-note">Blur validation is live on this page: type into the live field below.</div></div>
+<h2>Cards &amp; links</h2>
+<div class="stage"><div class="stage-head"><span>Card surfaces</span><span></span></div><div class="stage-body"><div data-ds><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px"><div class="ds-card" style="padding:18px">Default card</div><div class="ds-card ds-card--tint" style="padding:18px">Tint card</div><div class="ds-card ds-card--float" style="padding:18px">Float card</div></div><p style="margin:18px 0 0"><a class="ds-link" href="#components">Read the docs</a> · <a class="ds-link" href="#specs">view evidence</a></p></div></div></div>
+</section><section class="panel" id="compositions" data-panel="compositions">
+<h1>Compositions</h1>
+<p class="lede">Assembled only from the components above and the tokens in <code>../tokens.css</code>. Copy is
+sample text, never the source's.</p>
+<h2>Marketing hero</h2>
+<div class="stage"><div class="stage-head"><span>hero · display type, one action</span><span>display · 3 lengths</span></div><div class="stage-body"><div data-ds><div class="ds-scope" style="padding:48px"><h2 class="ds-hero ds-stressable" style="font-size:var(--lw-type-h2);margin:0 0 18px">Financial infrastructure to grow your revenue</h2><h2 class="ds-hero ds-stressable" style="font-size:var(--lw-type-h2);margin:0 0 18px">Accept payments and move money globally with a single integration</h2><h2 class="ds-hero ds-stressable" style="font-size:var(--lw-type-h2);margin:0 0 18px">Transparent pricing that scales with volume</h2><button class="ds-btn ds-btn--primary">Get started</button></div></div></div><div class="stage-note">Long copy in the toolbar re-cuts these lines.</div></div>
+<h2>Pricing rows</h2>
+<div class="stage"><div class="stage-head"><span>pricing · three tiers</span><span></span></div><div class="stage-body"><div data-ds><div class="ds-scope" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;padding:32px"><div class="ds-card" style="padding:20px"><div class="ds-caption">Tier</div><div class="ds-price">2.9% + 30¢</div><button class="ds-btn ds-btn--secondary" style="margin-top:12px">Choose</button></div><div class="ds-card" style="padding:20px"><div class="ds-caption">Tier</div><div class="ds-price">1.5%</div><button class="ds-btn ds-btn--secondary" style="margin-top:12px">Choose</button></div><div class="ds-card" style="padding:20px"><div class="ds-caption">Tier</div><div class="ds-price">Custom</div><button class="ds-btn ds-btn--secondary" style="margin-top:12px">Choose</button></div></div></div></div><div class="stage-note">Card, caption and button states all come from the same tokens.</div></div>
+</section><section class="panel" id="states" data-panel="states">
+<h1>Field States</h1>
+<p class="lede">The same input in five states, so a reviewer can compare without hovering anything.</p>
+<div class="stage"><div class="stage-head"><span>input states</span><span></span></div><div class="stage-body"><div data-ds><div class="ds-scope" style="display:grid;gap:18px;padding:32px;max-width:420px"><label class="ds-field"><span>default</span><input class="ds-input " placeholder="you@company.com"></label><label class="ds-field"><span>hover (forced)</span><input class="ds-input is-hover" placeholder="you@company.com"></label><label class="ds-field"><span>focus-visible (forced)</span><input class="ds-input is-focus" placeholder="you@company.com"></label><label class="ds-field"><span>invalid</span><input class="ds-input is-invalid" placeholder="you@company.com" aria-invalid="true"></label><label class="ds-field"><span>disabled</span><input class="ds-input " placeholder="you@company.com" disabled></label></div></div></div><div class="stage-note">aria-invalid drives the invalid style, not a colour class.</div></div>
+</section><section class="panel" id="motion" data-panel="motion">
+<h1>Motion</h1>
+<p class="lede">Each curve is plotted from the token's own cubic-bezier. Replay runs the real duration.</p>
+<div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.45 0.05 0.55 0.95: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="76.6" y2="74.6" /><line class="hz" x1="158.0" y1="10.0" x2="91.4" y2="13.4" /><circle class="hn" cx="76.6" cy="74.6" r="2" /><circle class="hn" cx="91.4" cy="13.4" r="2" /><path class="curve" d="M 10.0 78.0 C 76.6 74.6 91.4 13.4 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="mono" data-copy="var(--lw-motion-fast)">motion/fast · 240ms</div><div class="ease">cubic-bezier(0.45, 0.05, 0.55, 0.95)</div><div class="track"><span class="dot" id="dot-fast"></span></div></div><div class="act"><button class="tb-btn" data-sys-replay="dot-fast" data-dur="240ms" data-ease="cubic-bezier(0.45, 0.05, 0.55, 0.95)">Replay</button></div></div><div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.45 0.05 0.55 0.95: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="76.6" y2="74.6" /><line class="hz" x1="158.0" y1="10.0" x2="91.4" y2="13.4" /><circle class="hn" cx="76.6" cy="74.6" r="2" /><circle class="hn" cx="91.4" cy="13.4" r="2" /><path class="curve" d="M 10.0 78.0 C 76.6 74.6 91.4 13.4 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="mono" data-copy="var(--lw-motion-base)">motion/base · 300ms</div><div class="ease">cubic-bezier(0.45, 0.05, 0.55, 0.95)</div><div class="track"><span class="dot" id="dot-base"></span></div></div><div class="act"><button class="tb-btn" data-sys-replay="dot-base" data-dur="300ms" data-ease="cubic-bezier(0.45, 0.05, 0.55, 0.95)">Replay</button></div></div><div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.45 0.05 0.55 0.95: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="76.6" y2="74.6" /><line class="hz" x1="158.0" y1="10.0" x2="91.4" y2="13.4" /><circle class="hn" cx="76.6" cy="74.6" r="2" /><circle class="hn" cx="91.4" cy="13.4" r="2" /><path class="curve" d="M 10.0 78.0 C 76.6 74.6 91.4 13.4 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="mono" data-copy="var(--lw-motion-reveal)">motion/reveal · 400ms</div><div class="ease">cubic-bezier(0.45, 0.05, 0.55, 0.95)</div><div class="track"><span class="dot" id="dot-reveal"></span></div></div><div class="act"><button class="tb-btn" data-sys-replay="dot-reveal" data-dur="400ms" data-ease="cubic-bezier(0.45, 0.05, 0.55, 0.95)">Replay</button></div></div><div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.45 0.05 0.55 0.95: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="76.6" y2="74.6" /><line class="hz" x1="158.0" y1="10.0" x2="91.4" y2="13.4" /><circle class="hn" cx="76.6" cy="74.6" r="2" /><circle class="hn" cx="91.4" cy="13.4" r="2" /><path class="curve" d="M 10.0 78.0 C 76.6 74.6 91.4 13.4 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="mono" data-copy="var(--lw-easing-in-out)">motion/easing-in-out</div><div class="ease">cubic-bezier(0.45, 0.05, 0.55, 0.95)</div></div><div class="act"><span class="badge observed">observed</span></div></div><div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.25 1 0.5 1: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="47.0" y2="10.0" /><line class="hz" x1="158.0" y1="10.0" x2="84.0" y2="10.0" /><circle class="hn" cx="47.0" cy="10.0" r="2" /><circle class="hn" cx="84.0" cy="10.0" r="2" /><path class="curve" d="M 10.0 78.0 C 47.0 10.0 84.0 10.0 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="mono" data-copy="var(--lw-easing-out)">motion/easing-out</div><div class="ease">cubic-bezier(0.25, 1, 0.5, 1)</div></div><div class="act"><span class="badge observed">observed</span></div></div>
+<h2>Interaction deltas</h2>
+<p class="lede">Forced with a real CDP mouse and element.focus(); values come from <code>dna.json &gt; interactions</code>.</p>
+<h3>button <span class="mono" style="color:var(--n-mute)">button.hds-button.CookieSettings_CookieSettings_</span></h3><p class="mono">hover: color: rgb(83, 58, 253) → rgb(46, 43, 140); border-color: rgb(214, 217, 252) → rgb(64, 50, 200)</p><p class="mono">focus: outline: 0px solid rgba(0, 0, 0, 0) → 3px solid rgba(84, 82, 251, 0.75)</p><h3>button <span class="mono" style="color:var(--n-mute)">button.hds-ui-button.announcement-bar__dismiss</span></h3><p class="mono">hover: no computed change on the icon-only dismiss button</p><p class="mono">focus: outline: 0px solid rgba(0, 0, 0, 0) → 3px solid rgba(0, 0, 0, 0)</p><h3>card <span class="mono" style="color:var(--n-mute)">div.payments-graphic__checkout-item-card</span></h3><p class="mono">hover: No computed change; the card sits inside an animated illustration, so observed ≠ no hover style exists</p><p class="mono">focus: Not focusable</p>
+</section><section class="panel" id="fidelity" data-panel="fidelity">
+<h1>Fidelity vs Source</h1>
+<p class="lede">The capture on the left, the rebuild on the right, at equal width. Differences stay visible
+rather than claimed away.</p>
+<div style="display:flex;justify-content:flex-end;margin:0 0 12px">
+  <button class="tb-btn" id="compare-toggle" aria-pressed="true">Side by side</button>
+</div>
+<div class="compare" id="compare">
+  <img src="../capture/viewport.png" alt="captured source page">
+  <div class="layer b"><img src="../capture/viewport.png" alt=""></div>
+  <div class="handle"></div>
+  <span class="lab l">source · capture/viewport.png</span><span class="lab r">split compare</span>
+  <input id="split" type="range" min="0" max="100" value="50" aria-label="compare source and rebuild">
+</div>
+<div class="sbs" id="sbs" hidden>
+  <figure><img src="../capture/viewport.png" alt="captured source page" style="width:100%"><figcaption>source</figcaption></figure>
+  <figure><div class="stage" style="border:0"><div class="stage-body" style="min-height:200px"><div data-ds style="padding:16px">
+  the rebuild lives in <code>#compositions</code> and <code>#components</code> on this page</div></div></div>
+  <figcaption>rebuild · this page</figcaption></figure>
+</div>
+<p class="note">Type rendering cannot be matched because the source face is not shipped. Fidelity stays
+<strong>PARTIAL</strong> in VERIFY.md until every recorded deviation is closed.</p>
+</section><section class="panel" id="system" data-panel="system">
+<h1>System &amp; Taste</h1>
+<p class="lede">The decision in words, the rule it compiles to, and the machine pattern behind it.</p>
+<div class="taste"><article class="tcard"><div class="head"><span class="badge observed">observed</span><span class="mono" style="color:var(--n-faint)">restraint · e-hero-band, e-canvas-light, e-sections-tinted</span></div><h4>Colour is a once-per-page event</h4><div class="ab"><div class="v">a single decorative gradient confined to the hero</div><div class="vs">over</div><div class="v over">gradient text, gradient buttons, and gradient section backgrounds (the common fintech treatment)</div></div><p class="why">Readers need to trust the screenshots more than the scenery; once colour stops, the product becomes the subject.</p><div><span class="rule-cap forbid">forbid · 2 class pattern(s)</span><span class="rule-cap max">max · border-width ≤ 1px</span></div><details><summary>Machine rule</summary><pre>{
+ &quot;forbidCss&quot;: [],
+ &quot;forbidClass&quot;: [
+  &quot;(?:^|[^a-z0-9-])bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)&quot;,
+  &quot;shadow-(?!(?:none|sm|inner)\\b)[a-z0-9]+&quot;
+ ],
+ &quot;max&quot;: {
+  &quot;border-width&quot;: {
+   &quot;value&quot;: &quot;1&quot;,
+   &quot;unit&quot;: &quot;px&quot;
+  }
+ },
+ &quot;note&quot;: &quot;Gradients outside the hero band and any non-ring shadow class are violations; hairlines (1px) are the intended depth signal.&quot;
+}</pre></details></article><article class="tcard"><div class="head"><span class="badge observed">observed</span><span class="mono" style="color:var(--n-faint)">restraint · e-purple, e-canvas-light</span></div><h4>One indigo, only where you can click</h4><div class="ab"><div class="v">indigo restricted to actions and links</div><div class="vs">over</div><div class="v over">indigo section backgrounds, indigo icons, and indigo headings</div></div><p class="why">At ~0.2% of the surface, indigo always means 'do something'; a larger share would make the page a brand poster and slow scanning.</p><div><span class="rule-cap forbid">forbid · 2 class pattern(s)</span></div><details><summary>Machine rule</summary><pre>{
+ &quot;forbidCss&quot;: [],
+ &quot;forbidClass&quot;: [
+  &quot;(?:^|[^a-z0-9-])bg-(?:indigo|violet|purple)-(?:4|5|6|7)\\d\\d$&quot;,
+  &quot;(?:^|[^a-z0-9-])bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)&quot;
+ ],
+ &quot;max&quot;: {},
+ &quot;note&quot;: &quot;Allowed on buttons/links only; never on a section or card background.&quot;
+}</pre></details></article><article class="tcard"><div class="head"><span class="badge observed">observed</span><span class="mono" style="color:var(--n-faint)">craft · e-weights, e-h1, e-h2, e-h3</span></div><h4>Light weights carry the headline</h4><div class="ab"><div class="v">variable 300 at every display size</div><div class="vs">over</div><div class="v over">600-700 headline weights with a 1.33x type ramp</div></div><p class="why">A light face over a heavy gradient leaves the gradient as the loudest thing; bold type would fight the artwork and the screenshots.</p></article><article class="tcard"><div class="head"><span class="badge observed">observed</span><span class="mono" style="color:var(--n-faint)">craft · e-ink, e-ink-body</span></div><h4>Blue-black ink instead of grey</h4><div class="ab"><div class="v">blue-tinted neutrals</div><div class="vs">over</div><div class="v over">pure greys (#111, #666) or neutral-warm text</div></div><p class="why">Grey text on a white page beside indigo reads as unfinished; shared hue makes the colour look chosen rather than added.</p></article><article class="tcard"><div class="head"><span class="badge observed">observed</span><span class="mono" style="color:var(--n-faint)">system · e-motion, e-motion-support</span></div><h4>Motion is tiered by job</h4><div class="ab"><div class="v">three job-specific durations</div><div class="vs">over</div><div class="v over">one global 200ms ease on everything</div></div><p class="why">Colour has to feel immediate on hover while a layout reveal needs room to read; one duration would make one of them wrong.</p></article></div>
+<h2>Patterns</h2>
+<h3>Text is blue-black, never grey</h3><p><strong>Headings #061B31 and body #50617A sit on a blue hue axis; muted text is a lighter blue, not a neutral.</strong></p><p class="mono" style="color:var(--n-mute)">Keeps a light page from looking half-finished and ties copy to the indigo CTA. · e-ink, e-ink-body, e-ink-other</p><h3>One indigo for actions and linked words only</h3><p><strong>rgb(83,58,253) covers ~0.2% of the surface: filled CTA, 1px outlined CTA, inline links. No indigo surfaces, headers or decoration.</strong></p><p class="mono" style="color:var(--n-mute)">Action colour stays unambiguous while the page stays mostly white. · e-purple, e-canvas-light, e-buttons</p><h3>One gradient, spent on the hero</h3><p><strong>A single full-bleed pink/orange/lilac band covers the hero; every section below is flat white or a pale tint.</strong></p><p class="mono" style="color:var(--n-mute)">Delivers a memorable first screen, then removes colour so product detail is readable. · e-hero-band, e-canvas-light, e-sections-tinted</p><h3>Light weights at every size</h3><p><strong>300 carries display and body (x302 home, x506 pricing); 400 for UI, 425/500 only inside pricing controls.</strong></p><p class="mono" style="color:var(--n-mute)">Keeps 48px headlines airy so gradient and product shots carry the emotion. · e-weights, e-weights-pricing, e-h1</p><h3>Controls small, cards large</h3><p><strong>Buttons and chips 4-6px; cards 16.5px on pricing and 8px elsewhere. No pill buttons in the primary flow.</strong></p><p class="mono" style="color:var(--n-mute)">Distinguishes clickable controls from content containers by silhouette. · e-radii, e-radii-pricing</p><h3>Shadows tinted to the canvas, not black</h3><p><strong>Elevation uses rgba(50,50,93,·) plus a second layer, mostly 1-2px tight, with 13-16px blur on floats.</strong></p><p class="mono" style="color:var(--n-mute)">Product screenshots float on white without grey halos. · e-shadow-soft, e-shadow-layered, e-ring</p><h3>Three motion tiers by job</h3><p><strong>0.24s for opacity, 0.3s for colour, 0.4s for the grid reveal; reduced-motion and focus-visible are present on the pricing stylesheet.</strong></p><p class="mono" style="color:var(--n-mute)">Colour is instant enough to feel responsive, layout reveals stay calm. · e-motion, e-motion-support</p><h3>Fixed 128px section rhythm on inner pages</h3><p><strong>Product pages repeat a 128px gap seven times; the home page uses 160px then a 408px break around the logos.</strong></p><p class="mono" style="color:var(--n-mute)">Inner pages read as one steady column; only the home page gets dramatic spacing. · e-gaps-products, e-gaps-home, e-space</p>
+</section><section class="panel" id="specs" data-panel="specs">
+<h1>Evidence &amp; Downloads</h1>
+<div class="subtabs" role="tablist" aria-label="Specs">
+  <button role="tab" id="tab-downloads" aria-controls="sub-downloads" aria-selected="true" tabindex="0">Downloads</button>
+  <button role="tab" id="tab-code" aria-controls="sub-code" aria-selected="false" tabindex="-1">Code</button>
+  <button role="tab" id="tab-tokens" aria-controls="sub-tokens" aria-selected="false" tabindex="-1">Tokens</button>
+  <button role="tab" id="tab-measurements" aria-controls="sub-measurements" aria-selected="false" tabindex="-1">Measurements</button>
+  <button role="tab" id="tab-evidence" aria-controls="sub-evidence" aria-selected="false" tabindex="-1">Evidence (32)</button>
+</div>
+<div class="tabpanel" id="sub-downloads" role="tabpanel" aria-labelledby="tab-downloads">
+  <div class="dl"><a class="mini-btn" href="../tokens.css" download>tokens.css</a><a class="mini-btn" href="../shadcn-theme.css" download>shadcn-theme.css</a><a class="mini-btn" href="../agent-rules.md" download>agent-rules.md</a><a class="mini-btn" href="../taste.md" download>taste.md</a><a class="mini-btn" href="../VERIFY.md" download>VERIFY.md</a><a class="mini-btn" href="../tokens.resolved.json" download>tokens.resolved.json</a></div>
+  <h3>Pages inspected</h3><ul><li><a href="https://stripe.com/" rel="noreferrer">https://stripe.com/</a></li><li><a href="https://stripe.com/pricing" rel="noreferrer">https://stripe.com/pricing</a></li><li><a href="https://stripe.com/products" rel="noreferrer">https://stripe.com/products</a></li><li><a href="https://stripe.com/contact/sales" rel="noreferrer">https://stripe.com/contact/sales</a></li></ul>
+  <h3>Limitations</h3><ul><li>stripe.com redirects to /en-sg on this network; copy and pricing are the SG locale.</li><li>The hero gradient is an image (1392x975); its colours are sampled from pixels, not CSS.</li><li>Rendered font is sohne-var; the loaded face filename was not inspected.</li><li>Home page CSSOM scan found no :focus-visible/reduced-motion, while the pricing page did — scanning is per-page.</li><li>contact/sales (page 4) is a short form page and contributes little signal.</li></ul>
+</div>
+<div class="tabpanel" id="sub-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+  <div class="code" style="margin:0 0 20px"><div class="code-head"><span>tokens.css</span><button class="mini-btn" data-copy="/* Generated by lewitt from dna.json — do not edit by hand (R3: single source). */
+/* Scope: apply [data-ds] (and [data-ds-mode=&quot;&lt;mode&gt;&quot;] for non-default modes). */
 
-<section class="panel" id="overview">
-  <h1>Stripe — extracted design system</h1>
-  <p class="lede">https://stripe.com/ · captured 2026-11-23T12:17:46 · every specimen reads <code>../tokens.css</code>, a deterministic render of <code>dna.json</code>.</p>
-  <p class="note">Left rail switches panels; the toolbar above changes the stress state of the demos you are watching. <code>#hash</code> deep-links every panel, and “Print view” shows all of them at once.</p>
-  <div class="grid-3">
-    <div class="card" style="padding:16px;border:1px solid var(--lw-tint-100);border-radius:var(--lw-radius-card)"><div class="mono" style="color:var(--lw-text-muted)">Indigo share of surface</div><div style="font-size:40px;font-weight:300">0.2%</div><div class="ds-body">actions and links only</div></div>
-    <div class="card" style="padding:16px;border:1px solid var(--lw-tint-100);border-radius:var(--lw-radius-card)"><div class="mono" style="color:var(--lw-text-muted)">Gradients</div><div style="font-size:40px;font-weight:300">1</div><div class="ds-body">the hero band, never a control</div></div>
-    <div class="card" style="padding:16px;border:1px solid var(--lw-tint-100);border-radius:var(--lw-radius-card)"><div class="mono" style="color:var(--lw-text-muted)">Display weight</div><div style="font-size:40px;font-weight:300">300</div><div class="ds-body">48 / 32 / 26px, tracking −2%</div></div>
-  </div>
-  <h2>Sharpest principle</h2>
-  <p><strong>Colour is a once-per-page event</strong> — Readers need to trust the screenshots more than the scenery; once colour stops, the product becomes the subject.</p>
-  <h2>Limitations</h2>
-  <ul><li>stripe.com redirects to /en-sg on this network; copy and pricing are the SG locale.</li><li>The hero gradient is an image (1392x975); its colours are sampled from pixels, not CSS.</li><li>Rendered font is sohne-var; the loaded face filename was not inspected.</li><li>Home page CSSOM scan found no :focus-visible/reduced-motion, while the pricing page did — scanning is per-page.</li><li>contact/sales (page 4) is a short form page and contributes little signal.</li></ul>
-</section>
-<section class="panel" id="colour">
-  <h1>Colour</h1>
-  <p class="lede">Blue-tinted neutrals on white; indigo restricted to actions and links.</p>
-  <h3>Semantic roles</h3><div class="grid-3"><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#FFFFFF"></div><div style="padding:8px"><div class="mono">color/canvas</div><div class="mono" style="color:var(--lw-text-muted)">#FFFFFF</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#F6F9FC"></div><div style="padding:8px"><div class="mono">color/canvas-tint</div><div class="mono" style="color:var(--lw-text-muted)">#F6F9FC</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#F8FAFD"></div><div style="padding:8px"><div class="mono">color/surface-subtle</div><div class="mono" style="color:var(--lw-text-muted)">#F8FAFD</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#061B31"></div><div style="padding:8px"><div class="mono">color/text/heading</div><div class="mono" style="color:var(--lw-text-muted)">#061B31</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#50617A"></div><div style="padding:8px"><div class="mono">color/text/body</div><div class="mono" style="color:var(--lw-text-muted)">#50617A</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#64748D"></div><div style="padding:8px"><div class="mono">color/text/muted</div><div class="mono" style="color:var(--lw-text-muted)">#64748D</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#533AFD"></div><div style="padding:8px"><div class="mono">color/action/bg</div><div class="mono" style="color:var(--lw-text-muted)">#533AFD</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#635BFF"></div><div style="padding:8px"><div class="mono">color/action/bg-alt</div><div class="mono" style="color:var(--lw-text-muted)">#635BFF</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#FFFFFF"></div><div style="padding:8px"><div class="mono">color/action/fg</div><div class="mono" style="color:var(--lw-text-muted)">#FFFFFF</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#533AFD"></div><div style="padding:8px"><div class="mono">color/link</div><div class="mono" style="color:var(--lw-text-muted)">#533AFD</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div></div><h3>Primitives</h3><div class="grid-3"><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#061B31"></div><div style="padding:8px"><div class="mono">color/ink/900</div><div class="mono" style="color:var(--lw-text-muted)">#061B31</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#50617A"></div><div style="padding:8px"><div class="mono">color/ink/700</div><div class="mono" style="color:var(--lw-text-muted)">#50617A</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#64748D"></div><div style="padding:8px"><div class="mono">color/ink/600</div><div class="mono" style="color:var(--lw-text-muted)">#64748D</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#E5EDF5"></div><div style="padding:8px"><div class="mono">color/blue-tint/100</div><div class="mono" style="color:var(--lw-text-muted)">#E5EDF5</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#F8FAFD"></div><div style="padding:8px"><div class="mono">color/blue-tint/50</div><div class="mono" style="color:var(--lw-text-muted)">#F8FAFD</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#F6F9FC"></div><div style="padding:8px"><div class="mono">color/blue-tint/25</div><div class="mono" style="color:var(--lw-text-muted)">#F6F9FC</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#FFFFFF"></div><div style="padding:8px"><div class="mono">color/white</div><div class="mono" style="color:var(--lw-text-muted)">#FFFFFF</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#533AFD"></div><div style="padding:8px"><div class="mono">color/indigo/600</div><div class="mono" style="color:var(--lw-text-muted)">#533AFD</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden"><div style="height:56px;background:#635BFF"></div><div style="padding:8px"><div class="mono">color/indigo/500</div><div class="mono" style="color:var(--lw-text-muted)">#635BFF</div><div style="margin-top:6px"><span class="badge observed">observed</span></div></div></div></div>
-  <h2>Real pairs in use</h2>
-  <table><thead><tr><th>Pair</th><th>Hex</th><th>Where</th></tr></thead><tbody>
-    <tr><td class="mono">heading / canvas</td><td class="mono">#061B31 on #FFFFFF</td><td>display copy</td></tr>
-    <tr><td class="mono">body / canvas</td><td class="mono">#50617A on #FFFFFF</td><td>paragraphs</td></tr>
-    <tr><td class="mono">action-fg / action-bg</td><td class="mono">#FFFFFF on #533AFD</td><td>primary button</td></tr>
-    <tr><td class="mono">link / subtle</td><td class="mono">#533AFD on #F8FAFD</td><td>inline links, secondary hover</td></tr>
-  </tbody></table>
-</section>
-<section class="panel" id="typography">
-  <h1>Typography</h1>
-  <p class="lede">sohne-var at weight 300 carries display and body. Web fonts are not shipped here, so specimens
-  fall back to the declared stack — rendered-face parity stays <span class="badge">unverified</span>.</p>
-  <div class="card" style="padding:20px;border:1px solid var(--lw-tint-100);border-radius:var(--lw-radius-card)"><div style="margin-bottom:12px"><span class="mono" style="color:var(--lw-text-muted)">type/hero · 48px</span><div style="font-size:48px;line-height:1.15;font-weight:300">Financial infrastructure to grow your revenue</div></div><div style="margin-bottom:12px"><span class="mono" style="color:var(--lw-text-muted)">type/h2 · 32px</span><div style="font-size:32px;line-height:1.15;font-weight:300">Financial infrastructure to grow your revenue</div></div><div style="margin-bottom:12px"><span class="mono" style="color:var(--lw-text-muted)">type/h3 · 26px</span><div style="font-size:26px;line-height:1.15;font-weight:300">Financial infrastructure to grow your revenue</div></div><div style="margin-bottom:12px"><span class="mono" style="color:var(--lw-text-muted)">type/body · 16px</span><div style="font-size:16px;line-height:1.15;font-weight:300">Financial infrastructure to grow your revenue</div></div><div style="margin-bottom:12px"><span class="mono" style="color:var(--lw-text-muted)">type/ui · 15px</span><div style="font-size:15px;line-height:1.15;font-weight:300">Financial infrastructure to grow your revenue</div></div><div style="margin-bottom:12px"><span class="mono" style="color:var(--lw-text-muted)">type/caption · 10px</span><div style="font-size:10px;line-height:1.15;font-weight:300">Financial infrastructure to grow your revenue</div></div></div>
-  <h2>Weights and tracking</h2>
-  <table><thead><tr><th>Token</th><th>Value</th></tr></thead><tbody>
-    <tr><td class="mono">weight/light</td><td class="mono">300</td></tr>
-    <tr><td class="mono">weight/regular</td><td class="mono">400</td></tr>
-    <tr><td class="mono">weight/ui-strong</td><td class="mono">500</td></tr>
-    <tr><td class="mono">tracking/hero</td><td class="mono">-0.02em</td></tr>
-  </tbody></table>
-</section>
-<section class="panel" id="shape">
-  <h1>Radius &amp; Depth</h1>
-  <div class="grid-3">
-    <div class="card" style="padding:16px;border:1px solid var(--lw-tint-100);border-radius:var(--lw-radius-control)"><div class="mono">radius/control · 4px</div><div class="ds-body">buttons</div></div>
-    <div class="card" style="padding:16px;border:1px solid var(--lw-tint-100);border-radius:var(--lw-radius-control-alt)"><div class="mono">radius/control-alt · 6px</div><div class="ds-body">secondary controls</div></div>
-    <div class="card" style="padding:16px;border:1px solid var(--lw-tint-100);border-radius:var(--lw-radius-card)"><div class="mono">radius/card · 16.5px</div><div class="ds-body">pricing and content cards</div></div>
-  </div>
-  <h2>Shadows: tinted, layered</h2>
-  <div class="grid-3 ds-scope" style="background:var(--lw-canvas);padding:8px;border-radius:var(--lw-radius-card)">
-    <div class="card" style="padding:18px"><div style="height:56px;border-radius:8px;box-shadow:var(--lw-depth-float)"></div><div class="mono" style="margin-top:10px">depth/float</div><div class="mono ds-muted">0 16px 32px rgba(50, 50, 93, 0.12)</div></div>
-    <div class="card" style="padding:18px"><div style="height:56px;border-radius:8px;box-shadow:var(--lw-depth-float-strong)"></div><div class="mono" style="margin-top:10px">depth/float-strong</div><div class="mono ds-muted">0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3)</div></div>
-    <div class="card" style="padding:18px"><div style="height:56px;border-radius:8px;box-shadow:var(--lw-depth-ring)"></div><div class="mono" style="margin-top:10px">depth/ring</div><div class="mono ds-muted">0 0 0 1px #533AFD</div></div>
-  </div>
-</section>
-<section class="panel" id="components" data-stressable-panel>
-  <h1>Components &amp; States</h1>
-  <p class="lede">Hover, focus, active and disabled are real browser states; forced samples are labelled.
-  Use the toolbar above to stress the demos while you look at them.</p>
-  <h2>Button</h2>
-  <div class="matrix ds-scope" style="padding:16px;border-radius:var(--lw-radius-card);background:var(--lw-canvas)"><div><div class="mono" style="color:var(--lw-text-muted)">default</div><button class="ds-btn ds-btn--primary">Get started</button></div><div><div class="mono" style="color:var(--lw-text-muted)">hover forced sample</div><button class="ds-btn ds-btn--primary is-hover">Get started</button></div><div><div class="mono" style="color:var(--lw-text-muted)">focus-visible forced sample</div><button class="ds-btn ds-btn--primary is-focus">Get started</button></div><div><div class="mono" style="color:var(--lw-text-muted)">active forced sample</div><button class="ds-btn ds-btn--primary is-active">Get started</button></div><div><div class="mono" style="color:var(--lw-text-muted)">disabled disabled</div><button class="ds-btn ds-btn--primary" disabled>Get started</button></div></div>
-  <p class="ds-caption">Live control: hover, Tab to, press.</p>
-  <button class="ds-btn ds-btn--primary ds-live">Get started</button>
-  <h2>Input</h2>
-  <div class="matrix ds-scope" style="padding:16px;border-radius:var(--lw-radius-card);background:var(--lw-canvas)"><div><div class="mono" style="color:var(--lw-text-muted)">default</div><label class="ds-field"><span>Email</span><input class="ds-input " placeholder="you@company.com"></label></div><div><div class="mono" style="color:var(--lw-text-muted)">hover forced sample</div><label class="ds-field"><span>Email</span><input class="ds-input is-hover" placeholder="you@company.com"></label></div><div><div class="mono" style="color:var(--lw-text-muted)">focus-visible forced sample</div><label class="ds-field"><span>Email</span><input class="ds-input is-focus" placeholder="you@company.com"></label></div><div><div class="mono" style="color:var(--lw-text-muted)">invalid state="invalid"</div><label class="ds-field"><span>Email</span><input class="ds-input is-invalid" placeholder="you@company.com" aria-invalid="true"></label></div><div><div class="mono" style="color:var(--lw-text-muted)">disabled disabled</div><label class="ds-field"><span>Email</span><input class="ds-input " placeholder="you@company.com" disabled></label></div></div>
-  <label class="ds-field" style="max-width:360px;margin-top:12px"><span>Live input (blur to validate)</span>
-    <input class="ds-input" id="live-email" placeholder="you@company.com" aria-describedby="live-email-help"></label>
-  <div class="ds-caption" id="live-email-help" aria-live="polite"></div>
-  <h2>Cards &amp; links</h2>
-  <div class="grid-3">
-    <div class="ds-card" style="padding:18px">Default card — 1px #E5EDF5 border, 16.5px radius</div>
-    <div class="ds-card ds-card--tint" style="padding:18px">Tint card — #F8FAFD surface</div>
-    <div class="ds-card ds-card--float" style="padding:18px">Float card — depth/float</div>
-  </div>
-  <p><a class="ds-link" href="#components">Read the docs</a> · ink link inside body copy <a class="ds-link" href="#specs">view evidence</a></p>
-</section>
-<section class="panel" id="compositions" data-stressable-panel>
-  <h1>Compositions</h1>
-  <p class="lede">Assembled only from the components above and the tokens in <code>../tokens.css</code>.</p>
-  <h2>A · Marketing hero <span class="badge">observed</span> layout · copy replaced</h2>
-  <div class="ds-scope" style="border:1px solid var(--lw-tint-100);border-radius:var(--lw-radius-card);overflow:hidden">
-    <div class="ds-topbar"><strong style="color:var(--lw-text-heading)">stripe</strong>
-      <nav class="ds-nav" style="border:0;padding:0"><a href="#compositions" aria-current="page">Products</a><a href="#compositions">Solutions</a><a href="#compositions">Developers</a><a href="#compositions">Pricing</a></nav>
-      <div style="display:flex;gap:10px"><button class="ds-btn ds-btn--secondary">Sign in</button><button class="ds-btn ds-btn--primary">Contact sales</button></div>
-    </div>
-    <div class="ds-hero-band" style="border-radius:0">
-      <div class="ds-hero-copy">
-        <div class="ds-caption">Global GDP running on this platform: <span style="color:var(--lw-text-body)">1.75%</span></div>
-        <h2 class="ds-hero ds-stressable">Financial infrastructure to grow your revenue</h2>
-        <p class="ds-body" style="font-size:var(--lw-type-ui)">Accept payments, offer financial services and implement custom revenue models.</p>
-        <div style="display:flex;gap:12px"><button class="ds-btn ds-btn--primary">Get started ›</button><button class="ds-btn ds-btn--secondary">Sign up with Google</button></div>
-      </div>
-      <div class="ds-media">gradient band (the one allowed gradient)</div>
-    </div>
-  </div>
-  <h2>B · Pricing cards <span class="badge">observed</span> structure · prices are sample values</h2>
-  <div class="grid-3 ds-scope" style="background:var(--lw-canvas-tint);padding:24px;border-radius:var(--lw-radius-card)">
-    <div class="ds-card ds-price-card"><div class="ds-caption">Standard</div><div class="ds-price">2.9%</div><div class="ds-body">+ 30¢ per successful charge</div><button class="ds-btn ds-btn--secondary" style="justify-self:start">Start now</button></div>
-    <div class="ds-card ds-price-card ds-price-card--featured"><div class="ds-caption">Custom</div><div class="ds-price">1.5%</div><div class="ds-body">volume discounts from $80k/mo</div><button class="ds-btn ds-btn--primary" style="justify-self:start">Contact sales</button></div>
-    <div class="ds-card ds-price-card ds-card--tint"><div class="ds-caption">Enterprise</div><div class="ds-price">Talk to us</div><div class="ds-body">dedicated support and SLAs</div><button class="ds-btn ds-btn--secondary" style="justify-self:start">Contact sales</button></div>
-  </div>
-  <h2>C · Checkout flow <span class="badge">observed</span> components · <span class="badge">proposed</span> flow</h2>
-  <div class="ds-scope comp-split" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);gap:24px;background:var(--lw-canvas-tint);padding:24px;border-radius:var(--lw-radius-card)">
-    <div><h3 class="ds-h2">Pay once, anywhere</h3><p class="ds-body">A two-field checkout using the same controls, radius and shadow as the marketing site.</p></div>
-    <form class="ds-card ds-card--float" style="padding:20px;display:grid;gap:14px" novalidate id="checkout">
-      <label class="ds-field"><span>Card number</span><input class="ds-input" id="card" inputmode="numeric" placeholder="4242 4242 4242 4242" aria-describedby="card-help"></label>
-      <label class="ds-field"><span>Email</span><input class="ds-input" id="email" type="email" placeholder="you@company.com"></label>
-      <button class="ds-btn ds-btn--primary" type="submit">Pay $49.00</button>
-      <div class="ds-caption" id="card-help" aria-live="polite">Demo only — nothing is sent anywhere.</div>
-    </form>
-  </div>
-</section>
-<section class="panel" id="motion">
-  <h1>Motion</h1>
-  <p class="lede">Each row replays its real duration token; the toolbar's “Reduced motion” toggle collapses them.</p>
-  <table><thead><tr><th>Tier</th><th>Token</th><th>Replay</th></tr></thead><tbody>
-    <tr><td>Opacity</td><td class="mono">--lw-motion-fast · 240ms · --lw-easing-in-out</td><td><button class="ds-btn ds-btn--secondary" data-replay="m-fast" data-dur="240ms" data-ease="var(--lw-easing-in-out)">Replay</button></td></tr>
-    <tr><td>Colour</td><td class="mono">--lw-motion-base · 300ms · --lw-easing-out</td><td><button class="ds-btn ds-btn--secondary" data-replay="m-base" data-dur="300ms" data-ease="var(--lw-easing-out)">Replay</button></td></tr>
-    <tr><td>Reveal</td><td class="mono">--lw-motion-reveal · 400ms · cubic-bezier(0.65,0,0.35,1)</td><td><button class="ds-btn ds-btn--secondary" data-replay="m-reveal" data-dur="400ms" data-ease="cubic-bezier(0.65, 0, 0.35, 1)">Replay</button></td></tr>
-  </tbody></table>
-  <div class="grid-3" style="margin-top:12px" data-stressable-panel>
-    <div id="m-fast" class="ds-card" style="padding:16px">motion/fast specimen</div>
-    <div id="m-base" class="ds-card" style="padding:16px">motion/base specimen</div>
-    <div id="m-reveal" class="ds-card" style="padding:16px">motion/reveal specimen</div>
-  </div>
-  <h2>Interaction deltas</h2>
-  <p class="lede">Forced with a real CDP mouse and <code>element.focus()</code>; source: <code>dna.json &gt; interactions</code>.</p>
-  <h3>button <span class="mono" style="color:var(--lw-text-muted)">button.hds-button.CookieSettings_CookieSettings__HelmButton__69vhe</span></h3><p class="mono">hover: color: rgb(83, 58, 253) → rgb(46, 43, 140); border-color: rgb(214, 217, 252) → rgb(64, 50, 200)</p><p class="mono">focus: outline: 0px solid rgba(0, 0, 0, 0) → 3px solid rgba(84, 82, 251, 0.75)</p><h3>button <span class="mono" style="color:var(--lw-text-muted)">button.hds-ui-button.announcement-bar__dismiss</span></h3><p class="mono">hover: no computed change on the icon-only dismiss button</p><p class="mono">focus: outline: 0px solid rgba(0, 0, 0, 0) → 3px solid rgba(0, 0, 0, 0)</p><h3>card <span class="mono" style="color:var(--lw-text-muted)">div.payments-graphic__checkout-item-card</span></h3><p class="mono">hover: No computed change; the card sits inside an animated illustration, so observed ≠ no hover style exists</p><p class="mono">focus: Not focusable</p>
-</section>
-<section class="panel" id="fidelity">
-  <h1>Fidelity vs Source</h1>
-  <p class="lede">Left: the captured page at 1440×900. Right: the hero rebuilt from tokens, same width.
-  Differences are visible rather than claimed.</p>
-  <div class="fid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start">
-    <figure style="margin:0"><img src="../capture/viewport.png" alt="captured source hero" style="width:100%;border:1px solid var(--lw-tint-100);border-radius:8px;display:block"><figcaption class="mono">source · capture/viewport.png</figcaption></figure>
-    <figure style="margin:0"><div class="ds-scope" style="border:1px solid var(--lw-tint-100);border-radius:8px;overflow:hidden">
-      <div class="ds-topbar"><strong style="color:var(--lw-text-heading)">stripe</strong><nav class="ds-nav" style="border:0;padding:0"><a href="#fidelity">Products</a><a href="#fidelity">Solutions</a><a href="#fidelity">Pricing</a></nav><button class="ds-btn ds-btn--primary">Contact sales</button></div>
-      <div class="ds-hero-band" style="border-radius:0;min-height:300px;grid-template-columns:minmax(0,1fr) minmax(0,46%)">
-        <div class="ds-hero-copy" style="padding:28px"><h3 class="ds-hero" style="font-size:var(--lw-type-h2);max-width:22ch">Financial infrastructure to grow your revenue.</h3>
-        <p class="ds-body">Accept payments, offer financial services and implement custom revenue models.</p>
-        <div><button class="ds-btn ds-btn--primary">Get started ›</button></div></div>
-        <div class="ds-media">gradient</div>
-      </div></div><figcaption class="mono">rebuild · this composition</figcaption></figure>
-  </div>
-  <p class="note">Layout, weight and spacing differences are visible here; font rendering parity cannot be
-  claimed because the source typeface is not shipped. Status stays <strong>PARTIAL</strong> in VERIFY.md.</p>
-</section>
-<section class="panel" id="system">
-  <h1>System &amp; Taste</h1>
-  <div class="card" style="border:1px solid var(--lw-tint-100);border-radius:var(--lw-radius-card);padding:18px;margin-bottom:14px"><div><span class="badge observed">observed</span> <span class="mono">restraint</span></div><h3>Colour is a once-per-page event</h3><p><span class="mono">Trigger</span> Making a payments brand feel alive without breaking legibility of dense product shots.</p><p><span class="mono">Chose</span> <strong>a single decorative gradient confined to the hero</strong> <span class="mono">over</span> gradient text, gradient buttons, and gradient section backgrounds (the common fintech treatment)</p><p><span class="mono">Reason</span> Readers need to trust the screenshots more than the scenery; once colour stops, the product becomes the subject.</p><p><span class="mono">Guardrail</span> <code>{"forbidCss": [], "forbidClass": ["(^|-)bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)"], "max": {}, "note": "Needs judgement: allow gradients only inside the hero band and on illustration. Elements at #533AFD are actions, not decoration."}</code></p></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:var(--lw-radius-card);padding:18px;margin-bottom:14px"><div><span class="badge observed">observed</span> <span class="mono">restraint</span></div><h3>One indigo, only where you can click</h3><p><span class="mono">Trigger</span> Deciding how much of a light page the brand colour may occupy.</p><p><span class="mono">Chose</span> <strong>indigo restricted to actions and links</strong> <span class="mono">over</span> indigo section backgrounds, indigo icons, and indigo headings</p><p><span class="mono">Reason</span> At ~0.2% of the surface, indigo always means 'do something'; a larger share would make the page a brand poster and slow scanning.</p><p><span class="mono">Guardrail</span> <code>{"forbidCss": [], "forbidClass": ["(^|-)bg-(indigo|violet|purple)-[4-7]00$", "(^|-)bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)"], "max": {}, "note": "Allowed on buttons/links only; never on a section or card background."}</code></p></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:var(--lw-radius-card);padding:18px;margin-bottom:14px"><div><span class="badge observed">observed</span> <span class="mono">craft</span></div><h3>Light weights carry the headline</h3><p><span class="mono">Trigger</span> Setting a 48px headline beside a saturated gradient.</p><p><span class="mono">Chose</span> <strong>variable 300 at every display size</strong> <span class="mono">over</span> 600-700 headline weights with a 1.33x type ramp</p><p><span class="mono">Reason</span> A light face over a heavy gradient leaves the gradient as the loudest thing; bold type would fight the artwork and the screenshots.</p></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:var(--lw-radius-card);padding:18px;margin-bottom:14px"><div><span class="badge observed">observed</span> <span class="mono">craft</span></div><h3>Blue-black ink instead of grey</h3><p><span class="mono">Trigger</span> Choosing text colours for a white page with a cold indigo accent.</p><p><span class="mono">Chose</span> <strong>blue-tinted neutrals</strong> <span class="mono">over</span> pure greys (#111, #666) or neutral-warm text</p><p><span class="mono">Reason</span> Grey text on a white page beside indigo reads as unfinished; shared hue makes the colour look chosen rather than added.</p></div><div class="card" style="border:1px solid var(--lw-tint-100);border-radius:var(--lw-radius-card);padding:18px;margin-bottom:14px"><div><span class="badge observed">observed</span> <span class="mono">system</span></div><h3>Motion is tiered by job</h3><p><span class="mono">Trigger</span> Animating a page with hover states, colour changes and a reveal.</p><p><span class="mono">Chose</span> <strong>three job-specific durations</strong> <span class="mono">over</span> one global 200ms ease on everything</p><p><span class="mono">Reason</span> Colour has to feel immediate on hover while a layout reveal needs room to read; one duration would make one of them wrong.</p></div>
-  <h2>Patterns</h2>
-  <h3>Text is blue-black, never grey</h3><p><strong>Headings #061B31 and body #50617A sit on a blue hue axis; muted text is a lighter blue, not a neutral.</strong></p><p class="mono" style="color:var(--lw-text-muted)">Keeps a light page from looking half-finished and ties copy to the indigo CTA. · e-ink, e-ink-body, e-ink-other</p><h3>One indigo for actions and linked words only</h3><p><strong>rgb(83,58,253) covers ~0.2% of the surface: filled CTA, 1px outlined CTA, inline links. No indigo surfaces, headers or decoration.</strong></p><p class="mono" style="color:var(--lw-text-muted)">Action colour stays unambiguous while the page stays mostly white. · e-purple, e-canvas-light, e-buttons</p><h3>One gradient, spent on the hero</h3><p><strong>A single full-bleed pink/orange/lilac band covers the hero; every section below is flat white or a pale tint.</strong></p><p class="mono" style="color:var(--lw-text-muted)">Delivers a memorable first screen, then removes colour so product detail is readable. · e-hero-band, e-canvas-light, e-sections-tinted</p><h3>Light weights at every size</h3><p><strong>300 carries display and body (x302 home, x506 pricing); 400 for UI, 425/500 only inside pricing controls.</strong></p><p class="mono" style="color:var(--lw-text-muted)">Keeps 48px headlines airy so gradient and product shots carry the emotion. · e-weights, e-weights-pricing, e-h1</p><h3>Controls small, cards large</h3><p><strong>Buttons and chips 4-6px; cards 16.5px on pricing and 8px elsewhere. No pill buttons in the primary flow.</strong></p><p class="mono" style="color:var(--lw-text-muted)">Distinguishes clickable controls from content containers by silhouette. · e-radii, e-radii-pricing</p><h3>Shadows tinted to the canvas, not black</h3><p><strong>Elevation uses rgba(50,50,93,·) plus a second layer, mostly 1-2px tight, with 13-16px blur on floats.</strong></p><p class="mono" style="color:var(--lw-text-muted)">Product screenshots float on white without grey halos. · e-shadow-soft, e-shadow-layered, e-ring</p><h3>Three motion tiers by job</h3><p><strong>0.24s for opacity, 0.3s for colour, 0.4s for the grid reveal; reduced-motion and focus-visible are present on the pricing stylesheet.</strong></p><p class="mono" style="color:var(--lw-text-muted)">Colour is instant enough to feel responsive, layout reveals stay calm. · e-motion, e-motion-support</p><h3>Fixed 128px section rhythm on inner pages</h3><p><strong>Product pages repeat a 128px gap seven times; the home page uses 160px then a 408px break around the logos.</strong></p><p class="mono" style="color:var(--lw-text-muted)">Inner pages read as one steady column; only the home page gets dramatic spacing. · e-gaps-products, e-gaps-home, e-space</p>
-</section>
-<section class="panel" id="specs">
-  <h1>Evidence &amp; Downloads</h1>
-  <div class="subtabs" role="tablist" aria-label="Specs">
-    <button role="tab" id="tab-downloads" aria-controls="sub-downloads" aria-selected="true" tabindex="0">Downloads</button>
-    <button role="tab" id="tab-tokens" aria-controls="sub-tokens" aria-selected="false" tabindex="-1">Tokens</button>
-    <button role="tab" id="tab-measurements" aria-controls="sub-measurements" aria-selected="false" tabindex="-1">Measurements</button>
-    <button role="tab" id="tab-evidence" aria-controls="sub-evidence" aria-selected="false" tabindex="-1">Evidence (32)</button>
-  </div>
-  <div class="tabpanel" id="sub-downloads" role="tabpanel" aria-labelledby="tab-downloads">
-    <ul>
-      <li><a href="../tokens.css" download>tokens.css</a></li>
-      <li><a href="../tokens.resolved.json" download>tokens.resolved.json</a></li>
-      <li><a href="../shadcn-theme.css" download>shadcn-theme.css</a></li>
-      <li><a href="../agent-rules.md" download>agent-rules.md</a></li>
-      <li><a href="../taste.md" download>taste.md</a></li>
-      <li><a href="../VERIFY.md" download>VERIFY.md</a></li>
-      <li><a href="../preview.html">preview.html</a> (open)</li>
-    </ul>
-    <h3>Pages inspected</h3><ul><li class="mono"><a href="https://stripe.com/" rel="noreferrer">https://stripe.com/</a></li><li class="mono"><a href="https://stripe.com/pricing" rel="noreferrer">https://stripe.com/pricing</a></li><li class="mono"><a href="https://stripe.com/products" rel="noreferrer">https://stripe.com/products</a></li><li class="mono"><a href="https://stripe.com/contact/sales" rel="noreferrer">https://stripe.com/contact/sales</a></li></ul>
-    <h3>Limitations</h3><ul><li>stripe.com redirects to /en-sg on this network; copy and pricing are the SG locale.</li><li>The hero gradient is an image (1392x975); its colours are sampled from pixels, not CSS.</li><li>Rendered font is sohne-var; the loaded face filename was not inspected.</li><li>Home page CSSOM scan found no :focus-visible/reduced-motion, while the pricing page did — scanning is per-page.</li><li>contact/sales (page 4) is a short form page and contributes little signal.</li></ul>
-  </div>
-  <div class="tabpanel" id="sub-tokens" role="tabpanel" aria-labelledby="tab-tokens" hidden>
-    <table><thead><tr><th>Token</th><th>CSS var</th><th>Layer</th><th>Type</th><th>Status</th><th>Value</th></tr></thead><tbody><tr><td class="mono">color/ink/900</td><td class="mono">--lw-ink-900</td><td>primitive</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#061B31</td></tr><tr><td class="mono">color/ink/700</td><td class="mono">--lw-ink-700</td><td>primitive</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#50617A</td></tr><tr><td class="mono">color/ink/600</td><td class="mono">--lw-ink-600</td><td>primitive</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#64748D</td></tr><tr><td class="mono">color/blue-tint/100</td><td class="mono">--lw-tint-100</td><td>primitive</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#E5EDF5</td></tr><tr><td class="mono">color/blue-tint/50</td><td class="mono">--lw-tint-50</td><td>primitive</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#F8FAFD</td></tr><tr><td class="mono">color/blue-tint/25</td><td class="mono">--lw-page-tint</td><td>primitive</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#F6F9FC</td></tr><tr><td class="mono">color/white</td><td class="mono">--lw-white</td><td>primitive</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#FFFFFF</td></tr><tr><td class="mono">color/indigo/600</td><td class="mono">--lw-indigo-600</td><td>primitive</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#533AFD</td></tr><tr><td class="mono">color/indigo/500</td><td class="mono">--lw-indigo-500</td><td>primitive</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#635BFF</td></tr><tr><td class="mono">color/canvas</td><td class="mono">--lw-canvas</td><td>semantic</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#FFFFFF</td></tr><tr><td class="mono">color/canvas-tint</td><td class="mono">--lw-canvas-tint</td><td>semantic</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#F6F9FC</td></tr><tr><td class="mono">color/surface-subtle</td><td class="mono">--lw-surface-subtle</td><td>semantic</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#F8FAFD</td></tr><tr><td class="mono">color/text/heading</td><td class="mono">--lw-text-heading</td><td>semantic</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#061B31</td></tr><tr><td class="mono">color/text/body</td><td class="mono">--lw-text-body</td><td>semantic</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#50617A</td></tr><tr><td class="mono">color/text/muted</td><td class="mono">--lw-text-muted</td><td>semantic</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#64748D</td></tr><tr><td class="mono">color/action/bg</td><td class="mono">--lw-action-bg</td><td>semantic</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#533AFD</td></tr><tr><td class="mono">color/action/bg-alt</td><td class="mono">--lw-action-bg-alt</td><td>semantic</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#635BFF</td></tr><tr><td class="mono">color/action/fg</td><td class="mono">--lw-action-fg</td><td>semantic</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#FFFFFF</td></tr><tr><td class="mono">color/link</td><td class="mono">--lw-link</td><td>semantic</td><td>color</td><td><span class="badge observed">observed</span></td><td class="mono">#533AFD</td></tr><tr><td class="mono">font/sans</td><td class="mono">--lw-font-sans</td><td>primitive</td><td>fontFamily</td><td><span class="badge observed">observed</span></td><td class="mono">'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif</td></tr><tr><td class="mono">font/mono</td><td class="mono">--lw-font-mono</td><td>primitive</td><td>fontFamily</td><td><span class="badge observed">observed</span></td><td class="mono">'SourceCodePro', ui-monospace, SFMono-Regular, monospace</td></tr><tr><td class="mono">font/body</td><td class="mono">--lw-font-body</td><td>semantic</td><td>fontFamily</td><td><span class="badge observed">observed</span></td><td class="mono">'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif</td></tr><tr><td class="mono">font/code</td><td class="mono">--lw-font-code</td><td>semantic</td><td>fontFamily</td><td><span class="badge observed">observed</span></td><td class="mono">'SourceCodePro', ui-monospace, SFMono-Regular, monospace</td></tr><tr><td class="mono">type/hero</td><td class="mono">--lw-type-hero</td><td>component</td><td>dimension</td><td><span class="badge observed">observed</span></td><td class="mono">48px</td></tr><tr><td class="mono">type/h2</td><td class="mono">--lw-type-h2</td><td>component</td><td>dimension</td><td><span class="badge observed">observed</span></td><td class="mono">32px</td></tr><tr><td class="mono">type/h3</td><td class="mono">--lw-type-h3</td><td>component</td><td>dimension</td><td><span class="badge observed">observed</span></td><td class="mono">26px</td></tr><tr><td class="mono">type/body</td><td class="mono">--lw-type-body</td><td>component</td><td>dimension</td><td><span class="badge observed">observed</span></td><td class="mono">16px</td></tr><tr><td class="mono">type/ui</td><td class="mono">--lw-type-ui</td><td>component</td><td>dimension</td><td><span class="badge observed">observed</span></td><td class="mono">15px</td></tr><tr><td class="mono">type/caption</td><td class="mono">--lw-type-caption</td><td>component</td><td>dimension</td><td><span class="badge observed">observed</span></td><td class="mono">10px</td></tr><tr><td class="mono">tracking/hero</td><td class="mono">--lw-tracking-hero</td><td>component</td><td>dimension</td><td><span class="badge observed">observed</span></td><td class="mono">-0.02em</td></tr><tr><td class="mono">tracking/h2</td><td class="mono">--lw-tracking-h2</td><td>component</td><td>dimension</td><td><span class="badge observed">observed</span></td><td class="mono">-0.015em</td></tr><tr><td class="mono">leading/prose</td><td class="mono">--lw-leading-prose</td><td>component</td><td>number</td><td><span class="badge observed">observed</span></td><td class="mono">1.2</td></tr><tr><td class="mono">weight/light</td><td class="mono">--lw-weight-light</td><td>primitive</td><td>fontWeight</td><td><span class="badge observed">observed</span></td><td class="mono">300</td></tr><tr><td class="mono">weight/regular</td><td class="mono">--lw-weight-regular</td><td>primitive</td><td>fontWeight</td><td><span class="badge observed">observed</span></td><td class="mono">400</td></tr><tr><td class="mono">weight/ui-strong</td><td class="mono">--lw-weight-ui-strong</td><td>primitive</td><td>fontWeight</td><td><span class="badge observed">observed</span></td><td class="mono">500</td></tr><tr><td class="mono">radius/control</td><td class="mono">--lw-radius-control</td><td>semantic</td><td>dimension</td><td><span class="badge observed">observed</span></td><td class="mono">4px</td></tr><tr><td class="mono">radius/control-alt</td><td class="mono">--lw-radius-control-alt</td><td>semantic</td><td>dimension</td><td><span class="badge observed">observed</span></td><td class="mono">6px</td></tr><tr><td class="mono">radius/card</td><td class="mono">--lw-radius-card</td><td>semantic</td><td>dimension</td><td><span class="badge observed">observed</span></td><td class="mono">16.5px</td></tr><tr><td class="mono">depth/float</td><td class="mono">--lw-depth-float</td><td>component</td><td>shadow</td><td><span class="badge observed">observed</span></td><td class="mono">0 16px 32px rgba(50, 50, 93, 0.12)</td></tr><tr><td class="mono">depth/float-strong</td><td class="mono">--lw-depth-float-strong</td><td>component</td><td>shadow</td><td><span class="badge observed">observed</span></td><td class="mono">0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3)</td></tr><tr><td class="mono">depth/ring</td><td class="mono">--lw-depth-ring</td><td>component</td><td>shadow</td><td><span class="badge observed">observed</span></td><td class="mono">0 0 0 1px #533AFD</td></tr><tr><td class="mono">depth/ring-inset</td><td class="mono">--lw-depth-ring-inset</td><td>component</td><td>shadow</td><td><span class="badge observed">observed</span></td><td class="mono">inset 0 0 0 2px #FFFFFF</td></tr><tr><td class="mono">motion/fast</td><td class="mono">--lw-motion-fast</td><td>primitive</td><td>duration</td><td><span class="badge observed">observed</span></td><td class="mono">240ms</td></tr><tr><td class="mono">motion/base</td><td class="mono">--lw-motion-base</td><td>primitive</td><td>duration</td><td><span class="badge observed">observed</span></td><td class="mono">300ms</td></tr><tr><td class="mono">motion/reveal</td><td class="mono">--lw-motion-reveal</td><td>primitive</td><td>duration</td><td><span class="badge observed">observed</span></td><td class="mono">400ms</td></tr><tr><td class="mono">motion/easing-in-out</td><td class="mono">--lw-easing-in-out</td><td>primitive</td><td>easing</td><td><span class="badge observed">observed</span></td><td class="mono">cubic-bezier(0.45, 0.05, 0.55, 0.95)</td></tr><tr><td class="mono">motion/easing-out</td><td class="mono">--lw-easing-out</td><td>primitive</td><td>easing</td><td><span class="badge observed">observed</span></td><td class="mono">cubic-bezier(0.25, 1, 0.5, 1)</td></tr><tr><td class="mono">space/section</td><td class="mono">--lw-space-section</td><td>component</td><td>dimension</td><td><span class="badge observed">observed</span></td><td class="mono">128px</td></tr><tr><td class="mono">layout/container</td><td class="mono">--lw-layout-container</td><td>component</td><td>dimension</td><td><span class="badge inferred">inferred</span></td><td class="mono">1080px</td></tr></tbody></table>
-  </div>
-  <div class="tabpanel" id="sub-measurements" role="tabpanel" aria-labelledby="tab-measurements" hidden>
-    <table><thead><tr><th>Category</th><th>Value</th><th>Status</th><th>Evidence</th></tr></thead><tbody><tr><td>Color / canvas</td><td>white (62%) with two pale bands #E5EDF5 and #F8FAFD; pricing page is #F6F9FC under white cards</td><td><span class="badge observed">observed</span></td><td class="mono">e-canvas-light, e-canvas-pricing, e-sections-tinted</td></tr><tr><td>Color / text</td><td>#061B31 headings (RGB 6,27,49), #50617A body, #64748D muted — all blue-tinted, no pure grey</td><td><span class="badge observed">observed</span></td><td class="mono">e-ink, e-ink-body, e-ink-other</td></tr><tr><td>Color / accent</td><td>#533AFD primary fills and linked words (0.2% of surface), #635BFF CTA on pricing; secondary CTA is 1px purple outline</td><td><span class="badge observed">observed</span></td><td class="mono">e-purple, e-buttons</td></tr><tr><td>Color / hero</td><td>full-bleed gradient band (pink/orange/lilac) occupying the hero's right half; decorative, 0% as a control colour</td><td><span class="badge observed">observed</span></td><td class="mono">e-hero-band</td></tr><tr><td>Typography / families</td><td>sohne-var (1986 nodes) + SourceCodePro for code/keys</td><td><span class="badge observed">observed</span></td><td class="mono">e-font-sohne, e-font-mono</td></tr><tr><td>Typography / scale</td><td>H1 48/300/-0.96px, H2 32/300/-0.64px, H3 26/300/-0.26px, body 16-17px, prose 32px/300</td><td><span class="badge observed">observed</span></td><td class="mono">e-h1, e-h2, e-h3, e-body-type, e-size-dist</td></tr><tr><td>Typography / UI</td><td>pricing/product UI sits at 15px x531 and 14px; 10px x93 on the home page is metadata, not body</td><td><span class="badge observed">observed</span></td><td class="mono">e-size-dist, e-size-dist-pricing</td></tr><tr><td>Typography / weights</td><td>300 body/display dominates (x302 / x506), 400 secondary, 425/500 only in pricing UI; 700 only in 3 nodes</td><td><span class="badge observed">observed</span></td><td class="mono">e-weights, e-weights-pricing</td></tr><tr><td>Shape / radius</td><td>4px controls, 6px secondary, 16.5px cards on pricing, 8px on secondary cards</td><td><span class="badge observed">observed</span></td><td class="mono">e-radii, e-radii-pricing</td></tr><tr><td>Shape / depth</td><td>layered tinted shadows: rgba(50,50,93,.12) 0 16px 32px for floats; pricing cards rgba(50,50,93,.25) 0 13px 27px -5px + rgba(0,0,0,.3) 0 8px 16px</td><td><span class="badge observed">observed</span></td><td class="mono">e-shadow-soft, e-shadow-layered</td></tr><tr><td>Shape / hairline</td><td>button rings: inset 0 0 0 2px white, 0 0 0 1px purple on products</td><td><span class="badge observed">observed</span></td><td class="mono">e-ring</td></tr><tr><td>Motion</td><td>0.24s opacity (cubic-bezier(.45,.05,.55,.95)), 0.3s color (cubic-bezier(.25,1,.5,1)), 0.4s grid-template-rows reveal</td><td><span class="badge observed">observed</span></td><td class="mono">e-motion</td></tr><tr><td>Spacing</td><td>8px base; 128px between sections on product pages, home hero→logos 160px then 408px</td><td><span class="badge observed">observed</span></td><td class="mono">e-space, e-gaps-home, e-gaps-products</td></tr><tr><td>Layout / grid</td><td>12 x 88px with 16px gutters (footer + content), 1080px pricing container</td><td><span class="badge observed">observed</span></td><td class="mono">e-grid, e-container</td></tr></tbody></table>
-  </div>
-  <div class="tabpanel" id="sub-evidence" role="tabpanel" aria-labelledby="tab-evidence" hidden>
-    <table><thead><tr><th>ID</th><th>URL</th><th>Locator</th><th>Method</th><th>Status</th><th>Values</th></tr></thead><tbody><tr><td class="mono">e-canvas-light</td><td class="mono">stripe.com/</td><td>page canvas + body background</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">white=62.1%, pale blue rgb(229,237,245)=12.2%, pale grey rgb(248,250,253)=11.2%</td></tr><tr><td class="mono">e-canvas-pricing</td><td class="mono">stripe.com/pricing</td><td>pricing canvas html background</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(246,249,252)=49%, white cards=40.3%</td></tr><tr><td class="mono">e-sections-tinted</td><td class="mono">stripe.com/products</td><td>product page sections</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">white=68.2%, pale grey rgb(248,250,253)=21%, blue veil rgba(22,88,188,0.03)=9.4%</td></tr><tr><td class="mono">e-ink</td><td class="mono">stripe.com/</td><td>heading text</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(6, 27, 49)=109 text nodes, rgb(10, 37, 64) on pricing=323</td></tr><tr><td class="mono">e-ink-body</td><td class="mono">stripe.com/</td><td>body/secondary text</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(80, 97, 122)=152, rgb(100, 116, 141)=60</td></tr><tr><td class="mono">e-ink-other</td><td class="mono">stripe.com/pricing</td><td>pricing secondary text</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(66, 84, 102)=159, rgb(114, 127, 150)=82</td></tr><tr><td class="mono">e-purple</td><td class="mono">stripe.com/</td><td>primary button (Contact sales) + linked words</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(83, 58, 253)=accent candidate x73; 0.2% of surface, rgb(99, 91, 255)=pricing CTA x67</td></tr><tr><td class="mono">e-hero-band</td><td class="mono">stripe.com/</td><td>hero right side</td><td class="mono">screenshot-pixels</td><td><span class="badge observed">observed</span></td><td class="mono">rendered=1392x975 image (ratio 1.43:1), sampled pixels=pink #E080E0-ish, orange #E08000-ish, lilac, all above 60% saturation</td></tr><tr><td class="mono">e-font-sohne</td><td class="mono">stripe.com/</td><td>all text</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">family=sohne-var, samples=1986</td></tr><tr><td class="mono">e-font-mono</td><td class="mono">stripe.com/</td><td>inline code/keys</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">family=SourceCodePro, samples=14</td></tr><tr><td class="mono">e-h1</td><td class="mono">stripe.com/</td><td>hero headline</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=48px, weight=300, lineHeight=~59px (1.2), letterSpacing=-0.96px</td></tr><tr><td class="mono">e-h2</td><td class="mono">stripe.com/</td><td>section headline</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=32px, weight=300, letterSpacing=-0.64px</td></tr><tr><td class="mono">e-h3</td><td class="mono">stripe.com/</td><td>card headline</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=26px, weight=300, letterSpacing=-0.26px</td></tr><tr><td class="mono">e-body-type</td><td class="mono">stripe.com/</td><td>body copy</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=16px, weight=300 or 400, prose size=32px/300 in a marketing block</td></tr><tr><td class="mono">e-size-dist</td><td class="mono">stripe.com/</td><td>text size distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">top=16px x194, 10px x93, 14px x41, 26px x24, 22px x20, 48px x12</td></tr><tr><td class="mono">e-size-dist-pricing</td><td class="mono">stripe.com/pricing</td><td>text size distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">top=15px x531, 14px x128, 12px x82, 18px x24</td></tr><tr><td class="mono">e-weights</td><td class="mono">stripe.com/</td><td>font-weight distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">300=x302, 400=x165</td></tr><tr><td class="mono">e-weights-pricing</td><td class="mono">stripe.com/pricing</td><td>font-weight distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">300=x506, 425=x224, 400=x86, 500=x32</td></tr><tr><td class="mono">e-radii</td><td class="mono">stripe.com/</td><td>radius distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">4px=x78 (buttons, chips), 6px=x36, 5px=x6, 8px=x4, 16px=x1</td></tr><tr><td class="mono">e-radii-pricing</td><td class="mono">stripe.com/pricing</td><td>radius distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">16.5px=x54 (cards), 8px=x24, 4px=x3</td></tr><tr><td class="mono">e-shadow-soft</td><td class="mono">stripe.com/</td><td>floating panels</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgba(50,50,93,0.12) 0 16px 32px=x2, rgba(23,23,23,0.08) 0 15px 35px=x1</td></tr><tr><td class="mono">e-shadow-layered</td><td class="mono">stripe.com/pricing</td><td>pricing cards</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgba(50,50,93,0.25) 0 2px 5px -1px, rgba(0,0,0,0.3) 0 1px 3px=x16, rgba(50,50,93,0.25) 0 13px 27px -5px, rgba(0,0,0,0.3) 0 8px 16px=x6</td></tr><tr><td class="mono">e-ring</td><td class="mono">stripe.com/</td><td>button hairline (::before/::after computed)</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(255,255,255) 0 0 0 2px inset=x1, rgb(83,58,253) 0 0 0 1px=x2 on products</td></tr><tr><td class="mono">e-motion</td><td class="mono">stripe.com/</td><td>transitions across pages</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">color=0.3s cubic-bezier(0.25,1,0.5,1), opacity=0.24s cubic-bezier(0.45,0.05,0.55,0.95), grid-template-rows=0.4s cubic-bezier(0.65,0,0.35,1)</td></tr><tr><td class="mono">e-motion-support</td><td class="mono">stripe.com/pricing</td><td>stylesheet scan (pricing)</td><td class="mono">cssom-scan</td><td><span class="badge observed">observed</span></td><td class="mono">focusVisible=True, prefersReducedMotion=True</td></tr><tr><td class="mono">e-space</td><td class="mono">stripe.com/</td><td>spacing distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">8px=x65, 6px=x38, 12px=x34, 16px=x32, 32px=x26, 64px=x22</td></tr><tr><td class="mono">e-gaps-home</td><td class="mono">stripe.com/</td><td>section gaps</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">160px=hero→logos, 408px=logos→next, 48px=one tight pair</td></tr><tr><td class="mono">e-gaps-products</td><td class="mono">stripe.com/products</td><td>section gaps</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">128px=x7 (consistent)</td></tr><tr><td class="mono">e-grid</td><td class="mono">stripe.com/</td><td>footer + content grids</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">template=12 x 88px, gap 16px, gridCount=34</td></tr><tr><td class="mono">e-container</td><td class="mono">stripe.com/pricing</td><td>pricing container</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge inferred">inferred</span></td><td class="mono">maxWidth=1080px, rendered=1080px</td></tr><tr><td class="mono">e-buttons</td><td class="mono">stripe.com/</td><td>button typography</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">primary=16px/400, radius 4px, secondary=16px/400, border 1px purple, padded=12px vertical</td></tr><tr><td class="mono">e-cookie-banner</td><td class="mono">stripe.com/</td><td>cookie consent (screenshot)</td><td class="mono">screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rendered=white panel, cookie copy</td></tr></tbody></table>
-  </div>
-</section>
-    </div>
+:root, [data-ds] {
+  --lw-ink-900: #061B31; /* color/ink/900 · observed */
+  --lw-ink-700: #50617A; /* color/ink/700 · observed */
+  --lw-ink-600: #64748D; /* color/ink/600 · observed */
+  --lw-tint-100: #E5EDF5; /* color/blue-tint/100 · observed */
+  --lw-tint-50: #F8FAFD; /* color/blue-tint/50 · observed */
+  --lw-page-tint: #F6F9FC; /* color/blue-tint/25 · observed */
+  --lw-white: #FFFFFF; /* color/white · observed */
+  --lw-indigo-600: #533AFD; /* color/indigo/600 · observed */
+  --lw-indigo-500: #635BFF; /* color/indigo/500 · observed */
+  --lw-canvas: #FFFFFF; /* color/canvas · observed */
+  --lw-canvas-tint: #F6F9FC; /* color/canvas-tint · observed */
+  --lw-surface-subtle: #F8FAFD; /* color/surface-subtle · observed */
+  --lw-text-heading: #061B31; /* color/text/heading · observed */
+  --lw-text-body: #50617A; /* color/text/body · observed */
+  --lw-text-muted: #64748D; /* color/text/muted · observed */
+  --lw-action-bg: #533AFD; /* color/action/bg · observed */
+  --lw-action-bg-alt: #635BFF; /* color/action/bg-alt · observed */
+  --lw-action-fg: #FFFFFF; /* color/action/fg · observed */
+  --lw-link: #533AFD; /* color/link · observed */
+  --lw-font-sans: 'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif; /* font/sans · observed */
+  --lw-font-mono: 'SourceCodePro', ui-monospace, SFMono-Regular, monospace; /* font/mono · observed */
+  --lw-font-body: 'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif; /* font/body · observed */
+  --lw-font-code: 'SourceCodePro', ui-monospace, SFMono-Regular, monospace; /* font/code · observed */
+  --lw-type-hero: 48px; /* type/hero · observed */
+  --lw-type-h2: 32px; /* type/h2 · observed */
+  --lw-type-h3: 26px; /* type/h3 · observed */
+  --lw-type-body: 16px; /* type/body · observed */
+  --lw-type-ui: 15px; /* type/ui · observed */
+  --lw-type-caption: 10px; /* type/caption · observed */
+  --lw-tracking-hero: -0.02em; /* tracking/hero · observed */
+  --lw-tracking-h2: -0.015em; /* tracking/h2 · observed */
+  --lw-leading-prose: 1.2; /* leading/prose · observed */
+  --lw-weight-light: 300; /* weight/light · observed */
+  --lw-weight-regular: 400; /* weight/regular · observed */
+  --lw-weight-ui-strong: 500; /* weight/ui-strong · observed */
+  --lw-radius-control: 4px; /* radius/control · observed */
+  --lw-radius-control-alt: 6px; /* radius/control-alt · observed */
+  --lw-radius-card: 16.5px; /* radius/card · observed */
+  --lw-depth-float: 0 16px 32px rgba(50, 50, 93, 0.12); /* depth/float · observed */
+  --lw-depth-float-strong: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3); /* depth/float-strong · observed */
+  --lw-depth-ring: 0 0 0 1px #533AFD; /* depth/ring · observed */
+  --lw-depth-ring-inset: inset 0 0 0 2px #FFFFFF; /* depth/ring-inset · observed */
+  --lw-motion-fast: 240ms; /* motion/fast · observed */
+  --lw-motion-base: 300ms; /* motion/base · observed */
+  --lw-motion-reveal: 400ms; /* motion/reveal · observed */
+  --lw-easing-in-out: cubic-bezier(0.45, 0.05, 0.55, 0.95); /* motion/easing-in-out · observed */
+  --lw-easing-out: cubic-bezier(0.25, 1, 0.5, 1); /* motion/easing-out · observed */
+  --lw-space-section: 128px; /* space/section · observed */
+  --lw-layout-container: 1080px; /* layout/container · inferred */
+}
+">Copy</button></div><pre>/* Generated by lewitt from dna.json — do not edit by hand (R3: single source). */
+/* Scope: apply [data-ds] (and [data-ds-mode=&quot;&lt;mode&gt;&quot;] for non-default modes). */
+
+:root, [data-ds] {
+  --lw-ink-900: #061B31; /* color/ink/900 · observed */
+  --lw-ink-700: #50617A; /* color/ink/700 · observed */
+  --lw-ink-600: #64748D; /* color/ink/600 · observed */
+  --lw-tint-100: #E5EDF5; /* color/blue-tint/100 · observed */
+  --lw-tint-50: #F8FAFD; /* color/blue-tint/50 · observed */
+  --lw-page-tint: #F6F9FC; /* color/blue-tint/25 · observed */
+  --lw-white: #FFFFFF; /* color/white · observed */
+  --lw-indigo-600: #533AFD; /* color/indigo/600 · observed */
+  --lw-indigo-500: #635BFF; /* color/indigo/500 · observed */
+  --lw-canvas: #FFFFFF; /* color/canvas · observed */
+  --lw-canvas-tint: #F6F9FC; /* color/canvas-tint · observed */
+  --lw-surface-subtle: #F8FAFD; /* color/surface-subtle · observed */
+  --lw-text-heading: #061B31; /* color/text/heading · observed */
+  --lw-text-body: #50617A; /* color/text/body · observed */
+  --lw-text-muted: #64748D; /* color/text/muted · observed */
+  --lw-action-bg: #533AFD; /* color/action/bg · observed */
+  --lw-action-bg-alt: #635BFF; /* color/action/bg-alt · observed */
+  --lw-action-fg: #FFFFFF; /* color/action/fg · observed */
+  --lw-link: #533AFD; /* color/link · observed */
+  --lw-font-sans: 'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif; /* font/sans · observed */
+  --lw-font-mono: 'SourceCodePro', ui-monospace, SFMono-Regular, monospace; /* font/mono · observed */
+  --lw-font-body: 'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif; /* font/body · observed */
+  --lw-font-code: 'SourceCodePro', ui-monospace, SFMono-Regular, monospace; /* font/code · observed */
+  --lw-type-hero: 48px; /* type/hero · observed */
+  --lw-type-h2: 32px; /* type/h2 · observed */
+  --lw-type-h3: 26px; /* type/h3 · observed */
+  --lw-type-body: 16px; /* type/body · observed */
+  --lw-type-ui: 15px; /* type/ui · observed */
+  --lw-type-caption: 10px; /* type/caption · observed */
+  --lw-tracking-hero: -0.02em; /* tracking/hero · observed */
+  --lw-tracking-h2: -0.015em; /* tracking/h2 · observed */
+  --lw-leading-prose: 1.2; /* leading/prose · observed */
+  --lw-weight-light: 300; /* weight/light · observed */
+  --lw-weight-regular: 400; /* weight/regular · observed */
+  --lw-weight-ui-strong: 500; /* weight/ui-strong · observed */
+  --lw-radius-control: 4px; /* radius/control · observed */
+  --lw-radius-control-alt: 6px; /* radius/control-alt · observed */
+  --lw-radius-card: 16.5px; /* radius/card · observed */
+  --lw-depth-float: 0 16px 32px rgba(50, 50, 93, 0.12); /* depth/float · observed */
+  --lw-depth-float-strong: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3); /* depth/float-strong · observed */
+  --lw-depth-ring: 0 0 0 1px #533AFD; /* depth/ring · observed */
+  --lw-depth-ring-inset: inset 0 0 0 2px #FFFFFF; /* depth/ring-inset · observed */
+  --lw-motion-fast: 240ms; /* motion/fast · observed */
+  --lw-motion-base: 300ms; /* motion/base · observed */
+  --lw-motion-reveal: 400ms; /* motion/reveal · observed */
+  --lw-easing-in-out: cubic-bezier(0.45, 0.05, 0.55, 0.95); /* motion/easing-in-out · observed */
+  --lw-easing-out: cubic-bezier(0.25, 1, 0.5, 1); /* motion/easing-out · observed */
+  --lw-space-section: 128px; /* space/section · observed */
+  --lw-layout-container: 1080px; /* layout/container · inferred */
+}
+</pre></div><div class="code" style="margin:0 0 20px"><div class="code-head"><span>shadcn-theme.css</span><button class="mini-btn" data-copy="/* shadcn/ui + Tailwind v4 theme — generated by lewitt from dna.json (R3: do not hand-edit).
+   source: https://stripe.com/ · extracted 2026-11-23 · colour scheme: light
+   Paste into globals.css after `@import &quot;tailwindcss&quot;;`. Every value maps to a token id below.
+   UNMAPPED slots (left as `initial` / shadcn default, never invented): --destructive (destructive action) */
+
+@custom-variant dark (&amp;:is(.dark *));
+
+:root {
+  --background: #FFFFFF; /* color/canvas — canvas */
+  --foreground: #061B31; /* color/text/heading — primary text */
+  --card: #F6F9FC; /* color/canvas-tint — raised surface */
+  --card-foreground: #50617A; /* color/text/body — card text */
+  --popover: #FFFFFF; /* color/canvas — overlay surface */
+  --popover-foreground: #50617A; /* color/text/body — overlay text */
+  --primary: #533AFD; /* color/action/bg — action fill */
+  --primary-foreground: #FFFFFF; /* color/action/fg — action label */
+  --secondary: #F8FAFD; /* color/surface-subtle — secondary fill */
+  --secondary-foreground: #50617A; /* color/text/body — secondary label */
+  --muted: #F8FAFD; /* color/surface-subtle — muted fill */
+  --muted-foreground: #64748D; /* color/text/muted — muted text */
+  --accent: #F8FAFD; /* color/surface-subtle — hover fill */
+  --accent-foreground: #061B31; /* color/text/heading — hover label */
+  --destructive: initial; /* UNMAPPED — no destructive action token in dna.json */
+  --border: #F6F9FC; /* color/canvas-tint — borders */
+  --input: #F6F9FC; /* color/canvas-tint — input borders */
+  --ring: #533AFD; /* color/link — focus ring */
+  --radius: 4px; /* radius/control */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
+}
+
+">Copy</button></div><pre>/* shadcn/ui + Tailwind v4 theme — generated by lewitt from dna.json (R3: do not hand-edit).
+   source: https://stripe.com/ · extracted 2026-11-23 · colour scheme: light
+   Paste into globals.css after `@import &quot;tailwindcss&quot;;`. Every value maps to a token id below.
+   UNMAPPED slots (left as `initial` / shadcn default, never invented): --destructive (destructive action) */
+
+@custom-variant dark (&amp;:is(.dark *));
+
+:root {
+  --background: #FFFFFF; /* color/canvas — canvas */
+  --foreground: #061B31; /* color/text/heading — primary text */
+  --card: #F6F9FC; /* color/canvas-tint — raised surface */
+  --card-foreground: #50617A; /* color/text/body — card text */
+  --popover: #FFFFFF; /* color/canvas — overlay surface */
+  --popover-foreground: #50617A; /* color/text/body — overlay text */
+  --primary: #533AFD; /* color/action/bg — action fill */
+  --primary-foreground: #FFFFFF; /* color/action/fg — action label */
+  --secondary: #F8FAFD; /* color/surface-subtle — secondary fill */
+  --secondary-foreground: #50617A; /* color/text/body — secondary label */
+  --muted: #F8FAFD; /* color/surface-subtle — muted fill */
+  --muted-foreground: #64748D; /* color/text/muted — muted text */
+  --accent: #F8FAFD; /* color/surface-subtle — hover fill */
+  --accent-foreground: #061B31; /* color/text/heading — hover label */
+  --destructive: initial; /* UNMAPPED — no destructive action token in dna.json */
+  --border: #F6F9FC; /* color/canvas-tint — borders */
+  --input: #F6F9FC; /* color/canvas-tint — input borders */
+  --ring: #533AFD; /* color/link — focus ring */
+  --radius: 4px; /* radius/control */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
+}
+
+</pre></div><div class="code" style="margin:0 0 20px"><div class="code-head"><span>agent-rules.md</span><button class="mini-btn" data-copy="# Design rules — Stripe
+
+&lt;!-- source: https://stripe.com/ · generated by lewitt from dna.json · do not edit --&gt;
+
+## Hard constraints (from Restraint principles — check these first)
+
+### MUST NOT — Colour is a once-per-page event
+_One full-bleed gradient band in the hero; below it every surface is white or a pale blue tint._
+
+- Forbidden class patterns: `(?:^|[^a-z0-9-])bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)`, `shadow-(?!(?:none|sm|inner)\b)[a-z0-9]+`
+- Upper bound: `border-width` ≤ 1px
+- Why: Readers need to trust the screenshots more than the scenery; once colour stops, the product becomes the subject.
+- Note: Gradients outside the hero band and any non-ring shadow class are violations; hairlines (1px) are the intended depth signal.
+
+### MUST NOT — One indigo, only where you can click
+_Indigo only on the filled CTA, the outlined CTA border, and linked words; everything else is ink or tint._
+
+- Forbidden class patterns: `(?:^|[^a-z0-9-])bg-(?:indigo|violet|purple)-(?:4|5|6|7)\d\d$`, `(?:^|[^a-z0-9-])bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)`
+- Why: At ~0.2% of the surface, indigo always means 'do something'; a larger share would make the page a brand poster and slow scanning.
+- Note: Allowed on buttons/links only; never on a section or card background.
+
+## Design principles
+
+### Colour is a once-per-page event [restraint]
+- Making a payments brand feel alive without breaking legibility of dense product shots. → **a single decorative gradient confined to the hero** over _gradient text, gradient buttons, and gradient section backgrounds (the common fintech treatment)_
+- Because: Readers need to trust the screenshots more than the scenery; once colour stops, the product becomes the subject.
+- Evidence: e-hero-band, e-canvas-light, e-sections-tinted
+
+### One indigo, only where you can click [restraint]
+- Deciding how much of a light page the brand colour may occupy. → **indigo restricted to actions and links** over _indigo section backgrounds, indigo icons, and indigo headings_
+- Because: At ~0.2% of the surface, indigo always means 'do something'; a larger share would make the page a brand poster and slow scanning.
+- Evidence: e-purple, e-canvas-light
+
+### Light weights carry the headline [craft]
+- Setting a 48px headline beside a saturated gradient. → **variable 300 at every display size** over _600-700 headline weights with a 1.33x type ramp_
+- Because: A light face over a heavy gradient leaves the gradient as the loudest thing; bold type would fight the artwork and the screenshots.
+- Evidence: e-weights, e-h1, e-h2, e-h3
+
+### Blue-black ink instead of grey [craft]
+- Choosing text colours for a white page with a cold indigo accent. → **blue-tinted neutrals** over _pure greys (#111, #666) or neutral-warm text_
+- Because: Grey text on a white page beside indigo reads as unfinished; shared hue makes the colour look chosen rather than added.
+- Evidence: e-ink, e-ink-body
+
+### Motion is tiered by job [system]
+- Animating a page with hover states, colour changes and a reveal. → **three job-specific durations** over _one global 200ms ease on everything_
+- Because: Colour has to feel immediate on hover while a layout reveal needs room to read; one duration would make one of them wrong.
+- Evidence: e-motion, e-motion-support
+
+## System rules
+
+- **Text is blue-black, never grey**: Headings #061B31 and body #50617A sit on a blue hue axis; muted text is a lighter blue, not a neutral.
+- **One indigo for actions and linked words only**: rgb(83,58,253) covers ~0.2% of the surface: filled CTA, 1px outlined CTA, inline links. No indigo surfaces, headers or decoration.
+- **One gradient, spent on the hero**: A single full-bleed pink/orange/lilac band covers the hero; every section below is flat white or a pale tint.
+- **Light weights at every size**: 300 carries display and body (x302 home, x506 pricing); 400 for UI, 425/500 only inside pricing controls.
+- **Controls small, cards large**: Buttons and chips 4-6px; cards 16.5px on pricing and 8px elsewhere. No pill buttons in the primary flow.
+- **Shadows tinted to the canvas, not black**: Elevation uses rgba(50,50,93,·) plus a second layer, mostly 1-2px tight, with 13-16px blur on floats.
+- **Three motion tiers by job**: 0.24s for opacity, 0.3s for colour, 0.4s for the grid reveal; reduced-motion and focus-visible are present on the pricing stylesheet.
+- **Fixed 128px section rhythm on inner pages**: Product pages repeat a 128px gap seven times; the home page uses 160px then a 408px break around the logos.
+
+## Tokens (copy values from tokens.css; never retype numbers)
+
+Use the semantic and component layers; reach for a primitive only when no role fits.
+
+### Semantic — roles to use
+
+- `var(--lw-canvas)` — color/canvas (color, observed)
+- `var(--lw-canvas-tint)` — color/canvas-tint (color, observed)
+- `var(--lw-surface-subtle)` — color/surface-subtle (color, observed)
+- `var(--lw-text-heading)` — color/text/heading (color, observed)
+- `var(--lw-text-body)` — color/text/body (color, observed)
+- `var(--lw-text-muted)` — color/text/muted (color, observed)
+- `var(--lw-action-bg)` — color/action/bg (color, observed)
+- `var(--lw-action-bg-alt)` — color/action/bg-alt (color, observed)
+- `var(--lw-action-fg)` — color/action/fg (color, observed)
+- `var(--lw-link)` — color/link (color, observed)
+- `var(--lw-font-body)` — font/body (fontFamily, observed)
+- `var(--lw-font-code)` — font/code (fontFamily, observed)
+- `var(--lw-radius-control)` — radius/control (dimension, observed)
+- `var(--lw-radius-control-alt)` — radius/control-alt (dimension, observed)
+- `var(--lw-radius-card)` — radius/card (dimension, observed)
+
+### Component — reusable parts
+
+- `var(--lw-type-hero)` — type/hero (dimension, observed)
+- `var(--lw-type-h2)` — type/h2 (dimension, observed)
+- `var(--lw-type-h3)` — type/h3 (dimension, observed)
+- `var(--lw-type-body)` — type/body (dimension, observed)
+- `var(--lw-type-ui)` — type/ui (dimension, observed)
+- `var(--lw-type-caption)` — type/caption (dimension, observed)
+- `var(--lw-tracking-hero)` — tracking/hero (dimension, observed)
+- `var(--lw-tracking-h2)` — tracking/h2 (dimension, observed)
+- `var(--lw-leading-prose)` — leading/prose (number, observed)
+- `var(--lw-depth-float)` — depth/float (shadow, observed)
+- `var(--lw-depth-float-strong)` — depth/float-strong (shadow, observed)
+- `var(--lw-depth-ring)` — depth/ring (shadow, observed)
+- `var(--lw-depth-ring-inset)` — depth/ring-inset (shadow, observed)
+- `var(--lw-space-section)` — space/section (dimension, observed)
+- `var(--lw-layout-container)` — layout/container (dimension, inferred)
+
+### Primitives — raw values, last resort
+
+- `var(--lw-ink-900)` — color/ink/900 (color, observed)
+- `var(--lw-ink-700)` — color/ink/700 (color, observed)
+- `var(--lw-ink-600)` — color/ink/600 (color, observed)
+- `var(--lw-tint-100)` — color/blue-tint/100 (color, observed)
+- `var(--lw-tint-50)` — color/blue-tint/50 (color, observed)
+- `var(--lw-page-tint)` — color/blue-tint/25 (color, observed)
+- `var(--lw-white)` — color/white (color, observed)
+- `var(--lw-indigo-600)` — color/indigo/600 (color, observed)
+- `var(--lw-indigo-500)` — color/indigo/500 (color, observed)
+- `var(--lw-font-sans)` — font/sans (fontFamily, observed)
+- `var(--lw-font-mono)` — font/mono (fontFamily, observed)
+- `var(--lw-weight-light)` — weight/light (fontWeight, observed)
+- `var(--lw-weight-regular)` — weight/regular (fontWeight, observed)
+- `var(--lw-weight-ui-strong)` — weight/ui-strong (fontWeight, observed)
+- `var(--lw-motion-fast)` — motion/fast (duration, observed)
+- `var(--lw-motion-base)` — motion/base (duration, observed)
+- `var(--lw-motion-reveal)` — motion/reveal (duration, observed)
+- `var(--lw-easing-in-out)` — motion/easing-in-out (easing, observed)
+- `var(--lw-easing-out)` — motion/easing-out (easing, observed)
+
+## Interaction Delta (measured)
+
+Forced with a real mouse (CDP `Input.dispatchMouseEvent`) and `element.focus()`; only these properties are diffed: `background-color`, `color`, `border-color`, `box-shadow`, `outline`, `transform`.
+
+### button — `button.hds-button.CookieSettings_CookieSettings__HelmButton__69vhe`
+- Status: Observed / 实测 · evidence: e-buttons, e-purple
+- **hover**: `color`: `rgb(83, 58, 253)` → `rgb(46, 43, 140)`; `border-color`: `rgb(214, 217, 252)` → `rgb(64, 50, 200)`
+- **focus**: `outline`: `0px solid rgba(0, 0, 0, 0)` → `3px solid rgba(84, 82, 251, 0.75)`
+
+### button — `button.hds-ui-button.announcement-bar__dismiss`
+- Status: Observed / 实测 · evidence: e-buttons
+- **hover**: none (no computed change on the icon-only dismiss button)
+- **focus**: `outline`: `0px solid rgba(0, 0, 0, 0)` → `3px solid rgba(0, 0, 0, 0)`
+
+### card — `div.payments-graphic__checkout-item-card`
+- Status: Inferred / 推断 · evidence: e-shadow-soft
+- **hover**: none (No computed change; the card sits inside an animated illustration, so observed ≠ no hover style exists)
+- **focus**: none (Not focusable)
+
+## Verification
+
+Live specimens and motion replay: `preview.html` (single file, opens in any browser).
+
+Run before shipping UI built from these rules:
+
+```sh
+python3 scripts/lint_output.py --dest &lt;dest_dir&gt; --check-code &lt;ui_dir&gt;
+```
+">Copy</button></div><pre># Design rules — Stripe
+
+&lt;!-- source: https://stripe.com/ · generated by lewitt from dna.json · do not edit --&gt;
+
+## Hard constraints (from Restraint principles — check these first)
+
+### MUST NOT — Colour is a once-per-page event
+_One full-bleed gradient band in the hero; below it every surface is white or a pale blue tint._
+
+- Forbidden class patterns: `(?:^|[^a-z0-9-])bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)`, `shadow-(?!(?:none|sm|inner)\b)[a-z0-9]+`
+- Upper bound: `border-width` ≤ 1px
+- Why: Readers need to trust the screenshots more than the scenery; once colour stops, the product becomes the subject.
+- Note: Gradients outside the hero band and any non-ring shadow class are violations; hairlines (1px) are the intended depth signal.
+
+### MUST NOT — One indigo, only where you can click
+_Indigo only on the filled CTA, the outlined CTA border, and linked words; everything else is ink or tint._
+
+- Forbidden class patterns: `(?:^|[^a-z0-9-])bg-(?:indigo|violet|purple)-(?:4|5|6|7)\d\d$`, `(?:^|[^a-z0-9-])bg-(?:gradient-to-|linear-to-|radial-to-|conic-to-)`
+- Why: At ~0.2% of the surface, indigo always means 'do something'; a larger share would make the page a brand poster and slow scanning.
+- Note: Allowed on buttons/links only; never on a section or card background.
+
+## Design principles
+
+### Colour is a once-per-page event [restraint]
+- Making a payments brand feel alive without breaking legibility of dense product shots. → **a single decorative gradient confined to the hero** over _gradient text, gradient buttons, and gradient section backgrounds (the common fintech treatment)_
+- Because: Readers need to trust the screenshots more than the scenery; once colour stops, the product becomes the subject.
+- Evidence: e-hero-band, e-canvas-light, e-sections-tinted
+
+### One indigo, only where you can click [restraint]
+- Deciding how much of a light page the brand colour may occupy. → **indigo restricted to actions and links** over _indigo section backgrounds, indigo icons, and indigo headings_
+- Because: At ~0.2% of the surface, indigo always means 'do something'; a larger share would make the page a brand poster and slow scanning.
+- Evidence: e-purple, e-canvas-light
+
+### Light weights carry the headline [craft]
+- Setting a 48px headline beside a saturated gradient. → **variable 300 at every display size** over _600-700 headline weights with a 1.33x type ramp_
+- Because: A light face over a heavy gradient leaves the gradient as the loudest thing; bold type would fight the artwork and the screenshots.
+- Evidence: e-weights, e-h1, e-h2, e-h3
+
+### Blue-black ink instead of grey [craft]
+- Choosing text colours for a white page with a cold indigo accent. → **blue-tinted neutrals** over _pure greys (#111, #666) or neutral-warm text_
+- Because: Grey text on a white page beside indigo reads as unfinished; shared hue makes the colour look chosen rather than added.
+- Evidence: e-ink, e-ink-body
+
+### Motion is tiered by job [system]
+- Animating a page with hover states, colour changes and a reveal. → **three job-specific durations** over _one global 200ms ease on everything_
+- Because: Colour has to feel immediate on hover while a layout reveal needs room to read; one duration would make one of them wrong.
+- Evidence: e-motion, e-motion-support
+
+## System rules
+
+- **Text is blue-black, never grey**: Headings #061B31 and body #50617A sit on a blue hue axis; muted text is a lighter blue, not a neutral.
+- **One indigo for actions and linked words only**: rgb(83,58,253) covers ~0.2% of the surface: filled CTA, 1px outlined CTA, inline links. No indigo surfaces, headers or decoration.
+- **One gradient, spent on the hero**: A single full-bleed pink/orange/lilac band covers the hero; every section below is flat white or a pale tint.
+- **Light weights at every size**: 300 carries display and body (x302 home, x506 pricing); 400 for UI, 425/500 only inside pricing controls.
+- **Controls small, cards large**: Buttons and chips 4-6px; cards 16.5px on pricing and 8px elsewhere. No pill buttons in the primary flow.
+- **Shadows tinted to the canvas, not black**: Elevation uses rgba(50,50,93,·) plus a second layer, mostly 1-2px tight, with 13-16px blur on floats.
+- **Three motion tiers by job**: 0.24s for opacity, 0.3s for colour, 0.4s for the grid reveal; reduced-motion and focus-visible are present on the pricing stylesheet.
+- **Fixed 128px section rhythm on inner pages**: Product pages repeat a 128px gap seven times; the home page uses 160px then a 408px break around the logos.
+
+## Tokens (copy values from tokens.css; never retype numbers)
+
+Use the semantic and component layers; reach for a primitive only when no role fits.
+
+### Semantic — roles to use
+
+- `var(--lw-canvas)` — color/canvas (color, observed)
+- `var(--lw-canvas-tint)` — color/canvas-tint (color, observed)
+- `var(--lw-surface-subtle)` — color/surface-subtle (color, observed)
+- `var(--lw-text-heading)` — color/text/heading (color, observed)
+- `var(--lw-text-body)` — color/text/body (color, observed)
+- `var(--lw-text-muted)` — color/text/muted (color, observed)
+- `var(--lw-action-bg)` — color/action/bg (color, observed)
+- `var(--lw-action-bg-alt)` — color/action/bg-alt (color, observed)
+- `var(--lw-action-fg)` — color/action/fg (color, observed)
+- `var(--lw-link)` — color/link (color, observed)
+- `var(--lw-font-body)` — font/body (fontFamily, observed)
+- `var(--lw-font-code)` — font/code (fontFamily, observed)
+- `var(--lw-radius-control)` — radius/control (dimension, observed)
+- `var(--lw-radius-control-alt)` — radius/control-alt (dimension, observed)
+- `var(--lw-radius-card)` — radius/card (dimension, observed)
+
+### Component — reusable parts
+
+- `var(--lw-type-hero)` — type/hero (dimension, observed)
+- `var(--lw-type-h2)` — type/h2 (dimension, observed)
+- `var(--lw-type-h3)` — type/h3 (dimension, observed)
+- `var(--lw-type-body)` — type/body (dimension, observed)
+- `var(--lw-type-ui)` — type/ui (dimension, observed)
+- `var(--lw-type-caption)` — type/caption (dimension, observed)
+- `var(--lw-tracking-hero)` — tracking/hero (dimension, observed)
+- `var(--lw-tracking-h2)` — tracking/h2 (dimension, observed)
+- `var(--lw-leading-prose)` — leading/prose (number, observed)
+- `var(--lw-depth-float)` — depth/float (shadow, observed)
+- `var(--lw-depth-float-strong)` — depth/float-strong (shadow, observed)
+- `var(--lw-depth-ring)` — depth/ring (shadow, observed)
+- `var(--lw-depth-ring-inset)` — depth/ring-inset (shadow, observed)
+- `var(--lw-space-section)` — space/section (dimension, observed)
+- `var(--lw-layout-container)` — layout/container (dimension, inferred)
+
+### Primitives — raw values, last resort
+
+- `var(--lw-ink-900)` — color/ink/900 (color, observed)
+- `var(--lw-ink-700)` — color/ink/700 (color, observed)
+- `var(--lw-ink-600)` — color/ink/600 (color, observed)
+- `var(--lw-tint-100)` — color/blue-tint/100 (color, observed)
+- `var(--lw-tint-50)` — color/blue-tint/50 (color, observed)
+- `var(--lw-page-tint)` — color/blue-tint/25 (color, observed)
+- `var(--lw-white)` — color/white (color, observed)
+- `var(--lw-indigo-600)` — color/indigo/600 (color, observed)
+- `var(--lw-indigo-500)` — color/indigo/500 (color, observed)
+- `var(--lw-font-sans)` — font/sans (fontFamily, observed)
+- `var(--lw-font-mono)` — font/mono (fontFamily, observed)
+- `var(--lw-weight-light)` — weight/light (fontWeight, observed)
+- `var(--lw-weight-regular)` — weight/regular (fontWeight, observed)
+- `var(--lw-weight-ui-strong)` — weight/ui-strong (fontWeight, observed)
+- `var(--lw-motion-fast)` — motion/fast (duration, observed)
+- `var(--lw-motion-base)` — motion/base (duration, observed)
+- `var(--lw-motion-reveal)` — motion/reveal (duration, observed)
+- `var(--lw-easing-in-out)` — motion/easing-in-out (easing, observed)
+- `var(--lw-easing-out)` — motion/easing-out (easing, observed)
+
+## Interaction Delta (measured)
+
+Forced with a real mouse (CDP `Input.dispatchMouseEvent`) and `element.focus()`; only these properties are diffed: `background-color`, `color`, `border-color`, `box-shadow`, `outline`, `transform`.
+
+### button — `button.hds-button.CookieSettings_CookieSettings__HelmButton__69vhe`
+- Status: Observed / 实测 · evidence: e-buttons, e-purple
+- **hover**: `color`: `rgb(83, 58, 253)` → `rgb(46, 43, 140)`; `border-color`: `rgb(214, 217, 252)` → `rgb(64, 50, 200)`
+- **focus**: `outline`: `0px solid rgba(0, 0, 0, 0)` → `3px solid rgba(84, 82, 251, 0.75)`
+
+### button — `button.hds-ui-button.announcement-bar__dismiss`
+- Status: Observed / 实测 · evidence: e-buttons
+- **hover**: none (no computed change on the icon-only dismiss button)
+- **focus**: `outline`: `0px solid rgba(0, 0, 0, 0)` → `3px solid rgba(0, 0, 0, 0)`
+
+### card — `div.payments-graphic__checkout-item-card`
+- Status: Inferred / 推断 · evidence: e-shadow-soft
+- **hover**: none (No computed change; the card sits inside an animated illustration, so observed ≠ no hover style exists)
+- **focus**: none (Not focusable)
+
+## Verification
+
+Live specimens and motion replay: `preview.html` (single file, opens in any browser).
+
+Run before shipping UI built from these rules:
+
+```sh
+python3 scripts/lint_output.py --dest &lt;dest_dir&gt; --check-code &lt;ui_dir&gt;
+```
+</pre></div>
+</div>
+<div class="tabpanel" id="sub-tokens" role="tabpanel" aria-labelledby="tab-tokens" hidden>
+  <table><thead><tr><th>CSS var</th><th>Token</th><th>Layer</th><th>Type</th><th>Value</th><th>Status</th></tr></thead><tbody></tbody></table>
+  <table><thead><tr><th>CSS var</th><th>Token</th><th>Layer</th><th>Type</th><th>Value</th><th>Status</th></tr></thead>
+  <tbody><tr><td><span class="mono" data-copy="var(--lw-ink-900)">--lw-ink-900</span></td><td class="mono">color/ink/900</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#061B31">#061B31</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-ink-700)">--lw-ink-700</span></td><td class="mono">color/ink/700</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#50617A">#50617A</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-ink-600)">--lw-ink-600</span></td><td class="mono">color/ink/600</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#64748D">#64748D</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-tint-100)">--lw-tint-100</span></td><td class="mono">color/blue-tint/100</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#E5EDF5">#E5EDF5</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-tint-50)">--lw-tint-50</span></td><td class="mono">color/blue-tint/50</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#F8FAFD">#F8FAFD</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-page-tint)">--lw-page-tint</span></td><td class="mono">color/blue-tint/25</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#F6F9FC">#F6F9FC</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-white)">--lw-white</span></td><td class="mono">color/white</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#FFFFFF">#FFFFFF</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-indigo-600)">--lw-indigo-600</span></td><td class="mono">color/indigo/600</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#533AFD">#533AFD</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-indigo-500)">--lw-indigo-500</span></td><td class="mono">color/indigo/500</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#635BFF">#635BFF</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-canvas)">--lw-canvas</span></td><td class="mono">color/canvas</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#FFFFFF">#FFFFFF</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-canvas-tint)">--lw-canvas-tint</span></td><td class="mono">color/canvas-tint</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#F6F9FC">#F6F9FC</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-surface-subtle)">--lw-surface-subtle</span></td><td class="mono">color/surface-subtle</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#F8FAFD">#F8FAFD</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-text-heading)">--lw-text-heading</span></td><td class="mono">color/text/heading</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#061B31">#061B31</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-text-body)">--lw-text-body</span></td><td class="mono">color/text/body</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#50617A">#50617A</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-text-muted)">--lw-text-muted</span></td><td class="mono">color/text/muted</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#64748D">#64748D</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-action-bg)">--lw-action-bg</span></td><td class="mono">color/action/bg</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#533AFD">#533AFD</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-action-bg-alt)">--lw-action-bg-alt</span></td><td class="mono">color/action/bg-alt</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#635BFF">#635BFF</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-action-fg)">--lw-action-fg</span></td><td class="mono">color/action/fg</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#FFFFFF">#FFFFFF</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-link)">--lw-link</span></td><td class="mono">color/link</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#533AFD">#533AFD</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-font-sans)">--lw-font-sans</span></td><td class="mono">font/sans</td><td>primitive</td><td>fontFamily</td><td><span class="mono" data-copy="'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif">'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-font-mono)">--lw-font-mono</span></td><td class="mono">font/mono</td><td>primitive</td><td>fontFamily</td><td><span class="mono" data-copy="'SourceCodePro', ui-monospace, SFMono-Regular, monospace">'SourceCodePro', ui-monospace, SFMono-Regular, monospace</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-font-body)">--lw-font-body</span></td><td class="mono">font/body</td><td>semantic</td><td>fontFamily</td><td><span class="mono" data-copy="'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif">'sohne-var', -apple-system, system-ui, 'Segoe UI', sans-serif</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-font-code)">--lw-font-code</span></td><td class="mono">font/code</td><td>semantic</td><td>fontFamily</td><td><span class="mono" data-copy="'SourceCodePro', ui-monospace, SFMono-Regular, monospace">'SourceCodePro', ui-monospace, SFMono-Regular, monospace</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-hero)">--lw-type-hero</span></td><td class="mono">type/hero</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="48px">48px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-h2)">--lw-type-h2</span></td><td class="mono">type/h2</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="32px">32px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-h3)">--lw-type-h3</span></td><td class="mono">type/h3</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="26px">26px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-body)">--lw-type-body</span></td><td class="mono">type/body</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="16px">16px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-ui)">--lw-type-ui</span></td><td class="mono">type/ui</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="15px">15px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-caption)">--lw-type-caption</span></td><td class="mono">type/caption</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="10px">10px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-tracking-hero)">--lw-tracking-hero</span></td><td class="mono">tracking/hero</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="-0.02em">-0.02em</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-tracking-h2)">--lw-tracking-h2</span></td><td class="mono">tracking/h2</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="-0.015em">-0.015em</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-leading-prose)">--lw-leading-prose</span></td><td class="mono">leading/prose</td><td>component</td><td>number</td><td><span class="mono" data-copy="1.2">1.2</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-weight-light)">--lw-weight-light</span></td><td class="mono">weight/light</td><td>primitive</td><td>fontWeight</td><td><span class="mono" data-copy="300">300</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-weight-regular)">--lw-weight-regular</span></td><td class="mono">weight/regular</td><td>primitive</td><td>fontWeight</td><td><span class="mono" data-copy="400">400</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-weight-ui-strong)">--lw-weight-ui-strong</span></td><td class="mono">weight/ui-strong</td><td>primitive</td><td>fontWeight</td><td><span class="mono" data-copy="500">500</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-radius-control)">--lw-radius-control</span></td><td class="mono">radius/control</td><td>semantic</td><td>dimension</td><td><span class="mono" data-copy="4px">4px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-radius-control-alt)">--lw-radius-control-alt</span></td><td class="mono">radius/control-alt</td><td>semantic</td><td>dimension</td><td><span class="mono" data-copy="6px">6px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-radius-card)">--lw-radius-card</span></td><td class="mono">radius/card</td><td>semantic</td><td>dimension</td><td><span class="mono" data-copy="16.5px">16.5px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-depth-float)">--lw-depth-float</span></td><td class="mono">depth/float</td><td>component</td><td>shadow</td><td><span class="mono" data-copy="0 16px 32px rgba(50, 50, 93, 0.12)">0 16px 32px rgba(50, 50, 93, 0.12)</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-depth-float-strong)">--lw-depth-float-strong</span></td><td class="mono">depth/float-strong</td><td>component</td><td>shadow</td><td><span class="mono" data-copy="0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3)">0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3)</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-depth-ring)">--lw-depth-ring</span></td><td class="mono">depth/ring</td><td>component</td><td>shadow</td><td><span class="mono" data-copy="0 0 0 1px #533AFD">0 0 0 1px #533AFD</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-depth-ring-inset)">--lw-depth-ring-inset</span></td><td class="mono">depth/ring-inset</td><td>component</td><td>shadow</td><td><span class="mono" data-copy="inset 0 0 0 2px #FFFFFF">inset 0 0 0 2px #FFFFFF</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-motion-fast)">--lw-motion-fast</span></td><td class="mono">motion/fast</td><td>primitive</td><td>duration</td><td><span class="mono" data-copy="240ms">240ms</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-motion-base)">--lw-motion-base</span></td><td class="mono">motion/base</td><td>primitive</td><td>duration</td><td><span class="mono" data-copy="300ms">300ms</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-motion-reveal)">--lw-motion-reveal</span></td><td class="mono">motion/reveal</td><td>primitive</td><td>duration</td><td><span class="mono" data-copy="400ms">400ms</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-easing-in-out)">--lw-easing-in-out</span></td><td class="mono">motion/easing-in-out</td><td>primitive</td><td>easing</td><td><span class="mono" data-copy="cubic-bezier(0.45, 0.05, 0.55, 0.95)">cubic-bezier(0.45, 0.05, 0.55, 0.95)</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-easing-out)">--lw-easing-out</span></td><td class="mono">motion/easing-out</td><td>primitive</td><td>easing</td><td><span class="mono" data-copy="cubic-bezier(0.25, 1, 0.5, 1)">cubic-bezier(0.25, 1, 0.5, 1)</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-space-section)">--lw-space-section</span></td><td class="mono">space/section</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="128px">128px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-layout-container)">--lw-layout-container</span></td><td class="mono">layout/container</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="1080px">1080px</span></td><td><span class="badge inferred">inferred</span></td></tr></tbody></table>
+</div>
+<div class="tabpanel" id="sub-measurements" role="tabpanel" aria-labelledby="tab-measurements" hidden>
+  <table><thead><tr><th>Category</th><th>Value</th><th>Status</th><th>Evidence</th></tr></thead><tbody><tr><td>Color / canvas</td><td>white (62%) with two pale bands #E5EDF5 and #F8FAFD; pricing page is #F6F9FC under white cards</td><td><span class="badge observed">observed</span></td><td class="mono">e-canvas-light, e-canvas-pricing, e-sections-tinted</td></tr><tr><td>Color / text</td><td>#061B31 headings (RGB 6,27,49), #50617A body, #64748D muted — all blue-tinted, no pure grey</td><td><span class="badge observed">observed</span></td><td class="mono">e-ink, e-ink-body, e-ink-other</td></tr><tr><td>Color / accent</td><td>#533AFD primary fills and linked words (0.2% of surface), #635BFF CTA on pricing; secondary CTA is 1px purple outline</td><td><span class="badge observed">observed</span></td><td class="mono">e-purple, e-buttons</td></tr><tr><td>Color / hero</td><td>full-bleed gradient band (pink/orange/lilac) occupying the hero's right half; decorative, 0% as a control colour</td><td><span class="badge observed">observed</span></td><td class="mono">e-hero-band</td></tr><tr><td>Typography / families</td><td>sohne-var (1986 nodes) + SourceCodePro for code/keys</td><td><span class="badge observed">observed</span></td><td class="mono">e-font-sohne, e-font-mono</td></tr><tr><td>Typography / scale</td><td>H1 48/300/-0.96px, H2 32/300/-0.64px, H3 26/300/-0.26px, body 16-17px, prose 32px/300</td><td><span class="badge observed">observed</span></td><td class="mono">e-h1, e-h2, e-h3, e-body-type, e-size-dist</td></tr><tr><td>Typography / UI</td><td>pricing/product UI sits at 15px x531 and 14px; 10px x93 on the home page is metadata, not body</td><td><span class="badge observed">observed</span></td><td class="mono">e-size-dist, e-size-dist-pricing</td></tr><tr><td>Typography / weights</td><td>300 body/display dominates (x302 / x506), 400 secondary, 425/500 only in pricing UI; 700 only in 3 nodes</td><td><span class="badge observed">observed</span></td><td class="mono">e-weights, e-weights-pricing</td></tr><tr><td>Shape / radius</td><td>4px controls, 6px secondary, 16.5px cards on pricing, 8px on secondary cards</td><td><span class="badge observed">observed</span></td><td class="mono">e-radii, e-radii-pricing</td></tr><tr><td>Shape / depth</td><td>layered tinted shadows: rgba(50,50,93,.12) 0 16px 32px for floats; pricing cards rgba(50,50,93,.25) 0 13px 27px -5px + rgba(0,0,0,.3) 0 8px 16px</td><td><span class="badge observed">observed</span></td><td class="mono">e-shadow-soft, e-shadow-layered</td></tr><tr><td>Shape / hairline</td><td>button rings: inset 0 0 0 2px white, 0 0 0 1px purple on products</td><td><span class="badge observed">observed</span></td><td class="mono">e-ring</td></tr><tr><td>Motion</td><td>0.24s opacity (cubic-bezier(.45,.05,.55,.95)), 0.3s color (cubic-bezier(.25,1,.5,1)), 0.4s grid-template-rows reveal</td><td><span class="badge observed">observed</span></td><td class="mono">e-motion</td></tr><tr><td>Spacing</td><td>8px base; 128px between sections on product pages, home hero→logos 160px then 408px</td><td><span class="badge observed">observed</span></td><td class="mono">e-space, e-gaps-home, e-gaps-products</td></tr><tr><td>Layout / grid</td><td>12 x 88px with 16px gutters (footer + content), 1080px pricing container</td><td><span class="badge observed">observed</span></td><td class="mono">e-grid, e-container</td></tr></tbody></table>
+</div>
+<div class="tabpanel" id="sub-evidence" role="tabpanel" aria-labelledby="tab-evidence" hidden>
+  <table><thead><tr><th>ID</th><th>URL</th><th>Locator</th><th>Method</th><th>Status</th><th>Values</th></tr></thead>
+  <tbody><tr><td class="mono">e-canvas-light</td><td class="mono">stripe.com/</td><td>page canvas + body background</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">white=62.1%, pale blue rgb(229,237,245)=12.2%, pale grey rgb(248,250,253)=11.2%</td></tr><tr><td class="mono">e-canvas-pricing</td><td class="mono">stripe.com/pricing</td><td>pricing canvas html background</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(246,249,252)=49%, white cards=40.3%</td></tr><tr><td class="mono">e-sections-tinted</td><td class="mono">stripe.com/products</td><td>product page sections</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">white=68.2%, pale grey rgb(248,250,253)=21%, blue veil rgba(22,88,188,0.03)=9.4%</td></tr><tr><td class="mono">e-ink</td><td class="mono">stripe.com/</td><td>heading text</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(6, 27, 49)=109 text nodes, rgb(10, 37, 64) on pricing=323</td></tr><tr><td class="mono">e-ink-body</td><td class="mono">stripe.com/</td><td>body/secondary text</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(80, 97, 122)=152, rgb(100, 116, 141)=60</td></tr><tr><td class="mono">e-ink-other</td><td class="mono">stripe.com/pricing</td><td>pricing secondary text</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(66, 84, 102)=159, rgb(114, 127, 150)=82</td></tr><tr><td class="mono">e-purple</td><td class="mono">stripe.com/</td><td>primary button (Contact sales) + linked words</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(83, 58, 253)=accent candidate x73; 0.2% of surface, rgb(99, 91, 255)=pricing CTA x67</td></tr><tr><td class="mono">e-hero-band</td><td class="mono">stripe.com/</td><td>hero right side</td><td class="mono">screenshot-pixels</td><td><span class="badge observed">observed</span></td><td class="mono">rendered=1392x975 image (ratio 1.43:1), sampled pixels=pink #E080E0-ish, orange #E08000-ish, lilac, all above 60% saturation</td></tr><tr><td class="mono">e-font-sohne</td><td class="mono">stripe.com/</td><td>all text</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">family=sohne-var, samples=1986</td></tr><tr><td class="mono">e-font-mono</td><td class="mono">stripe.com/</td><td>inline code/keys</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">family=SourceCodePro, samples=14</td></tr><tr><td class="mono">e-h1</td><td class="mono">stripe.com/</td><td>hero headline</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=48px, weight=300, lineHeight=~59px (1.2), letterSpacing=-0.96px</td></tr><tr><td class="mono">e-h2</td><td class="mono">stripe.com/</td><td>section headline</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=32px, weight=300, letterSpacing=-0.64px</td></tr><tr><td class="mono">e-h3</td><td class="mono">stripe.com/</td><td>card headline</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=26px, weight=300, letterSpacing=-0.26px</td></tr><tr><td class="mono">e-body-type</td><td class="mono">stripe.com/</td><td>body copy</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=16px, weight=300 or 400, prose size=32px/300 in a marketing block</td></tr><tr><td class="mono">e-size-dist</td><td class="mono">stripe.com/</td><td>text size distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">top=16px x194, 10px x93, 14px x41, 26px x24, 22px x20, 48px x12</td></tr><tr><td class="mono">e-size-dist-pricing</td><td class="mono">stripe.com/pricing</td><td>text size distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">top=15px x531, 14px x128, 12px x82, 18px x24</td></tr><tr><td class="mono">e-weights</td><td class="mono">stripe.com/</td><td>font-weight distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">300=x302, 400=x165</td></tr><tr><td class="mono">e-weights-pricing</td><td class="mono">stripe.com/pricing</td><td>font-weight distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">300=x506, 425=x224, 400=x86, 500=x32</td></tr><tr><td class="mono">e-radii</td><td class="mono">stripe.com/</td><td>radius distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">4px=x78 (buttons, chips), 6px=x36, 5px=x6, 8px=x4, 16px=x1</td></tr><tr><td class="mono">e-radii-pricing</td><td class="mono">stripe.com/pricing</td><td>radius distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">16.5px=x54 (cards), 8px=x24, 4px=x3</td></tr><tr><td class="mono">e-shadow-soft</td><td class="mono">stripe.com/</td><td>floating panels</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgba(50,50,93,0.12) 0 16px 32px=x2, rgba(23,23,23,0.08) 0 15px 35px=x1</td></tr><tr><td class="mono">e-shadow-layered</td><td class="mono">stripe.com/pricing</td><td>pricing cards</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgba(50,50,93,0.25) 0 2px 5px -1px, rgba(0,0,0,0.3) 0 1px 3px=x16, rgba(50,50,93,0.25) 0 13px 27px -5px, rgba(0,0,0,0.3) 0 8px 16px=x6</td></tr><tr><td class="mono">e-ring</td><td class="mono">stripe.com/</td><td>button hairline (::before/::after computed)</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(255,255,255) 0 0 0 2px inset=x1, rgb(83,58,253) 0 0 0 1px=x2 on products</td></tr><tr><td class="mono">e-motion</td><td class="mono">stripe.com/</td><td>transitions across pages</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">color=0.3s cubic-bezier(0.25,1,0.5,1), opacity=0.24s cubic-bezier(0.45,0.05,0.55,0.95), grid-template-rows=0.4s cubic-bezier(0.65,0,0.35,1)</td></tr><tr><td class="mono">e-motion-support</td><td class="mono">stripe.com/pricing</td><td>stylesheet scan (pricing)</td><td class="mono">cssom-scan</td><td><span class="badge observed">observed</span></td><td class="mono">focusVisible=True, prefersReducedMotion=True</td></tr><tr><td class="mono">e-space</td><td class="mono">stripe.com/</td><td>spacing distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">8px=x65, 6px=x38, 12px=x34, 16px=x32, 32px=x26, 64px=x22</td></tr><tr><td class="mono">e-gaps-home</td><td class="mono">stripe.com/</td><td>section gaps</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">160px=hero→logos, 408px=logos→next, 48px=one tight pair</td></tr><tr><td class="mono">e-gaps-products</td><td class="mono">stripe.com/products</td><td>section gaps</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">128px=x7 (consistent)</td></tr><tr><td class="mono">e-grid</td><td class="mono">stripe.com/</td><td>footer + content grids</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">template=12 x 88px, gap 16px, gridCount=34</td></tr><tr><td class="mono">e-container</td><td class="mono">stripe.com/pricing</td><td>pricing container</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge inferred">inferred</span></td><td class="mono">maxWidth=1080px, rendered=1080px</td></tr><tr><td class="mono">e-buttons</td><td class="mono">stripe.com/</td><td>button typography</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">primary=16px/400, radius 4px, secondary=16px/400, border 1px purple, padded=12px vertical</td></tr><tr><td class="mono">e-cookie-banner</td><td class="mono">stripe.com/</td><td>cookie consent (screenshot)</td><td class="mono">screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rendered=white panel, cookie copy</td></tr></tbody></table>
+</div>
+</section></div>
   </div>
 </div>
 <script src="system.js"></script>

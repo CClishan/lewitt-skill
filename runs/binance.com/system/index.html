@@ -7,402 +7,671 @@
 <link rel="stylesheet" href="../tokens.css">
 <link rel="stylesheet" href="doc.css">
 <link rel="stylesheet" href="system.css">
-<style>.ds-scope .ds-figure { color: var(--lw-brand); }</style>
+<link rel="stylesheet" href="site.css">
+<style>:root { --doc-bg: #09090B; }</style>
+<script>document.documentElement.classList.add('js');</script>
 </head>
-<body data-view="panel" data-site="Binance design system">
+<body data-view="panel" data-site="Binance design system" data-tone="dark">
 <a class="skip" href="#canvas">Skip to canvas</a>
 <div class="shell">
   <aside class="rail" id="rail" aria-label="Sections">
-    <div class="brand">lewitt · Binance<small>4 pages · full mode</small></div>
+    <div class="brand"><span class="brand-name">lewitt<span class="rail-x"> · </span>Binance</span>
+      <small>4 pages · full mode</small></div>
     <button class="chip-btn rail-toggle" id="rail-toggle" aria-expanded="false" aria-controls="rail-nav">Menu</button>
-    <nav id="rail-nav">
-      <div><div class="group-label">Foundations</div>
-        <a class="nav-item" href="#overview">Overview</a>
-        <a class="nav-item" href="#colour">Colour</a>
-        <a class="nav-item" href="#typography">Typography</a>
-        <a class="nav-item" href="#shape">Radius &amp; Depth</a></div>
-      <div><div class="group-label">Interactive Lab</div>
-        <a class="nav-item" href="#components">Components &amp; States</a>
-        <a class="nav-item" href="#compositions">Compositions</a>
-        <a class="nav-item" href="#motion">Motion</a></div>
-      <div><div class="group-label">Specs &amp; Handoff</div>
-        <a class="nav-item" href="#stress">Stress</a>
-        <a class="nav-item" href="#system">System &amp; Taste</a>
-        <a class="nav-item" href="#specs">Evidence &amp; Downloads</a></div>
-    </nav>
-    <div class="rail-actions"><button class="chip-btn" id="view-print" aria-pressed="false">Print view</button></div>
+    <nav id="rail-nav"><div class="nav-group"><div class="group-label">Foundations</div><a class="nav-item" href="#overview">Overview</a><a class="nav-item" href="#colour">Colour</a><a class="nav-item" href="#typography">Typography</a><a class="nav-item" href="#shape">Radius &amp; Depth</a><a class="nav-item" href="#type-scale">Type Scale</a></div><div class="nav-group"><div class="group-label">Interactive Lab</div><a class="nav-item" href="#components">Components &amp; States</a><a class="nav-item" href="#compositions">Compositions</a><a class="nav-item" href="#states">Field States</a><a class="nav-item" href="#motion">Motion</a><a class="nav-item" href="#fidelity">Fidelity vs Source</a></div><div class="nav-group"><div class="group-label">Specs &amp; Handoff</div><a class="nav-item" href="#system">System &amp; Taste</a><a class="nav-item" href="#specs">Evidence &amp; Downloads</a></div></nav>
+    <div class="rail-actions">
+      <button class="chip-btn" id="view-print" aria-pressed="false">Print view</button>
+    </div>
   </aside>
   <div class="canvas">
     <div class="toolbar" role="toolbar" aria-label="Stress controls">
       <span class="tb-label">Stress</span>
-      <button class="tb-btn" data-stress-toggle="long" aria-pressed="false">Long copy</button>
-      <button class="tb-btn" data-stress-toggle="nogradient" aria-pressed="false">No gradient</button>
-      <button class="tb-btn" data-stress-toggle="nomedia" aria-pressed="false">Missing media</button>
-      <button class="tb-btn" data-stress-toggle="reduced" aria-pressed="false">Reduced motion</button>
+      <button class="tb-btn" data-stress-toggle="long" aria-pressed="false">Long copy</button><button class="tb-btn" data-stress-toggle="nogradient" aria-pressed="false">No gradient</button><button class="tb-btn" data-stress-toggle="nomedia" aria-pressed="false">Missing media</button><button class="tb-btn" data-stress-toggle="reduced" aria-pressed="false">Reduced motion</button>
       <button class="tb-btn" id="viewport-390" aria-pressed="false">Narrow 390</button>
       <span class="tb-status" id="tb-status" aria-live="polite"></span>
     </div>
-    <div class="scroll" id="canvas" tabindex="-1">
-<section class="panel" id="overview">
-  <h1>Binance — extracted design system</h1>
-  <p class="lede">Three dark layers, one gold accent reserved for action and figures, hairline borders
-  instead of shadows, and a number-first type scale (72px figure against 12px body).
-  Each claim below links to an evidence id in <a href="#evidence">Evidence</a>; anything the gates could not
-  prove is marked <span class="badge">unverified</span> rather than asserted.</p>
-  <p class="note">This reference site is built from <code>../tokens.css</code> (a deterministic render of
-  <code>dna.json</code>). Nothing here is hand-tuned: if a token changes, every specimen changes with it.</p>
+    <div class="scroll" id="canvas" tabindex="-1"><section class="panel" id="overview" data-panel="overview">
+<h1>Binance — extracted design system</h1>
+<p class="lede">https://www.binance.com/en · captured 2026-11-23T12:28:11 · every specimen below
+reads <code>../tokens.css</code>, a deterministic render of <code>dna.json</code>.</p>
+<div class="note"><strong>Colour is assigned by role, not by hierarchy</strong> — In a list of fifty numbers, a colour that could mean anything stops carrying meaning; three roles keep a glance reliable.</div>
+<h2>By the numbers</h2>
+<table><thead><tr><th></th><th>Value</th><th>Reads</th></tr></thead><tbody><tr><td>Tokens</td><td>57</td><td>semantic → component → primitive</td></tr><tr><td>Evidence</td><td>46</td><td>every value cites an id</td></tr><tr><td>Pages</td><td>4</td><td>entry plus representative subpages</td></tr><tr><td>Interactions</td><td>0</td><td>measured with real pointer and focus input</td></tr></tbody></table>
+<h2>Limitations</h2>
+<ul><li>binance.com redirects to www.binance.com/en; output folder keeps the requested binance.com name.</li><li>Menu dropdowns and modals were not opened (reversible-state risk); their states are unknown.</li><li>The homepage h1 is a 16px utility node, so display sizes were read from the hero figure and h2, not semantic tags.</li><li>prefers-reduced-motion was found on 2 of 4 pages; the CSSOM scan disagrees page to page.</li><li>BinancePlex appears on only 2 of 4 pages, so its role is inferred.</li></ul>
+</section><section class="panel" id="colour" data-panel="colour">
+<h1>Colour</h1>
+<p class="lede">Roles before primitives. Ratios are computed from the two token values, not sampled from a screenshot.</p>
+<h3>semantic · 13</h3><div class="sw"><div class="swatch"><div class="fill" style="background:#181A20"></div><div class="line"><span data-copy="#181A20">color/canvas</span><span class="hex" data-copy="var(--lw-canvas)">#181A20</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#29313D"></div><div class="line"><span data-copy="#29313D">color/surface</span><span class="hex" data-copy="var(--lw-surface)">#29313D</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#1E2329"></div><div class="line"><span data-copy="#1E2329">color/well</span><span class="hex" data-copy="var(--lw-well)">#1E2329</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#333B47"></div><div class="line"><span data-copy="#333B47">color/border</span><span class="hex" data-copy="var(--lw-border)">#333B47</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#3D4452"></div><div class="line"><span data-copy="#3D4452">color/border-strong</span><span class="hex" data-copy="var(--lw-border-strong)">#3D4452</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#EAECEF"></div><div class="line"><span data-copy="#EAECEF">color/text/primary</span><span class="hex" data-copy="var(--lw-text-primary)">#EAECEF</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#929AA5"></div><div class="line"><span data-copy="#929AA5">color/text/secondary</span><span class="hex" data-copy="var(--lw-text-secondary)">#929AA5</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#707A8A"></div><div class="line"><span data-copy="#707A8A">color/text/tertiary</span><span class="hex" data-copy="var(--lw-text-tertiary)">#707A8A</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#F0B90B"></div><div class="line"><span data-copy="#F0B90B">color/brand</span><span class="hex" data-copy="var(--lw-brand)">#F0B90B</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#FCD535"></div><div class="line"><span data-copy="#FCD535">color/action/bg</span><span class="hex" data-copy="var(--lw-action-bg)">#FCD535</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#202630"></div><div class="line"><span data-copy="#202630">color/action/fg</span><span class="hex" data-copy="var(--lw-action-fg)">#202630</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#2EBD85"></div><div class="line"><span data-copy="#2EBD85">color/trend/up</span><span class="hex" data-copy="var(--lw-trend-up)">#2EBD85</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#F6465D"></div><div class="line"><span data-copy="#F6465D">color/trend/down</span><span class="hex" data-copy="var(--lw-trend-down)">#F6465D</span></div><div class="sub"><span class="badge observed">observed</span></div></div></div><h3>primitive · 14</h3><div class="sw"><div class="swatch"><div class="fill" style="background:#181A20"></div><div class="line"><span data-copy="#181A20">color/dark/900</span><span class="hex" data-copy="var(--lw-dark-900)">#181A20</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#0B0E11"></div><div class="line"><span data-copy="#0B0E11">color/dark/1000</span><span class="hex" data-copy="var(--lw-dark-1000)">#0B0E11</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#29313D"></div><div class="line"><span data-copy="#29313D">color/slate/700</span><span class="hex" data-copy="var(--lw-slate-700)">#29313D</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#1E2329"></div><div class="line"><span data-copy="#1E2329">color/slate/800</span><span class="hex" data-copy="var(--lw-slate-800)">#1E2329</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#333B47"></div><div class="line"><span data-copy="#333B47">color/slate/600</span><span class="hex" data-copy="var(--lw-slate-600)">#333B47</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#3D4452"></div><div class="line"><span data-copy="#3D4452">color/slate/500</span><span class="hex" data-copy="var(--lw-slate-500)">#3D4452</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#EAECEF"></div><div class="line"><span data-copy="#EAECEF">color/grey/100</span><span class="hex" data-copy="var(--lw-grey-100)">#EAECEF</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#929AA5"></div><div class="line"><span data-copy="#929AA5">color/grey/400</span><span class="hex" data-copy="var(--lw-grey-400)">#929AA5</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#707A8A"></div><div class="line"><span data-copy="#707A8A">color/grey/500</span><span class="hex" data-copy="var(--lw-grey-500)">#707A8A</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#F0B90B"></div><div class="line"><span data-copy="#F0B90B">color/gold/400</span><span class="hex" data-copy="var(--lw-gold-400)">#F0B90B</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#FCD535"></div><div class="line"><span data-copy="#FCD535">color/gold/300</span><span class="hex" data-copy="var(--lw-gold-300)">#FCD535</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#202630"></div><div class="line"><span data-copy="#202630">color/on-gold</span><span class="hex" data-copy="var(--lw-on-gold)">#202630</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#2EBD85"></div><div class="line"><span data-copy="#2EBD85">color/up</span><span class="hex" data-copy="var(--lw-up)">#2EBD85</span></div><div class="sub"><span class="badge observed">observed</span></div></div><div class="swatch"><div class="fill" style="background:#F6465D"></div><div class="line"><span data-copy="#F6465D">color/down</span><span class="hex" data-copy="var(--lw-down)">#F6465D</span></div><div class="sub"><span class="badge observed">observed</span></div></div></div>
+<h2>Pairs in use</h2>
+<div class="pairs"><div class="pair"><div class="sample" style="background:#FCD535;color:#202630">action-fg / action-bg</div><div class="pmeta"><span class="mono">primary button</span><span class="chip ok">10.6:1 · AAA</span></div></div></div>
+</section><section class="panel" id="typography" data-panel="typography">
+<h1>Typography</h1>
+<p class="lede">Parameters on the left, the specimen on the right at its real size. Web fonts are not shipped;
+the specimen uses the declared stack and falls back where the face is missing.</p>
+<div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-figure)">type/figure</span><dl><dt>size</dt><dd>72px</dd><dt>weight</dt><dd>—</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:72px;font-weight:400;letter-spacing:normal">Financial infrastructure to grow your revenue</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-headline)">type/headline</span><dl><dt>size</dt><dd>40px</dd><dt>weight</dt><dd>—</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:40px;font-weight:400;letter-spacing:normal">Financial infrastructure to grow your revenue</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-title)">type/title</span><dl><dt>size</dt><dd>18px</dd><dt>weight</dt><dd>—</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:18px;font-weight:400;letter-spacing:normal">Financial infrastructure to grow your revenue</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-ui)">type/ui</span><dl><dt>size</dt><dd>14px</dd><dt>weight</dt><dd>—</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:14px;font-weight:400;letter-spacing:normal">Financial infrastructure to grow your revenue</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-body)">type/body</span><dl><dt>size</dt><dd>12px</dd><dt>weight</dt><dd>—</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:12px;font-weight:400;letter-spacing:normal">Financial infrastructure to grow your revenue</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-legal)">type/legal</span><dl><dt>size</dt><dd>8px</dd><dt>weight</dt><dd>—</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:8px;font-weight:400;letter-spacing:normal">Financial infrastructure to grow your revenue</span></div></div>
+<h2>Weights</h2>
+<div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-weight-regular)">weight/regular</span><dl><dt>weight</dt><dd>400</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:32px;font-weight:400">Financial infrastructure to grow your revenue</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-weight-medium)">weight/medium</span><dl><dt>weight</dt><dd>500</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:32px;font-weight:500">Financial infrastructure to grow your revenue</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-weight-semibold)">weight/semibold</span><dl><dt>weight</dt><dd>600</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:32px;font-weight:600">Financial infrastructure to grow your revenue</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-weight-bold)">weight/bold</span><dl><dt>weight</dt><dd>700</dd></dl></div><div class="type-specimen"><span class="spec" style="font-size:32px;font-weight:700">Financial infrastructure to grow your revenue</span></div></div>
+</section><section class="panel" id="type-scale" data-panel="type-scale">
+<h1>Type Scale</h1>
+<p class="lede">The full stack in reading order, drawn from the tokens exactly as a build would.</p>
+<div class="stage"><div class="stage-head"><span>type scale · ratios between steps</span><span>on var(--lw-canvas)</span></div><div class="stage-body"><div data-ds><div style="font-size:72px;line-height:1.12;font-weight:400;letter-spacing:normal;margin:0 0 18px;color:var(--lw-text-heading)">Financial infrastructure</div><div style="font-size:40px;line-height:1.12;font-weight:400;letter-spacing:normal;margin:0 0 18px;color:var(--lw-text-heading)">Financial infrastructure</div><div style="font-size:18px;line-height:1.12;font-weight:400;letter-spacing:normal;margin:0 0 18px;color:var(--lw-text-heading)">Financial infrastructure</div><div style="font-size:14px;line-height:1.12;font-weight:400;letter-spacing:normal;margin:0 0 18px;color:var(--lw-text-heading)">Financial infrastructure</div><div style="font-size:12px;line-height:1.12;font-weight:400;letter-spacing:normal;margin:0 0 18px;color:var(--lw-text-heading)">Financial infrastructure</div><div style="font-size:8px;line-height:1.12;font-weight:400;letter-spacing:normal;margin:0 0 18px;color:var(--lw-text-heading)">Financial infrastructure</div></div></div></div>
+</section><section class="panel" id="shape" data-panel="shape">
+<h1>Radius &amp; Depth</h1>
+<p class="lede">Corners and layer separation as tokenised values.</p>
+<div class="grid-2"><div class="shape"><div class="obj" style="border-radius:10px"></div><div class="cap"><span data-copy="var(--lw-radius-button)">radius/button</span><span class="v">10px</span></div></div><div class="shape"><div class="obj" style="border-radius:8px"></div><div class="cap"><span data-copy="var(--lw-radius-card)">radius/card</span><span class="v">8px</span></div></div><div class="shape"><div class="obj" style="border-radius:16px"></div><div class="cap"><span data-copy="var(--lw-radius-option)">radius/option</span><span class="v">16px</span></div></div><div class="shape"><div class="obj" style="border-radius:4px"></div><div class="cap"><span data-copy="var(--lw-radius-chip)">radius/chip</span><span class="v">4px</span></div></div><div class="shape"><div class="obj" style="border-radius:9999px"></div><div class="cap"><span data-copy="var(--lw-radius-pill)">radius/pill</span><span class="v">9999px</span></div></div><div class="shape"><div class="obj" style="box-shadow:-2px 0 14px rgba(0, 0, 0, 0.4), 0 0 6px rgba(0, 0, 0, 0.2);border-color:transparent"></div><div class="cap"><span data-copy="var(--lw-depth-overlay)">depth/overlay</span><span class="v">-2px 0 14px rgba(0, 0, 0, 0.4), 0 0 6px rgba(0, 0, 0, 0.2)</span></div></div></div>
+</section><section class="panel" id="components" data-panel="components">
+<h1>Components &amp; States</h1>
+<p class="lede">Every state is a real browser state; forced samples are labelled as such. The toolbar above
+stresses the demos while you look at them.</p>
+<div class="stage"><div class="stage-head"><span>Button · default, hover, focus-visible, active, disabled</span><span>reads ../tokens.css</span></div><div class="stage-body"><div data-ds><div class="matrix"><figure><div class="mono" style="color:var(--lw-text-muted);margin-bottom:6px">default</div><button class="ds-btn ds-btn--primary">Get started</button></figure><figure><div class="mono" style="color:var(--lw-text-muted);margin-bottom:6px">hover · forced</div><button class="ds-btn ds-btn--primary is-hover">Get started</button></figure><figure><div class="mono" style="color:var(--lw-text-muted);margin-bottom:6px">focus-visible · forced</div><button class="ds-btn ds-btn--primary is-focus">Get started</button></figure><figure><div class="mono" style="color:var(--lw-text-muted);margin-bottom:6px">active · forced</div><button class="ds-btn ds-btn--primary is-active">Get started</button></figure><figure><div class="mono" style="color:var(--lw-text-muted);margin-bottom:6px">disabled · disabled</div><button class="ds-btn ds-btn--primary" disabled>Get started</button></figure></div></div></div><div class="stage-note">Hover and focus are real: move the pointer or press Tab.</div></div>
 
-  <h3>Principles at a glance</h3>
-  <div class="grid-3">
-    <div class="ds-card ds-scope"><div class="mono" style="color:var(--lw-text-tertiary)">Brand yellow share</div>
-      <div class="ds-figure" style="font-size:40px">0.3%</div><div class="ds-body">home page surface; 5.3% on the futures trading floor.</div></div>
-    <div class="ds-card ds-scope"><div class="mono" style="color:var(--lw-text-tertiary)">Shadows in sample</div>
-      <div class="ds-figure" style="font-size:40px">1</div><div class="ds-body">one overlay panel; everything else is a 1px #333B47 border.</div></div>
-    <div class="ds-card ds-scope"><div class="mono" style="color:var(--lw-text-tertiary)">Figure : body size</div>
-      <div class="ds-figure" style="font-size:40px">72 : 12</div><div class="ds-body">data outranks copy by a 6x ratio.</div></div>
+<h2>Cards &amp; links</h2>
+<div class="stage"><div class="stage-head"><span>Card surfaces</span><span></span></div><div class="stage-body"><div data-ds><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px"><div class="ds-card" style="padding:18px">Default card</div><div class="ds-card ds-card--tint" style="padding:18px">Tint card</div><div class="ds-card ds-card--float" style="padding:18px">Float card</div></div><p style="margin:18px 0 0"><a class="ds-link" href="#components">Read the docs</a> · <a class="ds-link" href="#specs">view evidence</a></p></div></div></div>
+</section><section class="panel" id="compositions" data-panel="compositions">
+<h1>Compositions</h1>
+<p class="lede">Assembled only from the components above and the tokens in <code>../tokens.css</code>. Copy is
+sample text, never the source's.</p>
+<h2>Marketing hero</h2>
+<div class="stage"><div class="stage-head"><span>hero · display type, one action</span><span>display · 3 lengths</span></div><div class="stage-body"><div data-ds><div class="ds-scope" style="padding:48px"><h2 class="ds-hero ds-stressable" style="font-size:var(--lw-type-h2);margin:0 0 18px">Financial infrastructure to grow your revenue</h2><h2 class="ds-hero ds-stressable" style="font-size:var(--lw-type-h2);margin:0 0 18px">Accept payments and move money globally with a single integration</h2><h2 class="ds-hero ds-stressable" style="font-size:var(--lw-type-h2);margin:0 0 18px">Transparent pricing that scales with volume</h2><button class="ds-btn ds-btn--primary">Get started</button></div></div></div><div class="stage-note">Long copy in the toolbar re-cuts these lines.</div></div>
+<h2>Pricing rows</h2>
+<div class="stage"><div class="stage-head"><span>pricing · three tiers</span><span></span></div><div class="stage-body"><div data-ds><div class="ds-scope" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;padding:32px"><div class="ds-card" style="padding:20px"><div class="ds-caption">Tier</div><div class="ds-price">2.9% + 30¢</div><button class="ds-btn ds-btn--secondary" style="margin-top:12px">Choose</button></div><div class="ds-card" style="padding:20px"><div class="ds-caption">Tier</div><div class="ds-price">1.5%</div><button class="ds-btn ds-btn--secondary" style="margin-top:12px">Choose</button></div><div class="ds-card" style="padding:20px"><div class="ds-caption">Tier</div><div class="ds-price">Custom</div><button class="ds-btn ds-btn--secondary" style="margin-top:12px">Choose</button></div></div></div></div><div class="stage-note">Card, caption and button states all come from the same tokens.</div></div>
+</section><section class="panel" id="states" data-panel="states">
+<h1>Field States</h1>
+<p class="lede">No form controls were observed in this run, so this run has no field states to show.</p>
+<div class="stage"><div class="stage-head"><span>recorded states</span><span>buttons · observed</span></div><div class="stage-body"><div data-ds><div class="ds-scope" style="padding:24px"><button class="ds-btn ds-btn--primary" style="margin:0 8px 8px 0">Sign Up</button><button class="ds-btn ds-btn--secondary" style="margin:0 8px 8px 0">Log In</button><button class="ds-btn ds-btn--ghost">Deposit</button></div></div></div><div class="stage-note">Only the controls below exist as tokens in this run.</div></div>
+</section><section class="panel" id="motion" data-panel="motion">
+<h1>Motion</h1>
+<p class="lede">Each curve is plotted from the token's own cubic-bezier. Replay runs the real duration.</p>
+<div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.4 0 0.2 1: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="69.2" y2="78.0" /><line class="hz" x1="158.0" y1="10.0" x2="39.6" y2="10.0" /><circle class="hn" cx="69.2" cy="78.0" r="2" /><circle class="hn" cx="39.6" cy="10.0" r="2" /><path class="curve" d="M 10.0 78.0 C 69.2 78.0 39.6 10.0 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="mono" data-copy="var(--lw-motion-micro)">motion/micro · 150ms</div><div class="ease">cubic-bezier(0.4, 0, 0.2, 1)</div><div class="track"><span class="dot" id="dot-micro"></span></div></div><div class="act"><button class="tb-btn" data-sys-replay="dot-micro" data-dur="150ms" data-ease="cubic-bezier(0.4, 0, 0.2, 1)">Replay</button></div></div><div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.4 0 0.2 1: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="69.2" y2="78.0" /><line class="hz" x1="158.0" y1="10.0" x2="39.6" y2="10.0" /><circle class="hn" cx="69.2" cy="78.0" r="2" /><circle class="hn" cx="39.6" cy="10.0" r="2" /><path class="curve" d="M 10.0 78.0 C 69.2 78.0 39.6 10.0 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="mono" data-copy="var(--lw-motion-hover)">motion/hover · 200ms</div><div class="ease">cubic-bezier(0.4, 0, 0.2, 1)</div><div class="track"><span class="dot" id="dot-hover"></span></div></div><div class="act"><button class="tb-btn" data-sys-replay="dot-hover" data-dur="200ms" data-ease="cubic-bezier(0.4, 0, 0.2, 1)">Replay</button></div></div><div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.4 0 0.2 1: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="69.2" y2="78.0" /><line class="hz" x1="158.0" y1="10.0" x2="39.6" y2="10.0" /><circle class="hn" cx="69.2" cy="78.0" r="2" /><circle class="hn" cx="39.6" cy="10.0" r="2" /><path class="curve" d="M 10.0 78.0 C 69.2 78.0 39.6 10.0 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="mono" data-copy="var(--lw-motion-panel)">motion/panel · 700ms</div><div class="ease">cubic-bezier(0.4, 0, 0.2, 1)</div><div class="track"><span class="dot" id="dot-panel"></span></div></div><div class="act"><button class="tb-btn" data-sys-replay="dot-panel" data-dur="700ms" data-ease="cubic-bezier(0.4, 0, 0.2, 1)">Replay</button></div></div><div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.4 0 0.2 1: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="69.2" y2="78.0" /><line class="hz" x1="158.0" y1="10.0" x2="39.6" y2="10.0" /><circle class="hn" cx="69.2" cy="78.0" r="2" /><circle class="hn" cx="39.6" cy="10.0" r="2" /><path class="curve" d="M 10.0 78.0 C 69.2 78.0 39.6 10.0 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="mono" data-copy="var(--lw-easing-standard)">motion/easing-standard</div><div class="ease">cubic-bezier(0.4, 0, 0.2, 1)</div></div><div class="act"><span class="badge observed">observed</span></div></div><div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0 0 0.2 1: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="10.0" y2="78.0" /><line class="hz" x1="158.0" y1="10.0" x2="39.6" y2="10.0" /><circle class="hn" cx="10.0" cy="78.0" r="2" /><circle class="hn" cx="39.6" cy="10.0" r="2" /><path class="curve" d="M 10.0 78.0 C 10.0 78.0 39.6 10.0 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="mono" data-copy="var(--lw-easing-panel)">motion/easing-panel</div><div class="ease">cubic-bezier(0, 0, 0.2, 1)</div></div><div class="act"><span class="badge observed">observed</span></div></div>
+<h2>Interaction deltas</h2>
+<p class="lede">Forced with a real CDP mouse and element.focus(); values come from <code>dna.json &gt; interactions</code>.</p>
+<p class="lede">No interaction deltas recorded for this run.</p>
+</section><section class="panel" id="fidelity" data-panel="fidelity">
+<h1>Fidelity vs Source</h1>
+<p class="lede">The capture on the left, the rebuild on the right, at equal width. Differences stay visible
+rather than claimed away.</p>
+<div style="display:flex;justify-content:flex-end;margin:0 0 12px">
+  <button class="tb-btn" id="compare-toggle" aria-pressed="true">Side by side</button>
+</div>
+<div class="compare" id="compare">
+  <img src="../capture/viewport.png" alt="captured source page">
+  <div class="layer b"><img src="../capture/viewport.png" alt=""></div>
+  <div class="handle"></div>
+  <span class="lab l">source · capture/viewport.png</span><span class="lab r">split compare</span>
+  <input id="split" type="range" min="0" max="100" value="50" aria-label="compare source and rebuild">
+</div>
+<div class="sbs" id="sbs" hidden>
+  <figure><img src="../capture/viewport.png" alt="captured source page" style="width:100%"><figcaption>source</figcaption></figure>
+  <figure><div class="stage" style="border:0"><div class="stage-body" style="min-height:200px"><div data-ds style="padding:16px">
+  the rebuild lives in <code>#compositions</code> and <code>#components</code> on this page</div></div></div>
+  <figcaption>rebuild · this page</figcaption></figure>
+</div>
+<p class="note">Type rendering cannot be matched because the source face is not shipped. Fidelity stays
+<strong>PARTIAL</strong> in VERIFY.md until every recorded deviation is closed.</p>
+</section><section class="panel" id="system" data-panel="system">
+<h1>System &amp; Taste</h1>
+<p class="lede">The decision in words, the rule it compiles to, and the machine pattern behind it.</p>
+<div class="taste"><article class="tcard"><div class="head"><span class="badge observed">observed</span><span class="mono" style="color:var(--n-faint)">system · e-brand, e-up, e-down, e-ink</span></div><h4>Colour is assigned by role, not by hierarchy</h4><div class="ab"><div class="v">a three-role colour system (brand, direction, neutral)</div><div class="vs">over</div><div class="v over">a hue per category (per-coin colours, per-section accents, coloured badges)</div></div><p class="why">In a list of fifty numbers, a colour that could mean anything stops carrying meaning; three roles keep a glance reliable.</p></article><article class="tcard"><div class="head"><span class="badge observed">observed</span><span class="mono" style="color:var(--n-faint)">restraint · e-surface-raised, e-stroke-strong, e-shadow</span></div><h4>Depth is a hairline, not a shadow</h4><div class="ab"><div class="v">1px hairlines plus a lifted fill</div><div class="vs">over</div><div class="v over">a drop shadow on every card and panel</div></div><p class="why">On a dark canvas a shadow is invisible until it is strong enough to smear the 12px digits sitting on it.</p><div><span class="rule-cap forbid">forbid · 1 class pattern(s)</span><span class="rule-cap max">max · box-shadow ≤ 0px</span></div><details><summary>Machine rule</summary><pre>{
+ &quot;forbidCss&quot;: [],
+ &quot;forbidClass&quot;: [
+  &quot;shadow-(?!(?:none|sm|inner)\\b)[a-z0-9]+&quot;
+ ],
+ &quot;max&quot;: {
+  &quot;box-shadow&quot;: {
+   &quot;value&quot;: &quot;0&quot;,
+   &quot;unit&quot;: &quot;px&quot;
+  }
+ },
+ &quot;note&quot;: &quot;Exception: the single floating overlay panel measured at 14px/6px blur. Everything else is a 1px border.&quot;
+}</pre></details></article><article class="tcard"><div class="head"><span class="badge observed">observed</span><span class="mono" style="color:var(--n-faint)">craft · e-display-72, e-h2, e-body, e-sizes</span></div><h4>Data outranks copy</h4><div class="ab"><div class="v">a 72/40/12 scale biased toward numbers</div><div class="vs">over</div><div class="v over">a balanced 48/28/16 marketing scale where copy and data compete</div></div><p class="why">The promise of an exchange is a number; making it the largest object lets a screenshot-free page still read as a product.</p></article><article class="tcard"><div class="head"><span class="badge observed">observed</span><span class="mono" style="color:var(--n-faint)">restraint · e-font-nova, e-font-plex</span></div><h4>The display face is earned, not standard</h4><div class="ab"><div class="v">a single UI family with a sparing display face</div><div class="vs">over</div><div class="v over">a display/body pairing applied site-wide</div></div><p class="why">A second family used everywhere splits product identity from marketing; used sparingly it signals that this surface is different.</p><div><span class="rule-cap forbid">forbid · 1 class pattern(s)</span></div><details><summary>Machine rule</summary><pre>{
+ &quot;forbidCss&quot;: [],
+ &quot;forbidClass&quot;: [
+  &quot;(^|-)font-(serif|display|mono)$&quot;
+ ],
+ &quot;max&quot;: {},
+ &quot;note&quot;: &quot;A display face is allowed only on campaign blocks, never on tables, prices or controls.&quot;
+}</pre></details></article></div>
+<h2>Patterns</h2>
+<h3>Yellow is an amount, not a mood</h3><p><strong>Brand yellow is confined to the CTA fill, the hero statistic, the active-tab underline and a few links; it never fills a section or sets body copy.</strong></p><p class="mono" style="color:var(--n-mute)">On a page showing dozens of numbers, yellow can only mean 'this is the figure' or 'this is the action'. · e-brand, e-canvas, e-stroke-strong</p><h3>Yellow expands with density</h3><p><strong>Yellow fill is 0.3% of the marketing home page and 5.3% of the trading floor.</strong></p><p class="mono" style="color:var(--n-mute)">Marketing reads dark with a highlight; the trading product reads brand-forward because product mode replaces marketing mode. · e-brand, e-brand-other, e-canvas-futures</p><h3>Three dark layers, no shadows</h3><p><strong>Canvas #181A20, card #29313D, well #1E2329, separated by #333B47 hairlines; a single shadow exists in the sample.</strong></p><p class="mono" style="color:var(--n-mute)">Depth survives on OLED and dim screens without blur halos over 12px price text. · e-surface-raised, e-surface-deep, e-stroke-strong, e-shadow</p><h3>Numbers get the largest type</h3><p><strong>The hero figure is 72px while headlines are 40px and body 12px — a 6x ratio between statistic and prose.</strong></p><p class="mono" style="color:var(--n-mute)">A reader scanning for a number never hunts; hierarchy is data &gt; headline &gt; body. · e-display-72, e-h2, e-body, e-sizes</p><h3>One UI family, one earned display face</h3><p><strong>BinanceNova carries every surface; BinancePlex appears on 10 nodes in 2 of 4 pages.</strong></p><p class="mono" style="color:var(--n-mute)">Keeps product pages uniform while letting campaign pages differ slightly. · e-font-nova, e-font-nova-other, e-font-plex</p><h3>A two-colour direction axis</h3><p><strong>Gains use #2EBD85 and losses #F6465D, always as text, never as a filled badge.</strong></p><p class="mono" style="color:var(--n-mute)">Direction stays legible at 12px without competing with the brand yellow. · e-up, e-down</p><h3>Radii track role</h3><p><strong>Buttons 10px, cards and tabs 8px, large option tiles 16px, inline chips 4px.</strong></p><p class="mono" style="color:var(--n-mute)">Silhouette alone tells a card from a button from a tile. · e-radii-home, e-radii-markets, e-radii-futures</p><h3>Hover is fast, panels are slow</h3><p><strong>Colour and border hovers run at 0.15-0.2s; panel and image transforms at 0.7s.</strong></p><p class="mono" style="color:var(--n-mute)">Interface feedback is immediate while promotional movement stays calm enough to read. · e-motion, e-motion-markets</p>
+</section><section class="panel" id="specs" data-panel="specs">
+<h1>Evidence &amp; Downloads</h1>
+<div class="subtabs" role="tablist" aria-label="Specs">
+  <button role="tab" id="tab-downloads" aria-controls="sub-downloads" aria-selected="true" tabindex="0">Downloads</button>
+  <button role="tab" id="tab-code" aria-controls="sub-code" aria-selected="false" tabindex="-1">Code</button>
+  <button role="tab" id="tab-tokens" aria-controls="sub-tokens" aria-selected="false" tabindex="-1">Tokens</button>
+  <button role="tab" id="tab-measurements" aria-controls="sub-measurements" aria-selected="false" tabindex="-1">Measurements</button>
+  <button role="tab" id="tab-evidence" aria-controls="sub-evidence" aria-selected="false" tabindex="-1">Evidence (46)</button>
+</div>
+<div class="tabpanel" id="sub-downloads" role="tabpanel" aria-labelledby="tab-downloads">
+  <div class="dl"><a class="mini-btn" href="../tokens.css" download>tokens.css</a><a class="mini-btn" href="../shadcn-theme.css" download>shadcn-theme.css</a><a class="mini-btn" href="../agent-rules.md" download>agent-rules.md</a><a class="mini-btn" href="../taste.md" download>taste.md</a><a class="mini-btn" href="../VERIFY.md" download>VERIFY.md</a><a class="mini-btn" href="../tokens.resolved.json" download>tokens.resolved.json</a></div>
+  <h3>Pages inspected</h3><ul><li><a href="https://www.binance.com/en" rel="noreferrer">https://www.binance.com/en</a></li><li><a href="https://www.binance.com/en/crypto/convert" rel="noreferrer">https://www.binance.com/en/crypto/convert</a></li><li><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">https://www.binance.com/en/markets/overview</a></li><li><a href="https://www.binance.com/en/futures/home" rel="noreferrer">https://www.binance.com/en/futures/home</a></li></ul>
+  <h3>Limitations</h3><ul><li>binance.com redirects to www.binance.com/en; output folder keeps the requested binance.com name.</li><li>Menu dropdowns and modals were not opened (reversible-state risk); their states are unknown.</li><li>The homepage h1 is a 16px utility node, so display sizes were read from the hero figure and h2, not semantic tags.</li><li>prefers-reduced-motion was found on 2 of 4 pages; the CSSOM scan disagrees page to page.</li><li>BinancePlex appears on only 2 of 4 pages, so its role is inferred.</li></ul>
+</div>
+<div class="tabpanel" id="sub-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+  <div class="code" style="margin:0 0 20px"><div class="code-head"><span>tokens.css</span><button class="mini-btn" data-copy="/* Generated by lewitt from dna.json — do not edit by hand (R3: single source). */
+/* Scope: apply [data-ds] (and [data-ds-mode=&quot;&lt;mode&gt;&quot;] for non-default modes). */
+
+:root, [data-ds] {
+  --lw-dark-900: #181A20; /* color/dark/900 · observed */
+  --lw-dark-1000: #0B0E11; /* color/dark/1000 · observed */
+  --lw-slate-700: #29313D; /* color/slate/700 · observed */
+  --lw-slate-800: #1E2329; /* color/slate/800 · observed */
+  --lw-slate-600: #333B47; /* color/slate/600 · observed */
+  --lw-slate-500: #3D4452; /* color/slate/500 · observed */
+  --lw-grey-100: #EAECEF; /* color/grey/100 · observed */
+  --lw-grey-400: #929AA5; /* color/grey/400 · observed */
+  --lw-grey-500: #707A8A; /* color/grey/500 · observed */
+  --lw-gold-400: #F0B90B; /* color/gold/400 · observed */
+  --lw-gold-300: #FCD535; /* color/gold/300 · observed */
+  --lw-on-gold: #202630; /* color/on-gold · observed */
+  --lw-up: #2EBD85; /* color/up · observed */
+  --lw-down: #F6465D; /* color/down · observed */
+  --lw-canvas: #181A20; /* color/canvas · observed */
+  --lw-surface: #29313D; /* color/surface · observed */
+  --lw-well: #1E2329; /* color/well · observed */
+  --lw-border: #333B47; /* color/border · observed */
+  --lw-border-strong: #3D4452; /* color/border-strong · observed */
+  --lw-text-primary: #EAECEF; /* color/text/primary · observed */
+  --lw-text-secondary: #929AA5; /* color/text/secondary · observed */
+  --lw-text-tertiary: #707A8A; /* color/text/tertiary · observed */
+  --lw-brand: #F0B90B; /* color/brand · observed */
+  --lw-action-bg: #FCD535; /* color/action/bg · observed */
+  --lw-action-fg: #202630; /* color/action/fg · observed */
+  --lw-trend-up: #2EBD85; /* color/trend/up · observed */
+  --lw-trend-down: #F6465D; /* color/trend/down · observed */
+  --lw-font-ui: 'BinanceNova', -apple-system, 'Helvetica Neue', Arial, sans-serif; /* font/ui · observed */
+  --lw-font-display: 'BinancePlex', 'BinanceNova', -apple-system, sans-serif; /* font/display · observed */
+  --lw-font-body: 'BinanceNova', -apple-system, 'Helvetica Neue', Arial, sans-serif; /* font/body · observed */
+  --lw-font-campaign: 'BinancePlex', 'BinanceNova', -apple-system, sans-serif; /* font/campaign · observed */
+  --lw-type-figure: 72px; /* type/figure · observed */
+  --lw-type-headline: 40px; /* type/headline · observed */
+  --lw-type-title: 18px; /* type/title · observed */
+  --lw-type-ui: 14px; /* type/ui · observed */
+  --lw-type-body: 12px; /* type/body · observed */
+  --lw-type-legal: 8px; /* type/legal · observed */
+  --lw-leading-body: 1.33; /* leading/body · observed */
+  --lw-weight-regular: 400; /* weight/regular · observed */
+  --lw-weight-medium: 500; /* weight/medium · observed */
+  --lw-weight-semibold: 600; /* weight/semibold · observed */
+  --lw-weight-bold: 700; /* weight/bold · observed */
+  --lw-radius-button: 10px; /* radius/button · observed */
+  --lw-radius-card: 8px; /* radius/card · observed */
+  --lw-radius-option: 16px; /* radius/option · observed */
+  --lw-radius-chip: 4px; /* radius/chip · observed */
+  --lw-radius-pill: 9999px; /* radius/pill · observed */
+  --lw-depth-overlay: -2px 0 14px rgba(0, 0, 0, 0.4), 0 0 6px rgba(0, 0, 0, 0.2); /* depth/overlay · observed */
+  --lw-motion-micro: 150ms; /* motion/micro · observed */
+  --lw-motion-hover: 200ms; /* motion/hover · observed */
+  --lw-motion-panel: 700ms; /* motion/panel · observed */
+  --lw-easing-standard: cubic-bezier(0.4, 0, 0.2, 1); /* motion/easing-standard · observed */
+  --lw-easing-panel: cubic-bezier(0, 0, 0.2, 1); /* motion/easing-panel · observed */
+  --lw-space-unit: 8px; /* space/unit · observed */
+  --lw-space-block: 64px; /* space/block · observed */
+  --lw-layout-container: 1440px; /* layout/container · observed */
+  --lw-layout-pad: 24px; /* layout/container-pad · observed */
+}
+">Copy</button></div><pre>/* Generated by lewitt from dna.json — do not edit by hand (R3: single source). */
+/* Scope: apply [data-ds] (and [data-ds-mode=&quot;&lt;mode&gt;&quot;] for non-default modes). */
+
+:root, [data-ds] {
+  --lw-dark-900: #181A20; /* color/dark/900 · observed */
+  --lw-dark-1000: #0B0E11; /* color/dark/1000 · observed */
+  --lw-slate-700: #29313D; /* color/slate/700 · observed */
+  --lw-slate-800: #1E2329; /* color/slate/800 · observed */
+  --lw-slate-600: #333B47; /* color/slate/600 · observed */
+  --lw-slate-500: #3D4452; /* color/slate/500 · observed */
+  --lw-grey-100: #EAECEF; /* color/grey/100 · observed */
+  --lw-grey-400: #929AA5; /* color/grey/400 · observed */
+  --lw-grey-500: #707A8A; /* color/grey/500 · observed */
+  --lw-gold-400: #F0B90B; /* color/gold/400 · observed */
+  --lw-gold-300: #FCD535; /* color/gold/300 · observed */
+  --lw-on-gold: #202630; /* color/on-gold · observed */
+  --lw-up: #2EBD85; /* color/up · observed */
+  --lw-down: #F6465D; /* color/down · observed */
+  --lw-canvas: #181A20; /* color/canvas · observed */
+  --lw-surface: #29313D; /* color/surface · observed */
+  --lw-well: #1E2329; /* color/well · observed */
+  --lw-border: #333B47; /* color/border · observed */
+  --lw-border-strong: #3D4452; /* color/border-strong · observed */
+  --lw-text-primary: #EAECEF; /* color/text/primary · observed */
+  --lw-text-secondary: #929AA5; /* color/text/secondary · observed */
+  --lw-text-tertiary: #707A8A; /* color/text/tertiary · observed */
+  --lw-brand: #F0B90B; /* color/brand · observed */
+  --lw-action-bg: #FCD535; /* color/action/bg · observed */
+  --lw-action-fg: #202630; /* color/action/fg · observed */
+  --lw-trend-up: #2EBD85; /* color/trend/up · observed */
+  --lw-trend-down: #F6465D; /* color/trend/down · observed */
+  --lw-font-ui: 'BinanceNova', -apple-system, 'Helvetica Neue', Arial, sans-serif; /* font/ui · observed */
+  --lw-font-display: 'BinancePlex', 'BinanceNova', -apple-system, sans-serif; /* font/display · observed */
+  --lw-font-body: 'BinanceNova', -apple-system, 'Helvetica Neue', Arial, sans-serif; /* font/body · observed */
+  --lw-font-campaign: 'BinancePlex', 'BinanceNova', -apple-system, sans-serif; /* font/campaign · observed */
+  --lw-type-figure: 72px; /* type/figure · observed */
+  --lw-type-headline: 40px; /* type/headline · observed */
+  --lw-type-title: 18px; /* type/title · observed */
+  --lw-type-ui: 14px; /* type/ui · observed */
+  --lw-type-body: 12px; /* type/body · observed */
+  --lw-type-legal: 8px; /* type/legal · observed */
+  --lw-leading-body: 1.33; /* leading/body · observed */
+  --lw-weight-regular: 400; /* weight/regular · observed */
+  --lw-weight-medium: 500; /* weight/medium · observed */
+  --lw-weight-semibold: 600; /* weight/semibold · observed */
+  --lw-weight-bold: 700; /* weight/bold · observed */
+  --lw-radius-button: 10px; /* radius/button · observed */
+  --lw-radius-card: 8px; /* radius/card · observed */
+  --lw-radius-option: 16px; /* radius/option · observed */
+  --lw-radius-chip: 4px; /* radius/chip · observed */
+  --lw-radius-pill: 9999px; /* radius/pill · observed */
+  --lw-depth-overlay: -2px 0 14px rgba(0, 0, 0, 0.4), 0 0 6px rgba(0, 0, 0, 0.2); /* depth/overlay · observed */
+  --lw-motion-micro: 150ms; /* motion/micro · observed */
+  --lw-motion-hover: 200ms; /* motion/hover · observed */
+  --lw-motion-panel: 700ms; /* motion/panel · observed */
+  --lw-easing-standard: cubic-bezier(0.4, 0, 0.2, 1); /* motion/easing-standard · observed */
+  --lw-easing-panel: cubic-bezier(0, 0, 0.2, 1); /* motion/easing-panel · observed */
+  --lw-space-unit: 8px; /* space/unit · observed */
+  --lw-space-block: 64px; /* space/block · observed */
+  --lw-layout-container: 1440px; /* layout/container · observed */
+  --lw-layout-pad: 24px; /* layout/container-pad · observed */
+}
+</pre></div><div class="code" style="margin:0 0 20px"><div class="code-head"><span>shadcn-theme.css</span><button class="mini-btn" data-copy="/* shadcn/ui + Tailwind v4 theme — generated by lewitt from dna.json (R3: do not hand-edit).
+   source: https://www.binance.com/en · extracted 2026-11-23 · colour scheme: dark
+   Paste into globals.css after `@import &quot;tailwindcss&quot;;`. Every value maps to a token id below. */
+
+@custom-variant dark (&amp;:is(.dark *));
+
+:root {
+  --background: #181A20; /* color/canvas — canvas */
+  --foreground: #EAECEF; /* color/text/primary — primary text */
+  --card: #29313D; /* color/surface — raised surface */
+  --card-foreground: #EAECEF; /* color/text/primary — card text */
+  --popover: #29313D; /* color/surface — overlay surface */
+  --popover-foreground: #EAECEF; /* color/text/primary — overlay text */
+  --primary: #FCD535; /* color/action/bg — action fill */
+  --primary-foreground: #202630; /* color/action/fg — action label */
+  --secondary: #1E2329; /* color/well — secondary fill */
+  --secondary-foreground: #EAECEF; /* color/text/primary — secondary label */
+  --muted: #1E2329; /* color/well — muted fill */
+  --muted-foreground: #707A8A; /* color/text/tertiary — muted text */
+  --accent: #FCD535; /* color/action/bg — hover fill */
+  --accent-foreground: #EAECEF; /* color/text/primary — hover label */
+  --destructive: #F6465D; /* color/trend/down — destructive action */
+  --border: #333B47; /* color/border — borders */
+  --input: #3D4452; /* color/border-strong — input borders */
+  --ring: #FCD535; /* color/action/bg — focus ring */
+  --radius: 10px; /* radius/button */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
+}
+
+">Copy</button></div><pre>/* shadcn/ui + Tailwind v4 theme — generated by lewitt from dna.json (R3: do not hand-edit).
+   source: https://www.binance.com/en · extracted 2026-11-23 · colour scheme: dark
+   Paste into globals.css after `@import &quot;tailwindcss&quot;;`. Every value maps to a token id below. */
+
+@custom-variant dark (&amp;:is(.dark *));
+
+:root {
+  --background: #181A20; /* color/canvas — canvas */
+  --foreground: #EAECEF; /* color/text/primary — primary text */
+  --card: #29313D; /* color/surface — raised surface */
+  --card-foreground: #EAECEF; /* color/text/primary — card text */
+  --popover: #29313D; /* color/surface — overlay surface */
+  --popover-foreground: #EAECEF; /* color/text/primary — overlay text */
+  --primary: #FCD535; /* color/action/bg — action fill */
+  --primary-foreground: #202630; /* color/action/fg — action label */
+  --secondary: #1E2329; /* color/well — secondary fill */
+  --secondary-foreground: #EAECEF; /* color/text/primary — secondary label */
+  --muted: #1E2329; /* color/well — muted fill */
+  --muted-foreground: #707A8A; /* color/text/tertiary — muted text */
+  --accent: #FCD535; /* color/action/bg — hover fill */
+  --accent-foreground: #EAECEF; /* color/text/primary — hover label */
+  --destructive: #F6465D; /* color/trend/down — destructive action */
+  --border: #333B47; /* color/border — borders */
+  --input: #3D4452; /* color/border-strong — input borders */
+  --ring: #FCD535; /* color/action/bg — focus ring */
+  --radius: 10px; /* radius/button */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
+}
+
+</pre></div><div class="code" style="margin:0 0 20px"><div class="code-head"><span>agent-rules.md</span><button class="mini-btn" data-copy="# Design rules — Binance
+
+&lt;!-- source: https://www.binance.com/en · generated by lewitt from dna.json · do not edit --&gt;
+
+## Hard constraints (from Restraint principles — check these first)
+
+### MUST NOT — Depth is a hairline, not a shadow
+_Separate layers with #333B47 1px borders over a #29313D fill; one shadow exists in the whole sample._
+
+- Forbidden class patterns: `shadow-(?!(?:none|sm|inner)\b)[a-z0-9]+`
+- Upper bound: `box-shadow` ≤ 0px
+- Why: On a dark canvas a shadow is invisible until it is strong enough to smear the 12px digits sitting on it.
+- Note: Exception: the single floating overlay panel measured at 14px/6px blur. Everything else is a 1px border.
+
+### MUST NOT — The display face is earned, not standard
+_BinanceNova everywhere; BinancePlex only on 10 nodes in 2 of 4 pages._
+
+- Forbidden class patterns: `(^|-)font-(serif|display|mono)$`
+- Why: A second family used everywhere splits product identity from marketing; used sparingly it signals that this surface is different.
+- Note: A display face is allowed only on campaign blocks, never on tables, prices or controls.
+
+## Design principles
+
+### Colour is assigned by role, not by hierarchy [system]
+- Designing a screen that shows prices, price changes, actions and promotions at once. → **a three-role colour system (brand, direction, neutral)** over _a hue per category (per-coin colours, per-section accents, coloured badges)_
+- Because: In a list of fifty numbers, a colour that could mean anything stops carrying meaning; three roles keep a glance reliable.
+- Evidence: e-brand, e-up, e-down, e-ink
+
+### Depth is a hairline, not a shadow [restraint]
+- Layering cards and inputs on a near-black canvas. → **1px hairlines plus a lifted fill** over _a drop shadow on every card and panel_
+- Because: On a dark canvas a shadow is invisible until it is strong enough to smear the 12px digits sitting on it.
+- Evidence: e-surface-raised, e-stroke-strong, e-shadow
+
+### Data outranks copy [craft]
+- Deciding what to enlarge on a landing page that also has to sell a product. → **a 72/40/12 scale biased toward numbers** over _a balanced 48/28/16 marketing scale where copy and data compete_
+- Because: The promise of an exchange is a number; making it the largest object lets a screenshot-free page still read as a product.
+- Evidence: e-display-72, e-h2, e-body, e-sizes
+
+### The display face is earned, not standard [restraint]
+- Choosing type families across marketing and trading surfaces. → **a single UI family with a sparing display face** over _a display/body pairing applied site-wide_
+- Because: A second family used everywhere splits product identity from marketing; used sparingly it signals that this surface is different.
+- Evidence: e-font-nova, e-font-plex
+
+## System rules
+
+- **Yellow is an amount, not a mood**: Brand yellow is confined to the CTA fill, the hero statistic, the active-tab underline and a few links; it never fills a section or sets body copy.
+- **Yellow expands with density**: Yellow fill is 0.3% of the marketing home page and 5.3% of the trading floor.
+- **Three dark layers, no shadows**: Canvas #181A20, card #29313D, well #1E2329, separated by #333B47 hairlines; a single shadow exists in the sample.
+- **Numbers get the largest type**: The hero figure is 72px while headlines are 40px and body 12px — a 6x ratio between statistic and prose.
+- **One UI family, one earned display face**: BinanceNova carries every surface; BinancePlex appears on 10 nodes in 2 of 4 pages.
+- **A two-colour direction axis**: Gains use #2EBD85 and losses #F6465D, always as text, never as a filled badge.
+- **Radii track role**: Buttons 10px, cards and tabs 8px, large option tiles 16px, inline chips 4px.
+- **Hover is fast, panels are slow**: Colour and border hovers run at 0.15-0.2s; panel and image transforms at 0.7s.
+
+## Tokens (copy values from tokens.css; never retype numbers)
+
+Use the semantic and component layers; reach for a primitive only when no role fits.
+
+### Semantic — roles to use
+
+- `var(--lw-canvas)` — color/canvas (color, observed)
+- `var(--lw-surface)` — color/surface (color, observed)
+- `var(--lw-well)` — color/well (color, observed)
+- `var(--lw-border)` — color/border (color, observed)
+- `var(--lw-border-strong)` — color/border-strong (color, observed)
+- `var(--lw-text-primary)` — color/text/primary (color, observed)
+- `var(--lw-text-secondary)` — color/text/secondary (color, observed)
+- `var(--lw-text-tertiary)` — color/text/tertiary (color, observed)
+- `var(--lw-brand)` — color/brand (color, observed)
+- `var(--lw-action-bg)` — color/action/bg (color, observed)
+- `var(--lw-action-fg)` — color/action/fg (color, observed)
+- `var(--lw-trend-up)` — color/trend/up (color, observed)
+- `var(--lw-trend-down)` — color/trend/down (color, observed)
+- `var(--lw-font-body)` — font/body (fontFamily, observed)
+- `var(--lw-font-campaign)` — font/campaign (fontFamily, observed)
+- `var(--lw-radius-button)` — radius/button (dimension, observed)
+- `var(--lw-radius-card)` — radius/card (dimension, observed)
+- `var(--lw-radius-option)` — radius/option (dimension, observed)
+- `var(--lw-radius-chip)` — radius/chip (dimension, observed)
+
+### Component — reusable parts
+
+- `var(--lw-type-figure)` — type/figure (dimension, observed)
+- `var(--lw-type-headline)` — type/headline (dimension, observed)
+- `var(--lw-type-title)` — type/title (dimension, observed)
+- `var(--lw-type-ui)` — type/ui (dimension, observed)
+- `var(--lw-type-body)` — type/body (dimension, observed)
+- `var(--lw-type-legal)` — type/legal (dimension, observed)
+- `var(--lw-leading-body)` — leading/body (number, observed)
+- `var(--lw-depth-overlay)` — depth/overlay (shadow, observed)
+- `var(--lw-space-block)` — space/block (dimension, observed)
+- `var(--lw-layout-container)` — layout/container (dimension, observed)
+- `var(--lw-layout-pad)` — layout/container-pad (dimension, observed)
+
+### Primitives — raw values, last resort
+
+- `var(--lw-dark-900)` — color/dark/900 (color, observed)
+- `var(--lw-dark-1000)` — color/dark/1000 (color, observed)
+- `var(--lw-slate-700)` — color/slate/700 (color, observed)
+- `var(--lw-slate-800)` — color/slate/800 (color, observed)
+- `var(--lw-slate-600)` — color/slate/600 (color, observed)
+- `var(--lw-slate-500)` — color/slate/500 (color, observed)
+- `var(--lw-grey-100)` — color/grey/100 (color, observed)
+- `var(--lw-grey-400)` — color/grey/400 (color, observed)
+- `var(--lw-grey-500)` — color/grey/500 (color, observed)
+- `var(--lw-gold-400)` — color/gold/400 (color, observed)
+- `var(--lw-gold-300)` — color/gold/300 (color, observed)
+- `var(--lw-on-gold)` — color/on-gold (color, observed)
+- `var(--lw-up)` — color/up (color, observed)
+- `var(--lw-down)` — color/down (color, observed)
+- `var(--lw-font-ui)` — font/ui (fontFamily, observed)
+- `var(--lw-font-display)` — font/display (fontFamily, observed)
+- `var(--lw-weight-regular)` — weight/regular (fontWeight, observed)
+- `var(--lw-weight-medium)` — weight/medium (fontWeight, observed)
+- `var(--lw-weight-semibold)` — weight/semibold (fontWeight, observed)
+- `var(--lw-weight-bold)` — weight/bold (fontWeight, observed)
+- `var(--lw-radius-pill)` — radius/pill (dimension, observed)
+- `var(--lw-motion-micro)` — motion/micro (duration, observed)
+- `var(--lw-motion-hover)` — motion/hover (duration, observed)
+- `var(--lw-motion-panel)` — motion/panel (duration, observed)
+- `var(--lw-easing-standard)` — motion/easing-standard (easing, observed)
+- `var(--lw-easing-panel)` — motion/easing-panel (easing, observed)
+- `var(--lw-space-unit)` — space/unit (dimension, observed)
+
+## Verification
+
+Live specimens and motion replay: `preview.html` (single file, opens in any browser).
+
+Run before shipping UI built from these rules:
+
+```sh
+python3 scripts/lint_output.py --dest &lt;dest_dir&gt; --check-code &lt;ui_dir&gt;
+```
+">Copy</button></div><pre># Design rules — Binance
+
+&lt;!-- source: https://www.binance.com/en · generated by lewitt from dna.json · do not edit --&gt;
+
+## Hard constraints (from Restraint principles — check these first)
+
+### MUST NOT — Depth is a hairline, not a shadow
+_Separate layers with #333B47 1px borders over a #29313D fill; one shadow exists in the whole sample._
+
+- Forbidden class patterns: `shadow-(?!(?:none|sm|inner)\b)[a-z0-9]+`
+- Upper bound: `box-shadow` ≤ 0px
+- Why: On a dark canvas a shadow is invisible until it is strong enough to smear the 12px digits sitting on it.
+- Note: Exception: the single floating overlay panel measured at 14px/6px blur. Everything else is a 1px border.
+
+### MUST NOT — The display face is earned, not standard
+_BinanceNova everywhere; BinancePlex only on 10 nodes in 2 of 4 pages._
+
+- Forbidden class patterns: `(^|-)font-(serif|display|mono)$`
+- Why: A second family used everywhere splits product identity from marketing; used sparingly it signals that this surface is different.
+- Note: A display face is allowed only on campaign blocks, never on tables, prices or controls.
+
+## Design principles
+
+### Colour is assigned by role, not by hierarchy [system]
+- Designing a screen that shows prices, price changes, actions and promotions at once. → **a three-role colour system (brand, direction, neutral)** over _a hue per category (per-coin colours, per-section accents, coloured badges)_
+- Because: In a list of fifty numbers, a colour that could mean anything stops carrying meaning; three roles keep a glance reliable.
+- Evidence: e-brand, e-up, e-down, e-ink
+
+### Depth is a hairline, not a shadow [restraint]
+- Layering cards and inputs on a near-black canvas. → **1px hairlines plus a lifted fill** over _a drop shadow on every card and panel_
+- Because: On a dark canvas a shadow is invisible until it is strong enough to smear the 12px digits sitting on it.
+- Evidence: e-surface-raised, e-stroke-strong, e-shadow
+
+### Data outranks copy [craft]
+- Deciding what to enlarge on a landing page that also has to sell a product. → **a 72/40/12 scale biased toward numbers** over _a balanced 48/28/16 marketing scale where copy and data compete_
+- Because: The promise of an exchange is a number; making it the largest object lets a screenshot-free page still read as a product.
+- Evidence: e-display-72, e-h2, e-body, e-sizes
+
+### The display face is earned, not standard [restraint]
+- Choosing type families across marketing and trading surfaces. → **a single UI family with a sparing display face** over _a display/body pairing applied site-wide_
+- Because: A second family used everywhere splits product identity from marketing; used sparingly it signals that this surface is different.
+- Evidence: e-font-nova, e-font-plex
+
+## System rules
+
+- **Yellow is an amount, not a mood**: Brand yellow is confined to the CTA fill, the hero statistic, the active-tab underline and a few links; it never fills a section or sets body copy.
+- **Yellow expands with density**: Yellow fill is 0.3% of the marketing home page and 5.3% of the trading floor.
+- **Three dark layers, no shadows**: Canvas #181A20, card #29313D, well #1E2329, separated by #333B47 hairlines; a single shadow exists in the sample.
+- **Numbers get the largest type**: The hero figure is 72px while headlines are 40px and body 12px — a 6x ratio between statistic and prose.
+- **One UI family, one earned display face**: BinanceNova carries every surface; BinancePlex appears on 10 nodes in 2 of 4 pages.
+- **A two-colour direction axis**: Gains use #2EBD85 and losses #F6465D, always as text, never as a filled badge.
+- **Radii track role**: Buttons 10px, cards and tabs 8px, large option tiles 16px, inline chips 4px.
+- **Hover is fast, panels are slow**: Colour and border hovers run at 0.15-0.2s; panel and image transforms at 0.7s.
+
+## Tokens (copy values from tokens.css; never retype numbers)
+
+Use the semantic and component layers; reach for a primitive only when no role fits.
+
+### Semantic — roles to use
+
+- `var(--lw-canvas)` — color/canvas (color, observed)
+- `var(--lw-surface)` — color/surface (color, observed)
+- `var(--lw-well)` — color/well (color, observed)
+- `var(--lw-border)` — color/border (color, observed)
+- `var(--lw-border-strong)` — color/border-strong (color, observed)
+- `var(--lw-text-primary)` — color/text/primary (color, observed)
+- `var(--lw-text-secondary)` — color/text/secondary (color, observed)
+- `var(--lw-text-tertiary)` — color/text/tertiary (color, observed)
+- `var(--lw-brand)` — color/brand (color, observed)
+- `var(--lw-action-bg)` — color/action/bg (color, observed)
+- `var(--lw-action-fg)` — color/action/fg (color, observed)
+- `var(--lw-trend-up)` — color/trend/up (color, observed)
+- `var(--lw-trend-down)` — color/trend/down (color, observed)
+- `var(--lw-font-body)` — font/body (fontFamily, observed)
+- `var(--lw-font-campaign)` — font/campaign (fontFamily, observed)
+- `var(--lw-radius-button)` — radius/button (dimension, observed)
+- `var(--lw-radius-card)` — radius/card (dimension, observed)
+- `var(--lw-radius-option)` — radius/option (dimension, observed)
+- `var(--lw-radius-chip)` — radius/chip (dimension, observed)
+
+### Component — reusable parts
+
+- `var(--lw-type-figure)` — type/figure (dimension, observed)
+- `var(--lw-type-headline)` — type/headline (dimension, observed)
+- `var(--lw-type-title)` — type/title (dimension, observed)
+- `var(--lw-type-ui)` — type/ui (dimension, observed)
+- `var(--lw-type-body)` — type/body (dimension, observed)
+- `var(--lw-type-legal)` — type/legal (dimension, observed)
+- `var(--lw-leading-body)` — leading/body (number, observed)
+- `var(--lw-depth-overlay)` — depth/overlay (shadow, observed)
+- `var(--lw-space-block)` — space/block (dimension, observed)
+- `var(--lw-layout-container)` — layout/container (dimension, observed)
+- `var(--lw-layout-pad)` — layout/container-pad (dimension, observed)
+
+### Primitives — raw values, last resort
+
+- `var(--lw-dark-900)` — color/dark/900 (color, observed)
+- `var(--lw-dark-1000)` — color/dark/1000 (color, observed)
+- `var(--lw-slate-700)` — color/slate/700 (color, observed)
+- `var(--lw-slate-800)` — color/slate/800 (color, observed)
+- `var(--lw-slate-600)` — color/slate/600 (color, observed)
+- `var(--lw-slate-500)` — color/slate/500 (color, observed)
+- `var(--lw-grey-100)` — color/grey/100 (color, observed)
+- `var(--lw-grey-400)` — color/grey/400 (color, observed)
+- `var(--lw-grey-500)` — color/grey/500 (color, observed)
+- `var(--lw-gold-400)` — color/gold/400 (color, observed)
+- `var(--lw-gold-300)` — color/gold/300 (color, observed)
+- `var(--lw-on-gold)` — color/on-gold (color, observed)
+- `var(--lw-up)` — color/up (color, observed)
+- `var(--lw-down)` — color/down (color, observed)
+- `var(--lw-font-ui)` — font/ui (fontFamily, observed)
+- `var(--lw-font-display)` — font/display (fontFamily, observed)
+- `var(--lw-weight-regular)` — weight/regular (fontWeight, observed)
+- `var(--lw-weight-medium)` — weight/medium (fontWeight, observed)
+- `var(--lw-weight-semibold)` — weight/semibold (fontWeight, observed)
+- `var(--lw-weight-bold)` — weight/bold (fontWeight, observed)
+- `var(--lw-radius-pill)` — radius/pill (dimension, observed)
+- `var(--lw-motion-micro)` — motion/micro (duration, observed)
+- `var(--lw-motion-hover)` — motion/hover (duration, observed)
+- `var(--lw-motion-panel)` — motion/panel (duration, observed)
+- `var(--lw-easing-standard)` — motion/easing-standard (easing, observed)
+- `var(--lw-easing-panel)` — motion/easing-panel (easing, observed)
+- `var(--lw-space-unit)` — space/unit (dimension, observed)
+
+## Verification
+
+Live specimens and motion replay: `preview.html` (single file, opens in any browser).
+
+Run before shipping UI built from these rules:
+
+```sh
+python3 scripts/lint_output.py --dest &lt;dest_dir&gt; --check-code &lt;ui_dir&gt;
+```
+</pre></div>
+</div>
+<div class="tabpanel" id="sub-tokens" role="tabpanel" aria-labelledby="tab-tokens" hidden>
+  <table><thead><tr><th>CSS var</th><th>Token</th><th>Layer</th><th>Type</th><th>Value</th><th>Status</th></tr></thead><tbody></tbody></table>
+  <table><thead><tr><th>CSS var</th><th>Token</th><th>Layer</th><th>Type</th><th>Value</th><th>Status</th></tr></thead>
+  <tbody><tr><td><span class="mono" data-copy="var(--lw-dark-900)">--lw-dark-900</span></td><td class="mono">color/dark/900</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#181A20">#181A20</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-dark-1000)">--lw-dark-1000</span></td><td class="mono">color/dark/1000</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#0B0E11">#0B0E11</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-slate-700)">--lw-slate-700</span></td><td class="mono">color/slate/700</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#29313D">#29313D</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-slate-800)">--lw-slate-800</span></td><td class="mono">color/slate/800</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#1E2329">#1E2329</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-slate-600)">--lw-slate-600</span></td><td class="mono">color/slate/600</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#333B47">#333B47</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-slate-500)">--lw-slate-500</span></td><td class="mono">color/slate/500</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#3D4452">#3D4452</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-grey-100)">--lw-grey-100</span></td><td class="mono">color/grey/100</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#EAECEF">#EAECEF</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-grey-400)">--lw-grey-400</span></td><td class="mono">color/grey/400</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#929AA5">#929AA5</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-grey-500)">--lw-grey-500</span></td><td class="mono">color/grey/500</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#707A8A">#707A8A</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-gold-400)">--lw-gold-400</span></td><td class="mono">color/gold/400</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#F0B90B">#F0B90B</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-gold-300)">--lw-gold-300</span></td><td class="mono">color/gold/300</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#FCD535">#FCD535</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-on-gold)">--lw-on-gold</span></td><td class="mono">color/on-gold</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#202630">#202630</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-up)">--lw-up</span></td><td class="mono">color/up</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#2EBD85">#2EBD85</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-down)">--lw-down</span></td><td class="mono">color/down</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#F6465D">#F6465D</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-canvas)">--lw-canvas</span></td><td class="mono">color/canvas</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#181A20">#181A20</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-surface)">--lw-surface</span></td><td class="mono">color/surface</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#29313D">#29313D</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-well)">--lw-well</span></td><td class="mono">color/well</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#1E2329">#1E2329</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-border)">--lw-border</span></td><td class="mono">color/border</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#333B47">#333B47</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-border-strong)">--lw-border-strong</span></td><td class="mono">color/border-strong</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#3D4452">#3D4452</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-text-primary)">--lw-text-primary</span></td><td class="mono">color/text/primary</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#EAECEF">#EAECEF</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-text-secondary)">--lw-text-secondary</span></td><td class="mono">color/text/secondary</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#929AA5">#929AA5</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-text-tertiary)">--lw-text-tertiary</span></td><td class="mono">color/text/tertiary</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#707A8A">#707A8A</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-brand)">--lw-brand</span></td><td class="mono">color/brand</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#F0B90B">#F0B90B</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-action-bg)">--lw-action-bg</span></td><td class="mono">color/action/bg</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#FCD535">#FCD535</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-action-fg)">--lw-action-fg</span></td><td class="mono">color/action/fg</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#202630">#202630</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-trend-up)">--lw-trend-up</span></td><td class="mono">color/trend/up</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#2EBD85">#2EBD85</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-trend-down)">--lw-trend-down</span></td><td class="mono">color/trend/down</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#F6465D">#F6465D</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-font-ui)">--lw-font-ui</span></td><td class="mono">font/ui</td><td>primitive</td><td>fontFamily</td><td><span class="mono" data-copy="'BinanceNova', -apple-system, 'Helvetica Neue', Arial, sans-serif">'BinanceNova', -apple-system, 'Helvetica Neue', Arial, sans-serif</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-font-display)">--lw-font-display</span></td><td class="mono">font/display</td><td>primitive</td><td>fontFamily</td><td><span class="mono" data-copy="'BinancePlex', 'BinanceNova', -apple-system, sans-serif">'BinancePlex', 'BinanceNova', -apple-system, sans-serif</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-font-body)">--lw-font-body</span></td><td class="mono">font/body</td><td>semantic</td><td>fontFamily</td><td><span class="mono" data-copy="'BinanceNova', -apple-system, 'Helvetica Neue', Arial, sans-serif">'BinanceNova', -apple-system, 'Helvetica Neue', Arial, sans-serif</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-font-campaign)">--lw-font-campaign</span></td><td class="mono">font/campaign</td><td>semantic</td><td>fontFamily</td><td><span class="mono" data-copy="'BinancePlex', 'BinanceNova', -apple-system, sans-serif">'BinancePlex', 'BinanceNova', -apple-system, sans-serif</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-figure)">--lw-type-figure</span></td><td class="mono">type/figure</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="72px">72px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-headline)">--lw-type-headline</span></td><td class="mono">type/headline</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="40px">40px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-title)">--lw-type-title</span></td><td class="mono">type/title</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="18px">18px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-ui)">--lw-type-ui</span></td><td class="mono">type/ui</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="14px">14px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-body)">--lw-type-body</span></td><td class="mono">type/body</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="12px">12px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-legal)">--lw-type-legal</span></td><td class="mono">type/legal</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="8px">8px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-leading-body)">--lw-leading-body</span></td><td class="mono">leading/body</td><td>component</td><td>number</td><td><span class="mono" data-copy="1.33">1.33</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-weight-regular)">--lw-weight-regular</span></td><td class="mono">weight/regular</td><td>primitive</td><td>fontWeight</td><td><span class="mono" data-copy="400">400</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-weight-medium)">--lw-weight-medium</span></td><td class="mono">weight/medium</td><td>primitive</td><td>fontWeight</td><td><span class="mono" data-copy="500">500</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-weight-semibold)">--lw-weight-semibold</span></td><td class="mono">weight/semibold</td><td>primitive</td><td>fontWeight</td><td><span class="mono" data-copy="600">600</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-weight-bold)">--lw-weight-bold</span></td><td class="mono">weight/bold</td><td>primitive</td><td>fontWeight</td><td><span class="mono" data-copy="700">700</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-radius-button)">--lw-radius-button</span></td><td class="mono">radius/button</td><td>semantic</td><td>dimension</td><td><span class="mono" data-copy="10px">10px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-radius-card)">--lw-radius-card</span></td><td class="mono">radius/card</td><td>semantic</td><td>dimension</td><td><span class="mono" data-copy="8px">8px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-radius-option)">--lw-radius-option</span></td><td class="mono">radius/option</td><td>semantic</td><td>dimension</td><td><span class="mono" data-copy="16px">16px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-radius-chip)">--lw-radius-chip</span></td><td class="mono">radius/chip</td><td>semantic</td><td>dimension</td><td><span class="mono" data-copy="4px">4px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-radius-pill)">--lw-radius-pill</span></td><td class="mono">radius/pill</td><td>primitive</td><td>dimension</td><td><span class="mono" data-copy="9999px">9999px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-depth-overlay)">--lw-depth-overlay</span></td><td class="mono">depth/overlay</td><td>component</td><td>shadow</td><td><span class="mono" data-copy="-2px 0 14px rgba(0, 0, 0, 0.4), 0 0 6px rgba(0, 0, 0, 0.2)">-2px 0 14px rgba(0, 0, 0, 0.4), 0 0 6px rgba(0, 0, 0, 0.2)</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-motion-micro)">--lw-motion-micro</span></td><td class="mono">motion/micro</td><td>primitive</td><td>duration</td><td><span class="mono" data-copy="150ms">150ms</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-motion-hover)">--lw-motion-hover</span></td><td class="mono">motion/hover</td><td>primitive</td><td>duration</td><td><span class="mono" data-copy="200ms">200ms</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-motion-panel)">--lw-motion-panel</span></td><td class="mono">motion/panel</td><td>primitive</td><td>duration</td><td><span class="mono" data-copy="700ms">700ms</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-easing-standard)">--lw-easing-standard</span></td><td class="mono">motion/easing-standard</td><td>primitive</td><td>easing</td><td><span class="mono" data-copy="cubic-bezier(0.4, 0, 0.2, 1)">cubic-bezier(0.4, 0, 0.2, 1)</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-easing-panel)">--lw-easing-panel</span></td><td class="mono">motion/easing-panel</td><td>primitive</td><td>easing</td><td><span class="mono" data-copy="cubic-bezier(0, 0, 0.2, 1)">cubic-bezier(0, 0, 0.2, 1)</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-space-unit)">--lw-space-unit</span></td><td class="mono">space/unit</td><td>primitive</td><td>dimension</td><td><span class="mono" data-copy="8px">8px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-space-block)">--lw-space-block</span></td><td class="mono">space/block</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="64px">64px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-layout-container)">--lw-layout-container</span></td><td class="mono">layout/container</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="1440px">1440px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-layout-pad)">--lw-layout-pad</span></td><td class="mono">layout/container-pad</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="24px">24px</span></td><td><span class="badge observed">observed</span></td></tr></tbody></table>
+</div>
+<div class="tabpanel" id="sub-measurements" role="tabpanel" aria-labelledby="tab-measurements" hidden>
+  <table><thead><tr><th>Category</th><th>Value</th><th>Status</th><th>Evidence</th></tr></thead><tbody><tr><td>Color / canvas</td><td>#181A20 = rgb(24,26,32) on 93.8% (home) and 98.3% (markets); #0B0E11 floor covers 52.2% of futures</td><td><span class="badge observed">observed</span></td><td class="mono">e-canvas, e-canvas-markets, e-surface-floor, e-canvas-futures</td></tr><tr><td>Color / surfaces</td><td>raised #29313D (2.2%), input well #1E2329 (3.5%), border #333B47, stronger border #3D4452</td><td><span class="badge observed">observed</span></td><td class="mono">e-surface-raised, e-surface-deep, e-stroke-strong, e-stroke-subtle</td></tr><tr><td>Color / text</td><td>#EAECEF body, #929AA5 secondary, #707A8A tertiary, #202630 on yellow</td><td><span class="badge observed">observed</span></td><td class="mono">e-ink, e-ink-muted, e-ink-faint, e-ink-on-brand</td></tr><tr><td>Color / brand</td><td>#F0B90B for logo and hero figure, #FCD535 for filled CTA; fill reaches 5.3% of the futures page</td><td><span class="badge observed">observed</span></td><td class="mono">e-brand, e-brand-other, e-display-72</td></tr><tr><td>Color / semantic</td><td>up #2EBD85, down #F6465D, always as text colour</td><td><span class="badge observed">observed</span></td><td class="mono">e-up, e-down</td></tr><tr><td>Typography / families</td><td>BinanceNova everywhere (669 / 969 nodes); BinancePlex on only 2 of 4 pages, 10 nodes</td><td><span class="badge observed">observed</span></td><td class="mono">e-font-nova, e-font-nova-other, e-font-plex</td></tr><tr><td>Typography / scale</td><td>72px figure, 40px/600 headline, 32px/700 page title, 18px/500 card title, 14px UI, 12px body, 8px legal</td><td><span class="badge observed">observed</span></td><td class="mono">e-display-72, e-h2, e-h1-markets, e-h3, e-body, e-body-markets, e-sizes, e-sizes-markets</td></tr><tr><td>Typography / weights</td><td>400 x91 and 500 x77 dominate; 600 x16 for headlines; 700 x8 (hero figure, markets h1)</td><td><span class="badge observed">observed</span></td><td class="mono">e-weights, e-weights-markets</td></tr><tr><td>Shape / radius</td><td>buttons 10px, cards/tabs/pills 8px, option tiles 16px, chips 4px, coin icons 50%, badges 9999px</td><td><span class="badge observed">observed</span></td><td class="mono">e-radii-home, e-radii-markets, e-radii-futures</td></tr><tr><td>Shape / depth</td><td>one shadow in the whole sample (cookie overlay); every other layer separated by a #333B47 hairline on a #29313D fill</td><td><span class="badge observed">observed</span></td><td class="mono">e-shadow, e-stroke-strong, e-surface-raised</td></tr><tr><td>Motion</td><td>0.7s transform cubic-bezier(0,0,0.2,1); 0.2s color/bg/border cubic-bezier(0.4,0,0.2,1); 0.15s linear micro-states</td><td><span class="badge observed">observed</span></td><td class="mono">e-motion, e-motion-markets</td></tr><tr><td>Interaction affordances</td><td>:focus-visible on all sampled pages; prefers-reduced-motion on pages 1 and 3 but not 2 and 4</td><td><span class="badge observed">observed</span></td><td class="mono">e-focus, e-focus-other</td></tr><tr><td>Spacing</td><td>8px x82, 16px x55, 20px x27, 4px x27, 24px gutters, 64px block spacing</td><td><span class="badge observed">observed</span></td><td class="mono">e-space</td></tr><tr><td>Layout</td><td>1440px container with 24px padding (home), 1200px content (markets), 3 x 376px cards with 48/36 gaps (futures)</td><td><span class="badge observed">observed</span></td><td class="mono">e-container, e-container-markets, e-grid</td></tr></tbody></table>
+</div>
+<div class="tabpanel" id="sub-evidence" role="tabpanel" aria-labelledby="tab-evidence" hidden>
+  <table><thead><tr><th>ID</th><th>URL</th><th>Locator</th><th>Method</th><th>Status</th><th>Values</th></tr></thead>
+  <tbody><tr><td class="mono">e-canvas</td><td class="mono">www.binance.com/en</td><td>page background</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(24, 26, 32)=93.8% of sampled area</td></tr><tr><td class="mono">e-canvas-markets</td><td class="mono">www.binance.com/en/markets/overview</td><td>markets canvas</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(24, 26, 32)=98.3%</td></tr><tr><td class="mono">e-canvas-futures</td><td class="mono">www.binance.com/en/futures/home</td><td>futures canvas mix</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(24,26,32)=21.6%, rgb(11,14,17)=52.2%, rgb(32,38,48)=14.4%</td></tr><tr><td class="mono">e-surface-raised</td><td class="mono">www.binance.com/en</td><td>price and news panels</td><td class="mono">computed-style+screenshot-pixel</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(41, 49, 61)=2.2% of area; confirmed at screenshot pixel (800,300)</td></tr><tr><td class="mono">e-surface-raised-markets</td><td class="mono">www.binance.com/en/markets/overview</td><td>tabbed cards</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">fill=rgb(41,49,61) rendered as card background in viewport-3</td></tr><tr><td class="mono">e-surface-deep</td><td class="mono">www.binance.com/en</td><td>input wells and inset rows</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(30, 35, 41)=3.5%</td></tr><tr><td class="mono">e-surface-floor</td><td class="mono">www.binance.com/en/futures/home</td><td>futures page base layer</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(11, 14, 17)=52.2%</td></tr><tr><td class="mono">e-ink</td><td class="mono">www.binance.com/en</td><td>body text</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(234, 236, 239)=#EAECEF, 81 nodes</td></tr><tr><td class="mono">e-ink-muted</td><td class="mono">www.binance.com/en</td><td>labels and secondary text</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(146, 154, 165)=#929AA5, 78 nodes</td></tr><tr><td class="mono">e-ink-faint</td><td class="mono">www.binance.com/en/markets/overview</td><td>tertiary and meta text</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(112, 122, 138)=#707A8A, 25 nodes</td></tr><tr><td class="mono">e-ink-on-brand</td><td class="mono">www.binance.com/en</td><td>text on yellow</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(32, 38, 48)=#202630, 6 nodes</td></tr><tr><td class="mono">e-brand</td><td class="mono">www.binance.com/en</td><td>logo, hero figure, Sign Up, cookie CTAs</td><td class="mono">computed-style+screenshot-pixel</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(252, 213, 53)=#FCD535, 0.3% of surface, rgb(240, 185, 11)=#F0B90B, 13 text nodes</td></tr><tr><td class="mono">e-brand-other</td><td class="mono">www.binance.com/en/futures/home</td><td>futures CTA fills</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(252,213,53)=5.3% of that page</td></tr><tr><td class="mono">e-up</td><td class="mono">www.binance.com/en</td><td>price change positive</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(46, 189, 133)=#2EBD85, 5 nodes</td></tr><tr><td class="mono">e-down</td><td class="mono">www.binance.com/en/markets/overview</td><td>price change negative</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(246, 70, 93)=#F6465D</td></tr><tr><td class="mono">e-stroke-strong</td><td class="mono">www.binance.com/en</td><td>dividers and active tab underline</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(51, 59, 71)=#333B47</td></tr><tr><td class="mono">e-stroke-subtle</td><td class="mono">www.binance.com/en</td><td>card and input borders</td><td class="mono">computed-style+screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">card=rgb(41,49,61), input outline=rgb(61,68,82) by screenshot</td></tr><tr><td class="mono">e-font-nova</td><td class="mono">www.binance.com/en</td><td>all text</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">family=BinanceNova, samples=669</td></tr><tr><td class="mono">e-font-nova-other</td><td class="mono">www.binance.com/en/markets/overview</td><td>markets text</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">family=BinanceNova, samples=969</td></tr><tr><td class="mono">e-font-plex</td><td class="mono">www.binance.com/en/crypto/convert</td><td>display face</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">family=BinancePlex, samples=10</td></tr><tr><td class="mono">e-h2</td><td class="mono">www.binance.com/en</td><td>section and marketing headline</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=40px, weight=600, letterSpacing=normal</td></tr><tr><td class="mono">e-h2-convert</td><td class="mono">www.binance.com/en/crypto/convert</td><td>convert headline</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=40px, weight=600</td></tr><tr><td class="mono">e-h1-markets</td><td class="mono">www.binance.com/en/markets/overview</td><td>markets page h1</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=32px, weight=700</td></tr><tr><td class="mono">e-h3</td><td class="mono">www.binance.com/en</td><td>card title</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=18px, weight=500</td></tr><tr><td class="mono">e-body</td><td class="mono">www.binance.com/en</td><td>body copy</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=12px, weight=500, lineHeight=16px</td></tr><tr><td class="mono">e-body-markets</td><td class="mono">www.binance.com/en/markets/overview</td><td>table body</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=12px, weight=400, lineHeight=18px</td></tr><tr><td class="mono">e-sizes</td><td class="mono">www.binance.com/en</td><td>text size distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">top=14px x96, 16px x49, 20px x15, 18px x10, 28px x4, 72px x3</td></tr><tr><td class="mono">e-sizes-markets</td><td class="mono">www.binance.com/en/markets/overview</td><td>text size distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">top=14px x155, 16px x49, 12px x31, 18px x10</td></tr><tr><td class="mono">e-display-72</td><td class="mono">www.binance.com/en</td><td>hero figure 337,527,796</td><td class="mono">computed-style+screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">computed=72px x3 nodes, weight=700, rendered=yellow figure in screenshot</td></tr><tr><td class="mono">e-weights</td><td class="mono">www.binance.com/en</td><td>weight distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">400=x91, 500=x77, 600=x16, 700=x8</td></tr><tr><td class="mono">e-weights-markets</td><td class="mono">www.binance.com/en/markets/overview</td><td>weight distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">400=x138, 500=x106, 600=x4, 700=x2</td></tr><tr><td class="mono">e-radii-home</td><td class="mono">www.binance.com/en</td><td>radius distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">10px=x17 buttons, 8px=x18, 4px=x10, 16px=x7 banner card</td></tr><tr><td class="mono">e-radii-markets</td><td class="mono">www.binance.com/en/markets/overview</td><td>radius distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">8px=x43 cards, tabs, pills, 9999px=x8, 50%=x12 coin icons</td></tr><tr><td class="mono">e-radii-futures</td><td class="mono">www.binance.com/en/futures/home</td><td>radius distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">4px=x17, 6px=x13, 16px=x10</td></tr><tr><td class="mono">e-shadow</td><td class="mono">www.binance.com/en</td><td>only shadow in the sample</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">cookie panel=rgba(0,0,0,0.4) -2px 0 14px, rgba(0,0,0,0.2) 0 0 6px, inset rgba(255,255,255,0.2) 0 0 2px</td></tr><tr><td class="mono">e-motion</td><td class="mono">www.binance.com/en</td><td>transitions</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">transform=0.7s cubic-bezier(0,0,0.2,1), generic=0.25s ease-in-out</td></tr><tr><td class="mono">e-motion-markets</td><td class="mono">www.binance.com/en/markets/overview</td><td>hover transitions</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">color/bg/border=0.2s cubic-bezier(0.4,0,0.2,1), generic=0.15s linear</td></tr><tr><td class="mono">e-motion-pages</td><td class="mono">www.binance.com/en/crypto/convert</td><td>transitions on convert</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">value=all only</td></tr><tr><td class="mono">e-focus</td><td class="mono">www.binance.com/en</td><td>stylesheet scan</td><td class="mono">cssom-scan</td><td><span class="badge observed">observed</span></td><td class="mono">focusVisible=True, prefersReducedMotion=True</td></tr><tr><td class="mono">e-focus-other</td><td class="mono">www.binance.com/en/markets/overview</td><td>stylesheet scan</td><td class="mono">cssom-scan</td><td><span class="badge observed">observed</span></td><td class="mono">focusVisible=True, reducedMotion=true on page 3, false on pages 2 and 4</td></tr><tr><td class="mono">e-space</td><td class="mono">www.binance.com/en</td><td>spacing distribution</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">8px=x82, 16px=x55, 20px=x27, 4px=x27, 24px=x9, 64px=x8</td></tr><tr><td class="mono">e-container</td><td class="mono">www.binance.com/en</td><td>page container</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">maxWidth=1440px, padding=0 24px</td></tr><tr><td class="mono">e-container-markets</td><td class="mono">www.binance.com/en/markets/overview</td><td>markets container</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rendered=1200px, maxWidth=none</td></tr><tr><td class="mono">e-grid</td><td class="mono">www.binance.com/en/futures/home</td><td>futures card grid</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">template=376px 376px 376px, gap=48px 36px, count=2</td></tr><tr><td class="mono">e-buttons</td><td class="mono">www.binance.com/en</td><td>button typography</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">primary=14px/500, radius 10px, padding 10x16, secondary=14px/500, radius 4px, text=14px/400</td></tr><tr><td class="mono">e-coin-tiles</td><td class="mono">www.binance.com/en/markets/overview</td><td>coin row icon tiles</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=28px, radius=50%, fill=per-asset brand colours</td></tr></tbody></table>
+</div>
+</section></div>
   </div>
-
-  </section><section class="panel" id="colour">
-    <h1>Colour</h1>
-    <p>Roles, not hierarchy: brand gold for action and figures, green/red only for direction, blue-grey neutrals for everything else.</p>
-    <div class="grid-3"><div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#181A20"></div><div style="padding:8px"><div class="mono">color/dark/900</div><div class="mono" style="color:var(--doc-mute)">#181A20</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#0B0E11"></div><div style="padding:8px"><div class="mono">color/dark/1000</div><div class="mono" style="color:var(--doc-mute)">#0B0E11</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#29313D"></div><div style="padding:8px"><div class="mono">color/slate/700</div><div class="mono" style="color:var(--doc-mute)">#29313D</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#1E2329"></div><div style="padding:8px"><div class="mono">color/slate/800</div><div class="mono" style="color:var(--doc-mute)">#1E2329</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#333B47"></div><div style="padding:8px"><div class="mono">color/slate/600</div><div class="mono" style="color:var(--doc-mute)">#333B47</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#3D4452"></div><div style="padding:8px"><div class="mono">color/slate/500</div><div class="mono" style="color:var(--doc-mute)">#3D4452</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#EAECEF"></div><div style="padding:8px"><div class="mono">color/grey/100</div><div class="mono" style="color:var(--doc-mute)">#EAECEF</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#929AA5"></div><div style="padding:8px"><div class="mono">color/grey/400</div><div class="mono" style="color:var(--doc-mute)">#929AA5</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#707A8A"></div><div style="padding:8px"><div class="mono">color/grey/500</div><div class="mono" style="color:var(--doc-mute)">#707A8A</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#F0B90B"></div><div style="padding:8px"><div class="mono">color/gold/400</div><div class="mono" style="color:var(--doc-mute)">#F0B90B</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#FCD535"></div><div style="padding:8px"><div class="mono">color/gold/300</div><div class="mono" style="color:var(--doc-mute)">#FCD535</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#202630"></div><div style="padding:8px"><div class="mono">color/on-gold</div><div class="mono" style="color:var(--doc-mute)">#202630</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#2EBD85"></div><div style="padding:8px"><div class="mono">color/up</div><div class="mono" style="color:var(--doc-mute)">#2EBD85</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#F6465D"></div><div style="padding:8px"><div class="mono">color/down</div><div class="mono" style="color:var(--doc-mute)">#F6465D</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#181A20"></div><div style="padding:8px"><div class="mono">color/canvas</div><div class="mono" style="color:var(--doc-mute)">#181A20</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#29313D"></div><div style="padding:8px"><div class="mono">color/surface</div><div class="mono" style="color:var(--doc-mute)">#29313D</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#1E2329"></div><div style="padding:8px"><div class="mono">color/well</div><div class="mono" style="color:var(--doc-mute)">#1E2329</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#333B47"></div><div style="padding:8px"><div class="mono">color/border</div><div class="mono" style="color:var(--doc-mute)">#333B47</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#3D4452"></div><div style="padding:8px"><div class="mono">color/border-strong</div><div class="mono" style="color:var(--doc-mute)">#3D4452</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#EAECEF"></div><div style="padding:8px"><div class="mono">color/text/primary</div><div class="mono" style="color:var(--doc-mute)">#EAECEF</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#929AA5"></div><div style="padding:8px"><div class="mono">color/text/secondary</div><div class="mono" style="color:var(--doc-mute)">#929AA5</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#707A8A"></div><div style="padding:8px"><div class="mono">color/text/tertiary</div><div class="mono" style="color:var(--doc-mute)">#707A8A</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#F0B90B"></div><div style="padding:8px"><div class="mono">color/brand</div><div class="mono" style="color:var(--doc-mute)">#F0B90B</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#FCD535"></div><div style="padding:8px"><div class="mono">color/action/bg</div><div class="mono" style="color:var(--doc-mute)">#FCD535</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#202630"></div><div style="padding:8px"><div class="mono">color/action/fg</div><div class="mono" style="color:var(--doc-mute)">#202630</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#2EBD85"></div><div style="padding:8px"><div class="mono">color/trend/up</div><div class="mono" style="color:var(--doc-mute)">#2EBD85</div></div></div>
-<div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#F6465D"></div><div style="padding:8px"><div class="mono">color/trend/down</div><div class="mono" style="color:var(--doc-mute)">#F6465D</div></div></div></div>
-    <h3>Foreground / background pairs in use</h3>
-    <table><thead><tr><th>Pair</th><th>Hex</th><th>Where</th></tr></thead><tbody>
-      <tr><td class="mono">text / canvas</td><td class="mono">#EAECEF on #181A20</td><td>body copy</td></tr>
-      <tr><td class="mono">text-secondary / surface</td><td class="mono">#929AA5 on #29313D</td><td>labels inside cards</td></tr>
-      <tr><td class="mono">action-fg / action-bg</td><td class="mono">#202630 on #FCD535</td><td>primary button</td></tr>
-      <tr><td class="mono">trend-up / canvas</td><td class="mono">#2EBD85 on #181A20</td><td>price change</td></tr>
-      <tr><td class="mono">trend-down / canvas</td><td class="mono">#F6465D on #181A20</td><td>price change</td></tr>
-    </tbody></table>
-  </section><section class="panel" id="typography">
-    <h1>Typography</h1>
-    <p>BinanceNova carries every surface; BinancePlex is a sparing display face (10 nodes in 2 of 4 pages).
-    The loaded web fonts are not available in this document, so specimens fall back to the declared system stack.
-    <span class="badge">inferred</span> for rendered-face parity.</p>
-    <div class="ds-card ds-scope"><div style="margin-bottom:10px"><span class="mono" style="color:var(--doc-mute)">type/figure · 72px</span><div style="font-size:72px;line-height:1.15">Aa 337,527,796 BNB</div></div>
-<div style="margin-bottom:10px"><span class="mono" style="color:var(--doc-mute)">type/headline · 40px</span><div style="font-size:40px;line-height:1.15">Aa 337,527,796 BNB</div></div>
-<div style="margin-bottom:10px"><span class="mono" style="color:var(--doc-mute)">type/title · 18px</span><div style="font-size:18px;line-height:1.15">Aa 337,527,796 BNB</div></div>
-<div style="margin-bottom:10px"><span class="mono" style="color:var(--doc-mute)">type/ui · 14px</span><div style="font-size:14px;line-height:1.15">Aa 337,527,796 BNB</div></div>
-<div style="margin-bottom:10px"><span class="mono" style="color:var(--doc-mute)">type/body · 12px</span><div style="font-size:12px;line-height:1.15">Aa 337,527,796 BNB</div></div>
-<div style="margin-bottom:10px"><span class="mono" style="color:var(--doc-mute)">type/legal · 8px</span><div style="font-size:8px;line-height:1.15">Aa 337,527,796 BNB</div></div></div>
-  </section><section class="panel" id="shape">
-    <h1>Radius &amp; Depth</h1>
-    <div class="grid-3">
-      <div class="ds-card ds-scope" style="border-radius:var(--lw-radius-card)"><div class="mono">radius/card · 8px</div><div class="ds-body">tabs, cards, pills</div></div>
-      <div class="ds-card ds-scope" style="border-radius:var(--lw-radius-button)"><div class="mono">radius/button · 10px</div><div class="ds-body">primary and secondary buttons</div></div>
-      <div class="ds-card ds-scope" style="border-radius:var(--lw-radius-option)"><div class="mono">radius/option · 16px</div><div class="ds-body">large option tiles</div></div>
-    </div>
-    <h3>Depth: border, never shadow</h3>
-    <div class="grid-2">
-      <div class="ds-card ds-scope"><div class="mono">default: 1px #333B47</div><div class="ds-row" style="grid-template-columns:1fr"><span class="ds-name">Card on canvas</span></div></div>
-      <div class="ds-overlay ds-scope" style="max-width:100%"><div class="mono">the only measured shadow</div><div class="ds-body">floating overlay: -2px 0 14px rgba(0,0,0,.4), 0 0 6px rgba(0,0,0,.2)</div></div>
-    </div>
-  </section><section class="panel" id="components">
-    <h1>Components &amp; States</h1>
-    <p>States are real pointer and keyboard states where the browser can produce them; forced samples are labelled.</p>
-
-    <h3>Button</h3>
-    <div class="ds-card ds-scope" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-      <button class="ds-btn ds-btn--primary" id="cta-signup">Sign Up</button>
-      <button class="ds-btn ds-btn--secondary">Log In</button>
-      <button class="ds-btn ds-btn--ghost">Deposit</button>
-      <button class="ds-btn ds-btn--primary" disabled>Disabled (sample)</button>
-      <span class="ds-status" id="cta-status" aria-live="polite"></span>
-    </div>
-    <table style="margin-top:12px"><thead><tr><th>Property</th><th>Token</th></tr></thead><tbody>
-      <tr><td>fill / label</td><td class="mono">--lw-action-bg / --lw-action-fg</td></tr>
-      <tr><td>radius</td><td class="mono">--lw-radius-button (10px)</td></tr>
-      <tr><td>hover</td><td class="mono">--lw-brand, 200ms --lw-easing-standard</td></tr>
-      <tr><td>focus</td><td class="mono">2px --lw-brand outline, offset 2px</td></tr>
-    </tbody></table>
-
-    <h3>Tabs</h3>
-    <div class="ds-card ds-scope">
-      <div class="ds-tabs" role="tablist" aria-label="Market tabs" id="mkt-tabs"><button class="ds-tab" role="tab" id="mkt-tab-0" aria-controls="mkt-panel-0" aria-selected="true" tabindex="0">Top</button>
-<button class="ds-tab" role="tab" id="mkt-tab-1" aria-controls="mkt-panel-1" aria-selected="false" tabindex="-1">New</button>
-<button class="ds-tab" role="tab" id="mkt-tab-2" aria-controls="mkt-panel-2" aria-selected="false" tabindex="-1">Top Gainer</button></div>
-      <div style="margin-top:12px"><div class="ds-tabs-content" id="mkt-panel-0" role="tabpanel" aria-labelledby="mkt-tab-0"><div class="ds-row"><span class="ds-coin" style="background:#F7931A">B</span><span class="ds-name">Bitcoin<span class="ds-sym">BTC</span></span><span class="ds-price">61,389.52</span><span class="ds-change ds-change--up">+0.36%</span></div>
-<div class="ds-row"><span class="ds-coin" style="background:#627EEA">E</span><span class="ds-name">Ethereum<span class="ds-sym">ETH</span></span><span class="ds-price">1,723.74</span><span class="ds-change ds-change--up">+0.71%</span></div>
-<div class="ds-row"><span class="ds-coin" style="background:#26A17B">U</span><span class="ds-name">TetherUS<span class="ds-sym">USDT</span></span><span class="ds-price">1.00</span><span class="ds-change ds-change--down">-0.02%</span></div>
-<div class="ds-row"><span class="ds-coin" style="background:#F0B90B">B</span><span class="ds-name">BNB Chain<span class="ds-sym">BNB</span></span><span class="ds-price">556.21</span><span class="ds-change ds-change--up">+0.39%</span></div>
-<div class="ds-row"><span class="ds-coin" style="background:#2775CA">U</span><span class="ds-name">USDCoin<span class="ds-sym">USDC</span></span><span class="ds-price">1.00</span><span class="ds-change ds-change--down">-0.03%</span></div></div>
-<div class="ds-tabs-content" id="mkt-panel-1" role="tabpanel" aria-labelledby="mkt-tab-1" hidden><div class="ds-row"><span class="ds-coin" style="background:#9B8CFF">A</span><span class="ds-name">Antburst<span class="ds-sym">ANTB</span></span><span class="ds-price">91.39</span><span class="ds-change ds-change--up">+0.93%</span></div><div class="ds-row"><span class="ds-coin" style="background:#E6B800">E</span><span class="ds-name">Eweji<span class="ds-sym">EWJB</span></span><span class="ds-price">85.64</span><span class="ds-change ds-change--up">+0.63%</span></div></div>
-<div class="ds-tabs-content" id="mkt-panel-2" role="tabpanel" aria-labelledby="mkt-tab-2" hidden><div class="ds-row"><span class="ds-coin" style="background:#F45B69">P</span><span class="ds-name">Promenade<span class="ds-sym">PROM</span></span><span class="ds-price">5.71</span><span class="ds-change ds-change--up">+26.72%</span></div><div class="ds-row"><span class="ds-coin" style="background:#C7B299">M</span><span class="ds-name">Mubarak<span class="ds-sym">MUBARAK</span></span><span class="ds-price">0.02408</span><span class="ds-change ds-change--up">+16.33%</span></div></div></div>
-    </div>
-
-    <h3>Coin row</h3>
-    <div class="ds-card ds-scope"><div class="ds-panel-title"><span>Popular</span><a class="ds-link" href="#components">View All ›</a></div><div class="ds-row"><span class="ds-coin" style="background:#F7931A">B</span><span class="ds-name">Bitcoin<span class="ds-sym">BTC</span></span><span class="ds-price">61,389.52</span><span class="ds-change ds-change--up">+0.36%</span></div>
-<div class="ds-row"><span class="ds-coin" style="background:#627EEA">E</span><span class="ds-name">Ethereum<span class="ds-sym">ETH</span></span><span class="ds-price">1,723.74</span><span class="ds-change ds-change--up">+0.71%</span></div>
-<div class="ds-row"><span class="ds-coin" style="background:#26A17B">U</span><span class="ds-name">TetherUS<span class="ds-sym">USDT</span></span><span class="ds-price">1.00</span><span class="ds-change ds-change--down">-0.02%</span></div>
-<div class="ds-row"><span class="ds-coin" style="background:#F0B90B">B</span><span class="ds-name">BNB Chain<span class="ds-sym">BNB</span></span><span class="ds-price">556.21</span><span class="ds-change ds-change--up">+0.39%</span></div>
-<div class="ds-row"><span class="ds-coin" style="background:#2775CA">U</span><span class="ds-name">USDCoin<span class="ds-sym">USDC</span></span><span class="ds-price">1.00</span><span class="ds-change ds-change--down">-0.03%</span></div></div>
-
-    <h3>Chips and select</h3>
-    <div class="ds-card ds-scope" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-      <button class="ds-chip" aria-pressed="true">All</button>
-      <button class="ds-chip" aria-pressed="false">bStocks</button>
-      <button class="ds-chip" aria-pressed="false">tCommodities</button>
-      <button class="ds-chip" aria-pressed="false">DeFi</button>
-      <select class="ds-select" aria-label="Interval"><option>24h</option><option>7d</option><option>30d</option></select>
-    </div>
-
-    <h3>Input well</h3>
-    <div class="ds-card ds-scope">
-      <label class="mono" for="amt" style="color:var(--lw-text-tertiary)">Amount</label>
-      <input class="ds-well" id="amt" style="width:100%;margin-top:6px" placeholder="0.00" inputmode="decimal" aria-describedby="amt-help">
-      <div class="ds-body" id="amt-help" style="margin-top:6px">Available 0.00 BNB</div>
-    </div>
-
-    <h3>Table</h3>
-    <div class="ds-card ds-scope">
-      <table class="ds-table"><thead><tr><th>Name</th><th>Price</th><th>24h Change</th><th>Market Cap</th></tr></thead><tbody>
-        <tr><td>Bitcoin <span class="ds-sym">BTC</span></td><td class="ds-price">61,389.52</td><td class="ds-change ds-change--up">+0.36%</td><td>1.23T</td></tr>
-        <tr><td>USDT <span class="ds-sym">USDT</span></td><td class="ds-price">1.00</td><td class="ds-change ds-change--down">-0.02%</td><td>174.63B</td></tr>
-      </tbody></table>
-    </div>
-  </section><section class="panel" id="compositions">
-    <h1>Compositions</h1>
-    <p>Three compositions, all reusing the components above.</p>
-
-    <h3>A · Hero: figure first <span class="badge">observed</span></h3>
-    <div class="ds-scope comp-hero" style="background:var(--lw-canvas);border:1px solid var(--lw-border);border-radius:var(--lw-radius-option);padding:32px">
-      <div>
-        <div class="ds-figure">337,527,796</div>
-        <div class="ds-headline">USERS<br>TRUST US</div>
-        <div class="ds-body" style="font-size:var(--lw-type-ui)">The World's Leading Cryptocurrency Exchange</div>
-        <div style="display:flex;gap:12px;margin-top:20px"><button class="ds-btn ds-btn--primary">Sign Up</button><button class="ds-btn ds-btn--secondary">Industry-Leading Security</button></div>
-      </div>
-      <div class="ds-card"><div class="ds-panel-title"><span>Popular</span><a class="ds-link" href="#compositions">View All ›</a></div><div class="ds-row"><span class="ds-coin" style="background:#F7931A">B</span><span class="ds-name">Bitcoin<span class="ds-sym">BTC</span></span><span class="ds-price">61,389.52</span><span class="ds-change ds-change--up">+0.36%</span></div>
-<div class="ds-row"><span class="ds-coin" style="background:#627EEA">E</span><span class="ds-name">Ethereum<span class="ds-sym">ETH</span></span><span class="ds-price">1,723.74</span><span class="ds-change ds-change--up">+0.71%</span></div>
-<div class="ds-row"><span class="ds-coin" style="background:#26A17B">U</span><span class="ds-name">TetherUS<span class="ds-sym">USDT</span></span><span class="ds-price">1.00</span><span class="ds-change ds-change--down">-0.02%</span></div>
-<div class="ds-row"><span class="ds-coin" style="background:#F0B90B">B</span><span class="ds-name">BNB Chain<span class="ds-sym">BNB</span></span><span class="ds-price">556.21</span><span class="ds-change ds-change--up">+0.39%</span></div>
-<div class="ds-row"><span class="ds-coin" style="background:#2775CA">U</span><span class="ds-name">USDCoin<span class="ds-sym">USDC</span></span><span class="ds-price">1.00</span><span class="ds-change ds-change--down">-0.03%</span></div></div>
-    </div>
-
-    <h3>B · Market board <span class="badge">observed</span></h3>
-    <div class="ds-scope" style="background:var(--lw-canvas);padding:16px;border-radius:var(--lw-radius-option)">
-      <div class="grid-3" style="margin-bottom:16px">
-        <div class="ds-card"><div class="ds-panel-title"><span>Top</span><a class="ds-link" href="#compositions">More ›</a></div><div class="ds-row"><span class="ds-coin" style="background:#F7931A">B</span><span class="ds-name">Bitcoin<span class="ds-sym">BTC</span></span><span class="ds-price">61,389.52</span><span class="ds-change ds-change--up">+0.36%</span></div><div class="ds-row"><span class="ds-coin" style="background:#627EEA">E</span><span class="ds-name">Ethereum<span class="ds-sym">ETH</span></span><span class="ds-price">1,723.74</span><span class="ds-change ds-change--up">+0.71%</span></div></div>
-        <div class="ds-card"><div class="ds-panel-title"><span>New</span><a class="ds-link" href="#compositions">More ›</a></div><div class="ds-row"><span class="ds-coin" style="background:#9B8CFF">A</span><span class="ds-name">Antburst<span class="ds-sym">ANTB</span></span><span class="ds-price">91.39</span><span class="ds-change ds-change--up">+0.93%</span></div><div class="ds-row"><span class="ds-coin" style="background:#E6B800">E</span><span class="ds-name">Eweji<span class="ds-sym">EWJB</span></span><span class="ds-price">85.64</span><span class="ds-change ds-change--up">+0.63%</span></div></div>
-        <div class="ds-card"><div class="ds-panel-title"><span>Top Gainer</span><a class="ds-link" href="#compositions">More ›</a></div><div class="ds-row"><span class="ds-coin" style="background:#F45B69">P</span><span class="ds-name">Promenade<span class="ds-sym">PROM</span></span><span class="ds-price">5.71</span><span class="ds-change ds-change--up">+26.72%</span></div><div class="ds-row"><span class="ds-coin" style="background:#C7B299">M</span><span class="ds-name">Mubarak<span class="ds-sym">MUBARAK</span></span><span class="ds-price">0.02408</span><span class="ds-change ds-change--up">+16.33%</span></div></div>
-      </div>
-      <div class="ds-card"><table class="ds-table"><thead><tr><th>Name</th><th>Price</th><th>24h Change</th><th>24h Volume</th></tr></thead><tbody>
-        <tr><td>Bitcoin <span class="ds-sym">BTC</span></td><td class="ds-price">61,389.52</td><td class="ds-change ds-change--up">+0.36%</td><td>27.05B</td></tr><tr><td>Ethereum <span class="ds-sym">ETH</span></td><td class="ds-price">1,723.74</td><td class="ds-change ds-change--up">+0.71%</td><td>27.05B</td></tr><tr><td>TetherUS <span class="ds-sym">USDT</span></td><td class="ds-price">1.00</td><td class="ds-change ds-change--down">-0.02%</td><td>27.05B</td></tr><tr><td>BNB Chain <span class="ds-sym">BNB</span></td><td class="ds-price">556.21</td><td class="ds-change ds-change--up">+0.39%</td><td>27.05B</td></tr><tr><td>USDCoin <span class="ds-sym">USDC</span></td><td class="ds-price">1.00</td><td class="ds-change ds-change--down">-0.03%</td><td>27.05B</td></tr>
-      </tbody></table></div>
-    </div>
-
-    <h3>C · Convert flow (responsive) <span class="badge">observed</span> layout, <span class="badge">proposed</span> interaction copy</h3>
-    <div class="ds-scope comp-convert" style="background:var(--lw-canvas);padding:24px">
-      <div><div class="ds-headline">Convert BTC to ETH instantly</div><div class="ds-body">Swap assets with zero fees on Binance Convert.</div></div>
-      <div class="ds-card">
-        <label class="mono" for="from" style="color:var(--lw-text-tertiary)">From</label>
-        <input class="ds-well" id="from" value="1 BTC" style="width:100%;margin:6px 0 12px">
-        <label class="mono" for="to" style="color:var(--lw-text-tertiary)">To (estimate)</label>
-        <input class="ds-well" id="to" value="0 BNB" readonly style="width:100%;margin:6px 0 16px">
-        <button class="ds-btn ds-btn--primary" id="convert" style="width:100%">Preview conversion</button>
-        <div class="ds-status" id="convert-status" aria-live="polite"></div>
-      </div>
-    </div>
-  </section><section class="panel" id="motion">
-    <h1>Motion</h1>
-    <table><thead><tr><th>Tier</th><th>Token</th><th>Used for</th><th>Replay</th></tr></thead><tbody>
-      <tr><td>Micro</td><td class="mono">--lw-motion-micro · 150ms linear</td><td>tab underline, chip state</td><td><button class="ds-btn ds-btn--ghost" id="replay-micro">Replay</button></td></tr>
-      <tr><td>Hover</td><td class="mono">--lw-motion-hover · 200ms --lw-easing-standard</td><td>button fill, border colour</td><td><button class="ds-btn ds-btn--ghost" id="replay-hover">Replay</button></td></tr>
-      <tr><td>Panel</td><td class="mono">--lw-motion-panel · 700ms --lw-easing-panel</td><td>promotional panel transform</td><td><button class="ds-btn ds-btn--ghost" id="replay-panel">Replay</button></td></tr>
-    </tbody></table>
-    <div class="ds-card ds-scope" style="margin-top:12px;overflow:hidden">
-      <div id="panel-demo" class="ds-card" style="background:var(--lw-well);transform:translateX(0)">Panel specimen — 700ms transform</div>
-    </div>
-    <p class="note">Reduced motion: the document honours <code>prefers-reduced-motion</code> (doc.css) and the replay buttons shorten transitions to 1ms.
-    The source site exposed a reduced-motion branch on 2 of 4 pages only — recorded as an observed gap, not fixed silently.</p>
-  </section><section class="panel" id="stress">
-    <h1>Stress</h1>
-    <div class="grid-2">
-      <div class="ds-card ds-scope"><div class="ds-panel-title"><span>Long label</span></div>
-        <div class="ds-row" style="grid-template-columns:28px minmax(0,1fr) auto"><span class="ds-coin" style="background:#F0B90B">B</span><span class="ds-name">Bitcoin wrapped strategy vault (21x leveraged uncertainty)</span><span class="ds-change ds-change--up">+0.36%</span></div></div>
-      <div class="ds-card ds-scope"><div class="ds-panel-title"><span>Missing media</span></div>
-        <div class="ds-row" style="grid-template-columns:28px minmax(0,1fr) auto"><span class="ds-coin" style="background:var(--lw-border);color:var(--lw-text-tertiary)">?</span><span class="ds-name">Unlisted asset<span class="ds-sym">—</span></span><span class="ds-change">—</span></div></div>
-      <div class="ds-card ds-scope"><div class="ds-panel-title"><span>Empty</span></div><div class="ds-body">No markets match this filter.</div></div>
-      <div class="ds-card ds-scope"><div class="ds-panel-title"><span>Error</span></div><div class="ds-body" style="color:var(--lw-trend-down)">Price feed unavailable — retrying in 5s.</div></div>
-    </div>
-    <p class="note">Text scaling here is sample-level typography, not a browser zoom test.</p>
-  </section><section class="panel" id="system">
-    <h2>System &amp; taste</h2>
-    <div class="ds-card" style="margin-bottom:16px"><div><span class="badge observed">observed</span><span class="mono">system</span></div><h3 style="margin-top:8px">Colour is assigned by role, not by hierarchy</h3><p><span class="mono">Trigger</span> Designing a screen that shows prices, price changes, actions and promotions at once.</p><p><span class="mono">Chose</span> <strong>a three-role colour system (brand, direction, neutral)</strong> <span class="mono">over</span> a hue per category (per-coin colours, per-section accents, coloured badges)</p><p><span class="mono">Reason</span> In a list of fifty numbers, a colour that could mean anything stops carrying meaning; three roles keep a glance reliable.</p></div>
-<div class="ds-card" style="margin-bottom:16px"><div><span class="badge observed">observed</span><span class="mono">restraint</span></div><h3 style="margin-top:8px">Depth is a hairline, not a shadow</h3><p><span class="mono">Trigger</span> Layering cards and inputs on a near-black canvas.</p><p><span class="mono">Chose</span> <strong>1px hairlines plus a lifted fill</strong> <span class="mono">over</span> a drop shadow on every card and panel</p><p><span class="mono">Reason</span> On a dark canvas a shadow is invisible until it is strong enough to smear the 12px digits sitting on it.</p><p><span class="mono">Guardrail</span> <code>{"forbidCss": [], "forbidClass": ["(^|-)shadow-(?!none|sm|inner)[a-z]+-[a-z]+"], "max": {"box-shadow": {"value": "0", "unit": "px"}}, "note": "Exception: the single floating overlay panel measured at 14px/6px blur. Everything else is a 1px border."}</code></p></div>
-<div class="ds-card" style="margin-bottom:16px"><div><span class="badge observed">observed</span><span class="mono">craft</span></div><h3 style="margin-top:8px">Data outranks copy</h3><p><span class="mono">Trigger</span> Deciding what to enlarge on a landing page that also has to sell a product.</p><p><span class="mono">Chose</span> <strong>a 72/40/12 scale biased toward numbers</strong> <span class="mono">over</span> a balanced 48/28/16 marketing scale where copy and data compete</p><p><span class="mono">Reason</span> The promise of an exchange is a number; making it the largest object lets a screenshot-free page still read as a product.</p></div>
-<div class="ds-card" style="margin-bottom:16px"><div><span class="badge observed">observed</span><span class="mono">restraint</span></div><h3 style="margin-top:8px">The display face is earned, not standard</h3><p><span class="mono">Trigger</span> Choosing type families across marketing and trading surfaces.</p><p><span class="mono">Chose</span> <strong>a single UI family with a sparing display face</strong> <span class="mono">over</span> a display/body pairing applied site-wide</p><p><span class="mono">Reason</span> A second family used everywhere splits product identity from marketing; used sparingly it signals that this surface is different.</p><p><span class="mono">Guardrail</span> <code>{"forbidCss": [], "forbidClass": ["(^|-)font-(serif|display|mono)$"], "max": {}, "note": "A display face is allowed only on campaign blocks, never on tables, prices or controls."}</code></p></div>
-    <h3>Patterns</h3>
-    <h3>Yellow is an amount, not a mood</h3><p><strong>Brand yellow is confined to the CTA fill, the hero statistic, the active-tab underline and a few links; it never fills a section or sets body copy.</strong></p><p class="mono" style="color:var(--doc-mute)">On a page showing dozens of numbers, yellow can only mean 'this is the figure' or 'this is the action'. · e-brand, e-canvas, e-stroke-strong</p>
-<h3>Yellow expands with density</h3><p><strong>Yellow fill is 0.3% of the marketing home page and 5.3% of the trading floor.</strong></p><p class="mono" style="color:var(--doc-mute)">Marketing reads dark with a highlight; the trading product reads brand-forward because product mode replaces marketing mode. · e-brand, e-brand-other, e-canvas-futures</p>
-<h3>Three dark layers, no shadows</h3><p><strong>Canvas #181A20, card #29313D, well #1E2329, separated by #333B47 hairlines; a single shadow exists in the sample.</strong></p><p class="mono" style="color:var(--doc-mute)">Depth survives on OLED and dim screens without blur halos over 12px price text. · e-surface-raised, e-surface-deep, e-stroke-strong, e-shadow</p>
-<h3>Numbers get the largest type</h3><p><strong>The hero figure is 72px while headlines are 40px and body 12px — a 6x ratio between statistic and prose.</strong></p><p class="mono" style="color:var(--doc-mute)">A reader scanning for a number never hunts; hierarchy is data &gt; headline &gt; body. · e-display-72, e-h2, e-body, e-sizes</p>
-<h3>One UI family, one earned display face</h3><p><strong>BinanceNova carries every surface; BinancePlex appears on 10 nodes in 2 of 4 pages.</strong></p><p class="mono" style="color:var(--doc-mute)">Keeps product pages uniform while letting campaign pages differ slightly. · e-font-nova, e-font-nova-other, e-font-plex</p>
-<h3>A two-colour direction axis</h3><p><strong>Gains use #2EBD85 and losses #F6465D, always as text, never as a filled badge.</strong></p><p class="mono" style="color:var(--doc-mute)">Direction stays legible at 12px without competing with the brand yellow. · e-up, e-down</p>
-<h3>Radii track role</h3><p><strong>Buttons 10px, cards and tabs 8px, large option tiles 16px, inline chips 4px.</strong></p><p class="mono" style="color:var(--doc-mute)">Silhouette alone tells a card from a button from a tile. · e-radii-home, e-radii-markets, e-radii-futures</p>
-<h3>Hover is fast, panels are slow</h3><p><strong>Colour and border hovers run at 0.15-0.2s; panel and image transforms at 0.7s.</strong></p><p class="mono" style="color:var(--doc-mute)">Interface feedback is immediate while promotional movement stays calm enough to read. · e-motion, e-motion-markets</p>
-  </section><section class="panel" id="specs">
-    <h2>Evidence &amp; handoff</h2>
-    <ul>
-      <li>Downloads: <a href="../tokens.css" download rel="noreferrer">tokens.css</a> · <a href="../tokens.resolved.json" download rel="noreferrer">tokens.resolved.json</a> · <a href="../taste.md" download rel="noreferrer">taste.md</a> · <a href="../agent-rules.md" download rel="noreferrer">agent-rules.md</a> · <a href="../VERIFY.md" download rel="noreferrer">VERIFY.md</a></li>
-      <li>Inspected pages:<ul><li><a href="https://www.binance.com/en" rel="noreferrer">https://www.binance.com/en</a></li>
-<li><a href="https://www.binance.com/en/crypto/convert" rel="noreferrer">https://www.binance.com/en/crypto/convert</a></li>
-<li><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">https://www.binance.com/en/markets/overview</a></li>
-<li><a href="https://www.binance.com/en/futures/home" rel="noreferrer">https://www.binance.com/en/futures/home</a></li></ul></li>
-    </ul>
-    <h3>Limitations</h3>
-    <ul><li>binance.com redirects to www.binance.com/en; output folder keeps the requested binance.com name.</li>
-<li>Menu dropdowns and modals were not opened (reversible-state risk); their states are unknown.</li>
-<li>The homepage h1 is a 16px utility node, so display sizes were read from the hero figure and h2, not semantic tags.</li>
-<li>prefers-reduced-motion was found on 2 of 4 pages; the CSSOM scan disagrees page to page.</li>
-<li>BinancePlex appears on only 2 of 4 pages, so its role is inferred.</li></ul>
-    <h3>Measurements</h3>
-    <table><thead><tr><th>Category</th><th>Value</th><th>Status</th><th>Evidence</th></tr></thead><tbody><tr><td>Color / canvas</td><td>#181A20 = rgb(24,26,32) on 93.8% (home) and 98.3% (markets); #0B0E11 floor covers 52.2% of futures</td><td><span class="badge observed">observed</span></td><td class="mono">e-canvas, e-canvas-markets, e-surface-floor, e-canvas-futures</td></tr>
-<tr><td>Color / surfaces</td><td>raised #29313D (2.2%), input well #1E2329 (3.5%), border #333B47, stronger border #3D4452</td><td><span class="badge observed">observed</span></td><td class="mono">e-surface-raised, e-surface-deep, e-stroke-strong, e-stroke-subtle</td></tr>
-<tr><td>Color / text</td><td>#EAECEF body, #929AA5 secondary, #707A8A tertiary, #202630 on yellow</td><td><span class="badge observed">observed</span></td><td class="mono">e-ink, e-ink-muted, e-ink-faint, e-ink-on-brand</td></tr>
-<tr><td>Color / brand</td><td>#F0B90B for logo and hero figure, #FCD535 for filled CTA; fill reaches 5.3% of the futures page</td><td><span class="badge observed">observed</span></td><td class="mono">e-brand, e-brand-other, e-display-72</td></tr>
-<tr><td>Color / semantic</td><td>up #2EBD85, down #F6465D, always as text colour</td><td><span class="badge observed">observed</span></td><td class="mono">e-up, e-down</td></tr>
-<tr><td>Typography / families</td><td>BinanceNova everywhere (669 / 969 nodes); BinancePlex on only 2 of 4 pages, 10 nodes</td><td><span class="badge observed">observed</span></td><td class="mono">e-font-nova, e-font-nova-other, e-font-plex</td></tr>
-<tr><td>Typography / scale</td><td>72px figure, 40px/600 headline, 32px/700 page title, 18px/500 card title, 14px UI, 12px body, 8px legal</td><td><span class="badge observed">observed</span></td><td class="mono">e-display-72, e-h2, e-h1-markets, e-h3, e-body, e-body-markets, e-sizes, e-sizes-markets</td></tr>
-<tr><td>Typography / weights</td><td>400 x91 and 500 x77 dominate; 600 x16 for headlines; 700 x8 (hero figure, markets h1)</td><td><span class="badge observed">observed</span></td><td class="mono">e-weights, e-weights-markets</td></tr>
-<tr><td>Shape / radius</td><td>buttons 10px, cards/tabs/pills 8px, option tiles 16px, chips 4px, coin icons 50%, badges 9999px</td><td><span class="badge observed">observed</span></td><td class="mono">e-radii-home, e-radii-markets, e-radii-futures</td></tr>
-<tr><td>Shape / depth</td><td>one shadow in the whole sample (cookie overlay); every other layer separated by a #333B47 hairline on a #29313D fill</td><td><span class="badge observed">observed</span></td><td class="mono">e-shadow, e-stroke-strong, e-surface-raised</td></tr>
-<tr><td>Motion</td><td>0.7s transform cubic-bezier(0,0,0.2,1); 0.2s color/bg/border cubic-bezier(0.4,0,0.2,1); 0.15s linear micro-states</td><td><span class="badge observed">observed</span></td><td class="mono">e-motion, e-motion-markets</td></tr>
-<tr><td>Interaction affordances</td><td>:focus-visible on all sampled pages; prefers-reduced-motion on pages 1 and 3 but not 2 and 4</td><td><span class="badge observed">observed</span></td><td class="mono">e-focus, e-focus-other</td></tr>
-<tr><td>Spacing</td><td>8px x82, 16px x55, 20px x27, 4px x27, 24px gutters, 64px block spacing</td><td><span class="badge observed">observed</span></td><td class="mono">e-space</td></tr>
-<tr><td>Layout</td><td>1440px container with 24px padding (home), 1200px content (markets), 3 x 376px cards with 48/36 gaps (futures)</td><td><span class="badge observed">observed</span></td><td class="mono">e-container, e-container-markets, e-grid</td></tr></tbody></table>
-    <h3>Token registry</h3>
-    <table><thead><tr><th>Token</th><th>CSS var</th><th>Type</th><th>Layer</th><th>Status</th><th>Value</th></tr></thead><tbody><tr><td><code>color/dark/900</code></td><td><code>--lw-dark-900</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#181A20</code></td></tr>
-<tr><td><code>color/dark/1000</code></td><td><code>--lw-dark-1000</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#0B0E11</code></td></tr>
-<tr><td><code>color/slate/700</code></td><td><code>--lw-slate-700</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#29313D</code></td></tr>
-<tr><td><code>color/slate/800</code></td><td><code>--lw-slate-800</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#1E2329</code></td></tr>
-<tr><td><code>color/slate/600</code></td><td><code>--lw-slate-600</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#333B47</code></td></tr>
-<tr><td><code>color/slate/500</code></td><td><code>--lw-slate-500</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#3D4452</code></td></tr>
-<tr><td><code>color/grey/100</code></td><td><code>--lw-grey-100</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#EAECEF</code></td></tr>
-<tr><td><code>color/grey/400</code></td><td><code>--lw-grey-400</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#929AA5</code></td></tr>
-<tr><td><code>color/grey/500</code></td><td><code>--lw-grey-500</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#707A8A</code></td></tr>
-<tr><td><code>color/gold/400</code></td><td><code>--lw-gold-400</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#F0B90B</code></td></tr>
-<tr><td><code>color/gold/300</code></td><td><code>--lw-gold-300</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#FCD535</code></td></tr>
-<tr><td><code>color/on-gold</code></td><td><code>--lw-on-gold</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#202630</code></td></tr>
-<tr><td><code>color/up</code></td><td><code>--lw-up</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#2EBD85</code></td></tr>
-<tr><td><code>color/down</code></td><td><code>--lw-down</code></td><td>color</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>#F6465D</code></td></tr>
-<tr><td><code>color/canvas</code></td><td><code>--lw-canvas</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#181A20</code></td></tr>
-<tr><td><code>color/surface</code></td><td><code>--lw-surface</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#29313D</code></td></tr>
-<tr><td><code>color/well</code></td><td><code>--lw-well</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#1E2329</code></td></tr>
-<tr><td><code>color/border</code></td><td><code>--lw-border</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#333B47</code></td></tr>
-<tr><td><code>color/border-strong</code></td><td><code>--lw-border-strong</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#3D4452</code></td></tr>
-<tr><td><code>color/text/primary</code></td><td><code>--lw-text-primary</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#EAECEF</code></td></tr>
-<tr><td><code>color/text/secondary</code></td><td><code>--lw-text-secondary</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#929AA5</code></td></tr>
-<tr><td><code>color/text/tertiary</code></td><td><code>--lw-text-tertiary</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#707A8A</code></td></tr>
-<tr><td><code>color/brand</code></td><td><code>--lw-brand</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#F0B90B</code></td></tr>
-<tr><td><code>color/action/bg</code></td><td><code>--lw-action-bg</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#FCD535</code></td></tr>
-<tr><td><code>color/action/fg</code></td><td><code>--lw-action-fg</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#202630</code></td></tr>
-<tr><td><code>color/trend/up</code></td><td><code>--lw-trend-up</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#2EBD85</code></td></tr>
-<tr><td><code>color/trend/down</code></td><td><code>--lw-trend-down</code></td><td>color</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>#F6465D</code></td></tr>
-<tr><td><code>font/ui</code></td><td><code>--lw-font-ui</code></td><td>fontFamily</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>'BinanceNova', -apple-system, 'Helvetica Neue', Arial, sans-serif</code></td></tr>
-<tr><td><code>font/display</code></td><td><code>--lw-font-display</code></td><td>fontFamily</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>'BinancePlex', 'BinanceNova', -apple-system, sans-serif</code></td></tr>
-<tr><td><code>font/body</code></td><td><code>--lw-font-body</code></td><td>fontFamily</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>'BinanceNova', -apple-system, 'Helvetica Neue', Arial, sans-serif</code></td></tr>
-<tr><td><code>font/campaign</code></td><td><code>--lw-font-campaign</code></td><td>fontFamily</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>'BinancePlex', 'BinanceNova', -apple-system, sans-serif</code></td></tr>
-<tr><td><code>type/figure</code></td><td><code>--lw-type-figure</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>72px</code></td></tr>
-<tr><td><code>type/headline</code></td><td><code>--lw-type-headline</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>40px</code></td></tr>
-<tr><td><code>type/title</code></td><td><code>--lw-type-title</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>18px</code></td></tr>
-<tr><td><code>type/ui</code></td><td><code>--lw-type-ui</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>14px</code></td></tr>
-<tr><td><code>type/body</code></td><td><code>--lw-type-body</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>12px</code></td></tr>
-<tr><td><code>type/legal</code></td><td><code>--lw-type-legal</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>8px</code></td></tr>
-<tr><td><code>leading/body</code></td><td><code>--lw-leading-body</code></td><td>number</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>1.33</code></td></tr>
-<tr><td><code>weight/regular</code></td><td><code>--lw-weight-regular</code></td><td>fontWeight</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>400</code></td></tr>
-<tr><td><code>weight/medium</code></td><td><code>--lw-weight-medium</code></td><td>fontWeight</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>500</code></td></tr>
-<tr><td><code>weight/semibold</code></td><td><code>--lw-weight-semibold</code></td><td>fontWeight</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>600</code></td></tr>
-<tr><td><code>weight/bold</code></td><td><code>--lw-weight-bold</code></td><td>fontWeight</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>700</code></td></tr>
-<tr><td><code>radius/button</code></td><td><code>--lw-radius-button</code></td><td>dimension</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>10px</code></td></tr>
-<tr><td><code>radius/card</code></td><td><code>--lw-radius-card</code></td><td>dimension</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>8px</code></td></tr>
-<tr><td><code>radius/option</code></td><td><code>--lw-radius-option</code></td><td>dimension</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>16px</code></td></tr>
-<tr><td><code>radius/chip</code></td><td><code>--lw-radius-chip</code></td><td>dimension</td><td>semantic</td><td><span class="badge observed">observed</span></td><td><code>4px</code></td></tr>
-<tr><td><code>radius/pill</code></td><td><code>--lw-radius-pill</code></td><td>dimension</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>9999px</code></td></tr>
-<tr><td><code>depth/overlay</code></td><td><code>--lw-depth-overlay</code></td><td>shadow</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>-2px 0 14px rgba(0, 0, 0, 0.4), 0 0 6px rgba(0, 0, 0, 0.2)</code></td></tr>
-<tr><td><code>motion/micro</code></td><td><code>--lw-motion-micro</code></td><td>duration</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>150ms</code></td></tr>
-<tr><td><code>motion/hover</code></td><td><code>--lw-motion-hover</code></td><td>duration</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>200ms</code></td></tr>
-<tr><td><code>motion/panel</code></td><td><code>--lw-motion-panel</code></td><td>duration</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>700ms</code></td></tr>
-<tr><td><code>motion/easing-standard</code></td><td><code>--lw-easing-standard</code></td><td>easing</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>cubic-bezier(0.4, 0, 0.2, 1)</code></td></tr>
-<tr><td><code>motion/easing-panel</code></td><td><code>--lw-easing-panel</code></td><td>easing</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>cubic-bezier(0, 0, 0.2, 1)</code></td></tr>
-<tr><td><code>space/unit</code></td><td><code>--lw-space-unit</code></td><td>dimension</td><td>primitive</td><td><span class="badge observed">observed</span></td><td><code>8px</code></td></tr>
-<tr><td><code>space/block</code></td><td><code>--lw-space-block</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>64px</code></td></tr>
-<tr><td><code>layout/container</code></td><td><code>--lw-layout-container</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>1440px</code></td></tr>
-<tr><td><code>layout/container-pad</code></td><td><code>--lw-layout-pad</code></td><td>dimension</td><td>component</td><td><span class="badge observed">observed</span></td><td><code>24px</code></td></tr></tbody></table>
-    <h3>Evidence ledger</h3>
-    <table><thead><tr><th>ID</th><th>URL</th><th>Locator</th><th>Method</th><th>Status</th><th>Values</th></tr></thead><tbody><tr><td><code>e-canvas</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>page background</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(24, 26, 32)=93.8% of sampled area</td></tr>
-<tr><td><code>e-canvas-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>markets canvas</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(24, 26, 32)=98.3%</td></tr>
-<tr><td><code>e-canvas-futures</code></td><td><a href="https://www.binance.com/en/futures/home" rel="noreferrer">binance.com/en/futures/home</a></td><td>futures canvas mix</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(24,26,32)=21.6%, rgb(11,14,17)=52.2%, rgb(32,38,48)=14.4%</td></tr>
-<tr><td><code>e-surface-raised</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>price and news panels</td><td>computed-style+screenshot-pixel</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(41, 49, 61)=2.2% of area; confirmed at screenshot pixel (800,300)</td></tr>
-<tr><td><code>e-surface-raised-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>tabbed cards</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">fill=rgb(41,49,61) rendered as card background in viewport-3</td></tr>
-<tr><td><code>e-surface-deep</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>input wells and inset rows</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(30, 35, 41)=3.5%</td></tr>
-<tr><td><code>e-surface-floor</code></td><td><a href="https://www.binance.com/en/futures/home" rel="noreferrer">binance.com/en/futures/home</a></td><td>futures page base layer</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(11, 14, 17)=52.2%</td></tr>
-<tr><td><code>e-ink</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>body text</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(234, 236, 239)=#EAECEF, 81 nodes</td></tr>
-<tr><td><code>e-ink-muted</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>labels and secondary text</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(146, 154, 165)=#929AA5, 78 nodes</td></tr>
-<tr><td><code>e-ink-faint</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>tertiary and meta text</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(112, 122, 138)=#707A8A, 25 nodes</td></tr>
-<tr><td><code>e-ink-on-brand</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>text on yellow</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(32, 38, 48)=#202630, 6 nodes</td></tr>
-<tr><td><code>e-brand</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>logo, hero figure, Sign Up, cookie CTAs</td><td>computed-style+screenshot-pixel</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(252, 213, 53)=#FCD535, 0.3% of surface, rgb(240, 185, 11)=#F0B90B, 13 text nodes</td></tr>
-<tr><td><code>e-brand-other</code></td><td><a href="https://www.binance.com/en/futures/home" rel="noreferrer">binance.com/en/futures/home</a></td><td>futures CTA fills</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(252,213,53)=5.3% of that page</td></tr>
-<tr><td><code>e-up</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>price change positive</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(46, 189, 133)=#2EBD85, 5 nodes</td></tr>
-<tr><td><code>e-down</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>price change negative</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(246, 70, 93)=#F6465D</td></tr>
-<tr><td><code>e-stroke-strong</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>dividers and active tab underline</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rgb(51, 59, 71)=#333B47</td></tr>
-<tr><td><code>e-stroke-subtle</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>card and input borders</td><td>computed-style+screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">card=rgb(41,49,61), input outline=rgb(61,68,82) by screenshot</td></tr>
-<tr><td><code>e-font-nova</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>all text</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">family=BinanceNova, samples=669</td></tr>
-<tr><td><code>e-font-nova-other</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>markets text</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">family=BinanceNova, samples=969</td></tr>
-<tr><td><code>e-font-plex</code></td><td><a href="https://www.binance.com/en/crypto/convert" rel="noreferrer">binance.com/en/crypto/convert</a></td><td>display face</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">family=BinancePlex, samples=10</td></tr>
-<tr><td><code>e-h2</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>section and marketing headline</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=40px, weight=600, letterSpacing=normal</td></tr>
-<tr><td><code>e-h2-convert</code></td><td><a href="https://www.binance.com/en/crypto/convert" rel="noreferrer">binance.com/en/crypto/convert</a></td><td>convert headline</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=40px, weight=600</td></tr>
-<tr><td><code>e-h1-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>markets page h1</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=32px, weight=700</td></tr>
-<tr><td><code>e-h3</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>card title</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=18px, weight=500</td></tr>
-<tr><td><code>e-body</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>body copy</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=12px, weight=500, lineHeight=16px</td></tr>
-<tr><td><code>e-body-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>table body</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=12px, weight=400, lineHeight=18px</td></tr>
-<tr><td><code>e-sizes</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>text size distribution</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">top=14px x96, 16px x49, 20px x15, 18px x10, 28px x4, 72px x3</td></tr>
-<tr><td><code>e-sizes-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>text size distribution</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">top=14px x155, 16px x49, 12px x31, 18px x10</td></tr>
-<tr><td><code>e-display-72</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>hero figure 337,527,796</td><td>computed-style+screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">computed=72px x3 nodes, weight=700, rendered=yellow figure in screenshot</td></tr>
-<tr><td><code>e-weights</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>weight distribution</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">400=x91, 500=x77, 600=x16, 700=x8</td></tr>
-<tr><td><code>e-weights-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>weight distribution</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">400=x138, 500=x106, 600=x4, 700=x2</td></tr>
-<tr><td><code>e-radii-home</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>radius distribution</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">10px=x17 buttons, 8px=x18, 4px=x10, 16px=x7 banner card</td></tr>
-<tr><td><code>e-radii-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>radius distribution</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">8px=x43 cards, tabs, pills, 9999px=x8, 50%=x12 coin icons</td></tr>
-<tr><td><code>e-radii-futures</code></td><td><a href="https://www.binance.com/en/futures/home" rel="noreferrer">binance.com/en/futures/home</a></td><td>radius distribution</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">4px=x17, 6px=x13, 16px=x10</td></tr>
-<tr><td><code>e-shadow</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>only shadow in the sample</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">cookie panel=rgba(0,0,0,0.4) -2px 0 14px, rgba(0,0,0,0.2) 0 0 6px, inset rgba(255,255,255,0.2) 0 0 2px</td></tr>
-<tr><td><code>e-motion</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>transitions</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">transform=0.7s cubic-bezier(0,0,0.2,1), generic=0.25s ease-in-out</td></tr>
-<tr><td><code>e-motion-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>hover transitions</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">color/bg/border=0.2s cubic-bezier(0.4,0,0.2,1), generic=0.15s linear</td></tr>
-<tr><td><code>e-motion-pages</code></td><td><a href="https://www.binance.com/en/crypto/convert" rel="noreferrer">binance.com/en/crypto/convert</a></td><td>transitions on convert</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">value=all only</td></tr>
-<tr><td><code>e-focus</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>stylesheet scan</td><td>cssom-scan</td><td><span class="badge observed">observed</span></td><td class="mono">focusVisible=True, prefersReducedMotion=True</td></tr>
-<tr><td><code>e-focus-other</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>stylesheet scan</td><td>cssom-scan</td><td><span class="badge observed">observed</span></td><td class="mono">focusVisible=True, reducedMotion=true on page 3, false on pages 2 and 4</td></tr>
-<tr><td><code>e-space</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>spacing distribution</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">8px=x82, 16px=x55, 20px=x27, 4px=x27, 24px=x9, 64px=x8</td></tr>
-<tr><td><code>e-container</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>page container</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">maxWidth=1440px, padding=0 24px</td></tr>
-<tr><td><code>e-container-markets</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>markets container</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">rendered=1200px, maxWidth=none</td></tr>
-<tr><td><code>e-grid</code></td><td><a href="https://www.binance.com/en/futures/home" rel="noreferrer">binance.com/en/futures/home</a></td><td>futures card grid</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">template=376px 376px 376px, gap=48px 36px, count=2</td></tr>
-<tr><td><code>e-buttons</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>button typography</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">primary=14px/500, radius 10px, padding 10x16, secondary=14px/500, radius 4px, text=14px/400</td></tr>
-<tr><td><code>e-coin-tiles</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>coin row icon tiles</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=28px, radius=50%, fill=per-asset brand colours</td></tr></tbody></table>
-  </section></div></div></div>
+</div>
 <script src="system.js"></script>
 </body>
 </html>

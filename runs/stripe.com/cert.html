@@ -1,16 +1,175 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><title>lewitt certificate — http://127.0.0.1:8765/</title>
-<style>body{font:15px/1.6 -apple-system,Helvetica,Arial,sans-serif;max-width:920px;margin:40px auto;padding:0 20px;color:#1d2430}
-h1{font-size:24px}code{font-family:ui-monospace,Menlo,monospace;font-size:12px}
-.banner{background:#2f9e75;color:#fff;padding:14px 18px;border-radius:10px;font-weight:600}
-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}th,td{text-align:left;padding:7px 9px;border-bottom:1px solid #e5edf5}
-.meta{color:#64748d;font-size:13px}</style></head><body>
-<h1>lewitt certificate</h1>
-<div class="banner">Verdict: CERTIFIED — 16/16 probes measured, 0 deviation(s)</div>
-<p class="meta">target <code>http://127.0.0.1:8765/</code> · instructions <code>stripe.com</code> · issued 2026-11-24T03:57:49+00:00</p>
-<h2>Deviations</h2><ul><li>none on the measured tokens</li></ul>
-<h2>Guardrail hits</h2><ul><li>none</li></ul>
-<h2>What was measured</h2>
-<table><thead><tr><th>Token</th><th>tokens.css</th><th>Rendered</th><th>Result</th></tr></thead><tbody><tr><td><code>type/hero</code></td><td><code>48px</code></td><td><code>48px</code></td><td>match</td></tr><tr><td><code>type/h2</code></td><td><code>32px</code></td><td><code>32px</code></td><td>match</td></tr><tr><td><code>type/h3</code></td><td><code>26px</code></td><td><code>26px</code></td><td>match</td></tr><tr><td><code>type/body</code></td><td><code>16px</code></td><td><code>16px</code></td><td>match</td></tr><tr><td><code>type/ui</code></td><td><code>15px</code></td><td><code>15px</code></td><td>match</td></tr><tr><td><code>type/caption</code></td><td><code>10px</code></td><td><code>10px</code></td><td>match</td></tr><tr><td><code>color/canvas</code></td><td><code>#FFFFFF</code></td><td><code>rgb(255, 255, 255)</code></td><td>match</td></tr><tr><td><code>color/canvas-tint</code></td><td><code>#F6F9FC</code></td><td><code>rgb(246, 249, 252)</code></td><td>match</td></tr><tr><td><code>color/surface-subtle</code></td><td><code>#F8FAFD</code></td><td><code>rgb(248, 250, 253)</code></td><td>match</td></tr><tr><td><code>color/text/heading</code></td><td><code>#061B31</code></td><td><code>rgb(6, 27, 49)</code></td><td>match</td></tr><tr><td><code>color/text/body</code></td><td><code>#50617A</code></td><td><code>rgb(80, 97, 122)</code></td><td>match</td></tr><tr><td><code>color/text/muted</code></td><td><code>#64748D</code></td><td><code>rgb(100, 116, 141)</code></td><td>match</td></tr><tr><td><code>color/action/bg</code></td><td><code>#533AFD</code></td><td><code>rgb(83, 58, 253)</code></td><td>match</td></tr><tr><td><code>color/action/bg-alt</code></td><td><code>#635BFF</code></td><td><code>rgb(99, 91, 255)</code></td><td>match</td></tr><tr><td><code>color/action/fg</code></td><td><code>#FFFFFF</code></td><td><code>rgb(255, 255, 255)</code></td><td>match</td></tr><tr><td><code>color/link</code></td><td><code>#533AFD</code></td><td><code>rgb(83, 58, 253)</code></td><td>match</td></tr></tbody></table>
-<h2>Not certified</h2><ul><li>component geometry (padding, gaps, radii of specific elements) is not probed — only token values are</li><li>spacing scale, motion timing and hover/focus deltas on the live page are not asserted</li><li>visual resemblance to the source site is out of scope: this certificate is about instructions, not screenshots</li></ul>
-</body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lewitt certificate — http://127.0.0.1:8765/</title>
+<style>/* ---- neutral base (body) ---------------------------------------------------
+   Every colour here is a neutral: the artifact's own system colour lives inside a Stage. */
+body {
+  --n-bg: #F6F6F5; --n-panel: #FFFFFF; --n-rail: #FAFAF9;
+  --n-ink: #18181B; --n-mute: #71717A; --n-faint: #A1A1AA;
+  --n-line: rgba(0,0,0,0.08); --n-line-strong: rgba(0,0,0,0.14);
+  --n-grid: rgba(0,0,0,0.06); --n-hover: rgba(0,0,0,0.035);
+  --n-ok: #1F7A4D; --n-warn: #8A5A00; --n-bad: #A33A2B; --n-neutral: #52525B;
+  --n-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --n-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --n-rail-w: 240px; --n-gutter: 48px;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--n-bg); color: var(--n-ink);
+  font: 15px/1.55 var(--n-sans); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--n-ink); outline-offset: 2px; }
+.num, .mono, td, th, code { font-variant-numeric: tabular-nums; }
+.mono { font-family: var(--n-mono); font-size: 12px; }
+
+.eyebrow { font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--n-mute); font-weight: 500; margin: 0 0 12px; }
+
+.chip { display: inline-flex; align-items: center; gap: 5px; font: 500 10.5px/1 var(--n-mono);
+  letter-spacing: .04em; text-transform: uppercase; padding: 3px 7px; border-radius: 999px;
+  border: 1px solid var(--n-line-strong); color: var(--n-mute); white-space: nowrap; }
+.chip.ok { color: var(--n-ok); border-color: color-mix(in srgb, var(--n-ok) 45%, transparent); }
+.chip.warn { color: var(--n-warn); border-color: color-mix(in srgb, var(--n-warn) 45%, transparent); }
+.chip.bad { color: var(--n-bad); border-color: color-mix(in srgb, var(--n-bad) 45%, transparent); }
+
+.stage { position: relative; border: 1px solid var(--n-line); border-radius: 2px;
+  background: var(--n-panel); overflow: hidden; }
+.stage-head { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 16px; border-bottom: 1px solid var(--n-line);
+  font: 500 11px/1.2 var(--n-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--n-mute); }
+.stage-body { padding: 48px; position: relative;
+  background-image: radial-gradient(circle at 1px 1px, var(--n-grid) 1px, transparent 0);
+  background-size: 14px 14px; }
+.stage-body.tight { padding: 24px 32px; }
+.stage-note { padding: 10px 16px; border-top: 1px solid var(--n-line); color: var(--n-mute); font-size: 12px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; font: 500 11px/1.2 var(--n-mono); letter-spacing: .06em; text-transform: uppercase;
+  color: var(--n-mute); padding: 0 16px 8px 0; border-bottom: 1px solid var(--n-line-strong); }
+td { padding: 12px 16px 12px 0; border-bottom: 1px solid var(--n-line); vertical-align: top; color: var(--n-ink); }
+tr:hover td { background: var(--n-hover); }
+table code { font-family: var(--n-mono); font-size: 12px; }
+
+/* a wide spec table scrolls in place; the page never overflows sideways */
+@media (max-width: 900px) {
+  .tbl { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tbl table { min-width: 520px; }
+}
+
+[data-copy] { cursor: copy; }
+.copied-note { position: fixed; z-index: 60; pointer-events: none; transform: translate(-50%, -140%);
+  font: 500 11px/1 var(--n-mono); letter-spacing: .04em; text-transform: uppercase;
+  background: var(--n-ink); color: var(--n-bg); padding: 6px 8px; border-radius: 2px;
+  opacity: 1; transition: opacity .35s ease; }
+.copied-note.out { opacity: 0; }
+
+details { border-top: 1px solid var(--n-line); margin-top: 12px; padding-top: 10px; }
+summary { cursor: pointer; font: 500 11px/1.4 var(--n-mono); letter-spacing: .06em;
+  text-transform: uppercase; color: var(--n-mute); }
+summary:hover { color: var(--n-ink); }
+details pre { margin: 10px 0 0; padding: 12px 14px; background: var(--n-bg); border: 1px solid var(--n-line);
+  border-radius: 2px; overflow-x: auto; font: 11.5px/1.6 var(--n-mono); color: var(--n-mute);
+  white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.code { position: relative; border: 1px solid var(--n-line); border-radius: 2px; background: var(--n-bg); }
+.code-head { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 8px 12px; border-bottom: 1px solid var(--n-line);
+  font: 500 11px/1 var(--n-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--n-mute); }
+.code pre { margin: 0; padding: 14px 16px; overflow: auto; max-height: 320px;
+  font: 12px/1.65 var(--n-mono); color: var(--n-ink); white-space: pre; }
+
+.mini-btn { font: 500 11px/1 var(--n-mono); letter-spacing: .05em; text-transform: uppercase;
+  background: transparent; color: var(--n-mute); border: 1px solid var(--n-line-strong);
+  border-radius: 2px; padding: 5px 8px; cursor: pointer; text-decoration: none; }
+.mini-btn:hover { color: var(--n-ink); border-color: var(--n-ink); }
+.mini-btn[aria-pressed="true"] { color: var(--n-ink); border-color: var(--n-ink); }
+
+.bezier .bg line { stroke: var(--n-line); stroke-width: .5; }
+.bezier .hz { stroke: var(--n-line-strong); stroke-width: .75; stroke-dasharray: 2 3; }
+.bezier .hn { fill: var(--n-panel); stroke: var(--n-mute); stroke-width: 1; }
+.bezier .curve { fill: none; stroke: var(--n-ink); stroke-width: 1.5; stroke-linecap: round; }
+.bezier .end { fill: var(--n-ink); }
+.bezier .axis { stroke: var(--n-line-strong); stroke-width: .75; }
+
+@media (max-width: 900px) {
+  .stage-body { padding: 28px 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+
+.cert { max-width: 1080px; margin: 0 auto; padding: 56px 40px 120px; }
+@media (max-width: 700px) {
+  .cert { padding: 32px 20px 80px; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .meta { grid-template-columns: 1fr; }
+  section { overflow-x: auto; }
+}
+.head { display: grid; gap: 18px; padding-bottom: 32px; border-bottom: 1px solid var(--n-line); }
+.head .eyebrow { margin: 0; }
+.head h1 { margin: 0; font-size: 34px; font-weight: 400; letter-spacing: -.02em; }
+.verdict { display: inline-flex; align-items: center; gap: 10px; font: 500 12px/1 var(--n-mono);
+  letter-spacing: .1em; text-transform: uppercase; padding: 8px 12px; border: 1px solid var(--n-line-strong);
+  border-radius: 2px; width: fit-content; }
+.verdict.ok { color: var(--n-ok); border-color: color-mix(in srgb, var(--n-ok) 55%, transparent); }
+.verdict.warn { color: var(--n-warn); border-color: color-mix(in srgb, var(--n-warn) 55%, transparent); }
+.verdict.bad { color: var(--n-bad); border-color: color-mix(in srgb, var(--n-bad) 55%, transparent); }
+.verdict .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin: 0; }
+.meta div { }
+.meta dt { font: 500 11px/1 var(--n-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--n-faint); }
+.meta dd { margin: 6px 0 0; font-size: 13px; }
+.meta dd code { font-family: var(--n-mono); font-size: 12px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px;
+  background: var(--n-line); border: 1px solid var(--n-line); margin: 32px 0 0; }
+.stat { background: var(--n-panel); padding: 18px 20px; }
+.stat b { display: block; font-size: 30px; font-weight: 400; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.stat span { font: 500 11px/1 var(--n-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--n-mute); }
+section { padding: 40px 0 0; }
+h2 { font-size: 13px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 16px; }
+h2 .count { font-family: var(--n-mono); font-size: 11px; letter-spacing: 0; color: var(--n-faint); }
+.empty { color: var(--n-mute); font-size: 13px; margin: 0; }
+.muted { color: var(--n-mute); }
+.tier { font: 500 10.5px/1 var(--n-mono); letter-spacing: .04em; text-transform: uppercase; padding: 3px 6px;
+  border-radius: 2px; border: 1px solid var(--n-line-strong); color: var(--n-mute); white-space: nowrap; }
+.tier.t1 { color: var(--n-ok); border-color: color-mix(in srgb, var(--n-ok) 45%, transparent); }
+.tier.t2 { color: var(--n-ink); }
+.tier.t3 { color: var(--n-warn); border-color: color-mix(in srgb, var(--n-warn) 45%, transparent); }
+.reason { color: var(--n-mute); font-size: 12.5px; }
+ul { color: var(--n-mute); font-size: 13px; padding-left: 18px; }
+footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--n-line);
+  color: var(--n-mute); font: 12px/1.6 var(--n-mono); }
+</style>
+</head>
+<body data-tone="light">
+<div class="cert">
+  <header class="head">
+    <p class="eyebrow">lewitt · certificate of implementation</p>
+    <h1>This build is <span class="verdict ok"><span class="dot"></span>certified</span></h1>
+    <dl class="meta">
+      <div><dt>Target</dt><dd><code>http://127.0.0.1:8765/</code></dd></div>
+      <div><dt>Instructions</dt><dd><code>stripe.com</code> · schema 1.1</dd></div>
+      <div><dt>Issued</dt><dd>2026-11-24T07:57:13+00:00</dd></div>
+      <div><dt>Pages inspected</dt><dd>1</dd></div>
+    </dl>
+    <div class="stats">
+      <div class="stat"><span>Measured</span><b>16<small>/16</small></b></div>
+      <div class="stat"><span>Passed</span><b>16</b></div>
+      <div class="stat"><span>Intentional</span><b>0</b></div>
+      <div class="stat"><span>Violations</span><b>0</b></div>
+    </div>
+  </header>
+  <section><h2>Deviations to fix <span class="count">0</span></h2><p class="empty">No measured token deviates from the spec.</p></section>
+  <section><h2>Intentional (registered) <span class="count">0</span></h2><p class="empty">Nothing was excused.</p></section>
+  
+  <section><h2>Passing <span class="count">16</span></h2><table><thead><tr><th>Token</th><th>Spec</th><th>Rendered</th><th>Read from</th><th></th></tr></thead><tbody><tr><td><code>type/hero</code></td><td><code class="muted">48px</code></td><td><code>48px</code></td><td><span class="tier t3">L3 computed</span></td><td></td></tr><tr><td><code>type/h2</code></td><td><code class="muted">32px</code></td><td><code>32px</code></td><td><span class="tier t1">L1 --lw-*</span></td><td></td></tr><tr><td><code>type/h3</code></td><td><code class="muted">26px</code></td><td><code>26px</code></td><td><span class="tier t1">L1 --lw-*</span></td><td></td></tr><tr><td><code>type/body</code></td><td><code class="muted">16px</code></td><td><code>16px</code></td><td><span class="tier t1">L1 --lw-*</span></td><td></td></tr><tr><td><code>type/ui</code></td><td><code class="muted">15px</code></td><td><code>15px</code></td><td><span class="tier t1">L1 --lw-*</span></td><td></td></tr><tr><td><code>type/caption</code></td><td><code class="muted">10px</code></td><td><code>10px</code></td><td><span class="tier t1">L1 --lw-*</span></td><td></td></tr><tr><td><code>color/canvas</code></td><td><code class="muted">#FFFFFF</code></td><td><code>rgb(255, 255, 255)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/canvas-tint</code></td><td><code class="muted">#F6F9FC</code></td><td><code>rgb(246, 249, 252)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/surface-subtle</code></td><td><code class="muted">#F8FAFD</code></td><td><code>rgb(248, 250, 253)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/text/heading</code></td><td><code class="muted">#061B31</code></td><td><code>rgb(6, 27, 49)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/text/body</code></td><td><code class="muted">#50617A</code></td><td><code>rgb(80, 97, 122)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/text/muted</code></td><td><code class="muted">#64748D</code></td><td><code>rgb(100, 116, 141)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/action/bg</code></td><td><code class="muted">#533AFD</code></td><td><code>rgb(83, 58, 253)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/action/bg-alt</code></td><td><code class="muted">#635BFF</code></td><td><code>rgb(99, 91, 255)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/action/fg</code></td><td><code class="muted">#FFFFFF</code></td><td><code>rgb(255, 255, 255)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr><tr><td><code>color/link</code></td><td><code class="muted">#533AFD</code></td><td><code>rgb(83, 58, 253)</code></td><td><span class="tier t1">L1 --lw-*</span></td><td>Δ 0.0</td></tr></tbody></table></section>
+  <section><h2>Not measured <span class="count">0</span></h2><p class="empty">Every token in this run could be probed.</p></section>
+  <section><h2>Not certified</h2><ul><li>component geometry (padding, gaps, radii of specific elements) is not probed — only token values are</li><li>spacing scale, motion timing and hover/focus deltas on the live page are not asserted</li><li>visual resemblance to the source site is out of scope: this certificate is about instructions, not screenshots</li></ul></section>
+  <footer>A certificate covers the tokens above and nothing else. Anything this run could not probe is listed,
+  not assumed. Rendered by lewitt from cert.json.</footer>
+</div>
+</body>
+</html>

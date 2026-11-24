@@ -1,69 +1,41 @@
-// lewitt system/ — App Shell behaviour. Local only; nothing is submitted to the source site.
-(function () {
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  document.documentElement.classList.toggle('os-reduce', reduce);
 
+// lewitt system/ — panel router, stress toolbar, sub-tabs, fidelity slider, copy affordances.
+(function () {
+  var PANELS = Array.prototype.map.call(document.querySelectorAll('.panel'), function (p) { return p.id; });
+  var canvas = document.getElementById('canvas');
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.rail a.nav-item'));
   var STATUS = document.getElementById('tb-status');
   function say(t) { if (STATUS) STATUS.textContent = t; }
 
-  // ---------- panel routing (hash <-> panel, Back/Forward, deep links)
-  var PANELS = ['overview', 'colour', 'typography', 'shape', 'components', 'compositions', 'motion', 'fidelity', 'system', 'specs'];
-  var canvas = document.getElementById('canvas');
-  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.rail a.nav-item'));
-
   function currentPanel() {
-    var id = (location.hash || '#overview').slice(1).split('/')[0];
-    return PANELS.indexOf(id) > -1 ? id : 'overview';
+    var id = (location.hash || '#' + (PANELS[0] || 'overview')).replace('#', '').split('/')[0];
+    return PANELS.indexOf(id) > -1 ? id : PANELS[0];
   }
-
   function showPanel(id, focus) {
     PANELS.forEach(function (p) {
-      var section = document.getElementById(p);
-      if (!section) return;
-      if (p === id) section.setAttribute('data-active', ''); else section.removeAttribute('data-active');
+      var s = document.getElementById(p);
+      if (p === id) s.setAttribute('data-active', ''); else s.removeAttribute('data-active');
     });
     navLinks.forEach(function (a) {
       if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'page');
       else a.removeAttribute('aria-current');
     });
     document.title = 'lewitt — ' + id + ' — ' + (document.body.dataset.site || 'design system');
-    if (canvas) {
-      canvas.scrollTop = 0;
-      var head = document.querySelector('#' + id + ' h1');
-      var toolbar = document.querySelector('.toolbar');
-      var offset = toolbar ? toolbar.getBoundingClientRect().height + 12 : 0;
-      if (head) {
-        var top = head.getBoundingClientRect().top - canvas.getBoundingClientRect().top + canvas.scrollTop - offset;
-        canvas.scrollTop = Math.max(0, top);
-      }
-    }
-    if (focus) {
-      var h = document.querySelector('#' + id + ' h1');
-      if (h) h.setAttribute('tabindex', '-1'), h.focus({ preventScroll: true });
-    }
-    // a panel can carry its own sub-tab in the hash: #specs/tokens
+    if (canvas) canvas.scrollTop = 0;
     var sub = (location.hash || '').split('/')[1];
     if (id === 'specs' && sub) selectSubTab(sub);
-    if (document.body.dataset.view === 'print') document.body.dataset.view = 'panel';
     setMobileOpen(false);
   }
-
   window.addEventListener('hashchange', function () { showPanel(currentPanel(), false); });
   showPanel(currentPanel(), false);
-
   navLinks.forEach(function (a) {
     a.addEventListener('click', function (e) {
       var id = a.getAttribute('href').slice(1);
-      if (currentPanel() === id) {           // same panel: still move focus, no history churn
-        e.preventDefault();
-        showPanel(id, true);
-      }
+      if (currentPanel() === id) { e.preventDefault(); showPanel(id, true); }
     });
   });
 
-  // ---------- mobile drawer
-  var rail = document.getElementById('rail');
-  var toggle = document.getElementById('rail-toggle');
+  var rail = document.getElementById('rail'), toggle = document.getElementById('rail-toggle');
   function setMobileOpen(open) {
     if (!rail || !toggle) return;
     if (open) rail.setAttribute('data-open', ''); else rail.removeAttribute('data-open');
@@ -71,42 +43,26 @@
   }
   if (toggle) toggle.addEventListener('click', function () { setMobileOpen(!rail.hasAttribute('data-open')); });
 
-  // ---------- print / expand-all view
   var printBtn = document.getElementById('view-print');
-  if (printBtn) {
-    printBtn.addEventListener('click', function () {
-      var on = document.body.dataset.view === 'print';
-      document.body.dataset.view = on ? 'panel' : 'print';
-      printBtn.setAttribute('aria-pressed', on ? 'false' : 'true');
-      printBtn.textContent = on ? 'Print view' : 'Exit print view';
-      if (!on) PANELS.forEach(function (p) { var s = document.getElementById(p); if (s) s.setAttribute('data-active', ''); });
-      else showPanel(currentPanel(), false);
-      say(on ? 'showing current panel' : 'print view: all panels expanded');
-    });
-  }
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && document.body.dataset.view === 'print' && printBtn) printBtn.click();
+  if (printBtn) printBtn.addEventListener('click', function () {
+    var on = document.body.dataset.view === 'print';
+    document.body.dataset.view = on ? 'panel' : 'print';
+    printBtn.setAttribute('aria-pressed', on ? 'false' : 'true');
+    printBtn.textContent = on ? 'Print view' : 'Exit print view';
+    if (on) showPanel(currentPanel(), false);
+    else PANELS.forEach(function (p) { document.getElementById(p).setAttribute('data-active', ''); });
   });
 
-  // ---------- sticky stress toolbar (applies to the whole canvas; reusable on every panel)
-  var STRESS = { long: 'Long copy', nogradient: 'No gradient', nomedia: 'Missing media', reduced: 'Reduced motion' };
+  // stress toolbar: one state for the whole canvas
   var active = {};
   function applyStress() {
     var on = Object.keys(active).filter(function (k) { return active[k]; });
-    if (!canvas) return;
     canvas.setAttribute('data-stress', on.join(' '));
-    // legacy selectors in system.css were scoped to [data-stress=…]; mirror them here
-    Object.keys(STRESS).forEach(function (k) { canvas.classList.toggle('stress-' + k, !!active[k]); });
     var narrow = document.getElementById('viewport-390').getAttribute('aria-pressed') === 'true';
-    canvas.style.paddingRight = narrow ? '0' : '';
-    var w = narrow ? 390 : null;
-    var probes = document.querySelectorAll('[data-stressable-panel]');
-    Array.prototype.forEach.call(probes, function (el) {
-      if (w) { el.style.maxWidth = w + 'px'; el.style.margin = '0 auto'; }
-      else { el.style.maxWidth = ''; el.style.margin = ''; }
+    Array.prototype.forEach.call(document.querySelectorAll('.panel'), function (el) {
+      el.style.maxWidth = narrow ? '390px' : ''; el.style.margin = narrow ? '0 auto' : '';
     });
-    say(on.length ? 'stress: ' + on.join(', ') + (narrow ? ' · 390px' : '') : (narrow ? '390px preview' : 'stress off'));
+    say(on.length ? 'stress: ' + on.join(', ') + (narrow ? ' · 390px' : '') : (narrow ? '390px preview' : ''));
   }
   Array.prototype.forEach.call(document.querySelectorAll('[data-stress-toggle]'), function (btn) {
     btn.addEventListener('click', function () {
@@ -123,11 +79,12 @@
     applyStress();
   });
 
-  // ---------- sub-tabs inside the Specs panel
+  // specs sub-tabs, reachable as #specs/tokens
   var subTabs = Array.prototype.slice.call(document.querySelectorAll('.subtabs [role="tab"]'));
-  function selectSubTab(idOrIndex) {
-    var idx = typeof idOrIndex === 'number' ? idOrIndex
-      : subTabs.findIndex(function (b) { return b.getAttribute('aria-controls') === 'sub-' + idOrIndex || b.id === 'tab-' + idOrIndex; });
+  function selectSubTab(key) {
+    var idx = typeof key === 'number' ? key : subTabs.findIndex(function (b) {
+      return b.id === 'tab-' + key || b.getAttribute('aria-controls') === 'sub-' + key;
+    });
     if (idx < 0) idx = 0;
     subTabs.forEach(function (t, i) {
       var on = i === idx;
@@ -137,62 +94,82 @@
       if (panel) panel.hidden = !on;
     });
   }
-  window.lewittSelectSubTab = selectSubTab;
   subTabs.forEach(function (t, i) {
-    t.addEventListener('click', function () {
-      selectSubTab(i);
-      var sub = t.getAttribute('aria-controls').replace('sub-', '');
-      if (currentPanel() === 'specs') history.replaceState(null, '', '#specs/' + sub);
-    });
+    t.addEventListener('click', function () { selectSubTab(i); });
     t.addEventListener('keydown', function (e) {
       if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
       e.preventDefault();
       var next = e.key === 'ArrowRight' ? (i + 1) % subTabs.length : (i - 1 + subTabs.length) % subTabs.length;
-      selectSubTab(next);
-      subTabs[next].focus();
+      selectSubTab(next); subTabs[next].focus();
     });
   });
+  if (subTabs.length) selectSubTab(0);
 
-  // ---------- motion replay
-  Array.prototype.forEach.call(document.querySelectorAll('[data-replay]'), function (btn) {
-    var box = document.getElementById(btn.getAttribute('data-replay'));
-    if (!box) return;
-    var dur = btn.getAttribute('data-dur'), ease = btn.getAttribute('data-ease');
-    btn.addEventListener('click', function () {
-      box.style.transition = 'none';
-      box.style.transform = 'none';
-      box.style.opacity = '1';
-      void box.offsetWidth;
-      if (reduce || active.reduced) { say('reduced motion: replay skipped'); return; }
-      box.style.transition = 'transform ' + dur + ' ' + ease + ', opacity ' + dur + ' ' + ease;
-      box.style.transform = 'translateY(-6px)';
-      box.style.opacity = '0.6';
-      window.setTimeout(function () { box.style.transform = 'none'; box.style.opacity = '1'; }, msFrom(dur) + 60);
+  // fidelity split compare
+  var range = document.getElementById('split');
+  if (range) {
+    var cmp = document.getElementById('compare');
+    var apply = function () {
+      var b = cmp.querySelector('.layer.b'), h = cmp.querySelector('.handle');
+      if (b) b.style.clipPath = 'inset(0 ' + (100 - range.value) + '% 0 0)';
+      if (h) h.style.left = range.value + '%';
+    };
+    range.addEventListener('input', apply); apply();
+    var t = document.getElementById('compare-toggle');
+    if (t) t.addEventListener('click', function () {
+      var split = t.getAttribute('aria-pressed') === 'true';
+      t.setAttribute('aria-pressed', split ? 'false' : 'true');
+      document.getElementById('compare').hidden = !split;
+      document.getElementById('sbs').hidden = split;
     });
-  });
-  function msFrom(d) {
-    var m = /^ *([0-9.]+) *(ms|s)? *$/i.exec(String(d));
-    if (!m) return 300;
-    return m[2] && m[2].toLowerCase() === 's' ? parseFloat(m[1]) * 1000 : parseFloat(m[1]);
   }
 
-  // ---------- live states (input validation, checkout demo)
-  var email = document.getElementById('live-email');
-  var help = document.getElementById('live-email-help');
-  if (email && help) email.addEventListener('blur', function () {
-    var v = email.value.trim();
-    var ok = v === '' || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v);
-    email.setAttribute('aria-invalid', ok ? 'false' : 'true');
-    help.textContent = ok ? (v ? 'Looks valid.' : '') : 'Enter a valid email address.';
-  });
-  var form = document.getElementById('checkout');
-  if (form) form.addEventListener('submit', function (e) {
+  // copy affordance
+  function note(el, text) {
+    var old = document.querySelector('.copied-note');
+    if (old) old.remove();
+    var r = el.getBoundingClientRect();
+    var n = document.createElement('span');
+    n.className = 'copied-note';
+    n.textContent = text || 'Copied';
+    n.style.left = Math.round(r.left + r.width / 2) + 'px';
+    n.style.top = Math.round(r.top) + 'px';
+    document.body.appendChild(n);
+    window.setTimeout(function () { n.classList.add('out'); }, 1000);
+    window.setTimeout(function () { n.remove(); }, 1400);
+  }
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-copy]');
+    if (!el) return;
     e.preventDefault();
-    var card = document.getElementById('card'), mail = document.getElementById('email'), msg = document.getElementById('card-help');
-    var digits = (card.value || '').replace(/\D/g, '');
-    var emailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail.value || '');
-    card.setAttribute('aria-invalid', digits.length >= 12 ? 'false' : 'true');
-    mail.setAttribute('aria-invalid', emailOk ? 'false' : 'true');
-    msg.textContent = digits.length >= 12 && emailOk ? 'Demo complete — no payment was sent.' : 'Check the card number and email, then try again.';
+    var text = el.getAttribute('data-copy');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { note(el); }, function () { note(el, 'Blocked'); });
+    } else { note(el, 'Unavailable'); }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && document.body.dataset.view === 'print' && printBtn) printBtn.click();
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var el = e.target.closest('[data-copy][tabindex]');
+    if (!el) return;
+    e.preventDefault();
+    el.click();
+  });
+})();
+
+// replay dots for the system/ motion panel
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function msFrom(d) { var m = /([0-9.]+)\s*(ms|s)/i.exec(String(d)); return m ? (m[2].toLowerCase() === 's' ? parseFloat(m[1]) * 1000 : parseFloat(m[1])) : 300; }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-sys-replay]'), function (btn) {
+    var dot = document.getElementById(btn.getAttribute('data-sys-replay'));
+    if (!dot) return;
+    var dur = btn.getAttribute('data-dur'), ease = btn.getAttribute('data-ease');
+    btn.addEventListener('click', function () {
+      dot.style.transition = 'none'; dot.style.transform = 'translateX(0)'; void dot.offsetWidth;
+      if (reduce) return;
+      dot.style.transition = 'transform ' + dur + ' ' + ease;
+      dot.style.transform = 'translateX(calc(100% - 12px))';
+    });
   });
 })();
