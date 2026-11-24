@@ -425,21 +425,31 @@ def brick_problems(path: Path) -> list[str]:
                 out.append(f"{name}: skin {k} uses {css!r}, not a shadcn slot")
         if HARDCODED_COLOUR.search(css) or HARDCODED_COLOUR.search(str((v or {}).get("slot"))):
             out.append(f"{name}: skin {k} leaks a hardcoded colour")
-    # measured values (used to derive deltas) may be raw; the step you actually write must not be
-    if any(HARDCODED_COLOUR.search(str(css_target := (v or {}).get("css", ""))) for v in skin.values()):
-        out.append(f"{name}: a skin step points at a raw colour instead of a variable")
     states = b.get("states") or {}
     if "before" not in states:
         out.append(f"{name}: no 'before' state")
+    # an empty brick is the worst outcome: it looks usable but recorded nothing
+    changes = sum(len(props) for d in (b.get("deltas") or {}).values() for props in (d or {}).values())
+    b["_changes"] = changes
+    if changes == 0 or b.get("conclusion") == "inconclusive":
+        out.append(f"{name}: inconclusive — no computed delta observed, re-run with a more specific --selector")
+    if b.get("conclusion") == "observed" and changes == 0:
+        out.append(f"{name}: claims 'observed' but records no delta")
     if not states.get("_machine"):
         out.append(f"{name}: no state machine")
     for target, d in (b.get("deltas") or {}).items():
-        for prop, pair in (d or {}).items():
-            if not isinstance(pair, list) or len(pair) != 2:
-                out.append(f"{name}: {target}.{prop} is not a [before, after] pair")
+        for part, props in (d or {}).items():
+            if part not in ("trigger", "module", "hovered element", "stateful"):
+                out.append(f"{name}: {target}.{part} is not a sampled part "
+                           "(trigger / module / hovered element / stateful)")
+                continue
+            for prop, pair in (props or {}).items():
+                if not isinstance(pair, list) or len(pair) != 2:
+                    out.append(f"{name}: {target}.{part}.{prop} is not a [before, after] pair")
     rm = b.get("reducedMotion")
     if not isinstance(rm, dict) or not rm:
-        out.append(f"{name}: no reducedMotion recording (run without --no-reduced)")
+        if b.get("conclusion") != "inconclusive":
+            out.append(f"{name}: no reducedMotion recording (run without --no-reduced)")
     elif rm.get("status") not in ("degraded", "degraded-to-none", "not-degraded", "unrecorded"):
         out.append(f"{name}: reducedMotion.status {rm.get('status')!r} is not a known verdict")
     elif rm.get("emulated") is not True:
@@ -605,9 +615,10 @@ def main() -> int:
     if not dna_path.exists():
         bricks = sorted((dest / "clips").glob("*/brick.json"))
         if bricks:
-            problems = [p for f in bricks for p in brick_problems(f)]
-            for f in bricks:
-                print(f"[{'PASS' if not brick_problems(f) else 'FAIL'}] {f.parent.name}")
+            verdicts = {f: brick_problems(f) for f in bricks}
+            problems = [p for probs in verdicts.values() for p in probs]
+            for f, probs in verdicts.items():
+                print(f"[{'PASS' if not probs else 'FAIL'}] {f.parent.name}" + ("" if not probs else f" — {probs[0]}"))
             print(("PASS: " if not problems else "FAIL: ") + f"{len(bricks)} standalone brick(s)"
                   + ("" if not problems else f", {len(problems)} problem(s): " + "; ".join(problems[:5])))
             return 0 if not problems else 1

@@ -86,5 +86,25 @@ Every clip runs the same timeline **twice in the same browser**: once normally, 
   in the implementation.
 - Assets are never downloaded; media beyond the first two are dropped.
 - Only `prefers-reduced-motion` is emulated; forced-colors, dark mode and coarse pointers are not.
+- Durations are parsed with scientific notation in mind (`1e-05s` → 0.01ms); a site that uses
+  `0.01ms` to disable motion is reported as `degraded`, not as "still moving".
 - A source that ignores reduce produces a warning, not a fix: the brick tells you the source failed
   and asks you to implement the branch.
+
+## What the recording samples
+
+Every snapshot reads four things, because a change hides at a different level in every design:
+
+| part | selector | why |
+| --- | --- | --- |
+| `trigger` | the link/button you named | a nav item's `opacity` lives here |
+| `module` | the nearest local block, capped | a card's lift lives here |
+| `hovered element` | `document.elementFromPoint` at the mouse | whatever the pointer actually sits on |
+| `stateful` | the panel/drawer that opens on click | what an activation moves |
+
+The climb for `module` stops at `main`, `section`, `header`, `footer`, `nav`, `aside`, `ul`, `ol`,
+`form` or anything bigger than 60% of the viewport — that is why a nav item stops at its `<a>` and a
+list row stops at its `li`/`.row`. `brick.json > anchor` records where it stopped.
+
+If nothing at all changes, the brick is **inconclusive**, not a pass: `clip.py` exits 3 with a
+warning and `lint_output.py` fails the brick until you retry with a more specific `--selector`.

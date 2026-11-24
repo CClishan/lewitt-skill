@@ -64,18 +64,25 @@ FIND_JS = r"""
 
   // with a selector the caller already named the module's trigger: walk up twice at most.
   // otherwise climb to the nearest block-looking ancestor (card / tile / panel / section).
-  const looksLikeBlock = (node) => node && node.matches('article, li, section, [class*="card"], [class*="tile"], [class*="panel"], [class*="item"], [class*="box"]');
+  const looksLikeBlock = (node) => node && node.matches('li, tr, [class*="card"], [class*="tile"], [class*="panel"], [class*="item"], [class*="row"], [class*="box"]');
+  // climb to the local block, but never into a landmark or a page-sized wrapper:
+  // a nav item stays at its <a>, a list row stays at its <li>/.row.
+  const LANDMARK = /^(main|section|header|footer|nav|aside|article|ul|ol|form|body|html|table)$/;
+  const vw = window.innerWidth, vh = window.innerHeight;
+  const tooBig = (node) => { const r = node.getBoundingClientRect();
+    return r.width > vw * 0.6 || r.height > vh * 0.6; };
   let module = el;
-  // a text match lands on the trigger itself, so climb until the box is block-sized and tag-shaped;
-  // a selector names the trigger too, so the same rule applies to both paths.
+  let anchor = module === el ? 'trigger' : 'block';
   for (let i = 0; i < 6; i++) {
     const parent = module.parentElement;
-    if (!parent || parent.tagName.toLowerCase() === 'body') break;
+    if (!parent) break;
+    const tag = parent.tagName.toLowerCase();
+    if (LANDMARK.test(tag) || tooBig(parent)) { anchor = (LANDMARK.test(tag) ? 'stopped-at:' + tag : 'stopped-at:viewport-cap'); break; }
     module = parent;
     const mr = module.getBoundingClientRect();
     const blocky = looksLikeBlock(module);
     if (blocky && mr.width >= 280 && mr.height >= 100) break;
-    if (!blocky && mr.width >= 280 && mr.height >= 100 && mr.height <= 600 && /^(article|li|section|div)$/.test(module.tagName.toLowerCase()) && /card|tile|panel|item|box|hero|banner/i.test(String(module.className))) break;
+    if (!blocky && mr.width >= 280 && mr.height >= 100 && /^(li|div|tr)$/.test(tag) && /row|item|card|tile|panel|box|list/i.test(String(module.className))) break;
   }
 
   // drop media beyond the first two: a brick is instructions, not an asset dump
@@ -94,46 +101,98 @@ FIND_JS = r"""
     triggerText: (el.innerText || '').trim().slice(0, 80),
     triggerTag: el.tagName.toLowerCase(),
     triggerBox: box(el),
-    module: locator(module),
+    module: module === el ? locator(el) : locator(module),
     moduleBox: box(module),
+    moduleIsTrigger: module === el,
+    anchor,
   };
 }
 """
 
 STATE_JS = r"""
-(sel) => {
-  const el = document.querySelector(sel);
-  if (!el) return null;
-  const cs = getComputedStyle(el);
-  const r = el.getBoundingClientRect();
-  const anims = (el.getAnimations ? el.getAnimations({ subtree: true }) : []).map((a) => {
-    let effect = null;
-    try { effect = a.effect.getKeyframes().map((k) => ({ offset: k.offset, props: Object.keys(k).filter((x) => x !== 'offset' && x !== 'easing' && x !== 'composite') })).slice(0, 2); } catch (e) {}
-    return { name: a.animationName || a.id || '(transition)', playState: a.playState,
-             currentTime: Math.round(a.currentTime || 0), effect };
-  });
-  return {
-    rect: [Math.round(r.left), Math.round(r.top), Math.round(r.width), Math.round(r.height)],
-    opacity: cs.opacity, transform: cs.transform,
-    display: cs.display, visibility: cs.visibility,
-    background: cs.backgroundColor, color: cs.color,
-    'border-radius': cs.borderRadius, 'box-shadow': cs.boxShadow,
-    transition: cs.transition, animation: cs.animation,
-    anims,
-    timing: (() => {
-      const ms = (v) => (String(v || '').match(/([\d.]+)\s*(m?s)/g) || []).map((x) => {
-        const n = parseFloat(x); return /ms$/.test(x) ? n : n * 1000; });
-      const tr = ms(cs.transitionDuration).filter((n) => n > 0);
-      const an = ms(cs.animationDuration).filter((n) => n > 0);
-      const transformPx = (() => {
-        const m = /matrix\(([^)]+)\)/.exec(cs.transform || '');
-        if (!m) return [0, 0];
-        const p = m[1].split(',').map((x) => parseFloat(x.trim()));
-        return [Math.round(p[4] || 0), Math.round(p[5] || 0)];
-      })();
-      return { transitionMaxMs: tr.length ? Math.max(...tr) : 0, animationMaxMs: an.length ? Math.max(...an) : 0, transformPx };
-    })(),
+(spec) => {
+  const read = (el) => {
+    const cs = getComputedStyle(el);
+    const r = el.getBoundingClientRect();
+    const anims = (el.getAnimations ? el.getAnimations({ subtree: true }) : []).map((a) => {
+      let effect = null;
+      try { effect = a.effect.getKeyframes().map((k) => ({ offset: k.offset, props: Object.keys(k).filter((x) => x !== 'offset' && x !== 'easing' && x !== 'composite') })).slice(0, 2); } catch (e) {}
+      return { name: a.animationName || a.id || '(transition)', playState: a.playState,
+               currentTime: Math.round(a.currentTime || 0), effect };
+    });
+    const ms = (v) => {
+      // durations may arrive in scientific notation under prefers-reduced-motion: reduce ("1e-05s")
+      const re = /([0-9]*\.?[0-9]+(?:e[+-]?[0-9]+)?)\s*(ms|s)\b/gi;
+      const out = [];
+      let m;
+      while ((m = re.exec(String(v || ''))) !== null) {
+        const n = parseFloat(m[1]);
+        if (!Number.isFinite(n)) continue;
+        out.push(m[2].toLowerCase() === 'ms' ? n : n * 1000);
+      }
+      return out;
+    };
+    const tr = ms(cs.transitionDuration).filter((n) => n > 0);
+    const an = ms(cs.animationDuration).filter((n) => n > 0);
+    const transformPx = (() => {
+      const m = /matrix\(([^)]+)\)/.exec(cs.transform || '');
+      if (!m) return [0, 0];
+      const p = m[1].split(',').map((x) => parseFloat(x.trim()));
+      return [Math.round(p[4] || 0), Math.round(p[5] || 0)];
+    })();
+    return {
+      tag: el.tagName.toLowerCase(),
+      rect: [Math.round(r.left), Math.round(r.top), Math.round(r.width), Math.round(r.height)],
+      opacity: cs.opacity, transform: cs.transform,
+      display: cs.display, visibility: cs.visibility,
+      background: cs.backgroundColor, color: cs.color,
+      'border-radius': cs.borderRadius, 'box-shadow': cs.boxShadow,
+      transition: cs.transition, animation: cs.animation,
+      anims,
+      timing: { transitionMaxMs: tr.length ? Math.max(...tr) : 0,
+                animationMaxMs: an.length ? Math.max(...an) : 0, transformPx },
+    };
   };
+  const one = (sel, withChild) => {
+    if (!sel) return null;
+    let el = null;
+    try { el = document.querySelector(sel); } catch (e) { return null; }
+    if (!el) return null;
+    const out = read(el);
+    if (withChild) {
+      // deepest descendant with its own transition/animation: a tile whose label fades in lives here
+      const kids = Array.from(el.querySelectorAll('*')).map((n) => {
+        const c = getComputedStyle(n);
+        const moving = (c.transitionDuration && c.transitionDuration !== '0s') || (c.animationDuration && c.animationDuration !== '0s');
+        return moving ? n : null;
+      }).filter(Boolean);
+      out.child = kids.length ? read(kids[kids.length - 1]) : null;
+    }
+    return out;
+  };
+  const atPointer = (pt) => {
+    if (!pt) return null;
+    const el = document.elementFromPoint(pt[0], pt[1]);
+    if (!el) return null;
+    const rec = read(el);
+    rec.selectorChain = (() => { const bits = []; let n = el; while (n && bits.length < 4) { bits.push(n.tagName.toLowerCase() + (n.className ? '.' + String(n.className).split(/\s+/)[0] : '')); n = n.parentElement; } return bits.join(' < '); })();
+    return rec;
+  };
+  const base = { module: one(spec.module, true), trigger: one(spec.trigger, true), target: one(spec.target, true),
+                 pointer: atPointer(spec.pointer), points: {} };
+  // every point inside the trigger's box, so a static child at one point cannot hide the reaction
+  const trig = base.trigger;
+  if (spec.sweep && trig) {
+    const [x, y, w, h] = trig.rect;
+    const pts = [[0.5, 0.5], [0.15, 0.2], [0.85, 0.25], [0.2, 0.85], [0.8, 0.8]];
+    for (const [fx, fy] of pts) {
+      const px = Math.round(x + w * fx), py = Math.round(y + h * fy);
+      const el = document.elementFromPoint(px, py);
+      if (!el) continue;
+      base.points[fx + ',' + fy] = read(el);
+    }
+  }
+  return base;
 }
 """
 
@@ -169,7 +228,7 @@ const {{ chromium }} = require(process.env.LEWITT_PLAYWRIGHT || 'playwright');
     }}
     if (step.wait) await page.waitForTimeout(step.wait);
     if (step.shot) await page.screenshot({{ path: step.shot }});
-    if (step.snapshot) out.push({{ name: step.name, sel: step.snapshot, reduceActive, state: await page.evaluate({STATE_JS}, step.snapshot) }});
+    if (step.snapshot) out.push({{ name: step.name, reduceActive, state: await page.evaluate({STATE_JS}, step.snapshot) }});
   }}
   await browser.close();
   process.stdout.write(JSON.stringify(out));
@@ -192,6 +251,50 @@ const {{ chromium }} = require(process.env.LEWITT_PLAYWRIGHT || 'playwright');
 SCRIPT_SHOTS = []
 
 
+def rel_luminance(colour: str | None) -> float | None:
+    c = __import__("cert").parse_colour(colour or "")
+    if not c:
+        return None
+
+    def chan(v):
+        v /= 255
+        return v / 12.92 if v <= 0.03928 else ((v + 0.055) / 1.055) ** 2.4
+
+    r, g, b = (chan(v) for v in c[:3])
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b
+
+
+def contrast_ratio(a: str | None, b: str | None) -> float:
+    la, lb = rel_luminance(a), rel_luminance(b)
+    if la is None or lb is None:
+        return 0.0
+    hi, lo = max(la, lb), min(la, lb)
+    return (hi + 0.05) / (lo + 0.05)
+
+
+def fill_slot(bg: str | None, fg: str | None) -> tuple[str, str, str]:
+    """Solid, high-contrast fill -> --primary; shallow/ghost fill -> --secondary.
+
+    Contrast is WCAG-style (ratio between fill and label), with page white behind transparency,
+    so a pale button on a pale card lands on --secondary even though its luma is not "light".
+    """
+    transparent = not bg or bg.replace(" ", "") in ("rgba(0,0,0,0)", "transparent")
+    background = bg if not transparent else "rgb(255, 255, 255)"
+    ratio = contrast_ratio(background, fg)
+    # a solid fill earns --primary when it is both strong (bigger than the page around it) and legible;
+    # anything airy or pale falls back to --secondary
+    strength = contrast_ratio(background, "rgb(255, 255, 255)")
+    if transparent:
+        return "--secondary", "var(--secondary)", (
+            "transparent / ghost fill: a secondary control, not the primary action")
+    if ratio < 7.0 and strength < 2.5:
+        return "--secondary", "var(--secondary)", (
+            f"shallow fill ({strength:.1f}:1 against the page, {ratio:.1f}:1 vs its label): "
+            "a secondary control, not the primary action")
+    return "--primary", "var(--primary)", (
+        f"solid fill ({strength:.1f}:1 against the page, {ratio:.1f}:1 vs its label): the primary action")
+
+
 def shadcn_map(before: dict, during: dict | None, action: str) -> dict:
     """Map an element to shadcn/Tailwind v4 slots by role, not by nearest hex."""
     out = {}
@@ -207,10 +310,12 @@ def shadcn_map(before: dict, during: dict | None, action: str) -> dict:
         out["text"] = {"value": fg, "slot": "--card-foreground", "css": "var(--card-foreground)",
                        "why": "body text inside a card"}
     else:
-        out["trigger_fill"] = {"value": bg, "slot": "--primary", "css": "var(--primary)",
-                               "why": "the control that changes state is the primary action"}
-        out["trigger_label"] = {"value": fg, "slot": "--primary-foreground", "css": "var(--primary-foreground)",
-                                "why": "label on the primary action"}
+        slot, css, why = fill_slot(bg, fg)
+        out["trigger_fill"] = {"value": bg, "slot": slot, "css": css, "why": why}
+        out["trigger_label"] = {"value": fg,
+                                "slot": "--secondary-foreground" if slot == "--secondary" else "--primary-foreground",
+                                "css": "var(--secondary-foreground)" if slot == "--secondary" else "var(--primary-foreground)",
+                                "why": "label on " + ("a secondary control" if slot == "--secondary" else "the primary action")}
         out["surface"] = {"value": None, "slot": "--card", "css": "var(--card)",
                           "why": "the revealed panel is a card"}
     if radius:
@@ -251,19 +356,52 @@ def slot_for(dna: dict, resolved: dict, colour: str, purpose: str) -> dict:
             "resolved": resolved[best["id"]]["resolved"], "delta": best_d}
 
 
+CHANGED_PROPS = ("rect", "opacity", "transform", "background", "color", "border-radius", "box-shadow")
+
+
 def diff(a: dict | None, b: dict | None) -> dict:
     if not a or not b:
         return {}
     out = {}
-    for k in ("rect", "opacity", "transform", "background", "color", "border-radius", "box-shadow"):
+    for k in CHANGED_PROPS:
         if a.get(k) != b.get(k):
             out[k] = [a.get(k), b.get(k)]
+    if (a.get("child") or {}).get("tag") and (b.get("child") or {}).get("tag"):
+        for k in CHANGED_PROPS:
+            if a["child"].get(k) != b["child"].get(k):
+                out[f"child.{k}"] = [a["child"].get(k), b["child"].get(k)]
+    for key in (a.get("points") or {}):
+        pa, pb = a["points"].get(key), (b.get("points") or {}).get(key)
+        for k in CHANGED_PROPS:
+            if (pa or {}).get(k) != (pb or {}).get(k):
+                out[f"point[{key}].{k}"] = [(pa or {}).get(k), (pb or {}).get(k)]
     return out
+
+
+PART_LABEL = {"trigger": "trigger", "module": "module", "pointer": "hovered element", "target": "stateful"}
+
+
+def compared(sa: dict | None, sb: dict | None) -> dict:
+    """Deltas for every sampled part, so a change on the link is not hidden behind a static container."""
+    out = {}
+    for part in ("trigger", "module", "pointer", "target"):
+        d = diff((sa or {}).get(part), (sb or {}).get(part))
+        if d:
+            out[PART_LABEL[part]] = d
+    return out
+
+
+def signal_count(deltas: dict) -> int:
+    """How many (part, property) changes the recording actually observed."""
+    return sum(len(d or {}) for d in deltas.values())
 
 
 def reduced_report(std: dict, red: dict, action: str) -> dict:
     """Compare the normal and reduced-motion recordings of the element that actually moves."""
-    s_during, r_during = std.get("during_target"), red.get("during_target")
+    part = "trigger" if action == "hover" else "target"
+    s_during, r_during = (std.get("during") or {}).get(part), (red.get("during") or {}).get(part)
+    if action == "hover" and diff((std.get("before") or {}).get(part), s_during) == {}:
+        s_during, r_during = (std.get("during") or {}).get("module"), (red.get("during") or {}).get("module")
     s_t = (s_during or {}).get("timing") or {}
     r_t = (r_during or {}).get("timing") or {}
     s_px = abs((s_t.get("transformPx") or [0, 0])[1])
@@ -287,7 +425,9 @@ def reduced_report(std: dict, red: dict, action: str) -> dict:
         status, reason = "not-degraded", (
             f"same motion under reduce: {s_ms:g}ms → {r_ms:g}ms, travel {s_px:g}px → {r_px:g}px")
     return {
+        # compared on the element that moves: the trigger for hover, the stateful element on click
         "emulated": bool(red.get("_reduceActive", True)),
+        "part": part,
         "status": status,
         "reason": reason,
         "normal": {"durationMs": s_ms, "travelPx": round(s_px, 1), "transform": (s_during or {}).get("transform")},
@@ -312,7 +452,11 @@ def write_md(brick: dict, path: Path) -> None:
         f"- instructions: " + (f"`{brick['sourceRun']}` (dna.json {brick['schemaVersion']})" if brick.get("schemaVersion")
                                 else "none — standalone clip, skin mapping by role"),
         f"- slot source: " + (brick["slots"].get("from") or "—"),
-        f"- captured: {brick['capturedAt']}", "",
+        f"- captured: {brick['capturedAt']}",
+        f"- conclusion: **{brick.get('conclusion', 'observed')}** "
+        + (f"({brick.get('signalCount', 0)} computed change(s) recorded)"
+           if brick.get("conclusion", "observed") == "observed" else
+           "— nothing changed under the pointer; re-run with a more specific `--selector`"), "",
         "## States", "",
         "| State | geometry | opacity | transform | transitions running | duration |",
         "| --- | --- | --- | --- | --- | --- |",
@@ -323,17 +467,22 @@ def write_md(brick: dict, path: Path) -> None:
         if not st:
             lines.append(f"| {name} | missing | — | — | — | — |")
             continue
-        tm = st.get("timing") or {}
-        dur = max(tm.get("transitionMaxMs", 0), tm.get("animationMaxMs", 0))
-        lines.append(f"| {name} | {st['rect']} | {st['opacity']} | {st['transform'][:32]} | "
-                     f"{len(st['anims'])} | {dur:g}ms |")
+        for part in ("trigger", "module", "pointer", "target"):
+            info = st.get(part)
+            if not info:
+                continue
+            tm = info.get("timing") or {}
+            dur = max(tm.get("transitionMaxMs", 0), tm.get("animationMaxMs", 0))
+            lines.append(f"| {name} · {PART_LABEL[part]} `{info.get('tag', '')}` | {info['rect']} | {info['opacity']} | "
+                         f"{info['transform'][:28]} | {len(info['anims'])} | {dur:g}ms |")
     lines += ["", "## Deltas", ""]
     for target, d in brick["deltas"].items():
         if not d:
             lines.append(f"- **{target}**: no computed change")
             continue
-        for k, v in d.items():
-            lines.append(f"- **{target}** · `{k}`: `{v[0]}` → `{v[1]}`")
+        for part, props in d.items():
+            for k, v in props.items():
+                lines.append(f"- **{target}** · {part} · `{k}`: `{v[0]}` → `{v[1]}`")
     lines += ["", "## Skin mapping (stripped)", ""]
     for k, v in brick["skin"].items():
         if k.startswith("__"):
@@ -413,37 +562,37 @@ LAYOUT_JS = r"""
 """
 
 
-def build_timeline(action: str, module: str, target: str, click: tuple[int, int], shot) -> list[dict]:
-    """States per action. `target` is the stateful element that moves on activation."""
+def build_timeline(action: str, module: str, target: str, trigger: str, click: tuple[int, int], shot) -> list[dict]:
+    """States per action, sampling the trigger AND its local container at every step."""
     x, y = click
 
-    def snap(name, sel, with_shot=False):
-        return {"action": "snapshot", "name": name, "sel": sel, "snapshot": sel,
+    def snap(name, with_shot=False):
+        return {"action": "snapshot", "name": name,
+                "snapshot": {"module": module, "trigger": trigger, "target": target, "pointer": [x, y]},
                 **({"shot": shot(name)} if with_shot else {})}
 
-    steps = [snap("before", module, True)]
+    steps = [snap("before", True)]
     if action == "hover":
         steps += [
             {"action": "hover", "x": x, "y": y, "wait": 60},
-            snap("during", module, True),
+            snap("during", True),
             {"action": "shake", "x": x, "y": y, "wait": 120},
-            snap("settled", module),
-            snap("during_target", target),
+            snap("settled"),
             {"action": "move", "wait": 400},
-            snap("after", module, True),
+            snap("after", True),
         ]
     else:
         steps += [
-            snap("before_target", target),
+            snap("before_target"),
             {"action": "click", "x": x, "y": y, "wait": 80},
-            snap("during_target", target, True),
+            snap("during", True),
             {"action": "move", "wait": 600},
-            snap("after", target, True),
+            snap("after", True),
         ]
         if action == "toggle":
             steps += [
                 {"action": "click", "x": x, "y": y, "wait": 700},
-                snap("restored", target),
+                snap("restored"),
             ]
     return steps
 
@@ -504,12 +653,24 @@ def main() -> int:
     target = found.get("stateful") or found["module"]
 
     shot = lambda s: str(out_dir / "shots" / f"{s}.png")
-    steps = build_timeline(args.action, found["module"], target, click, shot)
+    steps = build_timeline(args.action, found["module"], target, found["trigger"], click, shot)
     states, std_meta = collect(args.url, steps, reduced=False)
+
+    before = states.get("before")
+    during = states.get("during")
+    b_target = states.get("before_target")
+    deltas = {
+        "module.hover": compared(before, during) if args.action == "hover" else {},
+        "module.settled": compared(before, states.get("settled")),
+        "stateful.open": compared(b_target, states.get("after")) if args.action != "hover" else {},
+        "stateful.closed": compared(b_target, states.get("restored")) if args.action == "toggle" else {},
+    }
+    signals = signal_count(deltas)
+    conclusion = "observed" if signals else "inconclusive"
 
     red = {}
     rm = {}
-    if not args.no_reduced:
+    if not args.no_reduced and conclusion == "observed":
         red_steps = []
         for st in steps:
             st = dict(st)
@@ -522,41 +683,44 @@ def main() -> int:
 
     before = states.get("before")
     during = states.get("during")
+    b_target = states.get("before_target")
+    flat_before = (before or {}).get("module") or (before or {}).get("trigger") or {}
+    flat_during = (during or {}).get("module") or (during or {}).get("trigger")
     if args.slots == "lw":
-        skin = lewitt_map(dna, resolved, before or {}, during, args.action)
+        skin = lewitt_map(dna, resolved, flat_before, flat_during, args.action)
         slot_from = f"lewitt run `{dna_path.parent.name}` (dna.json {dna.get('schemaVersion')})"
     else:
-        skin = shadcn_map(before or {}, during, args.action)
+        skin = shadcn_map(flat_before, flat_during, args.action)
         slot_from = "shadcn / Tailwind v4 slots, mapped by role"
     skin["__layout"] = page_probe.run(args.url, LAYOUT_JS, found["module"])
 
     if args.action == "hover":
         machine = [
             {"from": "idle", "to": "hover", "how": "pointer enters the module (CSS :hover or pointer handlers)",
-             "observed": bool(diff(before, during))},
+             "observed": bool(compared(before, during))},
             {"from": "hover", "to": "settled", "how": "transition finishes; nothing else moves",
-             "observed": bool(diff(before, states.get("settled")))},
+             "observed": bool(compared(before, states.get("settled")))},
             {"from": "settled", "to": "idle", "how": "pointer leaves the module; every computed value returns to baseline",
-             "observed": diff(before, states.get("after")) == {}},
+             "observed": compared(before, states.get("after")) == {}},
         ]
     else:
-        opens = bool(diff(states.get("before_target"), states.get("after")))
-        closes = args.action == "toggle" and opens and diff(states.get("before_target"), states.get("restored")) == {}
+        opens = bool(compared(b_target, states.get("after")))
+        closes = args.action == "toggle" and opens and compared(b_target, states.get("restored")) == {}
         machine = [
             {"from": "idle", "to": "open", "how": "click (or keyboard equivalent) on the trigger", "observed": opens},
             {"from": "open", "to": "idle", "how": "second click, Escape, or click outside", "observed": closes},
         ]
 
-    changed = sorted({k for d in [diff(before, during), diff(states.get("before_target"), states.get("after"))] for k in d})
-    if args.slots == "shadcn" and args.action != "hover" and states.get("before_target"):
-        tgt = states["before_target"]
+    changed = sorted({k for d in deltas.values() for part in d.values() for k in part})
+    if args.slots == "shadcn" and args.action != "hover" and b_target:
+        tgt = b_target.get("target") or {}
         skin["surface"] = {"value": tgt.get("background"), "slot": "--card", "css": "var(--card)",
                            "why": "the revealed panel is a card"}
         if tgt.get("color"):
             skin["surface_text"] = {"value": tgt.get("color"), "slot": "--card-foreground",
                                     "css": "var(--card-foreground)", "why": "text inside the revealed panel"}
-        if (during or {}).get("background") not in (None, tgt.get("background")):
-            skin["surface_open"] = {"value": during["background"], "slot": "--muted", "css": "var(--muted)",
+        if (during or {}).get("target", {}).get("background") not in (None, tgt.get("background")):
+            skin["surface_open"] = {"value": during["target"]["background"], "slot": "--muted", "css": "var(--muted)",
                                     "why": "open state tint"}
     notes = [
         "Drive the state with a class the project owns (e.g. `is-open`), never with source-site classes.",
@@ -584,14 +748,12 @@ def main() -> int:
         "slots": {"system": args.slots, "from": slot_from},
         "action": args.action,
         "camera": {"width": 1440, "height": 900},
-        "source": {"url": args.url, **{k: found[k] for k in ("how", "trigger", "triggerText", "triggerTag", "module", "moduleBox")}},
+        "source": {"url": args.url, **{k: found[k] for k in ("how", "trigger", "triggerText", "triggerTag",
+                                                             "module", "moduleBox", "moduleIsTrigger")}},
         "states": states,
-        "deltas": {
-            "module.hover": diff(before, during) if args.action == "hover" else {},
-            "module.settled": diff(before, states.get("settled")),
-            "stateful.open": diff(states.get("before_target"), states.get("after")) if args.action != "hover" else {},
-            "stateful.closed": diff(states.get("before_target"), states.get("restored")) if args.action == "toggle" else {},
-        },
+        "signalCount": signals,
+        "conclusion": conclusion,
+        "deltas": deltas,
         "skin": skin,
         "reducedMotion": rm,
         "notes": notes,
@@ -602,11 +764,14 @@ def main() -> int:
     write_md(brick, out_dir / "brick.md")
     print(f"[CLIPPED] {found['module']}  ({found['how']}) · slots={args.slots} · mode={brick['mode']}")
     for key, d in brick["deltas"].items():
-        print(f"  {key}: {', '.join(d) if d else 'no computed change'}")
+        print(f"  {key}: " + (", ".join(f"{part}.{prop}" for part, props in d.items() for prop in props) or "no computed change"))
+    if conclusion == "inconclusive":
+        print("  WARNING: inconclusive — no computed change on the trigger or its container; "
+              "try a more specific --selector")
     if rm:
         print(f"  reduced-motion: {rm['status']} — {rm['reason']}")
     print(f"wrote {out_dir}/brick.md and brick.json and shots/")
-    return 0
+    return 0 if conclusion == "observed" else 3
 
 
 if __name__ == "__main__":
