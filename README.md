@@ -147,12 +147,14 @@ Read the outputs before running your own:
 
 | Run | Mode | Look |
 | :--- | :--- | :--- |
-| [runs/linear.app](runs/linear.app) | DNA | dark UI, one white action accent, rings instead of shadows |
 | [runs/stripe.com](runs/stripe.com) | full | light UI, blue-tinted ink, one hero gradient, 300-weight display type |
 | [runs/binance.com](runs/binance.com) | full | high-density dark trading surface, gold reserved for action and figures |
+| [runs/linear.app](runs/linear.app) | DNA | dark UI, one white action accent, rings instead of shadows |
+| [runs/steno.ai](runs/steno.ai) | full + clip | oatmeal canvas, serif display scale, one neon spot in the hero, and a hero CTA lifted as a brick |
 
-Each run holds `VERIFY.md` (what passed, what stayed `unverified`), and stripe also holds a clip set
-(`clips/`) and a certificate.
+Each run holds `VERIFY.md` (what passed, what stayed `unverified`), plus `fidelity.json` where a
+comparison was recorded and a `clips/` brick set where one was lifted (`runs/steno.ai/clips/hero-cta`).
+Stripe also carries the `cert` output.
 
 ## Requirements
 
