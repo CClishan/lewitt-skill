@@ -291,6 +291,7 @@ def render_preview_html(dna: dict, resolver=None, exists=None) -> str:
     <a class="btn" href="tokens.resolved.json" download>tokens.resolved.json</a>
     <a class="btn" href="agent-rules.md" download>agent-rules.md</a>
     <a class="btn" href="taste.md" download>taste.md</a>
+    <a class="btn" href="shadcn-theme.css" download>shadcn-theme.css</a>
     <span class="status" id="p-status" aria-live="polite"></span>
   </div>
 

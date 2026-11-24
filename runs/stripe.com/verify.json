@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-24T03:03:36+00:00",
+  "generatedAt": "2026-11-24T03:04:33+00:00",
   "dest": "stripe.com",
   "meta": {
     "name": "Stripe",
@@ -101,8 +101,8 @@
     },
     {
       "name": "guardrail (generated code)",
-      "result": "PASS",
-      "detail": "0 violation(s) — scanned stripe.com/system"
+      "result": "unverified",
+      "detail": "no --check-code supplied"
     },
     {
       "name": "visual fidelity",
