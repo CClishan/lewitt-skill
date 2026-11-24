@@ -128,6 +128,18 @@ classes and `box-shadow` for guardrail hits. It writes `cert.md` / `cert.html` /
 verdict — `certified`, `warned`, `rejected`, `inconclusive` — and exits non-zero on anything but a
 clean pass. Anything it could not measure is listed, never assumed.
 
+## Clip One Block (`lewitt clip`)
+
+```sh
+python3 scripts/clip.py --url https://example.com --find "See how it works" --dest ./bricks
+```
+
+No extraction needed. It finds the module by text or selector, records hover/click with real CDP
+input, then records the same interaction again under `prefers-reduced-motion: reduce`, strips the
+source skin and maps it to **shadcn / Tailwind v4 slots by role** (`--card`, `--muted`, `--primary`,
+`--radius`). Output: `brick.json`, `brick.md` (states, deltas, slot mapping, state machine with
+`observed: true/false`, a measured Reduced motion chapter) and keyframe screenshots.
+
 ## Enforce Guardrails on Your Own Code
 
 Feed `agent-rules.md` and `tokens.css` to your coding agent, then lint the UI you built against the extracted Restraint guardrails before shipping:
