@@ -7,7 +7,7 @@ Renders are deterministic re-encodings of `dna.json`: byte-equality proves the a
 | dna.json contract | PASS | SSOT valid (evidence/measurements/patterns/taste/tokens) |
 | token resolution | PASS | all aliases resolve, no cycles |
 | single source (R3) | PASS | all artifacts are deterministic renders of dna.json, no post-render edits |
-| system/ colour scope | PASS | canvas token #181A20 (dark); chrome shell dark |
+| system/ colour scope | PASS | canvas token #181A20 (dark); chrome shell light |
 | interaction delta | unverified | no interactions block (schema 1.0 run or capture without probe) |
 | shadcn theme slots | PASS | all required slots mapped |
 | preview.html (self-contained) | PASS | single file, same-folder tokens.css, no remote assets |
@@ -17,6 +17,6 @@ Renders are deterministic re-encodings of `dna.json`: byte-equality proves the a
 | anti-slop (authored prose) | PASS | 0 hit(s) |
 | guardrail (generated code) | unverified | no --check-code supplied |
 | visual fidelity | unverified | no fidelity.json — requires a side-by-side comparison at matching viewports |
-| full system/ site | PASS | system/index.html present |
+| full system/ site | PASS | app shell present (rail + canvas + panel routing) |
 
-Generated at 2026-11-24T02:21:36+00:00.
+Generated at 2026-11-24T03:03:36+00:00.

@@ -1,0 +1,11 @@
+/* lewitt system/ — the canvas takes the system's own canvas token. */
+.scroll, .panel { background: var(--lw-canvas); color: var(--lw-text-secondary); }
+.panel h1, .panel h2, .panel h3, .panel strong { color: var(--lw-text-primary); }
+.panel h1 { margin: 56px 0 0; padding-bottom: 10px; border-bottom: 1px solid var(--lw-border); }
+.panel > h1:first-child { margin-top: 0; }
+.panel h2 { border-bottom-color: var(--lw-border); }
+.panel th, .panel td { border-bottom-color: var(--lw-border); }
+.subtabs { border-bottom-color: var(--lw-border); }
+.subtabs button { color: var(--lw-text-secondary); }
+.subtabs button[aria-selected="true"] { color: var(--lw-text-primary); border-bottom-color: var(--lw-brand); }
+.panel .matrix, .panel .grid-3.ds-scope { background: transparent; }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-24T02:21:37+00:00",
+  "generatedAt": "2026-11-24T03:03:36+00:00",
   "dest": "stripe.com",
   "meta": {
     "name": "Stripe",
@@ -62,7 +62,7 @@
     {
       "name": "system/ colour scope",
       "result": "PASS",
-      "detail": "canvas token #FFFFFF (light); chrome shell dark"
+      "detail": "canvas token #FFFFFF (light); chrome shell light"
     },
     {
       "name": "interaction delta",
@@ -112,7 +112,7 @@
     {
       "name": "full system/ site",
       "result": "PASS",
-      "detail": "system/index.html present"
+      "detail": "app shell present (rail + canvas + panel routing)"
     }
   ],
   "renderedBy": "build_artifacts.py/v2",

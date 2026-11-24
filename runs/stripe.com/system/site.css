@@ -1,26 +1,42 @@
-/* lewitt system/ — page shell for the reference site. The page takes its canvas from the system tokens,
-   so a light system is documented on a light page. Only the navigation chrome uses doc.css. */
-body { background: var(--lw-canvas); color: var(--lw-text-body); }
-.layout { display: block; min-height: 100vh; }
-nav.toc { position: sticky; background: var(--lw-canvas); border-bottom: 1px solid var(--lw-tint-100);
-  display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center; padding: 12px 40px; z-index: 20; width: auto; height: auto; border-right: 0; }
-nav.toc .brand { color: var(--lw-text-heading); margin: 0 12px 0 0; }
-nav.toc .sub { color: var(--lw-text-muted); margin: 0 16px 0 0; }
-nav.toc a { color: var(--lw-text-body); padding: 4px 6px; font-size: 13px; }
-nav.toc a:hover, nav.toc a:focus-visible { color: var(--lw-link); background: var(--lw-surface-subtle); outline: none; }
-main { background: var(--lw-canvas); color: var(--lw-text-body); padding: 32px 40px 96px; max-width: 1240px; margin: 0 auto; }
-h1, h2, h3, h4, strong { color: var(--lw-text-heading); }
-h2 { border-bottom-color: var(--lw-tint-100); }
-h2.ds-hero, h3.ds-hero { border-bottom: 0; font-weight: var(--lw-weight-light); }
-p, li { color: var(--lw-text-body); }
-th, td { border-bottom-color: var(--lw-tint-100); }
-th { color: var(--lw-text-muted); }
-.lede, .note { color: var(--lw-text-body); }
-.note { background: var(--lw-surface-subtle); border-left: 2px solid var(--lw-link); }
-.card, .matrix .ds-card { background: var(--lw-canvas); border-color: var(--lw-tint-100); }
-.mono, .ds-caption { color: var(--lw-text-muted); }
-@media (max-width: 900px) { nav.toc { padding: 10px 16px; } main { padding: 20px 16px 64px; } }
-
-/* skip link must stay visible when focused, even on a light page */
+/* lewitt system/ — the canvas takes the system's own canvas token, so a light system is documented
+   on a light page. Only the rail and toolbar keep the dark shell chrome. */
+.scroll, .panel { background: var(--lw-canvas); color: var(--lw-text-body); }
+.panel h1, .panel h2, .panel h3, .panel strong { color: var(--lw-text-heading); }
+.panel h2 { border-bottom-color: var(--lw-tint-100); }
+.panel h2.ds-hero, .panel h3.ds-hero { border-bottom: 0; font-weight: var(--lw-weight-light); }
+.panel p, .panel li { color: var(--lw-text-body); }
+.panel th, .panel td { border-bottom-color: var(--lw-tint-100); }
+.panel th { color: var(--lw-text-muted); }
+.panel .note { background: var(--lw-surface-subtle); border-left-color: var(--lw-link); color: var(--lw-text-body); }
+.panel .card, .panel .matrix .ds-card { background: var(--lw-canvas); border-color: var(--lw-tint-100); }
+.panel .card .mono, .panel .ds-caption, .panel .ds-muted { color: var(--lw-text-muted); }
+.subtabs { border-bottom-color: var(--lw-tint-100); }
+.subtabs button { color: var(--lw-text-muted); }
+.subtabs button[aria-selected="true"] { color: var(--lw-text-heading); border-bottom-color: var(--lw-link); }
 .skip { position: absolute; left: -9999px; }
 .skip:focus { left: 16px; top: 12px; background: var(--lw-link); color: #fff; padding: 8px 12px; border-radius: var(--lw-radius-control); z-index: 99; }
+
+/* a .ds-scope inside the panel must not re-paint the canvas or shrink the matrix */
+.panel .matrix.ds-scope, .panel .compact.ds-scope { background: transparent; }
+.panel .matrix, .panel .grid-3.ds-scope { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+
+/* demo components keep their own surface even though the panel is light */
+.panel .ds-card, .panel .ds-card--tint, .panel .ds-card--float { background: var(--lw-canvas); color: var(--lw-text-body); }
+.panel .ds-card--tint { background: var(--lw-surface-subtle); }
+.panel .ds-card--float { background: var(--lw-canvas); }
+.scroll { scroll-padding-top: 8px; }
+
+/* the canvas carries the demo scope: keep body copy light */
+.panel .ds-scope, .panel .ds-scope p, .panel .ds-scope .ds-body { color: var(--lw-text-body); }
+.panel .ds-scope h1, .panel .ds-scope h2, .panel .ds-scope h3 { color: var(--lw-text-heading); }
+/* no .ds-scope on the canvas: keep panel chrome readable */
+.panel.ds-scope { background: var(--lw-canvas); }
+
+/* dense spec tables: keep ids on one line, shorten the status chip */
+.panel table td:first-child, .panel table td.mono { white-space: nowrap; }
+.panel td .badge { white-space: nowrap; font-size: 10px; padding: 3px 5px; }
+
+/* one accent line under a panel title; the sticky toolbar sits above it */
+.panel > h1 { margin: 56px 0 0; padding-bottom: 10px; border-bottom: 1px solid var(--lw-tint-100); }
+.panel > h1:first-child { margin-top: 0; }
+.scroll { scroll-padding-top: 64px; }

@@ -86,11 +86,11 @@
 }
 
 /* ---------- stress controls (scoped to the demo container only) */
-[data-stress="long"] .ds-stressable { max-width: 12ch; overflow-wrap: anywhere; }
-[data-stress="nogradient"] .ds-hero-band::after { display: none; }
-[data-stress="nomedia"] .ds-media { visibility: hidden; }
+[data-stress~="long"] .ds-stressable { max-width: 12ch; overflow-wrap: anywhere; }
+[data-stress~="nogradient"] .ds-hero-band::after { display: none; }
+[data-stress~="nomedia"] .ds-media { visibility: hidden; }
 .ds-media { display: grid; place-items: center; border-radius: var(--lw-radius-card); background: transparent; min-height: 120px; color: var(--lw-text-muted); }
-[data-stress="reduced"] *, [data-stress="reduced"] *::before, [data-stress="reduced"] *::after {
+[data-stress~="reduced"] *, [data-stress~="reduced"] *::before, [data-stress~="reduced"] *::after {
   transition-duration: 1ms !important; animation-duration: 1ms !important;
 }
 
@@ -98,3 +98,9 @@
 .fid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
 .fid img { width: 100%; border-radius: 8px; border: 1px solid var(--doc-line); display: block; }
 @media (max-width: 860px) { .fid { grid-template-columns: 1fr; } }
+
+/* nested demo scope reset (the button matrix re-paints its own canvas) */
+.matrix.ds-scope h1, .matrix.ds-scope h2, .matrix.ds-scope h3 { color: var(--lw-text-heading); font-size: 15px; margin: 0 0 8px; }
+
+/* the markup falls back to a 40px padding when the rule above is not applied */
+.ds-hero-copy h1, .ds-hero-copy .ds-hero { margin: 0; }

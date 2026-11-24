@@ -3,29 +3,47 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>lewitt — Binance design system (evidence-backed)</title>
+<title>lewitt — Binance design system (full mode)</title>
 <link rel="stylesheet" href="../tokens.css">
 <link rel="stylesheet" href="doc.css">
 <link rel="stylesheet" href="system.css">
+<style>.ds-scope .ds-figure { color: var(--lw-brand); }</style>
 </head>
-<body>
-<a class="skip" href="#foundations">Skip to content</a>
-<div class="layout">
-<nav class="toc" aria-label="Sections">
-  <div class="brand">lewitt · Binance</div>
-  <div class="sub">extracted 2026-11-23 · 4 pages · mode full</div>
-  <a href="#foundations">Foundations</a>
-  <a href="#color">Colour</a>
-  <a href="#type">Typography</a>
-  <a href="#shape">Radius &amp; depth</a>
-  <a href="#components">Components</a>
-  <a href="#compositions">Compositions</a>
-  <a href="#motion">Motion</a>
-  <a href="#stress">Stress</a>
-  <a href="#system">System &amp; taste</a>
-  <a href="#evidence">Evidence &amp; handoff</a>
-</nav>
-<main id="foundations">
+<body data-view="panel" data-site="Binance design system">
+<a class="skip" href="#canvas">Skip to canvas</a>
+<div class="shell">
+  <aside class="rail" id="rail" aria-label="Sections">
+    <div class="brand">lewitt · Binance<small>4 pages · full mode</small></div>
+    <button class="chip-btn rail-toggle" id="rail-toggle" aria-expanded="false" aria-controls="rail-nav">Menu</button>
+    <nav id="rail-nav">
+      <div><div class="group-label">Foundations</div>
+        <a class="nav-item" href="#overview">Overview</a>
+        <a class="nav-item" href="#colour">Colour</a>
+        <a class="nav-item" href="#typography">Typography</a>
+        <a class="nav-item" href="#shape">Radius &amp; Depth</a></div>
+      <div><div class="group-label">Interactive Lab</div>
+        <a class="nav-item" href="#components">Components &amp; States</a>
+        <a class="nav-item" href="#compositions">Compositions</a>
+        <a class="nav-item" href="#motion">Motion</a></div>
+      <div><div class="group-label">Specs &amp; Handoff</div>
+        <a class="nav-item" href="#stress">Stress</a>
+        <a class="nav-item" href="#system">System &amp; Taste</a>
+        <a class="nav-item" href="#specs">Evidence &amp; Downloads</a></div>
+    </nav>
+    <div class="rail-actions"><button class="chip-btn" id="view-print" aria-pressed="false">Print view</button></div>
+  </aside>
+  <div class="canvas">
+    <div class="toolbar" role="toolbar" aria-label="Stress controls">
+      <span class="tb-label">Stress</span>
+      <button class="tb-btn" data-stress-toggle="long" aria-pressed="false">Long copy</button>
+      <button class="tb-btn" data-stress-toggle="nogradient" aria-pressed="false">No gradient</button>
+      <button class="tb-btn" data-stress-toggle="nomedia" aria-pressed="false">Missing media</button>
+      <button class="tb-btn" data-stress-toggle="reduced" aria-pressed="false">Reduced motion</button>
+      <button class="tb-btn" id="viewport-390" aria-pressed="false">Narrow 390</button>
+      <span class="tb-status" id="tb-status" aria-live="polite"></span>
+    </div>
+    <div class="scroll" id="canvas" tabindex="-1">
+<section class="panel" id="overview">
   <h1>Binance — extracted design system</h1>
   <p class="lede">Three dark layers, one gold accent reserved for action and figures, hairline borders
   instead of shadows, and a number-first type scale (72px figure against 12px body).
@@ -44,8 +62,8 @@
       <div class="ds-figure" style="font-size:40px">72 : 12</div><div class="ds-body">data outranks copy by a 6x ratio.</div></div>
   </div>
 
-  <section id="color">
-    <h2>Colour</h2>
+  </section><section class="panel" id="colour">
+    <h1>Colour</h1>
     <p>Roles, not hierarchy: brand gold for action and figures, green/red only for direction, blue-grey neutrals for everything else.</p>
     <div class="grid-3"><div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#181A20"></div><div style="padding:8px"><div class="mono">color/dark/900</div><div class="mono" style="color:var(--doc-mute)">#181A20</div></div></div>
 <div class="sw" style="border:1px solid var(--doc-line);border-radius:8px;overflow:hidden"><div style="height:56px;background:#0B0E11"></div><div style="padding:8px"><div class="mono">color/dark/1000</div><div class="mono" style="color:var(--doc-mute)">#0B0E11</div></div></div>
@@ -82,10 +100,8 @@
       <tr><td class="mono">trend-up / canvas</td><td class="mono">#2EBD85 on #181A20</td><td>price change</td></tr>
       <tr><td class="mono">trend-down / canvas</td><td class="mono">#F6465D on #181A20</td><td>price change</td></tr>
     </tbody></table>
-  </section>
-
-  <section id="type">
-    <h2>Typography</h2>
+  </section><section class="panel" id="typography">
+    <h1>Typography</h1>
     <p>BinanceNova carries every surface; BinancePlex is a sparing display face (10 nodes in 2 of 4 pages).
     The loaded web fonts are not available in this document, so specimens fall back to the declared system stack.
     <span class="badge">inferred</span> for rendered-face parity.</p>
@@ -95,10 +111,8 @@
 <div style="margin-bottom:10px"><span class="mono" style="color:var(--doc-mute)">type/ui · 14px</span><div style="font-size:14px;line-height:1.15">Aa 337,527,796 BNB</div></div>
 <div style="margin-bottom:10px"><span class="mono" style="color:var(--doc-mute)">type/body · 12px</span><div style="font-size:12px;line-height:1.15">Aa 337,527,796 BNB</div></div>
 <div style="margin-bottom:10px"><span class="mono" style="color:var(--doc-mute)">type/legal · 8px</span><div style="font-size:8px;line-height:1.15">Aa 337,527,796 BNB</div></div></div>
-  </section>
-
-  <section id="shape">
-    <h2>Radius &amp; depth</h2>
+  </section><section class="panel" id="shape">
+    <h1>Radius &amp; Depth</h1>
     <div class="grid-3">
       <div class="ds-card ds-scope" style="border-radius:var(--lw-radius-card)"><div class="mono">radius/card · 8px</div><div class="ds-body">tabs, cards, pills</div></div>
       <div class="ds-card ds-scope" style="border-radius:var(--lw-radius-button)"><div class="mono">radius/button · 10px</div><div class="ds-body">primary and secondary buttons</div></div>
@@ -109,10 +123,8 @@
       <div class="ds-card ds-scope"><div class="mono">default: 1px #333B47</div><div class="ds-row" style="grid-template-columns:1fr"><span class="ds-name">Card on canvas</span></div></div>
       <div class="ds-overlay ds-scope" style="max-width:100%"><div class="mono">the only measured shadow</div><div class="ds-body">floating overlay: -2px 0 14px rgba(0,0,0,.4), 0 0 6px rgba(0,0,0,.2)</div></div>
     </div>
-  </section>
-
-  <section id="components">
-    <h2>Components</h2>
+  </section><section class="panel" id="components">
+    <h1>Components &amp; States</h1>
     <p>States are real pointer and keyboard states where the browser can produce them; forced samples are labelled.</p>
 
     <h3>Button</h3>
@@ -174,10 +186,8 @@
         <tr><td>USDT <span class="ds-sym">USDT</span></td><td class="ds-price">1.00</td><td class="ds-change ds-change--down">-0.02%</td><td>174.63B</td></tr>
       </tbody></table>
     </div>
-  </section>
-
-  <section id="compositions">
-    <h2>Compositions</h2>
+  </section><section class="panel" id="compositions">
+    <h1>Compositions</h1>
     <p>Three compositions, all reusing the components above.</p>
 
     <h3>A · Hero: figure first <span class="badge">observed</span></h3>
@@ -219,10 +229,8 @@
         <div class="ds-status" id="convert-status" aria-live="polite"></div>
       </div>
     </div>
-  </section>
-
-  <section id="motion">
-    <h2>Motion</h2>
+  </section><section class="panel" id="motion">
+    <h1>Motion</h1>
     <table><thead><tr><th>Tier</th><th>Token</th><th>Used for</th><th>Replay</th></tr></thead><tbody>
       <tr><td>Micro</td><td class="mono">--lw-motion-micro · 150ms linear</td><td>tab underline, chip state</td><td><button class="ds-btn ds-btn--ghost" id="replay-micro">Replay</button></td></tr>
       <tr><td>Hover</td><td class="mono">--lw-motion-hover · 200ms --lw-easing-standard</td><td>button fill, border colour</td><td><button class="ds-btn ds-btn--ghost" id="replay-hover">Replay</button></td></tr>
@@ -233,10 +241,8 @@
     </div>
     <p class="note">Reduced motion: the document honours <code>prefers-reduced-motion</code> (doc.css) and the replay buttons shorten transitions to 1ms.
     The source site exposed a reduced-motion branch on 2 of 4 pages only — recorded as an observed gap, not fixed silently.</p>
-  </section>
-
-  <section id="stress">
-    <h2>Stress</h2>
+  </section><section class="panel" id="stress">
+    <h1>Stress</h1>
     <div class="grid-2">
       <div class="ds-card ds-scope"><div class="ds-panel-title"><span>Long label</span></div>
         <div class="ds-row" style="grid-template-columns:28px minmax(0,1fr) auto"><span class="ds-coin" style="background:#F0B90B">B</span><span class="ds-name">Bitcoin wrapped strategy vault (21x leveraged uncertainty)</span><span class="ds-change ds-change--up">+0.36%</span></div></div>
@@ -246,9 +252,7 @@
       <div class="ds-card ds-scope"><div class="ds-panel-title"><span>Error</span></div><div class="ds-body" style="color:var(--lw-trend-down)">Price feed unavailable — retrying in 5s.</div></div>
     </div>
     <p class="note">Text scaling here is sample-level typography, not a browser zoom test.</p>
-  </section>
-
-  <section id="system">
+  </section><section class="panel" id="system">
     <h2>System &amp; taste</h2>
     <div class="ds-card" style="margin-bottom:16px"><div><span class="badge observed">observed</span><span class="mono">system</span></div><h3 style="margin-top:8px">Colour is assigned by role, not by hierarchy</h3><p><span class="mono">Trigger</span> Designing a screen that shows prices, price changes, actions and promotions at once.</p><p><span class="mono">Chose</span> <strong>a three-role colour system (brand, direction, neutral)</strong> <span class="mono">over</span> a hue per category (per-coin colours, per-section accents, coloured badges)</p><p><span class="mono">Reason</span> In a list of fifty numbers, a colour that could mean anything stops carrying meaning; three roles keep a glance reliable.</p></div>
 <div class="ds-card" style="margin-bottom:16px"><div><span class="badge observed">observed</span><span class="mono">restraint</span></div><h3 style="margin-top:8px">Depth is a hairline, not a shadow</h3><p><span class="mono">Trigger</span> Layering cards and inputs on a near-black canvas.</p><p><span class="mono">Chose</span> <strong>1px hairlines plus a lifted fill</strong> <span class="mono">over</span> a drop shadow on every card and panel</p><p><span class="mono">Reason</span> On a dark canvas a shadow is invisible until it is strong enough to smear the 12px digits sitting on it.</p><p><span class="mono">Guardrail</span> <code>{"forbidCss": [], "forbidClass": ["(^|-)shadow-(?!none|sm|inner)[a-z]+-[a-z]+"], "max": {"box-shadow": {"value": "0", "unit": "px"}}, "note": "Exception: the single floating overlay panel measured at 14px/6px blur. Everything else is a 1px border."}</code></p></div>
@@ -263,9 +267,7 @@
 <h3>A two-colour direction axis</h3><p><strong>Gains use #2EBD85 and losses #F6465D, always as text, never as a filled badge.</strong></p><p class="mono" style="color:var(--doc-mute)">Direction stays legible at 12px without competing with the brand yellow. · e-up, e-down</p>
 <h3>Radii track role</h3><p><strong>Buttons 10px, cards and tabs 8px, large option tiles 16px, inline chips 4px.</strong></p><p class="mono" style="color:var(--doc-mute)">Silhouette alone tells a card from a button from a tile. · e-radii-home, e-radii-markets, e-radii-futures</p>
 <h3>Hover is fast, panels are slow</h3><p><strong>Colour and border hovers run at 0.15-0.2s; panel and image transforms at 0.7s.</strong></p><p class="mono" style="color:var(--doc-mute)">Interface feedback is immediate while promotional movement stays calm enough to read. · e-motion, e-motion-markets</p>
-  </section>
-
-  <section id="evidence">
+  </section><section class="panel" id="specs">
     <h2>Evidence &amp; handoff</h2>
     <ul>
       <li>Downloads: <a href="../tokens.css" download rel="noreferrer">tokens.css</a> · <a href="../tokens.resolved.json" download rel="noreferrer">tokens.resolved.json</a> · <a href="../taste.md" download rel="noreferrer">taste.md</a> · <a href="../agent-rules.md" download rel="noreferrer">agent-rules.md</a> · <a href="../VERIFY.md" download rel="noreferrer">VERIFY.md</a></li>
@@ -400,9 +402,7 @@
 <tr><td><code>e-grid</code></td><td><a href="https://www.binance.com/en/futures/home" rel="noreferrer">binance.com/en/futures/home</a></td><td>futures card grid</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">template=376px 376px 376px, gap=48px 36px, count=2</td></tr>
 <tr><td><code>e-buttons</code></td><td><a href="https://www.binance.com/en" rel="noreferrer">binance.com/en</a></td><td>button typography</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">primary=14px/500, radius 10px, padding 10x16, secondary=14px/500, radius 4px, text=14px/400</td></tr>
 <tr><td><code>e-coin-tiles</code></td><td><a href="https://www.binance.com/en/markets/overview" rel="noreferrer">binance.com/en/markets/overview</a></td><td>coin row icon tiles</td><td>computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">size=28px, radius=50%, fill=per-asset brand colours</td></tr></tbody></table>
-  </section>
-</main>
-</div>
+  </section></div></div></div>
 <script src="system.js"></script>
 </body>
 </html>

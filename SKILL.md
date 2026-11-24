@@ -178,7 +178,11 @@ One short block: mode, pages inspected, artifact paths, the sharpest principle i
 every `FAIL`/`unverified` row. Do not claim a site is ready when a gate failed.
 
 **Full mode only** — read [references/build-full.md](references/build-full.md) and build
-`system/` from the same tokens, then run `--check-code`.
+`system/` from the same tokens, then run `--check-code`. The reference site is an app shell
+(fixed rail + one scrolling canvas), not a long document.
+
+Subcommands stay small on purpose: `cert` and `remix` live in their own references
+([cert.md](references/cert.md)) so this file stays the contract, not a manual.
 
 ## Banned vocabulary
 

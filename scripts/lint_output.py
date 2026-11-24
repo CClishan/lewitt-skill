@@ -302,6 +302,15 @@ def theme_checks(dest: Path, dna: dict) -> tuple[bool, str]:
     loop = ["--theme inline {"] if css.count("@theme inline") != 1 else []
     if loop:
         return False, "@theme inline block missing or duplicated"
+    theme = css[css.index("@theme inline"):] if "@theme inline" in css else ""
+    if "@theme inline" in css:
+        theme = css[css.index("@theme inline"):css.index("}", css.index("@theme inline"))]
+        wrong = [slot for slot, _, _ in ba.SHADCN_SLOTS if f"--color-{slot[2:]}: var({slot});" not in theme]
+        if wrong:
+            return False, "Tailwind v4 needs --color-* in @theme inline; missing: " + ", ".join(wrong[:4])
+        self_ref = re.findall(r"^\s*(--color-[a-z-]+): var\(\1\);", css, re.M)
+        if self_ref:
+            return False, "self-referencing theme entries: " + ", ".join(self_ref[:3])
     detail = "all required slots mapped"
     if unmapped:
         detail += f"; {len(unmapped)} declared UNMAPPED: " + ", ".join(unmapped)
@@ -338,6 +347,21 @@ def _lum(rgb):
         c = c / 255
         return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
     return 0.2126 * ch(rgb[0]) + 0.7152 * ch(rgb[1]) + 0.0722 * ch(rgb[2])
+
+
+def shell_checks(html: str) -> list[str]:
+    """The reference site must be an app shell: one rail, one scrolling canvas, routed panels."""
+    problems = []
+    for token, label in (('class="rail"', "rail"), ('class="canvas"', "canvas"),
+                         ('class="toolbar"', "sticky toolbar"), ('class="scroll"', "scrolling region")):
+        if token not in html:
+            problems.append(f"missing {label}")
+    panels = html.count('class="panel')
+    if panels < 2:
+        problems.append(f"only {panels} panel(s); expected >= 2 routed panels")
+    if 'data-stress-toggle' not in html:
+        problems.append("no stress toggles in the toolbar")
+    return problems
 
 
 def system_colour_scope(dest: Path, dna: dict) -> tuple[bool, str]:
@@ -496,8 +520,12 @@ def main() -> int:
     mode = (dna.get("meta") or {}).get("mode")
     if mode == "full":
         site = dest / "system" / "index.html"
-        rows.append({"name": "full system/ site", "result": "PASS" if site.exists() else "FAIL",
-                     "detail": "system/index.html present" if site.exists() else "mode=full but system/index.html is missing"})
+        if not site.exists():
+            rows.append({"name": "full system/ site", "result": "FAIL", "detail": "mode=full but system/index.html is missing"})
+        else:
+            shell = shell_checks(site.read_text(encoding="utf-8"))
+            rows.append({"name": "full system/ site", "result": "PASS" if not shell else "FAIL",
+                         "detail": "app shell present (rail + canvas + panel routing)" if not shell else "; ".join(shell)})
     else:
         rows.append({"name": "full system/ site", "result": "n/a", "detail": "DNA mode does not build system/"})
 

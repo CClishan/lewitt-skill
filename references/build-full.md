@@ -5,7 +5,26 @@ browsable design system"). It reuses the same `dna.json`; it never re-derives va
 
 ## Output
 
-`{dest}/{domain}/system/` — a self-contained static site (plain HTML/CSS/JS is enough):
+`{dest}/{domain}/system/` — a self-contained static site, laid out as an **app shell**, not a long
+scrolling document:
+
+```text
+┌ rail 240px ┬ canvas ─────────────────────────────────┐
+│ Foundations │ sticky stress toolbar                   │
+│ Interactive │ one panel at a time, scrolls on its own │
+│ Specs       │ (hash routes it; Back/Forward work)    │
+└─────────────┴────────────────────────────────────────┘
+```
+
+- **rail**: fixed, grouped (`Foundations` / `Interactive Lab` / `Specs & Handoff`), each item
+  switches the canvas panel and syncs `location.hash`; deep links (`#specs/tokens`) open a panel
+  *and* its sub-tab. Mobile (<900px) collapses it into a drawer.
+- **sticky toolbar**: Long copy · No gradient · Missing media · Reduced motion · Narrow 390 — they
+  act on whatever panel you are looking at, driven by `data-stress` on the canvas.
+- **Specs panel**: sub-tabs (Downloads / Tokens / Measurements / Evidence) instead of one long dump.
+- **Print view**: one button (or Esc to leave) expands every panel for printing or a full read.
+
+Files:
 
 ```
 system/

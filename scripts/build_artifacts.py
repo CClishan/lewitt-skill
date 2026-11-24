@@ -55,7 +55,8 @@ SHADCN_SLOTS = [
     ("--input", ["color/border-strong", "color/stroke/strong", "color/border", "color/canvas-tint"], "input borders"),
     ("--ring", ["color/link", "color/focus", "color/action/bg", "color/brand"], "focus ring"),
 ]
-SHADCN_RADIUS = [("--radius", ["radius/card", "radius/control", "radius/button"])]
+# --radius is the control radius: inputs and buttons must not inherit a card-sized radius
+SHADCN_RADIUS = [("--radius", ["radius/control", "radius/control-alt", "radius/button", "radius/card"])]
 
 
 def _first_token(dna: dict, candidates: list[str], predicate=lambda t: True) -> str | None:
@@ -124,7 +125,7 @@ def render_shadcn_theme(dna: dict) -> str:
         "}",
         "",
         "@theme inline {",
-        *[f"  {slot}: var({slot});" for slot, _, _ in SHADCN_SLOTS],
+        *[f"  --color-{slot[2:]}: var({slot});" for slot, _, _ in SHADCN_SLOTS],
         "  --radius-sm: calc(var(--radius) - 4px);",
         "  --radius-md: calc(var(--radius) - 2px);",
         "  --radius-lg: var(--radius);",
