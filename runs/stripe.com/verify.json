@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-24T09:17:50+00:00",
+  "generatedAt": "2026-11-24T12:05:20+00:00",
   "dest": "stripe.com",
   "meta": {
     "name": "Stripe",
@@ -90,7 +90,7 @@
       "detail": "no clips/ directory"
     },
     {
-      "name": "preview.html (self-contained)",
+      "name": "preview.html (self-contained, dual view)",
       "result": "PASS",
       "detail": "single file, same-folder tokens.css, no remote assets"
     },
@@ -110,14 +110,19 @@
       "detail": "2/2 restraint principles carry machine-readable guardrails; incremental targets=['taste'] frozen=['meta', 'evidence', 'measurements', 'patterns', 'tokens']"
     },
     {
+      "name": "generated-code script scope",
+      "result": "PASS",
+      "detail": "duplicate var names and undeclared identifiers are both caught (injected probes)"
+    },
+    {
       "name": "anti-slop (authored prose)",
       "result": "PASS",
       "detail": "0 hit(s)"
     },
     {
       "name": "guardrail (generated code)",
-      "result": "unverified",
-      "detail": "no --check-code supplied"
+      "result": "PASS",
+      "detail": "0 violation(s) — scanned stripe.com/system"
     },
     {
       "name": "visual fidelity",
@@ -127,7 +132,7 @@
     {
       "name": "full system/ site",
       "result": "PASS",
-      "detail": "app shell present (rail + canvas + panel routing)"
+      "detail": "dual view present (top bar + Live Preview 01-05 + Specs)"
     }
   ],
   "renderedBy": "build_artifacts.py/v2",
@@ -1793,6 +1798,99 @@
         }
       }
     ],
+    "specimens": {
+      "hero": {
+        "eyebrow": "payments · pricing · forms",
+        "headline": "Financial infrastructure\nto grow your revenue.",
+        "subhead": "Accept payments, add a pricing table and a checkout form in one afternoon - then watch the revenue numbers move.",
+        "primaryCta": "Start now",
+        "secondaryCta": "Read the docs"
+      },
+      "stats": [
+        {
+          "value": "100+",
+          "label": "currencies settled"
+        },
+        {
+          "value": "2.9%",
+          "label": "per charge, +30¢"
+        },
+        {
+          "value": "99.999%",
+          "label": "uptime, last 12 months"
+        },
+        {
+          "value": "46 days",
+          "label": "to first payout"
+        }
+      ],
+      "cards": [
+        {
+          "title": "Standard",
+          "price": "2.9%",
+          "per": "+30¢",
+          "note": "Card payments, disputes, and a hosted checkout.",
+          "cta": "Start with Standard",
+          "featured": false
+        },
+        {
+          "title": "Custom",
+          "price": "2.4%",
+          "per": "+30¢",
+          "note": "Volume pricing and a dedicated account manager.",
+          "cta": "Talk to sales",
+          "featured": true
+        },
+        {
+          "title": "Enterprise",
+          "price": "0.25%",
+          "per": "of volume",
+          "note": "Custom contracts, invoicing, and payout schedules.",
+          "cta": "Contact sales",
+          "featured": false
+        }
+      ],
+      "table": {
+        "caption": "sample charge list",
+        "columns": [
+          "Charge",
+          "Customer",
+          "Amount",
+          "Status"
+        ],
+        "rows": [
+          [
+            "ch_1",
+            "Ada Lovelace",
+            "$48.00",
+            "succeeded"
+          ],
+          [
+            "ch_2",
+            "Katherine Johnson",
+            "$120.00",
+            "succeeded"
+          ],
+          [
+            "ch_3",
+            "Grace Hopper",
+            "$9.00",
+            "disputed"
+          ]
+        ]
+      },
+      "form": {
+        "title": "Card details",
+        "fields": [
+          {
+            "label": "Email",
+            "placeholder": "billing@example.com",
+            "invalid": "Enter a valid billing email."
+          }
+        ],
+        "submit": "Pay $48.00"
+      }
+    },
     "interactions": [
       {
         "locator": "button.hds-button.CookieSettings_CookieSettings__HelmButton__69vhe",

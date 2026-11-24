@@ -6,7 +6,9 @@
 
 Named after [Sol LeWitt](https://en.wikipedia.org/wiki/Sol_LeWitt), who wrote wall-drawing instructions precise enough for other people to execute. `lewitt` does that for UI: measurements come from a real browser, they land in one file (`dna.json`), and every artifact is compiled from it.
 
-![lewitt preview of stripe.com — live swatches, evidence ids, token layers](docs/preview.png)
+**v1.3.0** — dual-view immersive `system/` (Live Preview · Specs & Evidence), `dna.json > specimens`, and [steno.ai](https://www.steno.ai/) as the full-site + single-brick showcase.
+
+![lewitt system/ — Live Preview of stripe.com in its own tokens: brand hero, stats strip, colour palette with role-aware contrast chips](docs/preview.png)
 
 ---
 
@@ -39,11 +41,29 @@ ln -s ~/Projects/skills/lewitt ~/.claude/skills/lewitt    # Claude Code
 ln -s ~/Projects/skills/lewitt ~/.dsh/skills/lewitt       # DeepSeek Harness
 ```
 
+Verify every bundled run offline (renders from each `dna.json`, then the DNA contract, the guardrail
+check on `system/`, and the clip bricks):
+
+```sh
+make check
+```
+
 Then, in the agent:
 
 > Use lewitt to analyze https://stripe.com
 
-Add `--full` to also build `system/index.html`, a reference site (fixed rail, one scrolling canvas, live component matrices, stress toggles for long copy / missing media / reduced motion / a 390px viewport).
+Add `--full` to also build `system/index.html`: a two-view book. **Live Preview** is a numbered
+long scroll in the site's own `--lw-*` tokens — 01 colour · 02 type · 03 components · 04 motion &
+guardrails · 05 clipped bricks — with `+ Observed` tags that open the evidence entry behind each
+specimen, drawn bezier curves with replay, `MUST NOT` gates that fold out their regex, and the
+source's own hero. **Specs & Evidence** holds the ledger: tokens, measurements, evidence, limits,
+code and downloads, fidelity. A minimal top bar carries the lewitt mark, the site name, its 3px
+colour fingerprint, the view switch, `Copy shadcn-theme.css` and a compact `Stress ▾` menu (long copy,
+reduced motion, narrow 390) that feeds both views.
+
+Specimen copy comes from the run itself: `dna.json > specimens` holds the hero line, stats, pricing
+cards (one `featured` inverted tier), sample rows, form labels, the section rhythm and the site's own
+inline mark — so no run ever borrows another site's placeholder sentence.
 
 ### Print the theme for `globals.css`
 

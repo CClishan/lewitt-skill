@@ -15,13 +15,14 @@ Last run: **incremental** — scope `taste`; frozen `meta, evidence, measurement
 | interaction delta | PASS | 2/3 targets recorded a hover/focus delta |
 | shadcn theme slots | PASS | all required slots mapped; 1 declared UNMAPPED: --destructive |
 | clip bricks | n/a | no clips/ directory |
-| preview.html (self-contained) | PASS | single file, same-folder tokens.css, no remote assets |
+| preview.html (self-contained, dual view) | PASS | single file, same-folder tokens.css, no remote assets |
 | incremental freeze | PASS | no frozen block changed since the last render — scope ['taste'], frozen ['meta', 'evidence', 'measurements', 'patterns', 'tokens'] |
 | evidence coverage | PASS | 32 evidence entries cited |
 | restraint guardrails | PASS | 2/2 restraint principles carry machine-readable guardrails; incremental targets=['taste'] frozen=['meta', 'evidence', 'measurements', 'patterns', 'tokens'] |
+| generated-code script scope | PASS | duplicate var names and undeclared identifiers are both caught (injected probes) |
 | anti-slop (authored prose) | PASS | 0 hit(s) |
-| guardrail (generated code) | unverified | no --check-code supplied |
+| guardrail (generated code) | PASS | 0 violation(s) — scanned stripe.com/system |
 | visual fidelity | PARTIAL | 1 composition(s), 4 recorded deviation(s), status=partial |
-| full system/ site | PASS | app shell present (rail + canvas + panel routing) |
+| full system/ site | PASS | dual view present (top bar + Live Preview 01-05 + Specs) |
 
-Generated at 2026-11-24T09:17:50+00:00.
+Generated at 2026-11-24T12:05:20+00:00.

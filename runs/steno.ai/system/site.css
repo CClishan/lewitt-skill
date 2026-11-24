@@ -1,0 +1,75 @@
+
+/* site.css — what the system/ page adds on top of the neutral chrome. The system's own colour
+   only appears inside [data-ds]; everything else is chrome. */
+
+/* ---- typography seen from the catalogue */
+.type-row { display: grid; grid-template-columns: 220px minmax(0, 1fr); border-top: 1px solid var(--n-line); }
+.type-row:last-child { border-bottom: 1px solid var(--n-line); }
+.type-params { padding: 20px 24px 20px 0; border-right: 1px solid var(--n-line); }
+.type-params .mono { color: var(--n-ink); display: block; margin-bottom: 8px; }
+.type-params dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 3px 14px; font: 11.5px/1.5 var(--n-mono); }
+.type-params dt { color: var(--n-faint); }
+.type-params dd { margin: 0; color: var(--n-ink); text-align: right; }
+.type-specimen { padding: 20px 0 20px 32px; overflow: hidden; }
+.type-specimen .spec { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  color: var(--n-ink); letter-spacing: -.02em; line-height: 1.1; }
+
+/* ---- colour catalogue */
+.sw { display: grid; grid-template-columns: repeat(auto-fill, minmax(188px, 1fr)); gap: 0;
+  border: 1px solid var(--n-line); border-right: 0; border-bottom: 0; }
+.swatch { border-right: 1px solid var(--n-line); border-bottom: 1px solid var(--n-line); background: var(--n-panel); }
+.swatch .fill { height: 96px; border-bottom: 1px solid var(--n-line); }
+.swatch .line { display: flex; justify-content: space-between; gap: 8px; padding: 10px 12px 0;
+  font: 12px/1.3 var(--n-mono); }
+.swatch .line .hex { color: var(--n-mute); }
+.swatch .sub { padding: 4px 12px 12px; }
+.pairs { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px;
+  background: var(--n-line); border: 1px solid var(--n-line); }
+.pair { background: var(--n-panel); padding: 18px 20px; }
+.pair .sample { padding: 14px 16px; border-radius: 2px; font-size: 14px; }
+.pair .pmeta { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 12px; }
+.pair .pmeta .mono { color: var(--n-mute); font-size: 11px; }
+
+/* ---- shape */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1px;
+  background: var(--n-line); border: 1px solid var(--n-line); }
+.shape { background: var(--n-panel); padding: 20px; }
+.shape .obj { height: 72px; background: var(--n-hover); border: 1px solid var(--n-line-strong); }
+.shape .cap { display: flex; justify-content: space-between; gap: 8px; margin-top: 12px; font: 12px/1.4 var(--n-mono); }
+.shape .cap .v { color: var(--n-mute); text-align: right; word-break: break-all; }
+
+/* ---- compositions and fields sit on the system surface inside a stage */
+.comp { padding: 0; }
+.comp .stage-body { padding: 0; }
+.comp [data-ds] { padding: 0; }
+
+/* ---- taste cards */
+.taste { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1px;
+  background: var(--n-line); border: 1px solid var(--n-line); }
+.tcard { background: var(--n-panel); padding: 24px; display: grid; gap: 12px; }
+.tcard .head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.tcard h4 { margin: 0; font-size: 15px; font-weight: 500; }
+.tcard .ab { display: grid; grid-template-columns: 1fr 22px 1fr; gap: 10px; align-items: center; font-size: 13px; }
+.tcard .ab .v { padding: 10px 12px; border: 1px solid var(--n-line-strong); border-radius: 2px; background: var(--n-bg); }
+.tcard .ab .over { color: var(--n-mute); text-decoration: line-through; }
+.tcard .ab .vs { text-align: center; color: var(--n-faint); font: 11px/1 var(--n-mono); }
+.tcard .why { margin: 0; font-size: 13px; color: var(--n-mute); }
+
+/* ---- motion */
+.motion { display: grid; grid-template-columns: 196px minmax(0, 1fr) 120px; align-items: center;
+  border-top: 1px solid var(--n-line); }
+.motion:last-child { border-bottom: 1px solid var(--n-line); }
+.motion .plot { padding: 16px 24px 16px 0; border-right: 1px solid var(--n-line); display: flex; align-items: center; }
+.motion .mid { padding: 16px 24px; }
+.motion .mid .ease { color: var(--n-mute); font: 11px/1.5 var(--n-mono); margin-top: 4px; word-break: break-all; }
+.motion .act { padding: 16px 0; text-align: right; }
+.track { height: 2px; background: var(--n-line-strong); margin-top: 14px; position: relative; }
+.track .dot { position: absolute; top: -5px; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--n-ink); }
+
+@media (max-width: 900px) {
+  .type-row { grid-template-columns: 1fr; }
+  .type-params { border-right: 0; border-bottom: 1px solid var(--n-line); padding-right: 0; }
+  .type-specimen { padding-left: 0; }
+  .motion { grid-template-columns: 1fr; }
+  .motion .plot { border-right: 0; }
+}

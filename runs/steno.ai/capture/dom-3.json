@@ -1,0 +1,411 @@
+{
+  "url": "https://www.steno.ai/team",
+  "title": "Meet the Steno.ai Team | Building the Future of AI Twins",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "errors": [],
+  "interactionTargets": [
+    {
+      "locator": "button.nav-dropdown_dropdown-toggle.w-dropdown-toggle",
+      "tag": "button",
+      "kind": "button",
+      "score": 13
+    },
+    {
+      "locator": "a.btn-icon-link",
+      "tag": "a",
+      "kind": "link",
+      "score": 0
+    }
+  ],
+  "colors": {
+    "pageBackground": "rgb(240, 237, 218)",
+    "backgroundColors": [
+      {
+        "value": "rgb(40, 39, 36)",
+        "count": 3,
+        "areaPct": 1.5
+      },
+      {
+        "value": "rgb(186, 165, 123)",
+        "count": 2,
+        "areaPct": 0.3
+      },
+      {
+        "value": "rgb(207, 204, 177)",
+        "count": 2,
+        "areaPct": 26.9
+      },
+      {
+        "value": "rgb(0, 0, 0)",
+        "count": 1,
+        "areaPct": 70.9
+      },
+      {
+        "value": "rgb(67, 65, 60)",
+        "count": 1,
+        "areaPct": 0.2
+      },
+      {
+        "value": "rgb(255, 255, 255)",
+        "count": 1,
+        "areaPct": 0.1
+      },
+      {
+        "value": "rgb(240, 237, 218)",
+        "count": 1,
+        "areaPct": 0.1
+      }
+    ],
+    "textColors": [
+      {
+        "value": "rgb(40, 39, 36)",
+        "count": 158
+      },
+      {
+        "value": "rgb(255, 253, 241)",
+        "count": 62
+      },
+      {
+        "value": "rgba(240, 237, 218, 0.7)",
+        "count": 7
+      }
+    ],
+    "accentCandidates": [
+      {
+        "value": "rgb(255, 253, 241)",
+        "count": 12
+      },
+      {
+        "value": "rgb(40, 39, 36)",
+        "count": 11
+      },
+      {
+        "value": "rgba(240, 237, 218, 0.7)",
+        "count": 7
+      },
+      {
+        "value": "rgb(51, 51, 51)",
+        "count": 1
+      }
+    ]
+  },
+  "typography": {
+    "uniqueFamilies": [
+      {
+        "value": "PP Mori",
+        "count": 405
+      },
+      {
+        "value": "PP Writer",
+        "count": 70
+      }
+    ],
+    "headings": {
+      "h1": {
+        "size": "76.8px",
+        "weight": "400",
+        "lineHeight": "76.8px",
+        "letterSpacing": "normal",
+        "family": "PP Writer"
+      },
+      "h2": {
+        "size": "56px",
+        "weight": "400",
+        "lineHeight": "61.6px",
+        "letterSpacing": "-0.8px",
+        "family": "PP Writer"
+      }
+    },
+    "body": null,
+    "sizeDistribution": [
+      {
+        "value": "16px",
+        "count": 127
+      },
+      {
+        "value": "56px",
+        "count": 29
+      },
+      {
+        "value": "12px",
+        "count": 28
+      },
+      {
+        "value": "14px",
+        "count": 15
+      },
+      {
+        "value": "22px",
+        "count": 10
+      },
+      {
+        "value": "76.8px",
+        "count": 7
+      },
+      {
+        "value": "24px",
+        "count": 7
+      },
+      {
+        "value": "13px",
+        "count": 4
+      }
+    ],
+    "weightDistribution": [
+      {
+        "value": "400",
+        "count": 225
+      },
+      {
+        "value": "600",
+        "count": 2
+      }
+    ]
+  },
+  "effects": {
+    "radii": [
+      {
+        "value": "8px",
+        "count": 19
+      },
+      {
+        "value": "6px",
+        "count": 8
+      },
+      {
+        "value": "16px",
+        "count": 2
+      }
+    ],
+    "shadows": [],
+    "transitions": [
+      "all",
+      "opacity 0.3s",
+      "transform 0.525s cubic-bezier(0.625, 0.05, 0, 1)",
+      "color 0.3s",
+      "0.3s"
+    ]
+  },
+  "spacingDistribution": [
+    {
+      "value": "8px",
+      "count": 41
+    },
+    {
+      "value": "12px",
+      "count": 32
+    },
+    {
+      "value": "16px",
+      "count": 22
+    },
+    {
+      "value": "4px",
+      "count": 7
+    },
+    {
+      "value": "24px",
+      "count": 4
+    },
+    {
+      "value": "6.4px",
+      "count": 3
+    },
+    {
+      "value": "256px",
+      "count": 3
+    },
+    {
+      "value": "normal 8px",
+      "count": 2
+    },
+    {
+      "value": "-2px",
+      "count": 2
+    },
+    {
+      "value": "128px",
+      "count": 2
+    },
+    {
+      "value": "1px",
+      "count": 2
+    },
+    {
+      "value": "80px",
+      "count": 2
+    },
+    {
+      "value": "0px 8px",
+      "count": 2
+    },
+    {
+      "value": "144px",
+      "count": 1
+    },
+    {
+      "value": "192px",
+      "count": 1
+    }
+  ],
+  "buttons": [
+    {
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "0px",
+      "paddingTop": "8px",
+      "paddingLeft": "16px"
+    },
+    {
+      "fontSize": "16px",
+      "fontWeight": "600",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "0px",
+      "paddingTop": "0px",
+      "paddingLeft": "0px"
+    }
+  ],
+  "layout": {
+    "bodyPadding": "0px",
+    "containerMaxWidth": "none",
+    "containerPadding": "0px",
+    "containerWidth": "1440px"
+  },
+  "cards": [],
+  "images": [
+    {
+      "src": "https://cdn.prod.website-files.com/6963e59efe885eb5c2b2d846/698d17282e357fede7e07bb3_x2_arman%201.av",
+      "naturalWidth": 1172,
+      "naturalHeight": 904,
+      "ratio": "1.30:1",
+      "renderedWidth": "653px",
+      "role": "feature"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6963e59efe885eb5c2b2d846/698d173e171e3fb37689f62d_x2_ian%201.avif",
+      "naturalWidth": 1172,
+      "naturalHeight": 904,
+      "ratio": "1.30:1",
+      "renderedWidth": "653px",
+      "role": "feature"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6963e59efe885eb5c2b2d846/698d17434e78534dbd984b92_x2_paolo%201.av",
+      "naturalWidth": 1172,
+      "naturalHeight": 904,
+      "ratio": "1.30:1",
+      "renderedWidth": "653px",
+      "role": "feature"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6963e59efe885eb5c2b2d846/698d17486e04e0a6ee9f97b3_x2_bridget%201.",
+      "naturalWidth": 1172,
+      "naturalHeight": 904,
+      "ratio": "1.30:1",
+      "renderedWidth": "653px",
+      "role": "feature"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6963e59efe885eb5c2b2d846/69de3c611432d23c962e8b2e_kendra.avif",
+      "naturalWidth": 1172,
+      "naturalHeight": 904,
+      "ratio": "1.30:1",
+      "renderedWidth": "653px",
+      "role": "feature"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6963e59efe885eb5c2b2d846/698d172ee07698edbd05ce87_x2_akhil%201.av",
+      "naturalWidth": 1172,
+      "naturalHeight": 904,
+      "ratio": "1.30:1",
+      "renderedWidth": "653px",
+      "role": "feature"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6963e59efe885eb5c2b2d846/698d1733246ae09987def18b_x2_annisa%201.a",
+      "naturalWidth": 1172,
+      "naturalHeight": 904,
+      "ratio": "1.30:1",
+      "renderedWidth": "653px",
+      "role": "feature"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6956d0083c1a297178570865/698d17d4973e76d6356ee4bc_team-bg.avif",
+      "naturalWidth": 1440,
+      "naturalHeight": 1073,
+      "ratio": "1.34:1",
+      "renderedWidth": "1584px",
+      "role": "hero"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6956d0083c1a297178570865/698f602514dc6a7867ced244_about%20cta%20L",
+      "naturalWidth": 1280,
+      "naturalHeight": 958,
+      "ratio": "1.34:1",
+      "renderedWidth": "442px",
+      "role": "feature"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6956d0083c1a297178570865/698f57df791278fadd057e8e_6c56fa910ef0bd8",
+      "naturalWidth": 1440,
+      "naturalHeight": 956,
+      "ratio": "1.51:1",
+      "renderedWidth": "442px",
+      "role": "feature"
+    }
+  ],
+  "spacingSamples": [
+    {
+      "tag": "section",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "h1",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "h2",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "button",
+      "margin": "0px",
+      "padding": "8px 16px",
+      "gap": "normal 8px"
+    },
+    {
+      "tag": "nav",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "footer",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    }
+  ],
+  "sectionGaps": [],
+  "grid": {
+    "columns": 2,
+    "gap": "16px",
+    "template": "672px 672px",
+    "selector": "div.team_list.w-dyn-items"
+  },
+  "gridCount": 10,
+  "focusVisible": true,
+  "reducedMotion": false
+}

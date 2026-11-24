@@ -1,0 +1,988 @@
+{
+  "source": "https://www.steno.ai/",
+  "name": "Steno.ai",
+  "modes": {},
+  "tokens": [
+    {
+      "id": "color/oatmeal/02",
+      "css": "--oatmeal-02",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-oatmeal-scale"
+      ],
+      "values": {
+        "default": "#FFFDF1"
+      }
+    },
+    {
+      "id": "color/oatmeal/03",
+      "css": "--oatmeal-03",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-oatmeal-scale"
+      ],
+      "values": {
+        "default": "#F0EDDA"
+      }
+    },
+    {
+      "id": "color/oatmeal/04",
+      "css": "--oatmeal-04",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-oatmeal-scale"
+      ],
+      "values": {
+        "default": "#DAD7C1"
+      }
+    },
+    {
+      "id": "color/oatmeal/05",
+      "css": "--oatmeal-05",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-oatmeal-scale"
+      ],
+      "values": {
+        "default": "#CFCCB1"
+      }
+    },
+    {
+      "id": "color/oatmeal/06",
+      "css": "--oatmeal-06",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-oatmeal-scale",
+        "e-surface"
+      ],
+      "values": {
+        "default": "#BAA57B"
+      }
+    },
+    {
+      "id": "color/oatmeal/08",
+      "css": "--oatmeal-08",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-oatmeal-scale",
+        "e-ink-soft"
+      ],
+      "values": {
+        "default": "#43413C"
+      }
+    },
+    {
+      "id": "color/oatmeal/09",
+      "css": "--oatmeal-09",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-oatmeal-scale",
+        "e-ink"
+      ],
+      "values": {
+        "default": "#282724"
+      }
+    },
+    {
+      "id": "color/brand-ink",
+      "css": "--brand-ink",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-ink"
+      ],
+      "values": {
+        "default": "#282724"
+      }
+    },
+    {
+      "id": "color/ink/10",
+      "css": "--ink-10",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-ink-muted"
+      ],
+      "values": {
+        "default": "#2827251A"
+      }
+    },
+    {
+      "id": "color/tint/50",
+      "css": "--tint-50",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-ink-muted"
+      ],
+      "values": {
+        "default": "#28272580"
+      }
+    },
+    {
+      "id": "color/white/alternate",
+      "css": "--white-alternate",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-text-secondary"
+      ],
+      "values": {
+        "default": "#FFFDF1"
+      }
+    },
+    {
+      "id": "color/light/muted",
+      "css": "--light-muted",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-ink-muted"
+      ],
+      "values": {
+        "default": "#F0EDDAB3"
+      }
+    },
+    {
+      "id": "color/neon",
+      "css": "--neon",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-accent-lime"
+      ],
+      "values": {
+        "default": "#CAFF75"
+      }
+    },
+    {
+      "id": "color/link-blue",
+      "css": "--link-blue",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-link"
+      ],
+      "values": {
+        "default": "#2D62FF"
+      }
+    },
+    {
+      "id": "color/canvas",
+      "css": "--lw-canvas",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-canvas"
+      ],
+      "values": {
+        "default": "#F0EDDA"
+      }
+    },
+    {
+      "id": "color/canvas-alt",
+      "css": "--lw-canvas-alt",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-canvas-about"
+      ],
+      "values": {
+        "default": "#FFFDF1"
+      }
+    },
+    {
+      "id": "color/canvas-tint",
+      "css": "--lw-canvas-tint",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-canvas-team"
+      ],
+      "values": {
+        "default": "#DAD7C1"
+      }
+    },
+    {
+      "id": "color/canvas-band",
+      "css": "--lw-canvas-band",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-canvas-about"
+      ],
+      "values": {
+        "default": "#CFCCB1"
+      }
+    },
+    {
+      "id": "color/surface",
+      "css": "--lw-surface",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-surface"
+      ],
+      "values": {
+        "default": "#BAA57B"
+      }
+    },
+    {
+      "id": "color/screen",
+      "css": "--lw-screen",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-canvas-about"
+      ],
+      "values": {
+        "default": "#282724"
+      }
+    },
+    {
+      "id": "color/text-primary",
+      "css": "--lw-text-primary",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-ink"
+      ],
+      "values": {
+        "default": "#282724"
+      }
+    },
+    {
+      "id": "color/text-body",
+      "css": "--lw-text-body",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-ink",
+        "e-body-mori"
+      ],
+      "values": {
+        "default": "#43413C"
+      }
+    },
+    {
+      "id": "color/text-secondary",
+      "css": "--lw-text-secondary",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-text-secondary"
+      ],
+      "values": {
+        "default": "#FFFDF1"
+      }
+    },
+    {
+      "id": "color/text-tertiary",
+      "css": "--lw-text-tertiary",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-ink-muted"
+      ],
+      "values": {
+        "default": "#F0EDDAB3"
+      }
+    },
+    {
+      "id": "color/action/bg",
+      "css": "--lw-action-bg",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-action-bg"
+      ],
+      "values": {
+        "default": "#282724"
+      }
+    },
+    {
+      "id": "color/action/bg-hover",
+      "css": "--lw-action-bg-alt",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-ink-soft",
+        "e-motion-hover-rule"
+      ],
+      "values": {
+        "default": "#43413C"
+      }
+    },
+    {
+      "id": "color/action/fg",
+      "css": "--lw-action-fg",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-action-fg"
+      ],
+      "values": {
+        "default": "#FFFDF1"
+      }
+    },
+    {
+      "id": "color/brand",
+      "css": "--lw-brand",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-accent-lime",
+        "e-surface"
+      ],
+      "values": {
+        "default": "#BAA57B"
+      }
+    },
+    {
+      "id": "color/accent",
+      "css": "--lw-accent",
+      "type": "color",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-accent-lime"
+      ],
+      "values": {
+        "default": "#CAFF75"
+      }
+    },
+    {
+      "id": "color/nav-primary",
+      "css": "--lw-nav-primary",
+      "type": "color",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-nav-primary"
+      ],
+      "values": {
+        "default": "#282724"
+      }
+    },
+    {
+      "id": "color/border",
+      "css": "--lw-border",
+      "type": "color",
+      "layer": "component",
+      "status": "proposed",
+      "evidence": [
+        "e-pill"
+      ],
+      "values": {
+        "default": "rgba(40, 39, 37, 0.15)"
+      }
+    },
+    {
+      "id": "color/border-strong",
+      "css": "--lw-border-strong",
+      "type": "color",
+      "layer": "component",
+      "status": "proposed",
+      "evidence": [
+        "e-cta-focus"
+      ],
+      "values": {
+        "default": "rgba(40, 39, 37, 0.25)"
+      }
+    },
+    {
+      "id": "color/on-brand",
+      "css": "--lw-on-brand",
+      "type": "color",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-surface"
+      ],
+      "values": {
+        "default": "rgba(40, 39, 36, 1)"
+      }
+    },
+    {
+      "id": "color/hover-tint",
+      "css": "--lw-hover-tint",
+      "type": "color",
+      "layer": "component",
+      "status": "proposed",
+      "evidence": [
+        "e-motion-hover-rule"
+      ],
+      "values": {
+        "default": "rgba(40, 39, 36, 0.06)"
+      }
+    },
+    {
+      "id": "font/display",
+      "css": "--lw-font-display",
+      "type": "fontFamily",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-font-writer"
+      ],
+      "values": {
+        "default": "'PP Writer', Georgia, sans-serif"
+      }
+    },
+    {
+      "id": "font/ui",
+      "css": "--lw-font-ui",
+      "type": "fontFamily",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-font-mori"
+      ],
+      "values": {
+        "default": "'PP Mori', Arial, sans-serif"
+      }
+    },
+    {
+      "id": "font/mono",
+      "css": "--lw-font-mono",
+      "type": "fontFamily",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-font-mono"
+      ],
+      "values": {
+        "default": "ui-monospace, SFMono-Regular, Menlo, monospace"
+      }
+    },
+    {
+      "id": "font/campaign",
+      "css": "--lw-font-campaign",
+      "type": "fontFamily",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-font-writer"
+      ],
+      "values": {
+        "default": "'PP Writer', Georgia, sans-serif"
+      }
+    },
+    {
+      "id": "font/body",
+      "css": "--lw-font-body",
+      "type": "fontFamily",
+      "layer": "semantic",
+      "status": "observed",
+      "evidence": [
+        "e-font-mori"
+      ],
+      "values": {
+        "default": "'PP Mori', Arial, sans-serif"
+      }
+    },
+    {
+      "id": "type/display-xl",
+      "css": "--lw-type-display-xl",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h1",
+        "e-sizes"
+      ],
+      "values": {
+        "default": "76.8px"
+      }
+    },
+    {
+      "id": "type/display-lg",
+      "css": "--lw-type-display-lg",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h2-large",
+        "e-sizes"
+      ],
+      "values": {
+        "default": "60.8px"
+      }
+    },
+    {
+      "id": "type/display",
+      "css": "--lw-type-display",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h2",
+        "e-sizes"
+      ],
+      "values": {
+        "default": "56px"
+      }
+    },
+    {
+      "id": "type/headline",
+      "css": "--lw-type-headline",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h40",
+        "e-sizes"
+      ],
+      "values": {
+        "default": "40px"
+      }
+    },
+    {
+      "id": "type/title",
+      "css": "--lw-type-title",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h3",
+        "e-sizes"
+      ],
+      "values": {
+        "default": "22px"
+      }
+    },
+    {
+      "id": "type/subtitle",
+      "css": "--lw-type-subtitle",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h4",
+        "e-sizes"
+      ],
+      "values": {
+        "default": "18px"
+      }
+    },
+    {
+      "id": "type/lead",
+      "css": "--lw-type-lead",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-body-mori"
+      ],
+      "values": {
+        "default": "20px"
+      }
+    },
+    {
+      "id": "type/body",
+      "css": "--lw-type-body",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-body-mori",
+        "e-sizes"
+      ],
+      "values": {
+        "default": "16px"
+      }
+    },
+    {
+      "id": "type/ui",
+      "css": "--lw-type-ui",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-body-mori"
+      ],
+      "values": {
+        "default": "14px"
+      }
+    },
+    {
+      "id": "type/caption",
+      "css": "--lw-type-caption",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-body-mori",
+        "e-metric"
+      ],
+      "values": {
+        "default": "13px"
+      }
+    },
+    {
+      "id": "type/micro",
+      "css": "--lw-type-micro",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-body-mori"
+      ],
+      "values": {
+        "default": "12px"
+      }
+    },
+    {
+      "id": "leading/display",
+      "css": "--lw-leading-display",
+      "type": "number",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h1"
+      ],
+      "values": {
+        "default": "1.0"
+      }
+    },
+    {
+      "id": "leading/tight",
+      "css": "--lw-leading-tight",
+      "type": "number",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h2"
+      ],
+      "values": {
+        "default": "1.1"
+      }
+    },
+    {
+      "id": "leading/heading",
+      "css": "--lw-leading-heading",
+      "type": "number",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h3",
+        "e-h4"
+      ],
+      "values": {
+        "default": "1.3"
+      }
+    },
+    {
+      "id": "leading/prose",
+      "css": "--lw-leading-prose",
+      "type": "number",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-body-mori"
+      ],
+      "values": {
+        "default": "1.4"
+      }
+    },
+    {
+      "id": "leading/ui",
+      "css": "--lw-leading-ui",
+      "type": "number",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-body-mori"
+      ],
+      "values": {
+        "default": "1.4"
+      }
+    },
+    {
+      "id": "tracking/display",
+      "css": "--lw-tracking-display",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h2-large"
+      ],
+      "values": {
+        "default": "-0.8px"
+      }
+    },
+    {
+      "id": "tracking/headline",
+      "css": "--lw-tracking-headline",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h40"
+      ],
+      "values": {
+        "default": "-1.28px"
+      }
+    },
+    {
+      "id": "tracking/body",
+      "css": "--lw-tracking-body",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-h1"
+      ],
+      "values": {
+        "default": "0em"
+      }
+    },
+    {
+      "id": "weight/regular",
+      "css": "--lw-weight-regular",
+      "type": "fontWeight",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-weights",
+        "e-h1"
+      ],
+      "values": {
+        "default": "400"
+      }
+    },
+    {
+      "id": "weight/interface",
+      "css": "--lw-weight-interface",
+      "type": "fontWeight",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-weights",
+        "e-action-fg"
+      ],
+      "values": {
+        "default": "600"
+      }
+    },
+    {
+      "id": "layout/section",
+      "css": "--lw-layout-section",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-hero-grid"
+      ],
+      "values": {
+        "default": "900px"
+      }
+    },
+    {
+      "id": "layout/gutter",
+      "css": "--lw-layout-gutter",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-section-gap"
+      ],
+      "values": {
+        "default": "40px"
+      }
+    },
+    {
+      "id": "layout/grid-gap",
+      "css": "--lw-layout-gap",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-hero-grid"
+      ],
+      "values": {
+        "default": "64px"
+      }
+    },
+    {
+      "id": "radius/control",
+      "css": "--lw-radius-control",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-radii",
+        "e-action-bg"
+      ],
+      "values": {
+        "default": "8px"
+      }
+    },
+    {
+      "id": "radius/pill",
+      "css": "--lw-radius-pill",
+      "type": "dimension",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-pill"
+      ],
+      "values": {
+        "default": "1600px"
+      }
+    },
+    {
+      "id": "radius/chip",
+      "css": "--lw-radius-chip",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-radii"
+      ],
+      "values": {
+        "default": "16px"
+      }
+    },
+    {
+      "id": "radius/card",
+      "css": "--lw-radius-card",
+      "type": "dimension",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-radii",
+        "e-surface"
+      ],
+      "values": {
+        "default": "8px"
+      }
+    },
+    {
+      "id": "depth/overlay",
+      "css": "--lw-depth-overlay",
+      "type": "shadow",
+      "layer": "component",
+      "status": "observed",
+      "evidence": [
+        "e-shadow"
+      ],
+      "values": {
+        "default": "0 33px 33px rgba(44,38,27,0.17), 0 75px 45px rgba(44,38,27,0.10), 0 133px 53px rgba(44,38,27,0.03)"
+      }
+    },
+    {
+      "id": "motion/slip",
+      "css": "--lw-motion-slip",
+      "type": "duration",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion-btn"
+      ],
+      "values": {
+        "default": "525ms"
+      }
+    },
+    {
+      "id": "motion/reveal",
+      "css": "--lw-motion-reveal",
+      "type": "duration",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion-soft"
+      ],
+      "values": {
+        "default": "400ms"
+      }
+    },
+    {
+      "id": "motion/soft",
+      "css": "--lw-motion-soft",
+      "type": "duration",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion-soft"
+      ],
+      "values": {
+        "default": "300ms"
+      }
+    },
+    {
+      "id": "motion/micro",
+      "css": "--lw-motion-micro",
+      "type": "duration",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion-soft"
+      ],
+      "values": {
+        "default": "200ms"
+      }
+    },
+    {
+      "id": "motion/easing-slip",
+      "css": "--lw-easing-slip",
+      "type": "easing",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion-btn"
+      ],
+      "values": {
+        "default": "cubic-bezier(0.625, 0.05, 0, 1)"
+      }
+    },
+    {
+      "id": "motion/easing-reveal",
+      "css": "--lw-easing-reveal",
+      "type": "easing",
+      "layer": "primitive",
+      "status": "observed",
+      "evidence": [
+        "e-motion-soft"
+      ],
+      "values": {
+        "default": "cubic-bezier(0.25, 1, 0.5, 1)"
+      }
+    }
+  ]
+}

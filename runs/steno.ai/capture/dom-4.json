@@ -1,0 +1,488 @@
+{
+  "url": "https://www.steno.ai/experts",
+  "title": "AI Twins for Experts | Scale Your Knowledge with Steno.ai",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "errors": [],
+  "interactionTargets": [
+    {
+      "locator": "button.nav-dropdown_dropdown-toggle.w-dropdown-toggle",
+      "tag": "button",
+      "kind": "button",
+      "score": 13
+    },
+    {
+      "locator": "a.btn-icon-link",
+      "tag": "a",
+      "kind": "link",
+      "score": 0
+    },
+    {
+      "locator": "div.cs_hero-twin-card.is-experts",
+      "tag": "div",
+      "kind": "card",
+      "score": 18
+    }
+  ],
+  "colors": {
+    "pageBackground": "rgb(240, 237, 218)",
+    "backgroundColors": [
+      {
+        "value": "rgb(255, 253, 241)",
+        "count": 74,
+        "areaPct": 27.2
+      },
+      {
+        "value": "rgb(40, 39, 36)",
+        "count": 8,
+        "areaPct": 31.1
+      },
+      {
+        "value": "rgb(186, 165, 123)",
+        "count": 8,
+        "areaPct": 0.7
+      },
+      {
+        "value": "rgb(240, 237, 218)",
+        "count": 5,
+        "areaPct": 0.2
+      },
+      {
+        "value": "rgb(207, 204, 177)",
+        "count": 3,
+        "areaPct": 24.8
+      },
+      {
+        "value": "rgb(67, 65, 60)",
+        "count": 2,
+        "areaPct": 0.3
+      },
+      {
+        "value": "rgb(148, 128, 93)",
+        "count": 1,
+        "areaPct": 0.4
+      },
+      {
+        "value": "rgb(34, 34, 34)",
+        "count": 1,
+        "areaPct": 10.6
+      }
+    ],
+    "textColors": [
+      {
+        "value": "rgb(40, 39, 36)",
+        "count": 1124
+      },
+      {
+        "value": "rgb(255, 253, 241)",
+        "count": 328
+      },
+      {
+        "value": "rgba(255, 253, 241, 0.55)",
+        "count": 4
+      },
+      {
+        "value": "rgb(202, 255, 117)",
+        "count": 4
+      }
+    ],
+    "accentCandidates": [
+      {
+        "value": "rgb(255, 253, 241)",
+        "count": 14
+      },
+      {
+        "value": "rgb(40, 39, 36)",
+        "count": 12
+      },
+      {
+        "value": "rgb(51, 51, 51)",
+        "count": 1
+      }
+    ]
+  },
+  "typography": {
+    "uniqueFamilies": [
+      {
+        "value": "PP Mori",
+        "count": 2084
+      },
+      {
+        "value": "PP Writer",
+        "count": 402
+      },
+      {
+        "value": "ui-monospace",
+        "count": 13
+      }
+    ],
+    "headings": {
+      "h1": {
+        "size": "60.8px",
+        "weight": "400",
+        "lineHeight": "66.88px",
+        "letterSpacing": "-0.8px",
+        "family": "PP Writer"
+      },
+      "h2": {
+        "size": "40px",
+        "weight": "400",
+        "lineHeight": "48px",
+        "letterSpacing": "-1.28px",
+        "family": "PP Writer"
+      },
+      "h4": {
+        "size": "18px",
+        "weight": "400",
+        "lineHeight": "23.4px",
+        "letterSpacing": "normal",
+        "family": "PP Writer"
+      },
+      "h3": {
+        "size": "22px",
+        "weight": "400",
+        "lineHeight": "28.6px",
+        "letterSpacing": "normal",
+        "family": "PP Writer"
+      }
+    },
+    "body": {
+      "size": "13px",
+      "weight": "400",
+      "lineHeight": "18.2px",
+      "family": "PP Mori",
+      "maxWidth": "none"
+    },
+    "sizeDistribution": [
+      {
+        "value": "14px",
+        "count": 953
+      },
+      {
+        "value": "60.8px",
+        "count": 120
+      },
+      {
+        "value": "24px",
+        "count": 98
+      },
+      {
+        "value": "40px",
+        "count": 77
+      },
+      {
+        "value": "18px",
+        "count": 53
+      },
+      {
+        "value": "16px",
+        "count": 38
+      },
+      {
+        "value": "13px",
+        "count": 34
+      },
+      {
+        "value": "76.8px",
+        "count": 30
+      },
+      {
+        "value": "56px",
+        "count": 26
+      },
+      {
+        "value": "22px",
+        "count": 19
+      },
+      {
+        "value": "12.8171px",
+        "count": 10
+      },
+      {
+        "value": "13.2px",
+        "count": 2
+      }
+    ],
+    "weightDistribution": [
+      {
+        "value": "400",
+        "count": 1454
+      },
+      {
+        "value": "600",
+        "count": 6
+      }
+    ]
+  },
+  "effects": {
+    "radii": [
+      {
+        "value": "8px",
+        "count": 112
+      },
+      {
+        "value": "7.72797px",
+        "count": 44
+      },
+      {
+        "value": "16px",
+        "count": 2
+      },
+      {
+        "value": "1600px",
+        "count": 1
+      },
+      {
+        "value": "4px",
+        "count": 1
+      }
+    ],
+    "shadows": [],
+    "transitions": [
+      "all",
+      "transform 0.525s cubic-bezier(0.625, 0.05, 0, 1)",
+      "background-color 0.3s",
+      "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)",
+      "opacity 0.2s",
+      "color 0.2s, background-color 0.2s"
+    ]
+  },
+  "spacingDistribution": [
+    {
+      "value": "16px",
+      "count": 111
+    },
+    {
+      "value": "4px",
+      "count": 78
+    },
+    {
+      "value": "32px",
+      "count": 69
+    },
+    {
+      "value": "8px",
+      "count": 56
+    },
+    {
+      "value": "24px",
+      "count": 39
+    },
+    {
+      "value": "48px",
+      "count": 19
+    },
+    {
+      "value": "12px",
+      "count": 12
+    },
+    {
+      "value": "30px",
+      "count": 12
+    },
+    {
+      "value": "6.4px",
+      "count": 10
+    },
+    {
+      "value": "192px",
+      "count": 10
+    },
+    {
+      "value": "80px",
+      "count": 9
+    },
+    {
+      "value": "128px",
+      "count": 7
+    },
+    {
+      "value": "normal 8px",
+      "count": 2
+    },
+    {
+      "value": "-2px",
+      "count": 2
+    },
+    {
+      "value": "10px",
+      "count": 2
+    }
+  ],
+  "buttons": [
+    {
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "0px",
+      "paddingTop": "8px",
+      "paddingLeft": "16px"
+    },
+    {
+      "fontSize": "16px",
+      "fontWeight": "600",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "borderRadius": "0px",
+      "paddingTop": "0px",
+      "paddingLeft": "0px"
+    }
+  ],
+  "layout": {
+    "bodyPadding": "0px",
+    "containerMaxWidth": "none",
+    "containerPadding": "0px",
+    "containerWidth": "1440px"
+  },
+  "cards": [],
+  "images": [
+    {
+      "src": "https://cdn.prod.website-files.com/6956d0083c1a297178570865/69681aec6c1584ccde1a76bf_FLORA-Hair%20Ed",
+      "naturalWidth": 1093,
+      "naturalHeight": 1180,
+      "ratio": "0.93:1",
+      "renderedWidth": "160px",
+      "role": "thumbnail"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6956d0083c1a297178570865/69681aec6c1584ccde1a76bf_FLORA-Hair%20Ed",
+      "naturalWidth": 1093,
+      "naturalHeight": 1180,
+      "ratio": "0.93:1",
+      "renderedWidth": "672px",
+      "role": "feature"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6956d0083c1a297178570865/69681f0d04c765db90211a3c_46593e19022263c",
+      "naturalWidth": 1439,
+      "naturalHeight": 1073,
+      "ratio": "1.34:1",
+      "renderedWidth": "1440px",
+      "role": "hero"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6963e59efe885eb5c2b2d846/6971b3a807b637794c38409a_Peter%20D.avif",
+      "naturalWidth": 862,
+      "naturalHeight": 748,
+      "ratio": "1.15:1",
+      "renderedWidth": "412px",
+      "role": "feature"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6963e59efe885eb5c2b2d846/696e7c1ad222e6156b2dd48a_Margarita%20Pas",
+      "naturalWidth": 862,
+      "naturalHeight": 748,
+      "ratio": "1.15:1",
+      "renderedWidth": "412px",
+      "role": "feature"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6963e59efe885eb5c2b2d846/696e797d5cd4f480d1889c44_Brian-Tracy.avi",
+      "naturalWidth": 862,
+      "naturalHeight": 748,
+      "ratio": "1.15:1",
+      "renderedWidth": "412px",
+      "role": "feature"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6963e59efe885eb5c2b2d846/696e7bc53fe0bcfabc4fed6d_Dr%20Nerida%20M",
+      "naturalWidth": 862,
+      "naturalHeight": 748,
+      "ratio": "1.15:1",
+      "renderedWidth": "412px",
+      "role": "feature"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6963e59efe885eb5c2b2d846/696e797e605991254a0442b1_Devin-Burke.avi",
+      "naturalWidth": 862,
+      "naturalHeight": 748,
+      "ratio": "1.15:1",
+      "renderedWidth": "412px",
+      "role": "feature"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6963e59efe885eb5c2b2d846/696e797d320ea8cd27f43031_Dan-Lok.avif",
+      "naturalWidth": 862,
+      "naturalHeight": 748,
+      "ratio": "1.15:1",
+      "renderedWidth": "412px",
+      "role": "feature"
+    },
+    {
+      "src": "https://cdn.prod.website-files.com/6963e59efe885eb5c2b2d846/6971b3a807b637794c38409a_Peter%20D.avif",
+      "naturalWidth": 862,
+      "naturalHeight": 748,
+      "ratio": "1.15:1",
+      "renderedWidth": "412px",
+      "role": "feature"
+    }
+  ],
+  "spacingSamples": [
+    {
+      "tag": "section",
+      "margin": "0px 0px 64px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "h1",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "h2",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "h3",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "p",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "button",
+      "margin": "0px",
+      "padding": "8px 16px",
+      "gap": "normal 8px"
+    },
+    {
+      "tag": "nav",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    },
+    {
+      "tag": "footer",
+      "margin": "0px",
+      "padding": "0px",
+      "gap": "normal"
+    }
+  ],
+  "sectionGaps": [
+    {
+      "between": "section[6]→section[7]",
+      "gap": 64
+    }
+  ],
+  "grid": {
+    "columns": 2,
+    "gap": "16px",
+    "template": "557.266px 786.719px",
+    "selector": "div.cs-features_grid.is-inverse"
+  },
+  "gridCount": 14,
+  "focusVisible": true,
+  "reducedMotion": false
+}

@@ -48,7 +48,21 @@ FIND_JS = r"""
 
   // pick the trigger: selector first, then exact text, then a substring match
   let el = null, how = null;
-  if (arg.selector) {
+  if (arg.selector && !/[.#\s>+~]/.test(arg.selector)) {
+    // a bare word is a BEM-ish class component (`hero_cta`): lift it to the trigger inside it.
+    // "the button inside the hero", not "the first identical button on the page" (usually the nav)
+    const parts = arg.selector.split('_'), word = arg.selector;
+    const hits = Array.from(document.querySelectorAll('[class]')).filter((n) =>
+      parts.every((part) => part && (' ' + String(n.className) + ' ').includes(' ' + part)));
+    // exact first, then the BEM prefix (`hero_cta_…` container); the lowest block wins over a full page
+    const host = (hits.length ? hits : Array.from(document.querySelectorAll('[class]'))
+      .filter((n) => (' ' + String(n.className) + ' ').includes(' ' + word))).sort((a, b) =>
+        a.getBoundingClientRect().top - b.getBoundingClientRect().top)[0];
+    const inner = host ? host.querySelector('a[href], button, [role="button"]') : null;
+    if (!host || !inner) return { error: 'no class component with a trigger inside: ' + arg.selector };
+    el = inner;
+    how = 'class-component:' + arg.selector + ' > ' + inner.tagName.toLowerCase();
+  } else if (arg.selector) {
     el = document.querySelector(arg.selector);
     how = 'selector';
     if (!el) return { error: 'selector not found: ' + arg.selector };
@@ -573,8 +587,10 @@ def build_timeline(action: str, module: str, target: str, trigger: str, click: t
 
     steps = [snap("before", True)]
     if action == "hover":
+        # 250ms lets a composited page settle after load, so the hover delta is not masked by the
+        # entry animation (a frame captured mid-reveal once recorded a 1px scroll wobble as "hover")
         steps += [
-            {"action": "hover", "x": x, "y": y, "wait": 60},
+            {"action": "hover", "x": x, "y": y, "wait": 260},
             snap("during", True),
             {"action": "shake", "x": x, "y": y, "wait": 120},
             snap("settled"),

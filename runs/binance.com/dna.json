@@ -2000,5 +2000,102 @@
         "default": "24px"
       }
     }
-  ]
+  ],
+  "specimens": {
+    "hero": {
+      "eyebrow": "markets · convert · futures",
+      "headline": "Trade the next move\nbefore the crowd.",
+      "subhead": "Convert between 350+ assets, watch 24h moves in one panel, and settle futures with the same gold action.",
+      "primaryCta": "Buy crypto",
+      "secondaryCta": "View markets"
+    },
+    "stats": [
+      {
+        "value": "337M",
+        "label": "registered users"
+      },
+      {
+        "value": "350+",
+        "label": "assets listed"
+      },
+      {
+        "value": "24/7",
+        "label": "spot + futures"
+      },
+      {
+        "value": "0.1%",
+        "label": "spot maker fee"
+      }
+    ],
+    "cards": [
+      {
+        "title": "Convert",
+        "price": "350+",
+        "per": "assets",
+        "note": "Swap any pair at the quoted price, no order book.",
+        "cta": "Convert now"
+      },
+      {
+        "title": "Spot",
+        "price": "0.1%",
+        "per": "maker",
+        "note": "Limit and market orders across every listed pair.",
+        "cta": "Open spot",
+        "featured": true
+      },
+      {
+        "title": "Futures",
+        "price": "125x",
+        "per": "leverage",
+        "note": "Perpetual contracts with funding every eight hours.",
+        "cta": "Trade futures"
+      }
+    ],
+    "table": {
+      "caption": "markets · 24h",
+      "columns": [
+        "Pair",
+        "24h change",
+        "Price",
+        "Volume"
+      ],
+      "rows": [
+        [
+          "BTC/USDT",
+          "+1.24%",
+          "68,412.10",
+          "1.9B"
+        ],
+        [
+          "ETH/USDT",
+          "-0.86%",
+          "3,512.40",
+          "845M"
+        ],
+        [
+          "BNB/USDT",
+          "+2.05%",
+          "612.30",
+          "132M"
+        ],
+        [
+          "SOL/USDT",
+          "-1.10%",
+          "184.62",
+          "96M"
+        ]
+      ]
+    },
+    "form": {
+      "title": "Convert",
+      "fields": [
+        {
+          "label": "Email or phone",
+          "placeholder": "+65 8123 4567",
+          "invalid": "Enter a valid phone number with the country code."
+        }
+      ],
+      "submit": "Continue"
+    }
+  }
 }

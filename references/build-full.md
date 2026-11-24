@@ -2,88 +2,77 @@
 
 Only enter this mode when the user asked for it (`--full`, "建设计系统站点", "build a
 browsable design system"). It reuses the same `dna.json`; it never re-derives values.
+`preview.html` renders this same dual view as one file; `system/` adds the folder-based Specs
+panels (capture, clips, downloads).
 
 ## Output
 
-`{dest}/{domain}/system/` — a self-contained static site, laid out as an **app shell**, not a long
-scrolling document:
+`{dest}/{domain}/system/` — a self-contained static site: a minimal sticky top bar over **two views**.
 
 ```text
-┌ rail 240px ┬ canvas ─────────────────────────────────┐
-│ Foundations │ sticky stress toolbar                   │
-│ Interactive │ one panel at a time, scrolls on its own │
-│ Specs       │ (hash routes it; Back/Forward work)    │
-└─────────────┴────────────────────────────────────────┘
+┌ topbar: [lewitt mark] site · 3px brand band   Live Preview | Specs & Evidence   Copy theme  Stress ┐
+│ view 1  Live Preview — one numbered scrolling long scroll, painted in the run's --lw-* tokens          │
+│   hero (brand first screen)                                                                           │
+│   01 Colour Palette      semantic / component / primitive, scene line, WCAG chip per swatch, + Observed│
+│   02 Typography Scale    one row of monospace params, then the run's own copy at real size            │
+│   03 Components & Cards  real states (forced samples labelled), form, pricing / feature cards, rows,   │
+│                          one measured interaction delta                                                │
+│   04 Motion & Guardrails drawn cubic-bezier + Replay slider, MUST NOT capsules with the regex folded,  │
+│                          taste cards (chose over)                                                     │
+│   05 Clipped Bricks      a live rebuild from the brick's slot mapping, the real keyframe shots,       │
+│                          deltas, and the measured reduced-motion verdict                              │
+│ view 2  Specs & Evidence — overview, tokens, measurements, evidence ledger, limitations, code &       │
+│         downloads, fidelity                                                                            │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-- **rail**: fixed, grouped (`Foundations` / `Interactive Lab` / `Specs & Handoff`), each item
-  switches the canvas panel and syncs `location.hash`; deep links (`#specs/tokens`) open a panel
-  *and* its sub-tab. Mobile (<900px) collapses it into a drawer.
-- **sticky toolbar**: Long copy · No gradient · Missing media · Reduced motion · Narrow 390 — they
-  act on whatever panel you are looking at, driven by `data-stress` on the canvas.
-- **Specs panel**: sub-tabs (Downloads / Tokens / Measurements / Evidence) instead of one long dump.
-- **Print view**: one button (or Esc to leave) expands every panel for printing or a full read.
+- **top bar**: lewitt mark, source name, the run's 3px brand fingerprint, the view switch
+  (`Live Preview` default | `Specs & Evidence`, also `#live` / `#specs`), copy-shadcn-theme button,
+  and three stress booleans: `Long copy` · `Reduced motion` · `Narrow 390`.
+- **stress booleans feed both views**: Long copy re-cuts the preview columns and the specs grids;
+  Reduced motion removes every transition/animation in the site frame and turns motion replays
+  into their end state; Narrow 390 rebuilds the site at 390 inside a calm dark field.
+- **Observed tags**: colour, typography, motion and material each carry one tag; it opens a card
+  with the actual ledger entry (id, locator, measured values, method) — proof, not a badge.
+- **Museums and phones**: the preview shows the source's own nav/footer bar and section rhythm
+  (`specimens.backdrop`: canvas / surface / action per section, so a dark section stays dark).
 
 Files:
 
 ```
 system/
-  index.html          section nav, anchors, skip link
-  tokens.css          copy or import of ../tokens.css (scoped to [data-ds])
-  evidence.json       copy of the evidence ledger shown in the UI
-  sections/           foundations · components · compositions · motion · stress · handoff
+  index.html      both views (tokens.css is read from ../tokens.css)
+  doc.css         neutral base + the shell CSS
+  site.css        specimen-specific styles
+  system.js       view switch, stress, evidence cards, motion replay, copy
+  system.css      hand-authored component skin (optional, kept as-is)
+  evidence.json   the ledger payload the Observed cards read
 ```
 
-No backend, no build step required. Scope every token and specimen style under `[data-ds]` so
-the documentation chrome never inherits the extracted component geometry.
+## Where the content comes from (R3)
 
-## Required sections
+Everything is a render of `dna.json`:
 
-1. **Foundations** — colour swatches with real fg/bg pairs and usage counts, type specimens at
-   their real sizes, radii, depth (rings vs floats side by side), spacing shown as geometry.
-2. **Components** — anatomy, variants, states (default/hover/focus/pressed/disabled), token
-   mapping, usage and avoidance. Simulated states are labelled as samples; they supplement, not
-   replace, real pointer/keyboard behaviour.
-3. **Compositions** — at least three: a source-like section, an interaction flow, and a fuller
-   responsive layout. They must reuse the gallery components, not bespoke markup.
-4. **Motion** — replay with actual duration/easing, plus a reduced-motion comparison. The OS
-   preference is respected and a manual toggle supplements it.
-5. **Stress** — long labels, missing media, empty/error/loading, 320px width, large text.
-   Distinguish sample-level scaling from real zoom tests.
-6. **Handoff** — download links for `tokens.css`, `tokens.resolved.json`, `taste.md`,
-   `agent-rules.md`; evidence ids; `limitations`; what is proposed vs observed.
-
-## The four blocks that need judgement (not templated)
-
-1. **Anatomy and state matrix** — default / hover / focus-visible / active / disabled for buttons,
-   inputs, cards and links. Real states come from the browser; forced samples are labelled
-   "forced sample" and never replace real ones.
-2. **Compositions** — 2–3 blocks that carry the source's temperament (hero, pricing, checkout),
-   assembled from the same components. Copy that is not extracted is labelled replaced/proposed.
-3. **Stress controls** — long copy, missing media, no-gradient fallback, reduced motion, narrow
-   viewport. Toggles scope to the staged demo, never to the documentation.
-4. **Fidelity** — show the captured source next to the rebuild at equal width, then write
-   `fidelity.json` (`{method, compared[], agrees[], deviations[], status: partial|match|mismatch}`).
-   `lint_output.py` reports it as PARTIAL until every deviation is closed; never hand-promote it.
-
-The page itself must take its canvas from the system tokens (light system → light page); the
-navigation may keep the documentation chrome. `lint_output.py` checks the colour scope.
-
-## Rules
-
-- Every displayed value comes from `tokens.resolved.json`; never retype a number in HTML.
-- Interactions are real local state (a "Save" button changes state). Never submit to the source
-  site.
-- Real semantic controls, visible focus, accessible names, status announcements.
-- No decorative motion in the documentation chrome; do not autoplay every specimen.
-- New behaviour invented for an example is labelled `proposed`.
+- `specimens.hero` / `stats` / `cards` / `table` / `form` — site-voice copy (hero line, stats strip,
+  pricing tiers with one `featured` inverted tier, sample rows, form labels). Written by the
+  extraction phase in the target site's voice; never another site's placeholder sentence.
+- `specimens.backdrop` — the section rhythm (`canvas` | `surface` | `action`, one per section incl. `nav`).
+- `specimens.brandSvg` — the source's own inline mark (self-contained; no `href`, `url()`, script).
+- `specimens.typeSpecimens` — per-step copy for the type scale, keyed by type token id.
+- `tokens` drive every colour, type step, radius and curve; `taste[].guardrail` drives the MUST NOT
+  capsules; `interactions` drive the measured-delta block; `evidence` drives the Observed cards.
 
 ## Verify
 
 ```sh
+python3 "$SKILL/scripts/build_artifacts.py" "$DEST/$DOMAIN"
 python3 "$SKILL/scripts/lint_output.py" --dest "$DEST/$DOMAIN" --check-code "$DEST/$DOMAIN/system"
 ```
 
-Then, and only then, check the site at 1440 / 390 / 320, keyboard, reduced motion, and confirm
-the download links resolve. Record anything you could not test as `unverified` — a build that
-passes local checks is not proof the site is accessible or faithful.
+`shell_checks()` fails the run when the top bar, the two-view switch, sections 01-04, the Observed
+tag, a WCAG chip, a drawn bezier, a replay control, a MUST NOT capsule, or the Specs panels are
+missing (a run rendered before v1.2 may still use the old rail shell). `script_checks()` fails when a
+generated page binds the same `var` twice in one closure.
+
+Then check 1440 / 390 / 320, keyboard, reduced motion, every stress boolean, and that the download
+links resolve. Record anything you could not test as `unverified`.

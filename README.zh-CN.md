@@ -8,7 +8,9 @@
 
 只给 AI hex 和字号，它就会产出模板化的东西。品味不是规格表，而是**取舍与克制**。名字取自观念艺术家 Sol LeWitt —— 他的墙面绘画由一份精确的书面指令执行；`lewitt` 提取的是"为什么长这样"，并把网站**拒绝做什么**编码成约束，在你动手写界面时强制检查。
 
-![stripe.com 的交互预览：实时色板、证据 id、token 分层](docs/preview.png)
+**v1.3.0** —— 双视图沉浸式 `system/`（Live Preview · Specs & Evidence）、`dna.json > specimens` 源站语境标本，并把 [steno.ai](https://www.steno.ai/) 作为整站 + Hero 单模块切积木的综合示范。
+
+![lewitt system/ — stripe.com 的 Live Preview：品牌首屏、指标条、带角色化对比度徽章的色板](docs/preview.png)
 
 ## 三块拼图
 
@@ -67,7 +69,7 @@ python3 scripts/cert.py --url http://localhost:3000 --dest runs/stripe.com
 ├── shadcn-theme.css       # shadcn / Tailwind v4 @theme inline（未映射槽位写成 initial 并列出）
 ├── cert.md / cert.json    # 验收结果
 ├── clips/                 # 切片产物（brick.json / brick.md / shots/）
-├── preview.html           # 零依赖交互预览
+├── preview.html           # 零依赖单文件版双视图长卷
 ├── taste.md / agent-rules.md / tokens.css / tokens.resolved.json
 ├── VERIFY.md / verify.json
 ├── fidelity.json          # --full：一致项与偏差项
@@ -75,7 +77,18 @@ python3 scripts/cert.py --url http://localhost:3000 --dest runs/stripe.com
 └── system/                # --full：可运行的参考站
 ```
 
-仓库内附带三个样例：`runs/stripe.com/`（完整模式，另含切片集与验收单）、`runs/linear.app/`（DNA 模式）、`runs/binance.com/`（完整模式）。
+仓库内附带四个样例：`runs/stripe.com/`（完整模式，另含验收单）、`runs/binance.com/`、`runs/linear.app/`、`runs/steno.ai/`（完整模式 + Hero 单模块切积木示范）。
+
+### v1.3 的双视图长卷
+
+`--full` 产出的 `system/index.html` 是一本两页的画册：
+
+- **Live Preview**：直接用源站 `--lw-*` 变量铺满的一镜到底长卷 —— 首屏品牌 Hero，然后 01 色板（按角色分组、每块带 WCAG 徽章与 `+ Observed` 证据角标）、02 字阶（每一步用源站自己的文案，等宽参数行）、03 组件与卡片（真状态按钮、表单、定价卡、样本表）、04 动效与门禁（token 自己画的贝塞尔曲线 + Replay 滑块 + 可展开正则的 MUST NOT 胶囊）、05 Clipped Bricks（积木实测关键帧、槽位映射、reduced-motion 结论）。
+- **Specs & Evidence**：统计概览、完整 Tokens 表、Measurements、Evidence Ledger、Limitations、代码预览与下载、Fidelity 对比。
+- 顶栏只有三段：lewitt 印记 + 站点名 + 3px 品牌色带 / `Live Preview | Specs & Evidence` / `Copy shadcn-theme.css` + `Stress ▾`（长文案、减弱动效、390 窄屏，作用于两个视图）。
+- 标本文案来自 `dna.json > specimens`（hero、stats、cards 支持 `featured` 反色档、table、form、`backdrop` 区块节奏、`brandSvg` 源站标志），不再硬编码 "The quick brown fox" 或 10/20/30。
+
+一键复验全部样例（离线）：`make check`。
 
 ## 安装
 

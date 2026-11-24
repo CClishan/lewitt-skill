@@ -9,13 +9,13 @@
   --background: #FFFFFF; /* color/canvas — canvas */
   --foreground: #061B31; /* color/text/heading — primary text */
   --card: #F6F9FC; /* color/canvas-tint — raised surface */
-  --card-foreground: #50617A; /* color/text/body — card text */
+  --card-foreground: #061B31; /* color/text/heading — card text */
   --popover: #FFFFFF; /* color/canvas — overlay surface */
-  --popover-foreground: #50617A; /* color/text/body — overlay text */
+  --popover-foreground: #061B31; /* color/text/heading — overlay text */
   --primary: #533AFD; /* color/action/bg — action fill */
   --primary-foreground: #FFFFFF; /* color/action/fg — action label */
   --secondary: #F8FAFD; /* color/surface-subtle — secondary fill */
-  --secondary-foreground: #50617A; /* color/text/body — secondary label */
+  --secondary-foreground: #061B31; /* color/text/heading — secondary label */
   --muted: #F8FAFD; /* color/surface-subtle — muted fill */
   --muted-foreground: #64748D; /* color/text/muted — muted text */
   --accent: #F8FAFD; /* color/surface-subtle — hover fill */

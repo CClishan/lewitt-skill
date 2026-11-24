@@ -56,6 +56,13 @@ If you cannot describe the module without the source's class names, the brick is
 5. **Round trip** — `idle → hover → settled → idle` for hover; `idle → open → idle` for
    click/toggle. Each arrow says whether it was actually observed.
 
+## Where the brick is shown
+
+Every run that has `clips/*/brick.json` renders them in its **Live Preview → 05 Clipped Bricks**:
+the live module rebuilt from the slot mapping (`--brick-bg`, `--brick-fg`, `--brick-radius`), the
+real keyframe shots cropped around the trigger (`shots/after|during|before.png`), the sampled deltas,
+the trigger/module boxes, and the reduced-motion verdict. `preview.html` reads the clips beside it.
+
 ## Reading `brick.md`
 
 - **States** — one row per snapshot; `transitions running` is the count of live animations.

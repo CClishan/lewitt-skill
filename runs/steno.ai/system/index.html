@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lewitt — Steno.ai design system (full mode)</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="doc.css">
+<link rel="stylesheet" href="site.css">
+<style>:root { --doc-bg: #F6F6F5; }
+.fpl { height: 3px; flex: none; }
+#fp { background: linear-gradient(90deg, #F0EDDA 0% 60%, #BAA57B 60% 85%, #282724 85% 95%, #DAD7C1 95% 100%); }
+</style>
+<link rel="stylesheet" href="system.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body data-view="live" data-stress="" data-tone="light" data-site="Steno.ai design system">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="tb-left">
+    <svg class="lw-mark" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square"><path d="M7.5 0V7.5"/><path d="M8.5 8.5H16"/><path d="M0.5 8.5L7.5 15.5"/><path d="M15.5 8.5L8.5 15.5"/></g></svg>
+    <span class="tb-site">Steno.ai</span>
+    <span class="fpl" id="fp" aria-hidden="true"></span>
+  </div>
+  <div class="tb-center">
+    <div class="tb-seg" role="tablist" aria-label="View"><button class="tp-seg" role="tab" id="tab-live" aria-controls="view-live" aria-selected="true" tabindex="0">Live Preview</button><button class="tp-seg" role="tab" id="tab-specs" aria-controls="view-specs" aria-selected="false" tabindex="-1">Specs &amp; Evidence</button></div>
+  </div>
+  <button class="lp-ev" id="lp-ev" type="button" aria-label="observed evidence"></button>
+  <div class="tb-right">
+    <button class="tp-btn tp-copy" id="copy-theme" aria-label="Copy shadcn-theme.css">Copy shadcn-theme.css</button>
+    <div class="tb-stress">
+      <button class="tp-btn tb-stress-btn" id="stress-btn" type="button" aria-expanded="false" aria-controls="stress-menu">Stress <span class="caret" aria-hidden="true">▾</span></button>
+      <div class="tb-menu" id="stress-menu" role="group" aria-label="Stress controls" hidden><button class="tp-btn tb-menu-item" role="menuitemcheckbox" data-stress-toggle="long" aria-pressed="false">Long copy</button><button class="tp-btn tb-menu-item" role="menuitemcheckbox" data-stress-toggle="reduced" aria-pressed="false">Reduced motion</button><button class="tp-btn tb-menu-item" role="menuitemcheckbox" data-stress-toggle="narrow" aria-pressed="false">Narrow 390</button></div>
+    </div>
+    <span class="tb-status" id="tb-status" aria-live="polite"></span>
+  </div>
+</header>
+<main id="main">
+<div class="view view-live" id="view-live" role="tabpanel" aria-labelledby="tab-live">
+  <div class="lp-frame" id="lp-frame">
+    <div class="lp-dock" aria-hidden="true"></div>
+    <div class="lp-scroll" data-ds><nav class="lp-nav lp-nav--bar" aria-label="Steno.ai — specimen faces"><span class="lp-nav-brand" aria-label="Steno.ai"><svg class="lp-brand-mark" fill="var(--lw-canvas)" width="100%" height="100%" viewBox="0 0 125 30" fill="none" preserveAspectRatio="xMidYMid meet" aria-hidden="true" role="img">
+<path d="M20.3179 8.87739C20.3168 8.87739 20.3159 8.87646 20.3159 8.87531V8.75547C20.3159 8.7549 20.3154 8.75443 20.3148 8.75443C20.3142 8.75443 20.3138 8.75397 20.3138 8.75339V0.51334C20.3138 0.150438 19.9444 -0.0976529 19.6049 0.0372649L5.66934 5.57626C2.34897 6.88713 0 10.1091 0 13.8812C0 17.0806 1.69092 19.8837 4.23159 21.4605C4.38777 21.5575 4.48649 21.7255 4.48649 21.9083V29.9729C4.48649 30.3358 4.85586 30.5839 5.1953 30.4489L19.1309 24.9099C19.5399 24.7458 19.9323 24.5569 20.3101 24.341C20.3125 24.3396 20.3152 24.3389 20.3179 24.3389L4.915 21.6256C4.66831 21.5821 4.48858 21.3693 4.48858 21.1206V13.2651C4.48858 13.0305 4.64901 12.8258 4.87814 12.7681L20.3179 8.87739V24.3389C22.9977 22.7925 24.8023 19.9103 24.8023 16.605C24.8023 13.2997 22.9977 10.4217 20.3179 8.87739Z" fill="currentColor"></path>
+<path d="M117.664 25.6105L117.948 24.8995H119.228C119.769 24.8995 120.081 24.5867 120.081 24.0463V13.9503L117.948 12.9549V12.5284C119.228 12.0449 121.702 11.4477 122.698 11.3908H122.982C122.783 12.9834 122.641 14.576 122.641 16.1686V24.8995L125.001 24.7573L124.717 25.6105H117.664ZM119.57 6.30012C119.57 5.36161 120.337 4.59375 121.304 4.59375C122.243 4.59375 122.982 5.36161 122.982 6.30012C122.982 7.23862 122.214 8.00648 121.304 8.00648C120.337 8.00648 119.57 7.23862 119.57 6.30012Z" fill="currentColor"></path>
+<path d="M114.524 25.8947C113.159 25.8947 112.903 24.6434 112.903 23.6196H112.875C111.567 24.814 110.543 25.8947 108.637 25.8947C107.016 25.8947 105.48 25.07 105.48 23.4489C105.48 22.1692 106.959 21.316 109.291 20.2353L112.818 18.6142V16.2538C112.818 14.3199 112.59 12.5282 110.6 12.5282C109.974 12.5282 109.206 12.6988 108.922 12.9548L109.007 14.4052C109.092 15.8272 108.012 16.3675 107.073 16.3675C106.191 16.3675 105.651 15.9125 105.651 15.3721C105.651 14.4905 109.917 11.3906 111.424 11.3906C113.756 11.3906 115.69 12.6988 115.576 15.1731C115.434 18.273 115.434 20.6619 115.434 23.7618L117.653 24.0462V24.4728C116.6 25.2406 115.264 25.8947 114.524 25.8947ZM108.353 22.3682C108.353 23.4774 108.808 23.904 110.116 23.904C111.055 23.904 112.022 23.648 112.818 23.3352V19.2399L110.059 20.4912C108.865 21.0316 108.353 21.6573 108.353 22.3682Z" fill="currentColor"></path>
+<path d="M101.341 25.8955C100.431 25.8955 99.6914 25.1561 99.6914 24.246C99.6914 23.336 100.431 22.625 101.341 22.625C102.251 22.625 102.99 23.336 102.99 24.246C102.99 25.1561 102.223 25.8955 101.341 25.8955Z" fill="currentColor"></path>
+<path d="M91.5698 25.8947C87.8727 25.8947 84.6875 23.0508 84.6875 18.7849C84.6875 14.519 87.4746 11.3906 91.4561 11.3906C95.1532 11.3906 98.2815 14.2346 98.2815 18.5005C98.2815 22.7664 95.5514 25.8947 91.5698 25.8947ZM87.5314 18.0739C87.5314 21.9132 89.5506 25.0416 92.0533 25.0416C94.0441 25.0416 95.4376 22.6242 95.4376 19.2115C95.4376 15.3721 93.4753 12.2722 90.9157 12.2722C88.925 12.2722 87.5314 14.6612 87.5314 18.0739Z" fill="currentColor"></path>
+<path d="M78.0037 25.6103L78.2881 24.8994H78.9991C79.5395 24.8994 79.8523 24.5865 79.8523 24.0462V16.3675C79.8523 13.9502 78.9138 13.3245 77.3496 13.3245C76.4111 13.3245 75.046 13.6658 73.88 14.1777V24.8994L76.5818 24.7572L76.2974 25.6103H69.4719L69.7563 24.8994H70.4673C71.0076 24.8994 71.3205 24.5865 71.3205 24.0462V13.808L69.1875 12.8126V12.386C70.4673 11.7888 72.1736 11.5044 73.169 11.3906H73.4534L73.8516 13.6089H73.88C75.0176 12.642 76.4964 11.3906 78.8 11.3906C81.1605 11.3906 82.4118 12.7557 82.4118 15.5143V24.8994L84.8292 24.7572L84.5448 25.6103H78.0037Z" fill="currentColor"></path>
+<path d="M63.3823 25.8947C59.8558 25.8947 57.2109 22.937 57.2109 19.1546C57.2109 14.4336 60.0549 11.3906 63.5529 11.3906C66.5391 11.3906 68.4445 12.9832 68.4445 16.0831C68.4445 16.4528 68.3023 16.8794 68.1317 17.0501H59.998C59.9696 17.3629 59.9696 17.6757 59.9696 18.017C59.9696 21.6573 62.0456 23.904 64.6336 23.904C66.2831 23.904 67.4776 23.3067 68.6152 22.2545L68.8995 22.5389C67.5913 24.5012 65.885 25.8947 63.3823 25.8947ZM60.0833 16.3391H64.8896C65.3731 16.3391 65.7143 16.0263 65.7143 15.6281C65.7143 13.4951 64.7758 12.1016 63.2401 12.1016C61.6191 12.1016 60.4246 13.6942 60.0833 16.3391Z" fill="currentColor"></path>
+<path d="M53.6091 25.8942C51.2771 25.8942 50.1111 24.7566 50.1111 22.9365V12.3854H47.8359V11.9588L50.1111 10.7928L52.3294 8.26172H52.6706V11.6745H57.1641V12.3854H52.6706V22.197C52.6706 23.7612 53.3247 24.4722 54.5192 24.4722C55.543 24.4722 56.3109 24.3584 57.2209 24.1594L57.5053 24.4438C56.2256 25.4391 55.0027 25.8942 53.6091 25.8942Z" fill="currentColor"></path>
+<path d="M40.2655 25.8936C37.45 25.8936 35.4592 25.3532 33.7529 24.6423L33.0703 18.9828H33.4969C34.606 21.9405 36.8812 24.8982 40.4361 24.8982C42.4553 24.8982 44.6736 23.7038 44.6736 21.1727C44.6736 19.2956 42.6544 17.8452 39.3839 16.5086C35.4877 14.916 33.4969 13.7784 33.4969 10.6785C33.4969 7.49329 36.3408 5.13281 40.6068 5.13281C42.1709 5.13281 44.1048 5.47409 45.5837 5.92912L45.9818 11.5032H45.5268C44.3039 8.03363 42.7113 6.12819 39.4123 6.12819C36.995 6.12819 35.6867 7.97676 35.6867 9.71156C35.6867 11.7308 37.9335 13.039 41.1756 14.2903C44.503 15.5701 47.0056 16.8499 47.0056 20.2626C47.0056 23.6469 43.9057 25.8936 40.2655 25.8936Z" fill="currentColor"></path>
+</svg><span class="sr-only">Steno.ai</span></span><span class="lp-nav-links"><a href="#hero">Home</a><a href="#colour">Colour</a><a href="#type">Type</a><a href="#components">Components</a><a href="#motion">Motion</a><a href="#bricks">Bricks</a></span><button class="ds-btn ds-btn--secondary is-on-bar lp-nav-cta" type="button">Start a Demo</button></nav><div class="lp-hero" id="hero" data-sec="hero" data-backdrop="canvas">
+<div class="hero-copy">
+  <div class="hero-before">Start a Demo</div>
+  <h1><span>Influence</span><span>everywhere.</span><span>All at once.</span></h1>
+  <p class="sub">We create AI Twins that turn personal brands into personal relationships, at infinite scale.</p>
+  <div class="ctas"><button class="ds-btn ds-btn--primary" type="button">Start a Demo</button><button class="ds-btn ds-btn--secondary" type="button">Watch the film</button></div>
+  <p class="hero-note">canvas <code>#F0EDDA</code> · every specimen below reads the run's own <code>--lw-*</code> tokens, not a screenshot <button class="tag-obs" data-obs="palette">+ Observed</button></p>
+</div>
+<div class="stat-strip"><div class="stat"><span class="v">92%</span><span class="k">of buyers ask for a person, not a page</span></div><div class="stat"><span class="v">3.4x</span><span class="k">more replies than an inbox</span></div><div class="stat"><span class="v">24/7</span><span class="k">twin answers, on brand</span></div><div class="stat"><span class="v">1 day</span><span class="k">to launch a twin</span></div></div></div><section class="lp-sec" id="colour" data-sec="colour" data-backdrop="canvas">
+<div class="lp-sheet"><span class="lp-num">01</span><h2 class="lp-title">Colour Palette</h2>
+<span class="rule"></span><span class="count">34 colours</span></div>
+<p class="lp-lede">Roles first, primitives last. Each chip is computed from the two token values, not sampled
+from a screenshot; the canvas itself is shown as “canvas itself” rather than compared with itself.</p>
+<div class="lp-groups"><div class="lp-group"><h3><span>semantic</span><span class="scene">roles: where ink, surface and action may appear · 15</span><button class="tag-obs" data-obs="palette">+ Observed</button></h3><div class="sw"><div class="swatch"><div class="fill" style="background:#F0EDDA"></div><div class="meta"><span class="tok" data-copy="var(--lw-canvas)" role="button" tabindex="0">color/canvas</span><span class="hex" data-copy="#F0EDDA">#F0EDDA</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#FFFDF1"></div><div class="meta"><span class="tok" data-copy="var(--lw-canvas-alt)" role="button" tabindex="0">color/canvas-alt</span><span class="hex" data-copy="#FFFDF1">#FFFDF1</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#DAD7C1"></div><div class="meta"><span class="tok" data-copy="var(--lw-canvas-tint)" role="button" tabindex="0">color/canvas-tint</span><span class="hex" data-copy="#DAD7C1">#DAD7C1</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#CFCCB1"></div><div class="meta"><span class="tok" data-copy="var(--lw-canvas-band)" role="button" tabindex="0">color/canvas-band</span><span class="hex" data-copy="#CFCCB1">#CFCCB1</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#BAA57B"></div><div class="meta"><span class="tok" data-copy="var(--lw-surface)" role="button" tabindex="0">color/surface</span><span class="hex" data-copy="#BAA57B">#BAA57B</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#282724"></div><div class="meta"><span class="tok" data-copy="var(--lw-screen)" role="button" tabindex="0">color/screen</span><span class="hex" data-copy="#282724">#282724</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#282724"></div><div class="meta"><span class="tok" data-copy="var(--lw-text-primary)" role="button" tabindex="0">color/text-primary</span><span class="hex" data-copy="#282724">#282724</span></div><div class="sub"><span class="wchip ok">text · 12.7:1 · AAA</span></div></div><div class="swatch"><div class="fill" style="background:#43413C"></div><div class="meta"><span class="tok" data-copy="var(--lw-text-body)" role="button" tabindex="0">color/text-body</span><span class="hex" data-copy="#43413C">#43413C</span></div><div class="sub"><span class="wchip ok">text · 8.7:1 · AAA</span></div></div><div class="swatch"><div class="fill" style="background:#FFFDF1"></div><div class="meta"><span class="tok" data-copy="var(--lw-text-secondary)" role="button" tabindex="0">color/text-secondary</span><span class="hex" data-copy="#FFFDF1">#FFFDF1</span></div><div class="sub"><span class="wchip bad">text · 1.2:1 · FAIL</span></div></div><div class="swatch"><div class="fill is-translucent" style="background:#F0EDDAB3"></div><div class="meta"><span class="tok" data-copy="var(--lw-text-tertiary)" role="button" tabindex="0">color/text-tertiary</span><span class="hex" data-copy="#F0EDDAB3">#F0EDDAB3</span></div><div class="sub"><span class="wchip bad">text · 1.0:1 · FAIL</span></div></div><div class="swatch"><div class="fill" style="background:#282724"></div><div class="meta"><span class="tok" data-copy="var(--lw-action-bg)" role="button" tabindex="0">color/action/bg</span><span class="hex" data-copy="#282724">#282724</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#43413C"></div><div class="meta"><span class="tok" data-copy="var(--lw-action-bg-alt)" role="button" tabindex="0">color/action/bg-hover</span><span class="hex" data-copy="#43413C">#43413C</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#FFFDF1"></div><div class="meta"><span class="tok" data-copy="var(--lw-action-fg)" role="button" tabindex="0">color/action/fg</span><span class="hex" data-copy="#FFFDF1">#FFFDF1</span></div><div class="sub"><span class="wchip ok">on fill · 14.6:1 · AAA</span></div></div><div class="swatch"><div class="fill" style="background:#BAA57B"></div><div class="meta"><span class="tok" data-copy="var(--lw-brand)" role="button" tabindex="0">color/brand</span><span class="hex" data-copy="#BAA57B">#BAA57B</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#CAFF75"></div><div class="meta"><span class="tok" data-copy="var(--lw-accent)" role="button" tabindex="0">color/accent</span><span class="hex" data-copy="#CAFF75">#CAFF75</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div></div></div><div class="lp-group"><h3><span>component</span><span class="scene">inside a control: fill, label, ring, depth · 4</span></h3><div class="sw"><div class="swatch"><div class="fill" style="background:#282724"></div><div class="meta"><span class="tok" data-copy="var(--lw-nav-primary)" role="button" tabindex="0">color/nav-primary</span><span class="hex" data-copy="#282724">#282724</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill is-translucent" style="background:rgba(40, 39, 37, 0.15)"></div><div class="meta"><span class="tok" data-copy="var(--lw-border)" role="button" tabindex="0">color/border</span><span class="hex" data-copy="rgba(40, 39, 37, 0.15)">rgba(40, 39, 37, 0.15)</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill is-translucent" style="background:rgba(40, 39, 37, 0.25)"></div><div class="meta"><span class="tok" data-copy="var(--lw-border-strong)" role="button" tabindex="0">color/border-strong</span><span class="hex" data-copy="rgba(40, 39, 37, 0.25)">rgba(40, 39, 37, 0.25)</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill is-translucent" style="background:rgba(40, 39, 36, 0.06)"></div><div class="meta"><span class="tok" data-copy="var(--lw-hover-tint)" role="button" tabindex="0">color/hover-tint</span><span class="hex" data-copy="rgba(40, 39, 36, 0.06)">rgba(40, 39, 36, 0.06)</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div></div></div><div class="lp-group"><h3><span>primitive</span><span class="scene">the raw palette behind the roles · 15</span></h3><div class="sw"><div class="swatch"><div class="fill" style="background:#FFFDF1"></div><div class="meta"><span class="tok" data-copy="var(--oatmeal-02)" role="button" tabindex="0">color/oatmeal/02</span><span class="hex" data-copy="#FFFDF1">#FFFDF1</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#F0EDDA"></div><div class="meta"><span class="tok" data-copy="var(--oatmeal-03)" role="button" tabindex="0">color/oatmeal/03</span><span class="hex" data-copy="#F0EDDA">#F0EDDA</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#DAD7C1"></div><div class="meta"><span class="tok" data-copy="var(--oatmeal-04)" role="button" tabindex="0">color/oatmeal/04</span><span class="hex" data-copy="#DAD7C1">#DAD7C1</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#CFCCB1"></div><div class="meta"><span class="tok" data-copy="var(--oatmeal-05)" role="button" tabindex="0">color/oatmeal/05</span><span class="hex" data-copy="#CFCCB1">#CFCCB1</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#BAA57B"></div><div class="meta"><span class="tok" data-copy="var(--oatmeal-06)" role="button" tabindex="0">color/oatmeal/06</span><span class="hex" data-copy="#BAA57B">#BAA57B</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#43413C"></div><div class="meta"><span class="tok" data-copy="var(--oatmeal-08)" role="button" tabindex="0">color/oatmeal/08</span><span class="hex" data-copy="#43413C">#43413C</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#282724"></div><div class="meta"><span class="tok" data-copy="var(--oatmeal-09)" role="button" tabindex="0">color/oatmeal/09</span><span class="hex" data-copy="#282724">#282724</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#282724"></div><div class="meta"><span class="tok" data-copy="var(--brand-ink)" role="button" tabindex="0">color/brand-ink</span><span class="hex" data-copy="#282724">#282724</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill is-translucent" style="background:#2827251A"></div><div class="meta"><span class="tok" data-copy="var(--ink-10)" role="button" tabindex="0">color/ink/10</span><span class="hex" data-copy="#2827251A">#2827251A</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill is-translucent" style="background:#28272580"></div><div class="meta"><span class="tok" data-copy="var(--tint-50)" role="button" tabindex="0">color/tint/50</span><span class="hex" data-copy="#28272580">#28272580</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#FFFDF1"></div><div class="meta"><span class="tok" data-copy="var(--white-alternate)" role="button" tabindex="0">color/white/alternate</span><span class="hex" data-copy="#FFFDF1">#FFFDF1</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill is-translucent" style="background:#F0EDDAB3"></div><div class="meta"><span class="tok" data-copy="var(--light-muted)" role="button" tabindex="0">color/light/muted</span><span class="hex" data-copy="#F0EDDAB3">#F0EDDAB3</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#CAFF75"></div><div class="meta"><span class="tok" data-copy="var(--neon)" role="button" tabindex="0">color/neon</span><span class="hex" data-copy="#CAFF75">#CAFF75</span></div><div class="sub"><span class="wchip ">fill · solid</span></div></div><div class="swatch"><div class="fill" style="background:#2D62FF"></div><div class="meta"><span class="tok" data-copy="var(--link-blue)" role="button" tabindex="0">color/link-blue</span><span class="hex" data-copy="#2D62FF">#2D62FF</span></div><div class="sub"><span class="wchip warn">text · 4.1:1 · AA-large</span></div></div><div class="swatch"><div class="fill is-translucent" style="background:rgba(40, 39, 36, 1)"></div><div class="meta"><span class="tok" data-copy="var(--lw-on-brand)" role="button" tabindex="0">color/on-brand</span><span class="hex" data-copy="rgba(40, 39, 36, 1)">rgba(40, 39, 36, 1)</span></div><div class="sub"><span class="wchip bad">on fill · 1.0:1 · FAIL</span></div></div></div></div></div>
+<div class="pairs"><h3>Pairs in use</h3><div class="prow"><div class="sample" style="background:#282724;color:#FFFDF1"><span class="cap-label">action-fg / action-bg</span>Aa 0123 0123456789</div><div class="pmeta"><span>primary button</span><span class="wchip ok">14.6:1 · AAA</span></div></div></div></section><section class="lp-sec" id="type" data-sec="type" data-backdrop="canvas">
+<div class="lp-sheet"><span class="lp-num">02</span><h2 class="lp-title">Typography Scale</h2>
+<span class="rule"></span><span class="count">11 steps</span></div>
+<p class="lp-lede">The run's own headline set at every step, at real size, in PP Mori and its
+fallback stack — the face itself is not shipped.</p>
+<div class="type-scale-params"><span>display-xl 76.8px</span><span>display-lg 60.8px</span><span>display 56px</span><span>headline 40px</span><span>title 22px</span><span>subtitle 18px</span><span>lead 20px</span><span>body 16px</span><span>ui 14px</span><span>caption 13px</span><span>micro 12px</span></div>
+<div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-display-xl)" role="button" tabindex="0">type/display-xl</span><dl><dt>size</dt><dd>76.8px</dd><dt>weight</dt><dd>400</dd><dt>tracking</dt><dd>-0.8px</dd></dl><button class="tag-obs" data-obs="typography">+ Observed</button></div><div class="type-specimen"><span class="spec" style="font-size:76.8px;font-weight:400;letter-spacing:-0.8px">Influence everywhere.</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-display-lg)" role="button" tabindex="0">type/display-lg</span><dl><dt>size</dt><dd>60.8px</dd><dt>weight</dt><dd>400</dd><dt>tracking</dt><dd>-0.8px</dd></dl><button class="tag-obs" data-obs="typography">+ Observed</button></div><div class="type-specimen"><span class="spec" style="font-size:60.8px;font-weight:400;letter-spacing:-0.8px">All at once.</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-display)" role="button" tabindex="0">type/display</span><dl><dt>size</dt><dd>56px</dd><dt>weight</dt><dd>400</dd><dt>tracking</dt><dd>-0.8px</dd></dl><button class="tag-obs" data-obs="typography">+ Observed</button></div><div class="type-specimen"><span class="spec" style="font-size:56px;font-weight:400;letter-spacing:-0.8px">Your Twin, custom</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-headline)" role="button" tabindex="0">type/headline</span><dl><dt>size</dt><dd>40px</dd><dt>weight</dt><dd>400</dd><dt>tracking</dt><dd>-0.8px</dd></dl><button class="tag-obs" data-obs="typography">+ Observed</button></div><div class="type-specimen"><span class="spec" style="font-size:40px;font-weight:400;letter-spacing:-0.8px">built for you.</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-title)" role="button" tabindex="0">type/title</span><dl><dt>size</dt><dd>22px</dd><dt>weight</dt><dd>400</dd><dt>tracking</dt><dd>normal</dd></dl><button class="tag-obs" data-obs="typography">+ Observed</button></div><div class="type-specimen"><span class="spec" style="font-size:22px;font-weight:400;letter-spacing:normal">Emma’s Twin</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-subtitle)" role="button" tabindex="0">type/subtitle</span><dl><dt>size</dt><dd>18px</dd><dt>weight</dt><dd>400</dd><dt>tracking</dt><dd>normal</dd></dl><button class="tag-obs" data-obs="typography">+ Observed</button></div><div class="type-specimen"><span class="spec" style="font-size:18px;font-weight:400;letter-spacing:normal">Business Coach · 1.2m followers</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-lead)" role="button" tabindex="0">type/lead</span><dl><dt>size</dt><dd>20px</dd><dt>weight</dt><dd>400</dd><dt>tracking</dt><dd>normal</dd></dl><button class="tag-obs" data-obs="typography">+ Observed</button></div><div class="type-specimen"><span class="spec" style="font-size:20px;font-weight:400;letter-spacing:normal">Have millions of conversations between you and your fans</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-body)" role="button" tabindex="0">type/body</span><dl><dt>size</dt><dd>16px</dd><dt>weight</dt><dd>400</dd><dt>tracking</dt><dd>normal</dd></dl><button class="tag-obs" data-obs="typography">+ Observed</button></div><div class="type-specimen"><span class="spec" style="font-size:16px;font-weight:400;letter-spacing:normal">Emma’s Twin · 23% Complete · Active</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-ui)" role="button" tabindex="0">type/ui</span><dl><dt>size</dt><dd>14px</dd><dt>weight</dt><dd>400</dd><dt>tracking</dt><dd>normal</dd></dl><button class="tag-obs" data-obs="typography">+ Observed</button></div><div class="type-specimen"><span class="spec" style="font-size:14px;font-weight:400;letter-spacing:normal">Design your Twin</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-caption)" role="button" tabindex="0">type/caption</span><dl><dt>size</dt><dd>13px</dd><dt>weight</dt><dd>400</dd><dt>tracking</dt><dd>normal</dd></dl><button class="tag-obs" data-obs="typography">+ Observed</button></div><div class="type-specimen"><span class="spec" style="font-size:13px;font-weight:400;letter-spacing:normal">1.2m followers</span></div></div><div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--lw-type-micro)" role="button" tabindex="0">type/micro</span><dl><dt>size</dt><dd>12px</dd><dt>weight</dt><dd>400</dd><dt>tracking</dt><dd>normal</dd></dl><button class="tag-obs" data-obs="typography">+ Observed</button></div><div class="type-specimen"><span class="spec" style="font-size:12px;font-weight:400;letter-spacing:normal">Show up like a human, not a billboard.</span></div></div></section><section class="lp-sec" id="components" data-sec="components" data-backdrop="canvas">
+<div class="lp-sheet"><span class="lp-num">03</span><h2 class="lp-title">Components &amp; Cards</h2>
+<span class="rule"></span><span class="count">real states, not screenshots</span></div>
+<p class="lp-lede">Controls read the run's action tokens. Click a state chip to force a state; hover and
+focus-visible remain live.</p>
+<div class="lp-comp-grid">
+  <div class="col">
+    <div class="block"><div class="cap"><span>Button</span><button class="tag-obs" data-obs="material">+ Observed</button></div>
+      <div class="btn-row"><button class="ds-btn ds-btn--primary" id="demo-btn" type="button">Start a Demo</button>
+      <button class="ds-btn ds-btn--secondary" type="button">Watch the film</button></div>
+      <div class="state-row" role="group" aria-label="forced button states"><button class="state-chip" data-state="" data-state-group="btn" aria-pressed="true">default</button><button class="state-chip" data-state="is-hover" data-state-group="btn" aria-pressed="false">hover · forced</button><button class="state-chip" data-state="is-focus" data-state-group="btn" aria-pressed="false">focus-visible · forced</button><button class="state-chip" data-state="is-active" data-state-group="btn" aria-pressed="false">active · forced</button></div>
+      <p class="lp-figcaption">Forced samples sit next to live states; neither replaces the other.</p>
+    </div>
+    <div class="block"><div class="cap"><span>Form field</span></div><div class="lp-form"><div class="cap">Start a Demo</div><label class="ds-field"><span>Work email</span><input class="ds-input" id="demo-email" type="email" placeholder="you@brand.com" data-invalid="That address looks incomplete — try you@brand.com." autocomplete="off"><span class="field-note" id="demo-email-note" aria-live="polite"></span></label><div><button class="ds-btn ds-btn--primary" type="button">Request a slot</button></div></div></div><div class="block"><div class="cap"><span>Measured interaction</span><span>real pointer</span></div><div class="rows"><div class="row"><span>link · focus →</span><b>outline 3px none rgb(40, 39, 3 → 1px auto rgb(0, 95, 20</b></div><div class="row"><span>button · focus →</span><b>outline 3px none rgb(40, 39, 3 → 0px none rgb(40, 39, 3</b></div></div></div>
+  </div>
+  <div class="col">
+    <div class="block"><div class="cap"><span>Cards</span><span>pricing tiers</span></div><div class="pricing"><div class="tier"><span class="kind">Personal</span><span class="price">$0<small>for 1 twin</small></span><span class="note">A twin trained on your public voice and published as one page.</span><button class="ds-btn ds-btn--primary" type="button">Try it</button></div><div class="tier featured"><span class="kind">Studio</span><span class="price">$29<small>per month</small></span><span class="note">Five twins, your voice model, and DM routing.</span><button class="ds-btn ds-btn--primary" type="button">Start a Demo</button></div><div class="tier"><span class="kind">Agency</span><span class="price">Custom</span><span class="note">Quarterly brand-review, twin training workshop, and a team of twins.</span><button class="ds-btn ds-btn--primary" type="button">Talk to us</button></div></div></div>
+    <div class="block"><div class="cap"><span>Sample rows</span><span>twin activity · today</span></div><div class="lp-tbl"><table><thead><tr><th>Twin</th><th>Conversations</th><th>Replies</th><th>Hours saved</th></tr></thead><tbody><tr><td>Emma</td><td>1,284</td><td>97%</td><td>+18h</td></tr><tr><td>Theo</td><td>812</td><td>94%</td><td>+12h</td></tr><tr><td>Nia</td><td>640</td><td>91%</td><td>+9h</td></tr><tr><td>Luca</td><td>510</td><td>88%</td><td>+7h</td></tr></tbody></table></div></div>
+    <div class="block"><div class="cap"><span>Surfaces</span><span>radius 8px / 16px / 1600px</span></div>
+      <div class="ds-card">Default card · body copy sits on the surface token.</div>
+      <div class="ds-card ds-card--tint">Tint card · the quieter surface.</div>
+      <div class="ds-card">Shadow specimen withheld: this run's restraint caps box-shadow below 4px, so depth is a hairline here.</div>
+    </div>
+  </div>
+</div></section><section class="lp-sec" id="motion" data-sec="motion" data-backdrop="action">
+<div class="lp-sheet"><span class="lp-num">04</span><h2 class="lp-title">Motion &amp; Guardrails</h2>
+<span class="rule"></span><span class="count">4 durations · 2 curves</span></div>
+<p class="lp-lede">Each curve is the token's own cubic-bezier with its handles drawn. Play runs the real
+duration, the slider scrubs it, and Reduced motion in the top bar replaces every travel with its end state.</p>
+<div class="lp-motion"><div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.625 0.05 0 1: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="102.5" y2="74.6" /><line class="hz" x1="158.0" y1="10.0" x2="10.0" y2="10.0" /><circle class="hn" cx="102.5" cy="74.6" r="2" /><circle class="hn" cx="10.0" cy="10.0" r="2" /><path class="curve" d="M 10.0 78.0 C 102.5 74.6 10.0 10.0 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="mono" data-copy="var(--lw-motion-slip)" role="button" tabindex="0">motion/slip · 525ms</div><div class="track"><span class="dot" id="sym-0-dot"></span></div></div><div class="act"><label for="sym-0-range">Replay</label><input type="range" id="sym-0-range" class="motion-range" min="0" max="1000" value="0" aria-label="scrub motion/slip"><button class="tp-btn" data-sys-replay="sym-0-dot" data-dur="525ms" data-ease="cubic-bezier(0.625, 0.05, 0, 1)">Play</button></div></div><div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.25 1 0.5 1: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="47.0" y2="10.0" /><line class="hz" x1="158.0" y1="10.0" x2="84.0" y2="10.0" /><circle class="hn" cx="47.0" cy="10.0" r="2" /><circle class="hn" cx="84.0" cy="10.0" r="2" /><path class="curve" d="M 10.0 78.0 C 47.0 10.0 84.0 10.0 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="mono" data-copy="var(--lw-motion-reveal)" role="button" tabindex="0">motion/reveal · 400ms</div><div class="track"><span class="dot" id="sym-1-dot"></span></div></div><div class="act"><label for="sym-1-range">Replay</label><input type="range" id="sym-1-range" class="motion-range" min="0" max="1000" value="0" aria-label="scrub motion/reveal"><button class="tp-btn" data-sys-replay="sym-1-dot" data-dur="400ms" data-ease="cubic-bezier(0.25, 1, 0.5, 1)">Play</button></div></div><div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.625 0.05 0 1: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="102.5" y2="74.6" /><line class="hz" x1="158.0" y1="10.0" x2="10.0" y2="10.0" /><circle class="hn" cx="102.5" cy="74.6" r="2" /><circle class="hn" cx="10.0" cy="10.0" r="2" /><path class="curve" d="M 10.0 78.0 C 102.5 74.6 10.0 10.0 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="mono" data-copy="var(--lw-motion-soft)" role="button" tabindex="0">motion/soft · 300ms</div><div class="track"><span class="dot" id="sym-2-dot"></span></div></div><div class="act"><label for="sym-2-range">Replay</label><input type="range" id="sym-2-range" class="motion-range" min="0" max="1000" value="0" aria-label="scrub motion/soft"><button class="tp-btn" data-sys-replay="sym-2-dot" data-dur="300ms" data-ease="cubic-bezier(0.625, 0.05, 0, 1)">Play</button></div></div><div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.25 1 0.5 1: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="47.0" y2="10.0" /><line class="hz" x1="158.0" y1="10.0" x2="84.0" y2="10.0" /><circle class="hn" cx="47.0" cy="10.0" r="2" /><circle class="hn" cx="84.0" cy="10.0" r="2" /><path class="curve" d="M 10.0 78.0 C 47.0 10.0 84.0 10.0 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="mono" data-copy="var(--lw-motion-micro)" role="button" tabindex="0">motion/micro · 200ms</div><div class="track"><span class="dot" id="sym-3-dot"></span></div></div><div class="act"><label for="sym-3-range">Replay</label><input type="range" id="sym-3-range" class="motion-range" min="0" max="1000" value="0" aria-label="scrub motion/micro"><button class="tp-btn" data-sys-replay="sym-3-dot" data-dur="200ms" data-ease="cubic-bezier(0.25, 1, 0.5, 1)">Play</button></div></div><div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.625 0.05 0 1: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="102.5" y2="74.6" /><line class="hz" x1="158.0" y1="10.0" x2="10.0" y2="10.0" /><circle class="hn" cx="102.5" cy="74.6" r="2" /><circle class="hn" cx="10.0" cy="10.0" r="2" /><path class="curve" d="M 10.0 78.0 C 102.5 74.6 10.0 10.0 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="mono" data-copy="var(--lw-easing-slip)" role="button" tabindex="0">motion/easing-slip</div><div class="spec-val">cubic-bezier(0.625, 0.05, 0, 1)</div></div><div class="act"><button class="tag-obs" data-obs="motion">observed</button></div></div><div class="motion"><div class="plot"><svg class="bezier" viewBox="0 0 168 88" width="168" height="88" role="img" aria-label="cubic-bezier 0.25 1 0.5 1: progress over time"><g class="bg"><line x1="10.0" y1="10" x2="10.0" y2="78" /><line x1="47.0" y1="10" x2="47.0" y2="78" /><line x1="84.0" y1="10" x2="84.0" y2="78" /><line x1="121.0" y1="10" x2="121.0" y2="78" /><line x1="158.0" y1="10" x2="158.0" y2="78" /><line x1="10" y1="78.0" x2="158" y2="78.0" /><line x1="10" y1="61.0" x2="158" y2="61.0" /><line x1="10" y1="44.0" x2="158" y2="44.0" /><line x1="10" y1="27.0" x2="158" y2="27.0" /><line x1="10" y1="10.0" x2="158" y2="10.0" /></g><line class="hz" x1="10.0" y1="78.0" x2="47.0" y2="10.0" /><line class="hz" x1="158.0" y1="10.0" x2="84.0" y2="10.0" /><circle class="hn" cx="47.0" cy="10.0" r="2" /><circle class="hn" cx="84.0" cy="10.0" r="2" /><path class="curve" d="M 10.0 78.0 C 47.0 10.0 84.0 10.0 158.0 10.0" /><circle class="end" cx="10.0" cy="78.0" r="2.5" /><circle class="end" cx="158.0" cy="10.0" r="2.5" /><line class="axis" x1="10" y1="78" x2="158" y2="78" /></svg></div><div class="mid"><div class="mono" data-copy="var(--lw-easing-reveal)" role="button" tabindex="0">motion/easing-reveal</div><div class="spec-val">cubic-bezier(0.25, 1, 0.5, 1)</div></div><div class="act"><button class="tag-obs" data-obs="motion">observed</button></div></div></div>
+<p class="lp-motion-legend">dot · direction of travel · curve · measured easing · status · evidence class</p>
+<div class="sec-col">
+  <div><div class="cap">MUST NOT · mechanical gates</div>
+    <p class="lp-figcaption">Every capsule is a machine-readable rule. Expand one to read the regex a build is
+    checked against; a generated page that matches it fails <code>lint_output.py</code>.</p>
+    <div class="gate-list"><div class="gate-item"><div class="gate-head"><span>The button slip is the whole interaction</span><span class="mono">t-quiet-slip</span></div><ul class="gates"><li class="gate max">max · <code>box-shadow</code> ≤ 0px</li><li class="gate note">The control's only motion is the measured 525ms transform slip; a hover shadow is a violation.</li><li class="gate forbid gate-regex"><details><summary>must not · 1 class regex</summary><ul class="regex"><li><code>hover:shadow-(?!(?:none|sm|inner)\b)[a-z0-9]+</code></li></ul></details></li></ul></div></div></div>
+  <div><div class="cap">Taste · decision, and the rejected alternative</div><article class="tcard"><div class="head"><span>restraint</span><span>e-motion-btn · e-motion-hover-rule · e-action-bg</span><span>observed</span></div><h4>The button slip is the whole interaction</h4><div class="ab"><div class="v">one accent-brown slip inside the 8px frame</div><div class="vs">over</div><div class="v over">lift/shadow and scale on the whole button, or a second accent colour on the fill</div></div><p class="why">A page already carrying an image is already loud (the restrained motion is a slip, not a raise); the icon fill turning a shade lighter tells the pointer 'active' without a second focal point.</p><ul class="gates"><li class="gate max">max · <code>box-shadow</code> ≤ 0px</li><li class="gate note">The control's only motion is the measured 525ms transform slip; a hover shadow is a violation.</li><li class="gate forbid gate-regex"><details><summary>must not · 1 class regex</summary><ul class="regex"><li><code>hover:shadow-(?!(?:none|sm|inner)\b)[a-z0-9]+</code></li></ul></details></li></ul></article><article class="tcard"><div class="head"><span>craft</span><span>e-accent-lime · e-action-bg · e-ink-soft</span><span>observed</span></div><h4>Photo is the only colour cut</h4><div class="ab"><div class="v">neon spot inside an icon + brand card on ink</div><div class="vs">over</div><div class="v over">neon-filled CTA, or #2D62FF primary buttons on every section</div></div><p class="why">Amber grass and teal dusk raise the luminance of every near region of the hero; a chromatic fill at button scale would flatten the lightness contrast the serif headline relies on.</p></article><article class="tcard"><div class="head"><span>craft</span><span>e-motion-btn · e-motion-soft</span><span>observed</span></div><h4>Grain and grain only are allowed to move</h4><div class="ab"><div class="v">one transform curve with 0.3s opacity support</div><div class="vs">over</div><div class="v over">spring/bounce easings and staggered keyframes per element</div></div><p class="why">The hero's frame and copy float in one timeline, so extra easing on any child just adds a second rhythm; one curve keeps copy and card reading as one.</p></article><article class="tcard"><div class="head"><span>system</span><span>e-motion-reduced-scan · e-motion-btn · e-motion-soft</span><span>observed</span></div><h4>Grain without motion drift</h4><div class="ab"><div class="v">the same timeline with 0.3s opacity support</div><div class="vs">over</div><div class="v over">progressing drift staying in place</div></div><p class="why">The page reads as a document; a drifting parallax under a document is a visual defect, not an effect to slow down, so a build that mirrors this site must add the branch the site is missing.</p></article></div>
+</div></section><section class="lp-sec" id="bricks" data-sec="bricks" data-backdrop="canvas">
+<div class="lp-sheet"><span class="lp-num">05</span><h2 class="lp-title">Clipped Bricks</h2>
+<span class="rule"></span><span class="count">1 brick</span></div>
+<p class="lp-lede">One module with its interaction, skin stripped and mapped onto this run's slots. The live
+module on the left is rebuilt from the slot mapping; on the right is what the browser recorded on the source.</p>
+<div class="lp-bricks">
+<div class="brick-card">
+  <div class="bh"><span class="name">brick · hero-cta</span>
+    <span>action hover</span><span>slots shadcn</span>
+    <span>class-component:hero_cta &gt; a · <q>Start a Demo</q></span>
+    <span class="tag-obs" aria-disabled="true">observed · 4 changes</span></div>
+  <div class="brick-live">
+    <div class="brick-stage" style="--brick-bg:var(--lw-action-bg);--brick-fg:var(--lw-action-fg);--brick-radius:var(--radius);--brick-transition:all">
+      <div class="cap"><span>live brick · rebuilt from the slot mapping</span></div>
+      <div class="brick-cta-row"><button class="brick-cta" type="button">Start a Demo</button></div>
+      <div class="brick-shots"><figure class="trim" style="--crop-y:0.00%"><img src="../clips/hero-cta/shots/before.png" alt="Start a Demo · before" loading="lazy"><figcaption>before</figcaption></figure><figure class="trim" style="--crop-y:0.00%"><img src="../clips/hero-cta/shots/during.png" alt="Start a Demo · during" loading="lazy"><figcaption>during</figcaption></figure><figure class="trim" style="--crop-y:0.00%"><img src="../clips/hero-cta/shots/after.png" alt="Start a Demo · after" loading="lazy"><figcaption>after</figcaption></figure></div>
+    </div>
+    <aside class="brick-meta">
+      <div class="cap"><span>measured on the source</span><button class="tag-obs" data-obs="material">+ Observed</button></div>
+      <div class="rows">
+        <div class="row"><span>trigger</span><b>&lt;a&gt; </b></div>
+        <div class="row"><span>module</span><b>#w-node-f63cbc6a-01b0-c56e-95d4-065080c…</b></div>
+        <div class="row"><span>changes</span><b>4</b></div>
+        <div class="row"><span>trigger · rect</span><b>[40, 652, 148, 56]</b></div><div class="row"><span>trigger · opacity</span><b>1</b></div><div class="row"><span>stateful · rect</span><b>[40, 652, 148, 56]</b></div>
+      </div>
+      <div class="verdict bad">reduced motion · not-degraded<br>the source keeps moving under reduce — implement the branch yourself</div>
+      <div class="mono-line">surface → var(--card) · text → var(--card-foreground) · radius → var(--radius)</div>
+    </aside>
+  </div>
+</div></div><p class="provenance">Each brick was recorded twice in the same browser: once normally, once with CDP <code>prefers-reduced-motion: reduce</code>. The screenshots are the real frames from <code>clips/hero-cta/shots/</code>.</p></section><footer class="lp-foot"><span>Steno.ai · specimen built by lewitt from dna.json</span><span>74 tokens · 44 evidence</span></footer></div>
+  </div>
+</div>
+<div class="view view-specs" id="view-specs" role="tabpanel" aria-labelledby="tab-specs" hidden>
+  <div class="sp-wrap"><section class="sp-panel" id="sp-overview" data-panel="overview">
+<h1>Overview</h1>
+<p class="lede">https://www.steno.ai/ · captured 2026-11-24T10:16:55 · full mode · every figure is rendered from <code>dna.json</code> and reads <code>../tokens.css</code>.</p>
+<p class="sp-ledger"><span class="tb-meta">74 tokens</span><span class="tb-meta">44 evidence</span><span class="tb-meta">4 pages inspected</span></p>
+<div class="note"><strong>The button slip is the whole interaction</strong> — A page already carrying an image is already loud (the restrained motion is a slip, not a raise); the icon fill turning a shade lighter tells the pointer 'active' without a second focal point.</div>
+<div class="sp-stat-grid">
+  <div class="sp-stat"><span class="v">4</span><span class="k">pages inspected</span><span class="d">entry + representative subpages</span></div>
+  <div class="sp-stat"><span class="v">74</span><span class="k">tokens</span><span class="d">primitive → semantic → component</span></div>
+  <div class="sp-stat"><span class="v">44</span><span class="k">evidence entries</span><span class="d">each observed value cites one</span></div>
+  <div class="sp-stat"><span class="v">14</span><span class="k">measurements</span><span class="d">measured with units and a status</span></div>
+  <div class="sp-stat"><span class="v">5</span><span class="k">patterns</span><span class="d">rules between values and taste</span></div>
+  <div class="sp-stat"><span class="v">4</span><span class="k">taste principles</span><span class="d">1 restraint(s) with machine gate</span></div>
+  <div class="sp-stat"><span class="v">3</span><span class="k">interaction deltas</span><span class="d">forced with a real pointer</span></div>
+  <div class="sp-stat"><span class="v">1</span><span class="k">clipped bricks</span><span class="d">single modules, reduce measured</span></div>
+</div>
+<h2>Pages</h2>
+<ul><li><a href="https://www.steno.ai/" rel="noreferrer">https://www.steno.ai/</a></li><li><a href="https://www.steno.ai/about" rel="noreferrer">https://www.steno.ai/about</a></li><li><a href="https://www.steno.ai/team" rel="noreferrer">https://www.steno.ai/team</a></li><li><a href="https://www.steno.ai/experts" rel="noreferrer">https://www.steno.ai/experts</a></li></ul>
+<h2>Claim register</h2>
+<p class="lede">Specimen copy is <em>inferred</em> from the source's voice: it is written for this run, never quoted
+from the site, and the page never presents it as the site's own copy. Tokens and measurements are observed.</p>
+<div class="tbl"><table><thead><tr><th>Claim</th><th>Basis</th></tr></thead><tbody><tr><td class="mono">specimens.hero.headline</td><td>Influence
+everywhere.
+All at once.</td></tr><tr><td class="mono">specimens.hero.subhead</td><td>We create AI Twins that turn personal brands into personal relationships, at infinite scale.</td></tr><tr><td class="mono">specimens.hero.primaryCta</td><td>Start a Demo</td></tr><tr><td class="mono">specimens.stats</td><td>92% of buyers ask for a person, not a page; 3.4x more replies than an inbox; 24/7 twin answers, on brand; 1 day to launch a twin</td></tr><tr><td class="mono">specimens.cards</td><td>Personal; Studio; Agency</td></tr><tr><td class="mono">clips/</td><td>hero-cta</td></tr></tbody></table></div></section><section class="sp-panel" id="sp-tokens" data-panel="tokens">
+<h1>Tokens</h1>
+<p class="lede">The full registry with aliases resolved for mode <code>default</code>.
+Click a name or a value to copy it.</p>
+<div class="tbl"><table><thead><tr><th>CSS var</th><th>Token</th><th>Layer</th><th>Type</th><th>Value</th><th>Status</th></tr></thead>
+<tbody><tr><td><span class="mono" data-copy="var(--oatmeal-02)">--oatmeal-02</span></td><td class="mono">color/oatmeal/02</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#FFFDF1">#FFFDF1</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--oatmeal-03)">--oatmeal-03</span></td><td class="mono">color/oatmeal/03</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#F0EDDA">#F0EDDA</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--oatmeal-04)">--oatmeal-04</span></td><td class="mono">color/oatmeal/04</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#DAD7C1">#DAD7C1</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--oatmeal-05)">--oatmeal-05</span></td><td class="mono">color/oatmeal/05</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#CFCCB1">#CFCCB1</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--oatmeal-06)">--oatmeal-06</span></td><td class="mono">color/oatmeal/06</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#BAA57B">#BAA57B</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--oatmeal-08)">--oatmeal-08</span></td><td class="mono">color/oatmeal/08</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#43413C">#43413C</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--oatmeal-09)">--oatmeal-09</span></td><td class="mono">color/oatmeal/09</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#282724">#282724</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--brand-ink)">--brand-ink</span></td><td class="mono">color/brand-ink</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#282724">#282724</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--ink-10)">--ink-10</span></td><td class="mono">color/ink/10</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#2827251A">#2827251A</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--tint-50)">--tint-50</span></td><td class="mono">color/tint/50</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#28272580">#28272580</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--white-alternate)">--white-alternate</span></td><td class="mono">color/white/alternate</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#FFFDF1">#FFFDF1</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--light-muted)">--light-muted</span></td><td class="mono">color/light/muted</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#F0EDDAB3">#F0EDDAB3</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--neon)">--neon</span></td><td class="mono">color/neon</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#CAFF75">#CAFF75</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--link-blue)">--link-blue</span></td><td class="mono">color/link-blue</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="#2D62FF">#2D62FF</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-canvas)">--lw-canvas</span></td><td class="mono">color/canvas</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#F0EDDA">#F0EDDA</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-canvas-alt)">--lw-canvas-alt</span></td><td class="mono">color/canvas-alt</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#FFFDF1">#FFFDF1</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-canvas-tint)">--lw-canvas-tint</span></td><td class="mono">color/canvas-tint</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#DAD7C1">#DAD7C1</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-canvas-band)">--lw-canvas-band</span></td><td class="mono">color/canvas-band</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#CFCCB1">#CFCCB1</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-surface)">--lw-surface</span></td><td class="mono">color/surface</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#BAA57B">#BAA57B</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-screen)">--lw-screen</span></td><td class="mono">color/screen</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#282724">#282724</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-text-primary)">--lw-text-primary</span></td><td class="mono">color/text-primary</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#282724">#282724</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-text-body)">--lw-text-body</span></td><td class="mono">color/text-body</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#43413C">#43413C</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-text-secondary)">--lw-text-secondary</span></td><td class="mono">color/text-secondary</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#FFFDF1">#FFFDF1</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-text-tertiary)">--lw-text-tertiary</span></td><td class="mono">color/text-tertiary</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#F0EDDAB3">#F0EDDAB3</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-action-bg)">--lw-action-bg</span></td><td class="mono">color/action/bg</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#282724">#282724</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-action-bg-alt)">--lw-action-bg-alt</span></td><td class="mono">color/action/bg-hover</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#43413C">#43413C</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-action-fg)">--lw-action-fg</span></td><td class="mono">color/action/fg</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#FFFDF1">#FFFDF1</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-brand)">--lw-brand</span></td><td class="mono">color/brand</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#BAA57B">#BAA57B</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-accent)">--lw-accent</span></td><td class="mono">color/accent</td><td>semantic</td><td>color</td><td><span class="mono" data-copy="#CAFF75">#CAFF75</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-nav-primary)">--lw-nav-primary</span></td><td class="mono">color/nav-primary</td><td>component</td><td>color</td><td><span class="mono" data-copy="#282724">#282724</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-border)">--lw-border</span></td><td class="mono">color/border</td><td>component</td><td>color</td><td><span class="mono" data-copy="rgba(40, 39, 37, 0.15)">rgba(40, 39, 37, 0.15)</span></td><td><span class="badge proposed">proposed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-border-strong)">--lw-border-strong</span></td><td class="mono">color/border-strong</td><td>component</td><td>color</td><td><span class="mono" data-copy="rgba(40, 39, 37, 0.25)">rgba(40, 39, 37, 0.25)</span></td><td><span class="badge proposed">proposed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-on-brand)">--lw-on-brand</span></td><td class="mono">color/on-brand</td><td>primitive</td><td>color</td><td><span class="mono" data-copy="rgba(40, 39, 36, 1)">rgba(40, 39, 36, 1)</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-hover-tint)">--lw-hover-tint</span></td><td class="mono">color/hover-tint</td><td>component</td><td>color</td><td><span class="mono" data-copy="rgba(40, 39, 36, 0.06)">rgba(40, 39, 36, 0.06)</span></td><td><span class="badge proposed">proposed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-font-display)">--lw-font-display</span></td><td class="mono">font/display</td><td>primitive</td><td>fontFamily</td><td><span class="mono" data-copy="'PP Writer', Georgia, sans-serif">'PP Writer', Georgia, sans-serif</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-font-ui)">--lw-font-ui</span></td><td class="mono">font/ui</td><td>primitive</td><td>fontFamily</td><td><span class="mono" data-copy="'PP Mori', Arial, sans-serif">'PP Mori', Arial, sans-serif</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-font-mono)">--lw-font-mono</span></td><td class="mono">font/mono</td><td>primitive</td><td>fontFamily</td><td><span class="mono" data-copy="ui-monospace, SFMono-Regular, Menlo, monospace">ui-monospace, SFMono-Regular, Menlo, monospace</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-font-campaign)">--lw-font-campaign</span></td><td class="mono">font/campaign</td><td>semantic</td><td>fontFamily</td><td><span class="mono" data-copy="'PP Writer', Georgia, sans-serif">'PP Writer', Georgia, sans-serif</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-font-body)">--lw-font-body</span></td><td class="mono">font/body</td><td>semantic</td><td>fontFamily</td><td><span class="mono" data-copy="'PP Mori', Arial, sans-serif">'PP Mori', Arial, sans-serif</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-display-xl)">--lw-type-display-xl</span></td><td class="mono">type/display-xl</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="76.8px">76.8px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-display-lg)">--lw-type-display-lg</span></td><td class="mono">type/display-lg</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="60.8px">60.8px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-display)">--lw-type-display</span></td><td class="mono">type/display</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="56px">56px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-headline)">--lw-type-headline</span></td><td class="mono">type/headline</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="40px">40px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-title)">--lw-type-title</span></td><td class="mono">type/title</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="22px">22px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-subtitle)">--lw-type-subtitle</span></td><td class="mono">type/subtitle</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="18px">18px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-lead)">--lw-type-lead</span></td><td class="mono">type/lead</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="20px">20px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-body)">--lw-type-body</span></td><td class="mono">type/body</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="16px">16px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-ui)">--lw-type-ui</span></td><td class="mono">type/ui</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="14px">14px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-caption)">--lw-type-caption</span></td><td class="mono">type/caption</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="13px">13px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-type-micro)">--lw-type-micro</span></td><td class="mono">type/micro</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="12px">12px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-leading-display)">--lw-leading-display</span></td><td class="mono">leading/display</td><td>component</td><td>number</td><td><span class="mono" data-copy="1.0">1.0</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-leading-tight)">--lw-leading-tight</span></td><td class="mono">leading/tight</td><td>component</td><td>number</td><td><span class="mono" data-copy="1.1">1.1</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-leading-heading)">--lw-leading-heading</span></td><td class="mono">leading/heading</td><td>component</td><td>number</td><td><span class="mono" data-copy="1.3">1.3</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-leading-prose)">--lw-leading-prose</span></td><td class="mono">leading/prose</td><td>component</td><td>number</td><td><span class="mono" data-copy="1.4">1.4</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-leading-ui)">--lw-leading-ui</span></td><td class="mono">leading/ui</td><td>component</td><td>number</td><td><span class="mono" data-copy="1.4">1.4</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-tracking-display)">--lw-tracking-display</span></td><td class="mono">tracking/display</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="-0.8px">-0.8px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-tracking-headline)">--lw-tracking-headline</span></td><td class="mono">tracking/headline</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="-1.28px">-1.28px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-tracking-body)">--lw-tracking-body</span></td><td class="mono">tracking/body</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="0em">0em</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-weight-regular)">--lw-weight-regular</span></td><td class="mono">weight/regular</td><td>primitive</td><td>fontWeight</td><td><span class="mono" data-copy="400">400</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-weight-interface)">--lw-weight-interface</span></td><td class="mono">weight/interface</td><td>primitive</td><td>fontWeight</td><td><span class="mono" data-copy="600">600</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-layout-section)">--lw-layout-section</span></td><td class="mono">layout/section</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="900px">900px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-layout-gutter)">--lw-layout-gutter</span></td><td class="mono">layout/gutter</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="40px">40px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-layout-gap)">--lw-layout-gap</span></td><td class="mono">layout/grid-gap</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="64px">64px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-radius-control)">--lw-radius-control</span></td><td class="mono">radius/control</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="8px">8px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-radius-pill)">--lw-radius-pill</span></td><td class="mono">radius/pill</td><td>primitive</td><td>dimension</td><td><span class="mono" data-copy="1600px">1600px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-radius-chip)">--lw-radius-chip</span></td><td class="mono">radius/chip</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="16px">16px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-radius-card)">--lw-radius-card</span></td><td class="mono">radius/card</td><td>component</td><td>dimension</td><td><span class="mono" data-copy="8px">8px</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-depth-overlay)">--lw-depth-overlay</span></td><td class="mono">depth/overlay</td><td>component</td><td>shadow</td><td><span class="mono" data-copy="0 33px 33px rgba(44,38,27,0.17), 0 75px 45px rgba(44,38,27,0.10), 0 133px 53px rgba(44,38,27,0.03)">0 33px 33px rgba(44,38,27,0.17), 0 75px 45px rgba(44,38,27,0.10), 0 133px 53px rgba(44,38,27,0.03)</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-motion-slip)">--lw-motion-slip</span></td><td class="mono">motion/slip</td><td>primitive</td><td>duration</td><td><span class="mono" data-copy="525ms">525ms</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-motion-reveal)">--lw-motion-reveal</span></td><td class="mono">motion/reveal</td><td>primitive</td><td>duration</td><td><span class="mono" data-copy="400ms">400ms</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-motion-soft)">--lw-motion-soft</span></td><td class="mono">motion/soft</td><td>primitive</td><td>duration</td><td><span class="mono" data-copy="300ms">300ms</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-motion-micro)">--lw-motion-micro</span></td><td class="mono">motion/micro</td><td>primitive</td><td>duration</td><td><span class="mono" data-copy="200ms">200ms</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-easing-slip)">--lw-easing-slip</span></td><td class="mono">motion/easing-slip</td><td>primitive</td><td>easing</td><td><span class="mono" data-copy="cubic-bezier(0.625, 0.05, 0, 1)">cubic-bezier(0.625, 0.05, 0, 1)</span></td><td><span class="badge observed">observed</span></td></tr><tr><td><span class="mono" data-copy="var(--lw-easing-reveal)">--lw-easing-reveal</span></td><td class="mono">motion/easing-reveal</td><td>primitive</td><td>easing</td><td><span class="mono" data-copy="cubic-bezier(0.25, 1, 0.5, 1)">cubic-bezier(0.25, 1, 0.5, 1)</span></td><td><span class="badge observed">observed</span></td></tr></tbody></table></div></section><section class="sp-panel" id="sp-measurements" data-panel="measurements">
+<h1>Measurements</h1>
+<p class="lede">Values with units and the evidence that produced them. A row whose status is not observed says so.</p>
+<div class="tbl"><table><thead><tr><th>Category</th><th>Value</th><th>Status</th><th>Evidence</th></tr></thead><tbody><tr><td>Color / canvas</td><td>#F0EDDA oatmeal-03 fills the page (49% element background share at 1440); #FFFDF1 oatmeal-02 46.2% of alt panels</td><td><span class="badge observed">observed</span></td><td class="mono">e-canvas, e-oatmeal-scale, e-canvas-about</td></tr><tr><td>Color / surface</td><td>#BAA57B oatmeal-06 is the product card / twin card surface (0.7% of area); #DAD7C1 oatmeal-04 and #CFCCB1 oatmeal-05 are tint bands</td><td><span class="badge observed">observed</span></td><td class="mono">e-surface, e-oatmeal-scale</td></tr><tr><td>Color / text</td><td>#282724 text on oatmeal; #FFFDF1 on ink; muted is 70% alpha of either</td><td><span class="badge observed">observed</span></td><td class="mono">e-ink, e-ink-muted, e-text-secondary</td></tr><tr><td>Color / action</td><td>#282724 fill + #FFFDF1 label, 1px rgba(240,237,218,0.1) ring; hover fill #43413C</td><td><span class="badge observed">observed</span></td><td class="mono">e-action-bg, e-action-fg, e-ink-soft</td></tr><tr><td>Color / accent</td><td>#CAFF75 neon exists only on the hero eyebrow play glyph; role reads as a play marker for the mauve and dark CTA</td><td><span class="badge observed">observed</span></td><td class="mono">e-accent-lime, e-action-bg</td></tr><tr><td>Type / display</td><td>PP Writer 400: 76.8/76.8 h1, 60.8/66.88 display with -0.8px, 56/61.6 h2, 40/48 with -1.28px, 22/28.6 h3, 18/23.4 h4</td><td><span class="badge observed">observed</span></td><td class="mono">e-font-writer, e-h1, e-h2, e-h2-large, e-h3, e-h4, e-h40</td></tr><tr><td>Type / body</td><td>PP Mori 400: 20/28 lead, 16/22.4 default, 13/18.2 tiny, 12/16.8 micro; 600 only on button labels</td><td><span class="badge observed">observed</span></td><td class="mono">e-font-mori, e-body-mori, e-weights</td></tr><tr><td>Type / scale shape</td><td>two bands: 76.8-56-40 display and 22-20-18-16-14-13-12 UI, with 16px carrying 598 nodes</td><td><span class="badge observed">observed</span></td><td class="mono">e-sizes, e-h1, e-body-mori</td></tr><tr><td>Shape / radius</td><td>8px on 127 elements (controls, cards); 6px on 12; 16px on 2 chips; 1600px on the quote pill</td><td><span class="badge observed">observed</span></td><td class="mono">e-radii, e-pill</td></tr><tr><td>Shape / depth</td><td>no card shadow anywhere except one 4-layer drop shadow of up to 58px blur on a single overlay</td><td><span class="badge observed">observed</span></td><td class="mono">e-shadow</td></tr><tr><td>Motion</td><td>transform 0.525s cubic-bezier(0.625, 0.05, 0, 1) for button text/bg; 0.4s cubic-bezier(0.25, 1, 0.5, 1) for reveals; color/bg 0.2-0.3s</td><td><span class="badge observed">observed</span></td><td class="mono">e-motion-btn, e-motion-hover-rule, e-motion-soft</td></tr><tr><td>Layout</td><td>hero: 2 columns of 648px with a 64px gap at 1440; 40px page gutters (1360px container)</td><td><span class="badge observed">observed</span></td><td class="mono">e-hero-grid, e-section-gap</td></tr><tr><td>Accessibility</td><td>no prefers-reduced-motion block on any of the 4 pages</td><td><span class="badge observed">observed</span></td><td class="mono">e-motion-reduced-scan</td></tr><tr><td>Accessibility / focus</td><td>focus ring is the browser default 1px auto rgb(0,95,204) on CTAs; the nav dropdown button shows none</td><td><span class="badge observed">observed</span></td><td class="mono">e-cta-focus, e-nav-focus</td></tr></tbody></table></div></section><section class="sp-panel" id="sp-evidence" data-panel="evidence">
+<h1>Evidence Ledger</h1>
+<p class="lede">Every observed or inferred claim cites one of these recordings; none was estimated from a screenshot.</p>
+<div class="tbl"><table><thead><tr><th>ID</th><th>URL</th><th>Locator</th><th>Method</th><th>Status</th><th>Values</th></tr></thead>
+<tbody><tr><td class="mono">e-canvas</td><td class="mono">www.steno.ai/</td><td>html/body background</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;pageBackground&quot;: &quot;rgb(240, 237, 218)&quot;, &quot;oatmeal-03&quot;: &quot;var(--oatmeal--03) = #F0EDDA&quot;}</td></tr><tr><td class="mono">e-canvas-about</td><td class="mono">www.steno.ai/about</td><td>about page sections</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;dark sections&quot;: &quot;rgb(40, 39, 36) = 70.8% of element area&quot;, &quot;alternate&quot;: &quot;rgb(255, 253, 241) = 46.2% on home&quot;}</td></tr><tr><td class="mono">e-canvas-team</td><td class="mono">www.steno.ai/team</td><td>team page sections</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;tint&quot;: &quot;rgb(207, 204, 177) = 26.9%&quot;, &quot;darkest&quot;: &quot;rgb(0, 0, 0) = 70.9% (video frames)&quot;}</td></tr><tr><td class="mono">e-surface</td><td class="mono">www.steno.ai/</td><td>raised cards (twin card, tiles)</td><td class="mono">computed-style+viewport-screenshot</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;twin card background&quot;: &quot;rgb(186, 165, 123)&quot;, &quot;share of element area&quot;: &quot;0.7%&quot;}</td></tr><tr><td class="mono">e-oatmeal-scale</td><td class="mono">www.steno.ai/</td><td>CSS custom properties --oatmeal--02..09</td><td class="mono">cssom-variable-read</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;02&quot;: &quot;#FFFDF1&quot;, &quot;03&quot;: &quot;#F0EDDA&quot;, &quot;04&quot;: &quot;#DAD7C1&quot;, &quot;05&quot;: &quot;#CFCCB1&quot;, &quot;06&quot;: &quot;#BAA57B&quot;, &quot;08&quot;: &quot;#43413C&quot;, &quot;09&quot;: &quot;#282724&quot;}</td></tr><tr><td class="mono">e-ink</td><td class="mono">www.steno.ai/</td><td>body text colour</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;text&quot;: &quot;rgb(40, 39, 36)&quot;, &quot;var&quot;: &quot;--text-color--text-primary #282724&quot;, &quot;text nodes&quot;: &quot;390 on home, 1124 on /experts&quot;}</td></tr><tr><td class="mono">e-ink-muted</td><td class="mono">www.steno.ai/</td><td>text-style-muted nodes</td><td class="mono">cssom-variable-read</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;primary-muted&quot;: &quot;#282725B3 (70%)&quot;, &quot;alternate-muted&quot;: &quot;#F0EDDAB3&quot;, &quot;supermuted&quot;: &quot;#28272580 / #F0EDDA80&quot;}</td></tr><tr><td class="mono">e-text-secondary</td><td class="mono">www.steno.ai/</td><td>light surfaces on dark sections</td><td class="mono">cssom-variable-read</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;--text-color--text-secondary&quot;: &quot;#FFFDF1&quot;, &quot;alternate text&quot;: &quot;#F0EDDA&quot;}</td></tr><tr><td class="mono">e-brand-oatmeal</td><td class="mono">www.steno.ai/</td><td>var(--oatmeal--06) on twin card and cards</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;surface&quot;: &quot;#BAA57B&quot;, &quot;count&quot;: &quot;8 elements&quot;}</td></tr><tr><td class="mono">e-accent-lime</td><td class="mono">www.steno.ai/</td><td>hero eyebrow play glyph</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;glyph fill&quot;: &quot;#CAFF75&quot;, &quot;var&quot;: &quot;--neon&quot;, &quot;usage&quot;: &quot;icon-only on home; rgba(255,253,241,0.55) text on /experts&quot;}</td></tr><tr><td class="mono">e-ink-soft</td><td class="mono">www.steno.ai/</td><td>btn-icon-content__bg (CTA hover fill)</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;fill&quot;: &quot;rgb(67, 65, 60) = #43413C&quot;, &quot;var&quot;: &quot;--oatmeal--08&quot;}</td></tr><tr><td class="mono">e-action-bg</td><td class="mono">www.steno.ai/</td><td>primary CTA surface `.hero_cta .btn-icon-content`</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;background&quot;: &quot;rgb(40, 39, 36) = #282724&quot;, &quot;border&quot;: &quot;1px rgba(240,237,218,0.1)&quot;}</td></tr><tr><td class="mono">e-action-fg</td><td class="mono">www.steno.ai/</td><td>CTA label `.btn-icon-content__text`</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;color&quot;: &quot;rgb(255, 253, 241) = #FFFDF1&quot;, &quot;weight&quot;: &quot;600&quot;}</td></tr><tr><td class="mono">e-nav-primary</td><td class="mono">www.steno.ai/</td><td>nav menu links `.nav_menu a`</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;color&quot;: &quot;rgb(40, 39, 36)&quot;, &quot;height&quot;: &quot;48px&quot;}</td></tr><tr><td class="mono">e-link</td><td class="mono">www.steno.ai/</td><td>var(--link-color--link-primary), var(--base-color-system--focus-state)</td><td class="mono">cssom-variable-read</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;link-primary&quot;: &quot;#2D62FF&quot;, &quot;focus-state&quot;: &quot;#2D62FF&quot;, &quot;usage&quot;: &quot;#2D62FF is not used on the home hero&quot;}</td></tr><tr><td class="mono">e-font-writer</td><td class="mono">www.steno.ai/</td><td>h1..h4 computed font-family</td><td class="mono">computed-style+document.fonts</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;family&quot;: &quot;PP Writer&quot;, &quot;fallback&quot;: &quot;Georgia, sans-serif&quot;, &quot;faces loaded&quot;: &quot;PP Writer 400&quot;}</td></tr><tr><td class="mono">e-font-mori</td><td class="mono">www.steno.ai/</td><td>body/ui computed font-family</td><td class="mono">computed-style+document.fonts</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;family&quot;: &quot;PP Mori&quot;, &quot;fallback&quot;: &quot;Arial, sans-serif&quot;, &quot;faces loaded&quot;: &quot;PP Mori 400, 600&quot;}</td></tr><tr><td class="mono">e-font-mono</td><td class="mono">www.steno.ai/experts</td><td>ui-monospace nodes</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;family&quot;: &quot;ui-monospace&quot;, &quot;usage&quot;: &quot;'Duplicating — 25%' progress caption&quot;}</td></tr><tr><td class="mono">e-h1</td><td class="mono">www.steno.ai/</td><td>`.hero_content h1.heading-style-h1`</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;font-size&quot;: &quot;76.8px&quot;, &quot;line-height&quot;: &quot;76.8px&quot;, &quot;weight&quot;: &quot;400&quot;, &quot;letter-spacing&quot;: &quot;normal&quot;, &quot;text&quot;: &quot;Influence / everywhere. / All at once.&quot;}</td></tr><tr><td class="mono">e-h2</td><td class="mono">www.steno.ai/</td><td>h2 headings</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;font-size&quot;: &quot;56px&quot;, &quot;line-height&quot;: &quot;61.6px&quot;, &quot;weight&quot;: &quot;400&quot;}</td></tr><tr><td class="mono">e-h2-large</td><td class="mono">www.steno.ai/about</td><td>about h2</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;font-size&quot;: &quot;60.8px&quot;, &quot;line-height&quot;: &quot;66.88px&quot;, &quot;letter-spacing&quot;: &quot;-0.8px&quot;, &quot;weight&quot;: &quot;400&quot;}</td></tr><tr><td class="mono">e-h3</td><td class="mono">www.steno.ai/</td><td>h3 headings</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;font-size&quot;: &quot;22px&quot;, &quot;line-height&quot;: &quot;28.6px&quot;, &quot;weight&quot;: &quot;400&quot;}</td></tr><tr><td class="mono">e-h4</td><td class="mono">www.steno.ai/</td><td>h4 headings</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;font-size&quot;: &quot;18px&quot;, &quot;line-height&quot;: &quot;23.4px&quot;, &quot;weight&quot;: &quot;400&quot;}</td></tr><tr><td class="mono">e-h40</td><td class="mono">www.steno.ai/</td><td>40px display blocks</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;font-size&quot;: &quot;40px&quot;, &quot;line-height&quot;: &quot;48px&quot;, &quot;letter-spacing&quot;: &quot;-1.28px&quot;}</td></tr><tr><td class="mono">e-body-mori</td><td class="mono">www.steno.ai/</td><td>PP Mori body copy</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;body&quot;: &quot;20px / 28px / 400&quot;, &quot;default&quot;: &quot;16px / 22.4px / 400&quot;, &quot;tiny&quot;: &quot;13px / 18.2px / 400&quot;, &quot;micro&quot;: &quot;12px / 16.8px / 400&quot;}</td></tr><tr><td class="mono">e-sizes</td><td class="mono">www.steno.ai/</td><td>distinct font sizes, home</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;16px&quot;: &quot;598 nodes&quot;, &quot;76.8px&quot;: &quot;87&quot;, &quot;20px&quot;: &quot;79&quot;, &quot;40px&quot;: &quot;59&quot;, &quot;13px&quot;: &quot;56&quot;, &quot;18px&quot;: &quot;54&quot;, &quot;60.8px&quot;: &quot;42&quot;, &quot;22px&quot;: &quot;31&quot;}</td></tr><tr><td class="mono">e-weights</td><td class="mono">www.steno.ai/</td><td>font-weight distribution, home</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;400&quot;: &quot;1063 nodes&quot;, &quot;600&quot;: &quot;6&quot;, &quot;700&quot;: &quot;1&quot;}</td></tr><tr><td class="mono">e-radii</td><td class="mono">www.steno.ai/</td><td>border-radius distribution</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;8px&quot;: &quot;127 elements&quot;, &quot;6px&quot;: &quot;12&quot;, &quot;16px&quot;: &quot;2&quot;, &quot;1600px&quot;: &quot;1 (quote pill)&quot;, &quot;4px&quot;: &quot;1&quot;}</td></tr><tr><td class="mono">e-pill</td><td class="mono">www.steno.ai/</td><td>`.hero_eyebrow`</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;radius&quot;: &quot;1600px&quot;, &quot;padding&quot;: &quot;8px 16px 8px 8px&quot;, &quot;gap&quot;: &quot;4px&quot;, &quot;border&quot;: &quot;1px rgba(40,39,37,0.15)&quot;, &quot;height&quot;: &quot;55px&quot;}</td></tr><tr><td class="mono">e-shadow</td><td class="mono">www.steno.ai/</td><td>the only box-shadow</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;count&quot;: &quot;1 element&quot;, &quot;value&quot;: &quot;rgba(44,38,27,0)·0 208px 58px + 3 more layers, max blur 58px&quot;}</td></tr><tr><td class="mono">e-motion-btn</td><td class="mono">www.steno.ai/</td><td>`.btn-icon-content__text`, `.btn-icon-content__bg`</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;transition&quot;: &quot;transform 0.525s cubic-bezier(0.625, 0, 0, 1) (0.625,0.05,0,1)&quot;, &quot;txt&quot;: &quot;transform 0.525s ...&quot;}</td></tr><tr><td class="mono">e-motion-hover-rule</td><td class="mono">www.steno.ai/</td><td>CSSOM rule</td><td class="mono">cssom-scan</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;rule&quot;: &quot;.btn-icon-link:hover .btn-icon-content__bg { transform: translate(0px) rotate(0deg); }&quot;}</td></tr><tr><td class="mono">e-motion-soft</td><td class="mono">www.steno.ai/</td><td>other transition strings</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;opacity&quot;: &quot;0.3s&quot;, &quot;background-color&quot;: &quot;0.3s&quot;, &quot;color&quot;: &quot;color 0.2s, background-color 0.2s&quot;, &quot;reveal&quot;: &quot;transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)&quot;}</td></tr><tr><td class="mono">e-motion-reduced-scan</td><td class="mono">www.steno.ai/</td><td>CSSOM prefers-reduced-motion blocks</td><td class="mono">cssom-scan</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;home&quot;: &quot;0 blocks&quot;, &quot;about&quot;: &quot;0&quot;, &quot;team&quot;: &quot;0&quot;, &quot;experts&quot;: &quot;0&quot;}</td></tr><tr><td class="mono">e-hero-svg-wheel</td><td class="mono">www.steno.ai/</td><td>twin-card rotating svg card (PointerEvent IS_POINTER_COARSE checks)</td><td class="mono">dom+scroll-state observation</td><td><span class="badge inferred">inferred</span></td><td class="mono">{&quot;code&quot;: &quot;window.PointerEvent &amp;&amp; PointerEvent.prototype.IS_POINTER_COARSE → renderer (desktop, react-three-fiber) | (touch, svg card)&quot;, &quot;svg card opacity&quot;: &quot;0 at load&quot;}</td></tr><tr><td class="mono">e-hero-grid</td><td class="mono">www.steno.ai/</td><td>`.home-hero_grid`</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;columns&quot;: &quot;648px 648px&quot;, &quot;column-gap&quot;: &quot;64px&quot;, &quot;hero height&quot;: &quot;900px at 1440&quot;}</td></tr><tr><td class="mono">e-section-gap</td><td class="mono">www.steno.ai/</td><td>`.padding-global` padding</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;padding&quot;: &quot;0 40px&quot;, &quot;container&quot;: &quot;1360px inside 1440&quot;}</td></tr><tr><td class="mono">e-metric</td><td class="mono">www.steno.ai/</td><td>twin card status `0% Complete` + progress caption</td><td class="mono">computed-style</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;font&quot;: &quot;13px / 18.2px / 400 mono on /experts&quot;, &quot;text&quot;: &quot;progress percentage&quot;}</td></tr><tr><td class="mono">e-cta-focus</td><td class="mono">www.steno.ai/</td><td>`.hero_cta a.btn-icon-link` forced `:focus-visible` via CDP mouse + focus()</td><td class="mono">cdp-mouse+focus-diff</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;outline before&quot;: &quot;3px none rgb(40,39,36)&quot;, &quot;outline after&quot;: &quot;1px auto rgb(0, 95, 204)&quot;}</td></tr><tr><td class="mono">e-cta-hover</td><td class="mono">www.steno.ai/</td><td>`.hero_cta a.btn-icon-link` hovered with real CDP mouseMoved</td><td class="mono">cdp-mouse-diff</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;rule present&quot;: &quot;:hover .btn-icon-content__bg → translate(0) rotate(0)&quot;, &quot;measured delta in capture&quot;: &quot;none above noise (reveal animation rerun on hover)&quot;}</td></tr><tr><td class="mono">e-nav-focus</td><td class="mono">www.steno.ai/</td><td>`button.nav-dropdown_dropdown-toggle` (Company)</td><td class="mono">cdp-mouse+focus-diff</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;hover delta&quot;: &quot;none&quot;, &quot;outline after&quot;: &quot;0px none rgb(40,39,36) (no visible ring)&quot;}</td></tr><tr><td class="mono">e-brick-hover</td><td class="mono">www.steno.ai/</td><td>brick hero-cta: `.hero_cta a.btn-icon-link` hover, 260ms settle</td><td class="mono">cdp-mouse-diff</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;conclusion&quot;: &quot;observed&quot;, &quot;changes&quot;: &quot;4 (rect/opacity wobble, see brick.md)&quot;}</td></tr><tr><td class="mono">e-brick-reduced</td><td class="mono">www.steno.ai/</td><td>brick hero-cta: same timeline under Emulation.setEmulatedMedia prefers-reduced-motion: reduce</td><td class="mono">cdp-emulated-media</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;status&quot;: &quot;not-degraded&quot;, &quot;normal&quot;: &quot;0ms, 0px&quot;, &quot;reduced&quot;: &quot;0ms, 0px&quot;, &quot;matchMedia&quot;: &quot;true&quot;}</td></tr><tr><td class="mono">e-specimens-source</td><td class="mono">www.steno.ai/</td><td>hero + home cards copy</td><td class="mono">read from capture copy</td><td><span class="badge observed">observed</span></td><td class="mono">{&quot;headline&quot;: &quot;Influence everywhere. All at once.&quot;, &quot;subhead&quot;: &quot;We create AI Twins that turn personal brands into personal relationships, at infinite scale.&quot;, &quot;cta&quot;: &quot;Start a Demo&quot;, &quot;quote&quot;: &quot;With Steno, build a legacy, n</td></tr></tbody></table></div></section><section class="sp-panel" id="sp-limitations" data-panel="limitations">
+<h1>Limitations</h1>
+<p class="lede">What this run can and cannot claim. Rows that are not tested say so in <code>VERIFY.md</code>.</p>
+<ul><li>The site's hero covered the first capture with a full-height intro animation; the entry page was re-captured once it finished, and clips were taken from that same load. If the intro replays, the source screenshot will be showing it.</li><li>PP Writer and PP Mori are licensed display faces, not shipped here; specimens fall back to Georgia and Arial.</li><li>The hero's right frame is a render (653×512 video still with a 1px inset). Only its size, inset, radius and motion were measured; the artwork itself is shown as the captured frame in Fidelity, never copied.</li><li>`#CAFF75` and `#2D62FF` are declared variables; only the lime is used on the home page (inside one icon).</li><li>The CTA's hover was measured with a real pointer; the computed delta stayed inside the frame's entry wobble, so brick.md reports the measured numbers and does not invent bigger ones.</li><li>No prefers-reduced-motion block exists on any of the four pages; reduce is therefore a measured absence, not a branch to copy.</li></ul>
+<h2>Fidelity</h2>
+<p class="lede">The rebuild is the Live Preview of this page. Type parity is out of scope: the source face is not
+shipped. Fidelity stays <strong>PARTIAL</strong> until every deviation in <code>fidelity.json</code> is closed.</p></section><section class="sp-panel" id="sp-downloads" data-panel="downloads">
+<h1>Code &amp; Downloads</h1>
+<p class="lede">All three files are renders of the same <code>dna.json</code>; a hand edit to any of them fails
+<code>lint_output.py</code>'s single-source drift check.</p>
+<div class="dl"><a class="mini-btn" href="../tokens.css" download>tokens.css</a><a class="mini-btn" href="../shadcn-theme.css" download>shadcn-theme.css</a><a class="mini-btn" href="../agent-rules.md" download>agent-rules.md</a><a class="mini-btn" href="../taste.md" download>taste.md</a><a class="mini-btn" href="../VERIFY.md" download>VERIFY.md</a><a class="mini-btn" href="../tokens.resolved.json" download>tokens.resolved.json</a></div>
+<div class="code"><div class="code-head"><span>tokens.css</span><button class="mini-btn" data-copy="/* Generated by lewitt from dna.json — do not edit by hand (R3: single source). */
+/* Scope: apply [data-ds] (and [data-ds-mode=&quot;&lt;mode&gt;&quot;] for non-default modes). */
+
+:root, [data-ds] {
+  --oatmeal-02: #FFFDF1; /* color/oatmeal/02 · observed */
+  --oatmeal-03: #F0EDDA; /* color/oatmeal/03 · observed */
+  --oatmeal-04: #DAD7C1; /* color/oatmeal/04 · observed */
+  --oatmeal-05: #CFCCB1; /* color/oatmeal/05 · observed */
+  --oatmeal-06: #BAA57B; /* color/oatmeal/06 · observed */
+  --oatmeal-08: #43413C; /* color/oatmeal/08 · observed */
+  --oatmeal-09: #282724; /* color/oatmeal/09 · observed */
+  --brand-ink: #282724; /* color/brand-ink · observed */
+  --ink-10: #2827251A; /* color/ink/10 · observed */
+  --tint-50: #28272580; /* color/tint/50 · observed */
+  --white-alternate: #FFFDF1; /* color/white/alternate · observed */
+  --light-muted: #F0EDDAB3; /* color/light/muted · observed */
+  --neon: #CAFF75; /* color/neon · observed */
+  --link-blue: #2D62FF; /* color/link-blue · observed */
+  --lw-canvas: #F0EDDA; /* color/canvas · observed */
+  --lw-canvas-alt: #FFFDF1; /* color/canvas-alt · observed */
+  --lw-canvas-tint: #DAD7C1; /* color/canvas-tint · observed */
+  --lw-canvas-band: #CFCCB1; /* color/canvas-band · observed */
+  --lw-surface: #BAA57B; /* color/surface · observed */
+  --lw-screen: #282724; /* color/screen · observed */
+  --lw-text-primary: #282724; /* color/text-primary · observed */
+  --lw-text-body: #43413C; /* color/text-body · observed */
+  --lw-text-secondary: #FFFDF1; /* color/text-secondary · observed */
+  --lw-text-tertiary: #F0EDDAB3; /* color/text-tertiary · observed */
+  --lw-action-bg: #282724; /* color/action/bg · observed */
+  --lw-action-bg-alt: #43413C; /* color/action/bg-hover · observed */
+  --lw-action-fg: #FFFDF1; /* color/action/fg · observed */
+  --lw-brand: #BAA57B; /* color/brand · observed */
+  --lw-accent: #CAFF75; /* color/accent · observed */
+  --lw-nav-primary: #282724; /* color/nav-primary · observed */
+  --lw-border: rgba(40, 39, 37, 0.15); /* color/border · proposed */
+  --lw-border-strong: rgba(40, 39, 37, 0.25); /* color/border-strong · proposed */
+  --lw-on-brand: rgba(40, 39, 36, 1); /* color/on-brand · observed */
+  --lw-hover-tint: rgba(40, 39, 36, 0.06); /* color/hover-tint · proposed */
+  --lw-font-display: 'PP Writer', Georgia, sans-serif; /* font/display · observed */
+  --lw-font-ui: 'PP Mori', Arial, sans-serif; /* font/ui · observed */
+  --lw-font-mono: ui-monospace, SFMono-Regular, Menlo, monospace; /* font/mono · observed */
+  --lw-font-campaign: 'PP Writer', Georgia, sans-serif; /* font/campaign · observed */
+  --lw-font-body: 'PP Mori', Arial, sans-serif; /* font/body · observed */
+  --lw-type-display-xl: 76.8px; /* type/display-xl · observed */
+  --lw-type-display-lg: 60.8px; /* type/display-lg · observed */
+  --lw-type-display: 56px; /* type/display · observed */
+  --lw-type-headline: 40px; /* type/headline · observed */
+  --lw-type-title: 22px; /* type/title · observed */
+  --lw-type-subtitle: 18px; /* type/subtitle · observed */
+  --lw-type-lead: 20px; /* type/lead · observed */
+  --lw-type-body: 16px; /* type/body · observed */
+  --lw-type-ui: 14px; /* type/ui · observed */
+  --lw-type-caption: 13px; /* type/caption · observed */
+  --lw-type-micro: 12px; /* type/micro · observed */
+  --lw-leading-display: 1.0; /* leading/display · observed */
+  --lw-leading-tight: 1.1; /* leading/tight · observed */
+  --lw-leading-heading: 1.3; /* leading/heading · observed */
+  --lw-leading-prose: 1.4; /* leading/prose · observed */
+  --lw-leading-ui: 1.4; /* leading/ui · observed */
+  --lw-tracking-display: -0.8px; /* tracking/display · observed */
+  --lw-tracking-headline: -1.28px; /* tracking/headline · observed */
+  --lw-tracking-body: 0em; /* tracking/body · observed */
+  --lw-weight-regular: 400; /* weight/regular · observed */
+  --lw-weight-interface: 600; /* weight/interface · observed */
+  --lw-layout-section: 900px; /* layout/section · observed */
+  --lw-layout-gutter: 40px; /* layout/gutter · observed */
+  --lw-layout-gap: 64px; /* layout/grid-gap · observed */
+  --lw-radius-control: 8px; /* radius/control · observed */
+  --lw-radius-pill: 1600px; /* radius/pill · observed */
+  --lw-radius-chip: 16px; /* radius/chip · observed */
+  --lw-radius-card: 8px; /* radius/card · observed */
+  --lw-depth-overlay: 0 33px 33px rgba(44,38,27,0.17), 0 75px 45px rgba(44,38,27,0.10), 0 133px 53px rgba(44,38,27,0.03); /* depth/overlay · observed */
+  --lw-motion-slip: 525ms; /* motion/slip · observed */
+  --lw-motion-reveal: 400ms; /* motion/reveal · observed */
+  --lw-motion-soft: 300ms; /* motion/soft · observed */
+  --lw-motion-micro: 200ms; /* motion/micro · observed */
+  --lw-easing-slip: cubic-bezier(0.625, 0.05, 0, 1); /* motion/easing-slip · observed */
+  --lw-easing-reveal: cubic-bezier(0.25, 1, 0.5, 1); /* motion/easing-reveal · observed */
+}
+">Copy</button></div><pre>/* Generated by lewitt from dna.json — do not edit by hand (R3: single source). */
+/* Scope: apply [data-ds] (and [data-ds-mode=&quot;&lt;mode&gt;&quot;] for non-default modes). */
+
+:root, [data-ds] {
+  --oatmeal-02: #FFFDF1; /* color/oatmeal/02 · observed */
+  --oatmeal-03: #F0EDDA; /* color/oatmeal/03 · observed */
+  --oatmeal-04: #DAD7C1; /* color/oatmeal/04 · observed */
+  --oatmeal-05: #CFCCB1; /* color/oatmeal/05 · observed */
+  --oatmeal-06: #BAA57B; /* color/oatmeal/06 · observed */
+  --oatmeal-08: #43413C; /* color/oatmeal/08 · observed */
+  --oatmeal-09: #282724; /* color/oatmeal/09 · observed */
+  --brand-ink: #282724; /* color/brand-ink · observed */
+  --ink-10: #2827251A; /* color/ink/10 · observed */
+  --tint-50: #28272580; /* color/tint/50 · observed */
+  --white-alternate: #FFFDF1; /* color/white/alternate · observed */
+  --light-muted: #F0EDDAB3; /* color/light/muted · observed */
+  --neon: #CAFF75; /* color/neon · observed */
+  --link-blue: #2D62FF; /* color/link-blue · observed */
+  --lw-canvas: #F0EDDA; /* color/canvas · observed */
+  --lw-canvas-alt: #FFFDF1; /* color/canvas-alt · observed */
+  --lw-canvas-tint: #DAD7C1; /* color/canvas-tint · observed */
+  --lw-canvas-band: #CFCCB1; /* color/canvas-band · observed */
+  --lw-surface: #BAA57B; /* color/surface · observed */
+  --lw-screen: #282724; /* color/screen · observed */
+  --lw-text-primary: #282724; /* color/text-primary · observed */
+  --lw-text-body: #43413C; /* color/text-body · observed */
+  --lw-text-secondary: #FFFDF1; /* color/text-secondary · observed */
+  --lw-text-tertiary: #F0EDDAB3; /* color/text-tertiary · observed */
+  --lw-action-bg: #282724; /* color/action/bg · observed */
+  --lw-action-bg-alt: #43413C; /* color/action/bg-hover · observed */
+  --lw-action-fg: #FFFDF1; /* color/action/fg · observed */
+  --lw-brand: #BAA57B; /* color/brand · observed */
+  --lw-accent: #CAFF75; /* color/accent · observed */
+  --lw-nav-primary: #282724; /* color/nav-primary · observed */
+  --lw-border: rgba(40, 39, 37, 0.15); /* color/border · proposed */
+  --lw-border-strong: rgba(40, 39, 37, 0.25); /* color/border-strong · proposed */
+  --lw-on-brand: rgba(40, 39, 36, 1); /* color/on-brand · observed */
+  --lw-hover-tint: rgba(40, 39, 36, 0.06); /* color/hover-tint · proposed */
+  --lw-font-display: 'PP Writer', Georgia, sans-serif; /* font/display · observed */
+  --lw-font-ui: 'PP Mori', Arial, sans-serif; /* font/ui · observed */
+  --lw-font-mono: ui-monospace, SFMono-Regular, Menlo, monospace; /* font/mono · observed */
+  --lw-font-campaign: 'PP Writer', Georgia, sans-serif; /* font/campaign · observed */
+  --lw-font-body: 'PP Mori', Arial, sans-serif; /* font/body · observed */
+  --lw-type-display-xl: 76.8px; /* type/display-xl · observed */
+  --lw-type-display-lg: 60.8px; /* type/display-lg · observed */
+  --lw-type-display: 56px; /* type/display · observed */
+  --lw-type-headline: 40px; /* type/headline · observed */
+  --lw-type-title: 22px; /* type/title · observed */
+  --lw-type-subtitle: 18px; /* type/subtitle · observed */
+  --lw-type-lead: 20px; /* type/lead · observed */
+  --lw-type-body: 16px; /* type/body · observed */
+  --lw-type-ui: 14px; /* type/ui · observed */
+  --lw-type-caption: 13px; /* type/caption · observed */
+  --lw-type-micro: 12px; /* type/micro · observed */
+  --lw-leading-display: 1.0; /* leading/display · observed */
+  --lw-leading-tight: 1.1; /* leading/tight · observed */
+  --lw-leading-heading: 1.3; /* leading/heading · observed */
+  --lw-leading-prose: 1.4; /* leading/prose · observed */
+  --lw-leading-ui: 1.4; /* leading/ui · observed */
+  --lw-tracking-display: -0.8px; /* tracking/display · observed */
+  --lw-tracking-headline: -1.28px; /* tracking/headline · observed */
+  --lw-tracking-body: 0em; /* tracking/body · observed */
+  --lw-weight-regular: 400; /* weight/regular · observed */
+  --lw-weight-interface: 600; /* weight/interface · observed */
+  --lw-layout-section: 900px; /* layout/section · observed */
+  --lw-layout-gutter: 40px; /* layout/gutter · observed */
+  --lw-layout-gap: 64px; /* layout/grid-gap · observed */
+  --lw-radius-control: 8px; /* radius/control · observed */
+  --lw-radius-pill: 1600px; /* radius/pill · observed */
+  --lw-radius-chip: 16px; /* radius/chip · observed */
+  --lw-radius-card: 8px; /* radius/card · observed */
+  --lw-depth-overlay: 0 33px 33px rgba(44,38,27,0.17), 0 75px 45px rgba(44,38,27,0.10), 0 133px 53px rgba(44,38,27,0.03); /* depth/overlay · observed */
+  --lw-motion-slip: 525ms; /* motion/slip · observed */
+  --lw-motion-reveal: 400ms; /* motion/reveal · observed */
+  --lw-motion-soft: 300ms; /* motion/soft · observed */
+  --lw-motion-micro: 200ms; /* motion/micro · observed */
+  --lw-easing-slip: cubic-bezier(0.625, 0.05, 0, 1); /* motion/easing-slip · observed */
+  --lw-easing-reveal: cubic-bezier(0.25, 1, 0.5, 1); /* motion/easing-reveal · observed */
+}
+</pre></div><div class="code"><div class="code-head"><span>shadcn-theme.css</span><button class="mini-btn" data-copy="/* shadcn/ui + Tailwind v4 theme — generated by lewitt from dna.json (R3: do not hand-edit).
+   source: https://www.steno.ai/ · extracted 2026-11-24 · colour scheme: light
+   Paste into globals.css after `@import &quot;tailwindcss&quot;;`. Every value maps to a token id below.
+   UNMAPPED slots (left as `initial` / shadcn default, never invented): --destructive (destructive action) */
+
+@custom-variant dark (&amp;:is(.dark *));
+
+:root {
+  --background: #F0EDDA; /* color/canvas — canvas */
+  --foreground: #282724; /* color/text-primary — primary text */
+  --card: #BAA57B; /* color/surface — raised surface */
+  --card-foreground: #282724; /* color/text-primary — card text */
+  --popover: #BAA57B; /* color/surface — overlay surface */
+  --popover-foreground: #282724; /* color/text-primary — overlay text */
+  --primary: #282724; /* color/action/bg — action fill */
+  --primary-foreground: #FFFDF1; /* color/action/fg — action label */
+  --secondary: #BAA57B; /* color/surface — secondary fill */
+  --secondary-foreground: #282724; /* color/text-primary — secondary label */
+  --muted: #BAA57B; /* color/surface — muted fill */
+  --muted-foreground: #FFFDF1; /* color/text-secondary — muted text */
+  --accent: #282724; /* color/action/bg — hover fill */
+  --accent-foreground: #282724; /* color/text-primary — hover label */
+  --destructive: initial; /* UNMAPPED — no destructive action token in dna.json */
+  --border: rgba(40, 39, 37, 0.15); /* color/border — borders */
+  --input: rgba(40, 39, 37, 0.25); /* color/border-strong — input borders */
+  --ring: #282724; /* color/action/bg — focus ring */
+  --radius: 8px; /* radius/control */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
+}
+
+">Copy</button></div><pre>/* shadcn/ui + Tailwind v4 theme — generated by lewitt from dna.json (R3: do not hand-edit).
+   source: https://www.steno.ai/ · extracted 2026-11-24 · colour scheme: light
+   Paste into globals.css after `@import &quot;tailwindcss&quot;;`. Every value maps to a token id below.
+   UNMAPPED slots (left as `initial` / shadcn default, never invented): --destructive (destructive action) */
+
+@custom-variant dark (&amp;:is(.dark *));
+
+:root {
+  --background: #F0EDDA; /* color/canvas — canvas */
+  --foreground: #282724; /* color/text-primary — primary text */
+  --card: #BAA57B; /* color/surface — raised surface */
+  --card-foreground: #282724; /* color/text-primary — card text */
+  --popover: #BAA57B; /* color/surface — overlay surface */
+  --popover-foreground: #282724; /* color/text-primary — overlay text */
+  --primary: #282724; /* color/action/bg — action fill */
+  --primary-foreground: #FFFDF1; /* color/action/fg — action label */
+  --secondary: #BAA57B; /* color/surface — secondary fill */
+  --secondary-foreground: #282724; /* color/text-primary — secondary label */
+  --muted: #BAA57B; /* color/surface — muted fill */
+  --muted-foreground: #FFFDF1; /* color/text-secondary — muted text */
+  --accent: #282724; /* color/action/bg — hover fill */
+  --accent-foreground: #282724; /* color/text-primary — hover label */
+  --destructive: initial; /* UNMAPPED — no destructive action token in dna.json */
+  --border: rgba(40, 39, 37, 0.15); /* color/border — borders */
+  --input: rgba(40, 39, 37, 0.25); /* color/border-strong — input borders */
+  --ring: #282724; /* color/action/bg — focus ring */
+  --radius: 8px; /* radius/control */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
+}
+
+</pre></div><div class="code"><div class="code-head"><span>agent-rules.md</span><button class="mini-btn" data-copy="# Design rules — Steno.ai
+
+&lt;!-- source: https://www.steno.ai/ · generated by lewitt from dna.json · do not edit --&gt;
+
+## Hard constraints (from Restraint principles — check these first)
+
+### MUST NOT — The button slip is the whole interaction
+_On hover the button's inner fill resets its transform (translate 0 / rotate 0) over 525ms with cubic-bezier(0.625, 0.05, 0, 1); the label does not move._
+
+- Forbidden class patterns: `hover:shadow-(?!(?:none|sm|inner)\b)[a-z0-9]+`
+- Upper bound: `box-shadow` ≤ 0px
+- Why: A page already carrying an image is already loud (the restrained motion is a slip, not a raise); the icon fill turning a shade lighter tells the pointer 'active' without a second focal point.
+- Note: The control's only motion is the measured 525ms transform slip; a hover shadow is a violation.
+
+## Design principles
+
+### The button slip is the whole interaction [restraint]
+- Deciding how a filled CTA reacts to the pointer on a page whose hero is a moving image. → **one accent-brown slip inside the 8px frame** over _lift/shadow and scale on the whole button, or a second accent colour on the fill_
+- Because: A page already carrying an image is already loud (the restrained motion is a slip, not a raise); the icon fill turning a shade lighter tells the pointer 'active' without a second focal point.
+- Evidence: e-motion-btn, e-motion-hover-rule, e-action-bg
+
+### Photo is the only colour cut [craft]
+- Deciding where the accent may appear on a hero that carries a full-size photograph. → **neon spot inside an icon + brand card on ink** over _neon-filled CTA, or #2D62FF primary buttons on every section_
+- Because: Amber grass and teal dusk raise the luminance of every near region of the hero; a chromatic fill at button scale would flatten the lightness contrast the serif headline relies on.
+- Evidence: e-accent-lime, e-action-bg, e-ink-soft
+
+### Grain and grain only are allowed to move [craft]
+- Deciding what animates when the page opens and when a pointer reaches a control. → **one transform curve with 0.3s opacity support** over _spring/bounce easings and staggered keyframes per element_
+- Because: The hero's frame and copy float in one timeline, so extra easing on any child just adds a second rhythm; one curve keeps copy and card reading as one.
+- Evidence: e-motion-btn, e-motion-soft
+
+### Grain without motion drift [system]
+- Running under prefers-reduced-motion: reduce (zero blocks on any of the four pages). → **the same timeline with 0.3s opacity support** over _progressing drift staying in place_
+- Because: The page reads as a document; a drifting parallax under a document is a visual defect, not an effect to slow down, so a build that mirrors this site must add the branch the site is missing.
+- Evidence: e-motion-reduced-scan, e-motion-btn, e-motion-soft
+
+## System rules
+
+- **Cinematic sheet, streaming landscape**: The hero is one full-width landscape frame (653×512 video still, inset 1px) with a piece of copy pinned to its left; product cards become hashed collage slices (rotate(−6°/+4°)) rather than floating UI.
+- **Oatmeal-only palette**: Both light and dark are the same hue: #F0EDDA / #282724, with #FFFDF1, #CFCCB1, #DAD7C1 as bands and #BAA57B as the one product surface; #CAFF75 is the sole chromatic accent (spot).
+- **Paper-serif hero, sans everywhere else**: DISPLAY text is PP Writer 400 (no weight heavier than 400); interface and labels are PP Mori 400, with 600 only for the label inside filled CTA buttons.
+- **8px softness everywhere except the quote pill**: Controls, cards and the hero frame share radius 8px; pills and option cards use 1600px to their role; shadow is an edge, not a depth cue.
+- **Neon is a spot, never a surface**: #CAFF75 appears only inside the hero eyebrow glyph (a disk behind a triangular play mark); no background, border or text of this hue is allowed.
+
+## Tokens (copy values from tokens.css; never retype numbers)
+
+Use the semantic and component layers; reach for a primitive only when no role fits.
+
+### Semantic — roles to use
+
+- `var(--lw-canvas)` — color/canvas (color, observed)
+- `var(--lw-canvas-alt)` — color/canvas-alt (color, observed)
+- `var(--lw-canvas-tint)` — color/canvas-tint (color, observed)
+- `var(--lw-canvas-band)` — color/canvas-band (color, observed)
+- `var(--lw-surface)` — color/surface (color, observed)
+- `var(--lw-screen)` — color/screen (color, observed)
+- `var(--lw-text-primary)` — color/text-primary (color, observed)
+- `var(--lw-text-body)` — color/text-body (color, observed)
+- `var(--lw-text-secondary)` — color/text-secondary (color, observed)
+- `var(--lw-text-tertiary)` — color/text-tertiary (color, observed)
+- `var(--lw-action-bg)` — color/action/bg (color, observed)
+- `var(--lw-action-bg-alt)` — color/action/bg-hover (color, observed)
+- `var(--lw-action-fg)` — color/action/fg (color, observed)
+- `var(--lw-brand)` — color/brand (color, observed)
+- `var(--lw-accent)` — color/accent (color, observed)
+- `var(--lw-font-campaign)` — font/campaign (fontFamily, observed)
+- `var(--lw-font-body)` — font/body (fontFamily, observed)
+
+### Component — reusable parts
+
+- `var(--lw-nav-primary)` — color/nav-primary (color, observed)
+- `var(--lw-border)` — color/border (color, proposed)
+- `var(--lw-border-strong)` — color/border-strong (color, proposed)
+- `var(--lw-hover-tint)` — color/hover-tint (color, proposed)
+- `var(--lw-type-display-xl)` — type/display-xl (dimension, observed)
+- `var(--lw-type-display-lg)` — type/display-lg (dimension, observed)
+- `var(--lw-type-display)` — type/display (dimension, observed)
+- `var(--lw-type-headline)` — type/headline (dimension, observed)
+- `var(--lw-type-title)` — type/title (dimension, observed)
+- `var(--lw-type-subtitle)` — type/subtitle (dimension, observed)
+- `var(--lw-type-lead)` — type/lead (dimension, observed)
+- `var(--lw-type-body)` — type/body (dimension, observed)
+- `var(--lw-type-ui)` — type/ui (dimension, observed)
+- `var(--lw-type-caption)` — type/caption (dimension, observed)
+- `var(--lw-type-micro)` — type/micro (dimension, observed)
+- `var(--lw-leading-display)` — leading/display (number, observed)
+- `var(--lw-leading-tight)` — leading/tight (number, observed)
+- `var(--lw-leading-heading)` — leading/heading (number, observed)
+- `var(--lw-leading-prose)` — leading/prose (number, observed)
+- `var(--lw-leading-ui)` — leading/ui (number, observed)
+- `var(--lw-tracking-display)` — tracking/display (dimension, observed)
+- `var(--lw-tracking-headline)` — tracking/headline (dimension, observed)
+- `var(--lw-tracking-body)` — tracking/body (dimension, observed)
+- `var(--lw-layout-section)` — layout/section (dimension, observed)
+- `var(--lw-layout-gutter)` — layout/gutter (dimension, observed)
+- `var(--lw-layout-gap)` — layout/grid-gap (dimension, observed)
+- `var(--lw-radius-control)` — radius/control (dimension, observed)
+- `var(--lw-radius-chip)` — radius/chip (dimension, observed)
+- `var(--lw-radius-card)` — radius/card (dimension, observed)
+- `var(--lw-depth-overlay)` — depth/overlay (shadow, observed)
+
+### Primitives — raw values, last resort
+
+- `var(--oatmeal-02)` — color/oatmeal/02 (color, observed)
+- `var(--oatmeal-03)` — color/oatmeal/03 (color, observed)
+- `var(--oatmeal-04)` — color/oatmeal/04 (color, observed)
+- `var(--oatmeal-05)` — color/oatmeal/05 (color, observed)
+- `var(--oatmeal-06)` — color/oatmeal/06 (color, observed)
+- `var(--oatmeal-08)` — color/oatmeal/08 (color, observed)
+- `var(--oatmeal-09)` — color/oatmeal/09 (color, observed)
+- `var(--brand-ink)` — color/brand-ink (color, observed)
+- `var(--ink-10)` — color/ink/10 (color, observed)
+- `var(--tint-50)` — color/tint/50 (color, observed)
+- `var(--white-alternate)` — color/white/alternate (color, observed)
+- `var(--light-muted)` — color/light/muted (color, observed)
+- `var(--neon)` — color/neon (color, observed)
+- `var(--link-blue)` — color/link-blue (color, observed)
+- `var(--lw-on-brand)` — color/on-brand (color, observed)
+- `var(--lw-font-display)` — font/display (fontFamily, observed)
+- `var(--lw-font-ui)` — font/ui (fontFamily, observed)
+- `var(--lw-font-mono)` — font/mono (fontFamily, observed)
+- `var(--lw-weight-regular)` — weight/regular (fontWeight, observed)
+- `var(--lw-weight-interface)` — weight/interface (fontWeight, observed)
+- `var(--lw-radius-pill)` — radius/pill (dimension, observed)
+- `var(--lw-motion-slip)` — motion/slip (duration, observed)
+- `var(--lw-motion-reveal)` — motion/reveal (duration, observed)
+- `var(--lw-motion-soft)` — motion/soft (duration, observed)
+- `var(--lw-motion-micro)` — motion/micro (duration, observed)
+- `var(--lw-easing-slip)` — motion/easing-slip (easing, observed)
+- `var(--lw-easing-reveal)` — motion/easing-reveal (easing, observed)
+
+## Interaction Delta (measured)
+
+Forced with a real mouse (CDP `Input.dispatchMouseEvent`) and `element.focus()`; only these properties are diffed: `background-color`, `color`, `border-color`, `box-shadow`, `outline`, `transform`.
+
+### link — `a.btn-icon-link`
+- Status: Observed / 实测 · evidence: e-cta-hover, e-cta-focus
+- **hover**: none (CSS rule re-applies transform on :hover .btn-icon-content__bg; the computed delta in the capture was below noise after the entry animation finished)
+- **focus**: `outline`: `3px none rgb(40, 39, 36)` → `1px auto rgb(0, 95, 204)`
+
+### button — `button.nav-dropdown_dropdown-toggle.w-dropdown-toggle`
+- Status: Observed / 实测 · evidence: e-nav-focus
+- **hover**: none (no computed change)
+- **focus**: `outline`: `3px none rgb(40, 39, 36)` → `0px none rgb(40, 39, 36)`
+
+### card — `div.home_hero-twin-card`
+- Status: Inferred / 推断 · evidence: e-hero-svg-wheel, e-surface
+- **hover**: none (no hover delta; the card is a 3D/2D rotation render, not a hover affordance)
+- **focus**: none (Measured, no computed change)
+
+## Verification
+
+Live specimens and motion replay: `preview.html` (single file, opens in any browser).
+
+Run before shipping UI built from these rules:
+
+```sh
+python3 scripts/lint_output.py --dest &lt;dest_dir&gt; --check-code &lt;ui_dir&gt;
+```
+">Copy</button></div><pre># Design rules — Steno.ai
+
+&lt;!-- source: https://www.steno.ai/ · generated by lewitt from dna.json · do not edit --&gt;
+
+## Hard constraints (from Restraint principles — check these first)
+
+### MUST NOT — The button slip is the whole interaction
+_On hover the button's inner fill resets its transform (translate 0 / rotate 0) over 525ms with cubic-bezier(0.625, 0.05, 0, 1); the label does not move._
+
+- Forbidden class patterns: `hover:shadow-(?!(?:none|sm|inner)\b)[a-z0-9]+`
+- Upper bound: `box-shadow` ≤ 0px
+- Why: A page already carrying an image is already loud (the restrained motion is a slip, not a raise); the icon fill turning a shade lighter tells the pointer 'active' without a second focal point.
+- Note: The control's only motion is the measured 525ms transform slip; a hover shadow is a violation.
+
+## Design principles
+
+### The button slip is the whole interaction [restraint]
+- Deciding how a filled CTA reacts to the pointer on a page whose hero is a moving image. → **one accent-brown slip inside the 8px frame** over _lift/shadow and scale on the whole button, or a second accent colour on the fill_
+- Because: A page already carrying an image is already loud (the restrained motion is a slip, not a raise); the icon fill turning a shade lighter tells the pointer 'active' without a second focal point.
+- Evidence: e-motion-btn, e-motion-hover-rule, e-action-bg
+
+### Photo is the only colour cut [craft]
+- Deciding where the accent may appear on a hero that carries a full-size photograph. → **neon spot inside an icon + brand card on ink** over _neon-filled CTA, or #2D62FF primary buttons on every section_
+- Because: Amber grass and teal dusk raise the luminance of every near region of the hero; a chromatic fill at button scale would flatten the lightness contrast the serif headline relies on.
+- Evidence: e-accent-lime, e-action-bg, e-ink-soft
+
+### Grain and grain only are allowed to move [craft]
+- Deciding what animates when the page opens and when a pointer reaches a control. → **one transform curve with 0.3s opacity support** over _spring/bounce easings and staggered keyframes per element_
+- Because: The hero's frame and copy float in one timeline, so extra easing on any child just adds a second rhythm; one curve keeps copy and card reading as one.
+- Evidence: e-motion-btn, e-motion-soft
+
+### Grain without motion drift [system]
+- Running under prefers-reduced-motion: reduce (zero blocks on any of the four pages). → **the same timeline with 0.3s opacity support** over _progressing drift staying in place_
+- Because: The page reads as a document; a drifting parallax under a document is a visual defect, not an effect to slow down, so a build that mirrors this site must add the branch the site is missing.
+- Evidence: e-motion-reduced-scan, e-motion-btn, e-motion-soft
+
+## System rules
+
+- **Cinematic sheet, streaming landscape**: The hero is one full-width landscape frame (653×512 video still, inset 1px) with a piece of copy pinned to its left; product cards become hashed collage slices (rotate(−6°/+4°)) rather than floating UI.
+- **Oatmeal-only palette**: Both light and dark are the same hue: #F0EDDA / #282724, with #FFFDF1, #CFCCB1, #DAD7C1 as bands and #BAA57B as the one product surface; #CAFF75 is the sole chromatic accent (spot).
+- **Paper-serif hero, sans everywhere else**: DISPLAY text is PP Writer 400 (no weight heavier than 400); interface and labels are PP Mori 400, with 600 only for the label inside filled CTA buttons.
+- **8px softness everywhere except the quote pill**: Controls, cards and the hero frame share radius 8px; pills and option cards use 1600px to their role; shadow is an edge, not a depth cue.
+- **Neon is a spot, never a surface**: #CAFF75 appears only inside the hero eyebrow glyph (a disk behind a triangular play mark); no background, border or text of this hue is allowed.
+
+## Tokens (copy values from tokens.css; never retype numbers)
+
+Use the semantic and component layers; reach for a primitive only when no role fits.
+
+### Semantic — roles to use
+
+- `var(--lw-canvas)` — color/canvas (color, observed)
+- `var(--lw-canvas-alt)` — color/canvas-alt (color, observed)
+- `var(--lw-canvas-tint)` — color/canvas-tint (color, observed)
+- `var(--lw-canvas-band)` — color/canvas-band (color, observed)
+- `var(--lw-surface)` — color/surface (color, observed)
+- `var(--lw-screen)` — color/screen (color, observed)
+- `var(--lw-text-primary)` — color/text-primary (color, observed)
+- `var(--lw-text-body)` — color/text-body (color, observed)
+- `var(--lw-text-secondary)` — color/text-secondary (color, observed)
+- `var(--lw-text-tertiary)` — color/text-tertiary (color, observed)
+- `var(--lw-action-bg)` — color/action/bg (color, observed)
+- `var(--lw-action-bg-alt)` — color/action/bg-hover (color, observed)
+- `var(--lw-action-fg)` — color/action/fg (color, observed)
+- `var(--lw-brand)` — color/brand (color, observed)
+- `var(--lw-accent)` — color/accent (color, observed)
+- `var(--lw-font-campaign)` — font/campaign (fontFamily, observed)
+- `var(--lw-font-body)` — font/body (fontFamily, observed)
+
+### Component — reusable parts
+
+- `var(--lw-nav-primary)` — color/nav-primary (color, observed)
+- `var(--lw-border)` — color/border (color, proposed)
+- `var(--lw-border-strong)` — color/border-strong (color, proposed)
+- `var(--lw-hover-tint)` — color/hover-tint (color, proposed)
+- `var(--lw-type-display-xl)` — type/display-xl (dimension, observed)
+- `var(--lw-type-display-lg)` — type/display-lg (dimension, observed)
+- `var(--lw-type-display)` — type/display (dimension, observed)
+- `var(--lw-type-headline)` — type/headline (dimension, observed)
+- `var(--lw-type-title)` — type/title (dimension, observed)
+- `var(--lw-type-subtitle)` — type/subtitle (dimension, observed)
+- `var(--lw-type-lead)` — type/lead (dimension, observed)
+- `var(--lw-type-body)` — type/body (dimension, observed)
+- `var(--lw-type-ui)` — type/ui (dimension, observed)
+- `var(--lw-type-caption)` — type/caption (dimension, observed)
+- `var(--lw-type-micro)` — type/micro (dimension, observed)
+- `var(--lw-leading-display)` — leading/display (number, observed)
+- `var(--lw-leading-tight)` — leading/tight (number, observed)
+- `var(--lw-leading-heading)` — leading/heading (number, observed)
+- `var(--lw-leading-prose)` — leading/prose (number, observed)
+- `var(--lw-leading-ui)` — leading/ui (number, observed)
+- `var(--lw-tracking-display)` — tracking/display (dimension, observed)
+- `var(--lw-tracking-headline)` — tracking/headline (dimension, observed)
+- `var(--lw-tracking-body)` — tracking/body (dimension, observed)
+- `var(--lw-layout-section)` — layout/section (dimension, observed)
+- `var(--lw-layout-gutter)` — layout/gutter (dimension, observed)
+- `var(--lw-layout-gap)` — layout/grid-gap (dimension, observed)
+- `var(--lw-radius-control)` — radius/control (dimension, observed)
+- `var(--lw-radius-chip)` — radius/chip (dimension, observed)
+- `var(--lw-radius-card)` — radius/card (dimension, observed)
+- `var(--lw-depth-overlay)` — depth/overlay (shadow, observed)
+
+### Primitives — raw values, last resort
+
+- `var(--oatmeal-02)` — color/oatmeal/02 (color, observed)
+- `var(--oatmeal-03)` — color/oatmeal/03 (color, observed)
+- `var(--oatmeal-04)` — color/oatmeal/04 (color, observed)
+- `var(--oatmeal-05)` — color/oatmeal/05 (color, observed)
+- `var(--oatmeal-06)` — color/oatmeal/06 (color, observed)
+- `var(--oatmeal-08)` — color/oatmeal/08 (color, observed)
+- `var(--oatmeal-09)` — color/oatmeal/09 (color, observed)
+- `var(--brand-ink)` — color/brand-ink (color, observed)
+- `var(--ink-10)` — color/ink/10 (color, observed)
+- `var(--tint-50)` — color/tint/50 (color, observed)
+- `var(--white-alternate)` — color/white/alternate (color, observed)
+- `var(--light-muted)` — color/light/muted (color, observed)
+- `var(--neon)` — color/neon (color, observed)
+- `var(--link-blue)` — color/link-blue (color, observed)
+- `var(--lw-on-brand)` — color/on-brand (color, observed)
+- `var(--lw-font-display)` — font/display (fontFamily, observed)
+- `var(--lw-font-ui)` — font/ui (fontFamily, observed)
+- `var(--lw-font-mono)` — font/mono (fontFamily, observed)
+- `var(--lw-weight-regular)` — weight/regular (fontWeight, observed)
+- `var(--lw-weight-interface)` — weight/interface (fontWeight, observed)
+- `var(--lw-radius-pill)` — radius/pill (dimension, observed)
+- `var(--lw-motion-slip)` — motion/slip (duration, observed)
+- `var(--lw-motion-reveal)` — motion/reveal (duration, observed)
+- `var(--lw-motion-soft)` — motion/soft (duration, observed)
+- `var(--lw-motion-micro)` — motion/micro (duration, observed)
+- `var(--lw-easing-slip)` — motion/easing-slip (easing, observed)
+- `var(--lw-easing-reveal)` — motion/easing-reveal (easing, observed)
+
+## Interaction Delta (measured)
+
+Forced with a real mouse (CDP `Input.dispatchMouseEvent`) and `element.focus()`; only these properties are diffed: `background-color`, `color`, `border-color`, `box-shadow`, `outline`, `transform`.
+
+### link — `a.btn-icon-link`
+- Status: Observed / 实测 · evidence: e-cta-hover, e-cta-focus
+- **hover**: none (CSS rule re-applies transform on :hover .btn-icon-content__bg; the computed delta in the capture was below noise after the entry animation finished)
+- **focus**: `outline`: `3px none rgb(40, 39, 36)` → `1px auto rgb(0, 95, 204)`
+
+### button — `button.nav-dropdown_dropdown-toggle.w-dropdown-toggle`
+- Status: Observed / 实测 · evidence: e-nav-focus
+- **hover**: none (no computed change)
+- **focus**: `outline`: `3px none rgb(40, 39, 36)` → `0px none rgb(40, 39, 36)`
+
+### card — `div.home_hero-twin-card`
+- Status: Inferred / 推断 · evidence: e-hero-svg-wheel, e-surface
+- **hover**: none (no hover delta; the card is a 3D/2D rotation render, not a hover affordance)
+- **focus**: none (Measured, no computed change)
+
+## Verification
+
+Live specimens and motion replay: `preview.html` (single file, opens in any browser).
+
+Run before shipping UI built from these rules:
+
+```sh
+python3 scripts/lint_output.py --dest &lt;dest_dir&gt; --check-code &lt;ui_dir&gt;
+```
+</pre></div></section><section class="sp-panel" id="sp-fidelity" data-panel="fidelity">
+<h1>Fidelity vs Source</h1>
+<p class="lede">No fidelity record in this run.</p>
+<div class="fid"><div class="src-shot"><img src="../capture/viewport-2.png" alt="captured source page"></div><div class="fid-note"><h3>Rebuild</h3><p class="lede">The rebuild is the Live Preview itself. No rebuild screenshot was recorded, so there is no split to drag. Record <code>capture/rebuild.png</code> at 1440x900 to enable pixel comparison.</p></div></div>
+
+
+<p class="note">Status: <strong>UNVERIFIED</strong>. Deviations stay visible rather than claimed away.</p></section></div>
+</div>
+</main>
+<script id="evidence-data" type="application/json">{"palette":{"primary":{"id":"e-canvas","url":"https://www.steno.ai/","locator":"html/body background","method":"computed-style+viewport-screenshot","state":"default","values":{"pageBackground":"rgb(240, 237, 218)","oatmeal-03":"var(--oatmeal--03) = #F0EDDA"}},"also":["e-canvas-about","e-canvas-team"],"entries":{"e-canvas":{"id":"e-canvas","url":"https://www.steno.ai/","locator":"html/body background","method":"computed-style+viewport-screenshot","state":"default","values":{"pageBackground":"rgb(240, 237, 218)","oatmeal-03":"var(--oatmeal--03) = #F0EDDA"}},"e-canvas-about":{"id":"e-canvas-about","url":"https://www.steno.ai/about","locator":"about page sections","method":"computed-style+viewport-screenshot","state":"default","values":{"dark sections":"rgb(40, 39, 36) = 70.8% of element area","alternate":"rgb(255, 253, 241) = 46.2% on home"}},"e-canvas-team":{"id":"e-canvas-team","url":"https://www.steno.ai/team","locator":"team page sections","method":"computed-style+viewport-screenshot","state":"default","values":{"tint":"rgb(207, 204, 177) = 26.9%","darkest":"rgb(0, 0, 0) = 70.9% (video frames)"}}}},"typography":{"primary":{"id":"e-canvas","url":"https://www.steno.ai/","locator":"html/body background","method":"computed-style+viewport-screenshot","state":"default","values":{"pageBackground":"rgb(240, 237, 218)","oatmeal-03":"var(--oatmeal--03) = #F0EDDA"}},"also":["e-ink","e-font-writer"],"entries":{"e-canvas":{"id":"e-canvas","url":"https://www.steno.ai/","locator":"html/body background","method":"computed-style+viewport-screenshot","state":"default","values":{"pageBackground":"rgb(240, 237, 218)","oatmeal-03":"var(--oatmeal--03) = #F0EDDA"}},"e-ink":{"id":"e-ink","url":"https://www.steno.ai/","locator":"body text colour","method":"computed-style","state":"default","values":{"text":"rgb(40, 39, 36)","var":"--text-color--text-primary #282724","text nodes":"390 on home, 1124 on /experts"}},"e-font-writer":{"id":"e-font-writer","url":"https://www.steno.ai/","locator":"h1..h4 computed font-family","method":"computed-style+document.fonts","state":"default","values":{"family":"PP Writer","fallback":"Georgia, sans-serif","faces loaded":"PP Writer 400"}}}},"motion":{"primary":{"id":"e-ink-soft","url":"https://www.steno.ai/","locator":"btn-icon-content__bg (CTA hover fill)","method":"computed-style","state":"default","values":{"fill":"rgb(67, 65, 60) = #43413C","var":"--oatmeal--08"}},"also":["e-motion-btn","e-motion-hover-rule"],"entries":{"e-ink-soft":{"id":"e-ink-soft","url":"https://www.steno.ai/","locator":"btn-icon-content__bg (CTA hover fill)","method":"computed-style","state":"default","values":{"fill":"rgb(67, 65, 60) = #43413C","var":"--oatmeal--08"}},"e-motion-btn":{"id":"e-motion-btn","url":"https://www.steno.ai/","locator":"`.btn-icon-content__text`, `.btn-icon-content__bg`","method":"computed-style","state":"default","values":{"transition":"transform 0.525s cubic-bezier(0.625, 0, 0, 1) (0.625,0.05,0,1)","txt":"transform 0.525s ..."}},"e-motion-hover-rule":{"id":"e-motion-hover-rule","url":"https://www.steno.ai/","locator":"CSSOM rule","method":"cssom-scan","state":"default","values":{"rule":".btn-icon-link:hover .btn-icon-content__bg { transform: translate(0px) rotate(0deg); }"}}}},"material":{"primary":{"id":"e-radii","url":"https://www.steno.ai/","locator":"border-radius distribution","method":"computed-style","state":"default","values":{"8px":"127 elements","6px":"12","16px":"2","1600px":"1 (quote pill)","4px":"1"}},"also":["e-pill","e-shadow"],"entries":{"e-radii":{"id":"e-radii","url":"https://www.steno.ai/","locator":"border-radius distribution","method":"computed-style","state":"default","values":{"8px":"127 elements","6px":"12","16px":"2","1600px":"1 (quote pill)","4px":"1"}},"e-pill":{"id":"e-pill","url":"https://www.steno.ai/","locator":"`.hero_eyebrow`","method":"computed-style","state":"default","values":{"radius":"1600px","padding":"8px 16px 8px 8px","gap":"4px","border":"1px rgba(40,39,37,0.15)","height":"55px"}},"e-shadow":{"id":"e-shadow","url":"https://www.steno.ai/","locator":"the only box-shadow","method":"computed-style","state":"default","values":{"count":"1 element","value":"rgba(44,38,27,0)·0 208px 58px + 3 more layers, max blur 58px"}}}}}</script>
+<script id="theme-css" type="text/plain">/* shadcn/ui + Tailwind v4 theme — generated by lewitt from dna.json (R3: do not hand-edit).
+   source: https://www.steno.ai/ · extracted 2026-11-24 · colour scheme: light
+   Paste into globals.css after `@import &quot;tailwindcss&quot;;`. Every value maps to a token id below.
+   UNMAPPED slots (left as `initial` / shadcn default, never invented): --destructive (destructive action) */
+
+@custom-variant dark (&amp;:is(.dark *));
+
+:root {
+  --background: #F0EDDA; /* color/canvas — canvas */
+  --foreground: #282724; /* color/text-primary — primary text */
+  --card: #BAA57B; /* color/surface — raised surface */
+  --card-foreground: #282724; /* color/text-primary — card text */
+  --popover: #BAA57B; /* color/surface — overlay surface */
+  --popover-foreground: #282724; /* color/text-primary — overlay text */
+  --primary: #282724; /* color/action/bg — action fill */
+  --primary-foreground: #FFFDF1; /* color/action/fg — action label */
+  --secondary: #BAA57B; /* color/surface — secondary fill */
+  --secondary-foreground: #282724; /* color/text-primary — secondary label */
+  --muted: #BAA57B; /* color/surface — muted fill */
+  --muted-foreground: #FFFDF1; /* color/text-secondary — muted text */
+  --accent: #282724; /* color/action/bg — hover fill */
+  --accent-foreground: #282724; /* color/text-primary — hover label */
+  --destructive: initial; /* UNMAPPED — no destructive action token in dna.json */
+  --border: rgba(40, 39, 37, 0.15); /* color/border — borders */
+  --input: rgba(40, 39, 37, 0.25); /* color/border-strong — input borders */
+  --ring: #282724; /* color/action/bg — focus ring */
+  --radius: 8px; /* radius/control */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
+}
+
+</script>
+<script src="system.js"></script>
+</body>
+</html>

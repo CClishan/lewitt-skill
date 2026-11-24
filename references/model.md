@@ -99,3 +99,36 @@ then must define that mode.
 It proves internal consistency — ids, references, cycles, units, statuses, drift. It cannot prove
 a value is faithful to the site, that a naming is right, or that the guardrails are well judged.
 Those stay your responsibility and belong in `VERIFY.md` as `unverified` when untested.
+
+
+## Optional block `specimens` (schema 1.1)
+
+Site-voice copy for the specimen surfaces, so neither `system/` nor `preview.html` hard-codes another
+site's sentence. Optional: a run without it renders neutral specimens.
+
+```json
+"specimens": {
+  "hero":   { "eyebrow": "...", "headline": "line one\nline two", "subhead": "...",
+              "primaryCta": "...", "secondaryCta": "..." },
+  "stats":  [ { "value": "2.9%", "label": "per charge" } ],
+  "cards":  [ { "title": "...", "price": "...", "per": "...", "note": "...", "cta": "...", "featured": true } ],
+  "table":  { "columns": ["A","B","C"], "rows": [["…","+1.2%","…"], …] },
+  "form":   { "fields": [ { "label": "Email", "placeholder": "…", "invalid": "message" } ], "submit": "…" },
+  "backdrop": { "nav": "action", "hero": "canvas", "motion": "action" },
+  "brandSvg": "<svg …>…</svg>"
+}
+```
+
+- **Values are content, never CSS.** Write what the site would say in its own register (a payments
+  brand writes fees and pricing; a venue writes dates; a dashboard writes metrics). Specimen figures
+  are `inferred` from the source's voice and are listed in the Specs claim register — never quoted
+  as the site's own claims.
+- **`cards`**: 1-3 cards, at most one `featured` (the inverted tier).
+- **`table`**: 2-4 rows; a cell that starts with `+`/`-` is painted as a trend value (only when the
+  run declares up/down tokens).
+- **`backdrop`**: one role per section, so a dark section on the source stays dark in the preview.
+- **`brandSvg`**: the site's own inline mark. Self-contained only — no `href`, `url()`, script or
+  `<image>`; the validator rejects those.
+
+Reruns: `--incremental specimens` (or add `specimens` to a wider scope) edits only this block and
+records it in `meta.incremental`, so the tokens and evidence blocks stay frozen.

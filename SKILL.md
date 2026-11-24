@@ -23,7 +23,7 @@ Turn a URL into one authored file — `dna.json` — and everything else is rend
 | `taste.md` | Design Map + Taste DNA, human-readable | `build_artifacts.py` |
 | `tokens.css` | `[data-ds]` scoped variables, primitive → semantic → component | `build_artifacts.py` |
 | `tokens.resolved.json` | flat values per mode | `build_artifacts.py` |
-| `preview.html` | single-file live specimens, motion replay, taste cards, source thumbnails, copy/download bar | `build_artifacts.py` |
+| `preview.html` | the same dual-view long scroll as `system/`, as one file: Live Preview (01 colour · 02 type · 03 components · 04 motion & guardrails · 05 bricks) + Specs | `build_artifacts.py` |
 | `shadcn-theme.css` | shadcn/ui + Tailwind v4 `@theme inline` slots mapped from semantic tokens; unmapped slots say `initial`, never invented | `build_artifacts.py` |
 | `dna.schema.json` | the v1.1 data contract other tools can validate against (repo root; `build_artifacts.validate` is the authority) | authored |
 | `agent-rules.md` | hard constraints first, then principles, patterns, token list, verify command | `build_artifacts.py` |
@@ -178,8 +178,9 @@ One short block: mode, pages inspected, artifact paths, the sharpest principle i
 every `FAIL`/`unverified` row. Do not claim a site is ready when a gate failed.
 
 **Full mode only** — read [references/build-full.md](references/build-full.md) and build
-`system/` from the same tokens, then run `--check-code`. The reference site is an app shell
-(fixed rail + one scrolling canvas), not a long document.
+`system/` from the same tokens, then run `--check-code`. The reference site is a minimal top bar over two
+views — **Live Preview** (an immersive long scroll in the site's own `--lw-*` tokens) and **Specs &
+Evidence** (the engineering ledger) — not a rail of panels.
 
 Subcommands stay small on purpose: `cert` and `remix` live in their own references
 ([cert.md](references/cert.md)) so this file stays the contract, not a manual.

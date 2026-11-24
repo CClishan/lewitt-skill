@@ -1,571 +1,338 @@
-import json
+"""lewitt preview.html — the same dual-view long scroll as system/, delivered as one file.
 
-# resolve_tokens is injected by build_artifacts (single implementation of alias resolution).
-resolve_tokens = None
-
-# Neutral specimen text: the preview must not borrow copy from any earlier run.
-SPECIMEN = "Aa 0123456789 The quick brown fox"
-
-PREVIEW_CSS = """
-/* preview.html — Architectural Specimen Book. Neutrals come from visual_base; the system's own
-   colour only appears inside a Stage. */
-header.top{padding:40px 56px 28px;border-bottom:1px solid var(--n-line)}
-header.top{position:relative}
-header.top .fpl{position:absolute;left:0;right:0;bottom:-3px}
-.eyebrow{display:flex;align-items:center;gap:7px}
-.eyebrow .lw-mark{color:var(--n-ink);flex:none}
-.source-only{margin:0;border:1px solid var(--n-line);background:var(--n-panel)}
-.source-only img{display:block;width:100%}
-.source-only figcaption{font:11px/1.4 var(--n-mono);color:var(--n-mute);padding:8px 12px;border-top:1px solid var(--n-line)}
-.top .eyebrow{margin-bottom:14px}
-.top h1{font-size:34px;line-height:1.1;letter-spacing:-.02em;margin:0 0 12px;font-weight:400;max-width:24ch}
-.top .lede{color:var(--n-mute);max-width:70ch;margin:0 0 6px;font-size:14px}
-.top .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
-main{padding:0 56px 120px;max-width:1180px}
-.bar{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:8px;align-items:center;
-  padding:12px 0;margin:0 0 8px;background:var(--n-bg);border-bottom:1px solid var(--n-line)}
-.bar .grow{flex:1}
-section{padding:56px 0;border-bottom:1px solid var(--n-line)}
-section:last-of-type{border-bottom:0}
-h2{font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--n-ink);
-  margin:0 0 6px;display:flex;align-items:baseline;gap:12px}
-h2 .count{color:var(--n-faint);font-family:var(--n-mono);letter-spacing:0;font-size:11px}
-.sect-note{color:var(--n-mute);font-size:13px;margin:0 0 28px;max-width:72ch}
-h3{font-size:12px;font-weight:500;margin:32px 0 12px;color:var(--n-mute);letter-spacing:.05em;text-transform:uppercase}
-
-/* ---- colour: 96px chips, two lines underneath, WCAG badges on real pairs */
-.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:1px;background:var(--n-line);
-  border:1px solid var(--n-line);border-right:0;border-bottom:0}
-.sw .swatch{border-right:1px solid var(--n-line);border-bottom:1px solid var(--n-line)}
-.swatch{background:var(--n-panel);padding:0 0 12px;cursor:copy}
-.swatch .fill{height:96px;border-bottom:1px solid var(--n-line)}
-.swatch .fill.checker{background-image:linear-gradient(45deg,var(--n-hover) 25%,transparent 25%,transparent 75%,var(--n-hover) 75%),linear-gradient(45deg,var(--n-hover) 25%,transparent 25%,transparent 75%,var(--n-hover) 75%);background-size:10px 10px;background-position:0 0,5px 5px}
-.swatch .line{padding:10px 12px 0;display:flex;align-items:baseline;justify-content:space-between;gap:8px}
-.swatch .tok{font:12px/1.3 var(--n-mono);color:var(--n-ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.swatch .hex{font:11px/1.3 var(--n-mono);color:var(--n-mute);font-variant-numeric:tabular-nums}
-.swatch .sub{padding:2px 12px 0;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.pairs{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--n-line);border:1px solid var(--n-line)}
-.pair{background:var(--n-panel);padding:18px 20px}
-.pair .sample{padding:14px 16px;border-radius:2px;font-size:14px}
-.pair .pmeta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
-.pair .pmeta .mono{color:var(--n-mute);font-size:11px}
-
-/* ---- typography: parameters left, specimen right */
-.type-row{display:grid;grid-template-columns:220px minmax(0,1fr);gap:0;border-top:1px solid var(--n-line)}
-.type-row:last-child{border-bottom:1px solid var(--n-line)}
-.type-params{padding:20px 24px 20px 0;border-right:1px solid var(--n-line)}
-.type-params dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font:11.5px/1.5 var(--n-mono)}
-.type-params dt{color:var(--n-faint)}
-.type-params dd{margin:0;color:var(--n-ink);text-align:right}
-.type-params .tok{font:12px/1.4 var(--n-mono);color:var(--n-ink);display:block;margin-bottom:8px}
-.type-specimen{padding:20px 0 20px 32px;overflow:hidden;color:var(--n-ink)}
-.type-specimen .spec{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;display:block}
-.type-specimen .wide{white-space:normal}
-.wspec{display:flex;align-items:baseline;gap:18px;padding:14px 0 14px 32px}
-.wspec b{font-size:28px;font-weight:inherit}
-
-/* ---- shape */
-.grid-2{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:var(--n-line);border:1px solid var(--n-line)}
-.shape{background:var(--n-panel);padding:20px}
-.shape .obj{height:72px;background:var(--n-hover);border:1px solid var(--n-line-strong)}
-.shape .cap{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;gap:8px}
-
-/* ---- motion: easing plot + duration + replay */
-.motion{display:grid;grid-template-columns:196px minmax(0,1fr) 120px;gap:0;border-top:1px solid var(--n-line);align-items:center}
-.motion:last-child{border-bottom:1px solid var(--n-line)}
-.motion .plot{padding:16px 24px 16px 0;border-right:1px solid var(--n-line);display:flex;align-items:center}
-.motion .mid{padding:16px 24px}
-.motion .mid .tok{font:12px/1.4 var(--n-mono)}
-.motion .mid .ease{color:var(--n-mute);font:11px/1.5 var(--n-mono);margin-top:4px;word-break:break-all}
-.motion .act{padding:16px 0;text-align:right}
-.track{height:2px;background:var(--n-line-strong);margin-top:14px;position:relative}
-.track .dot{position:absolute;top:-5px;left:0;width:12px;height:12px;border-radius:50%;background:var(--n-ink)}
-
-/* ---- taste: structured cards, machine rule folded away */
-.taste{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1px;background:var(--n-line);border:1px solid var(--n-line)}
-.tcard{background:var(--n-panel);padding:24px 24px 20px;display:flex;flex-direction:column;gap:12px}
-.tcard .head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.tcard h4{margin:0;font-size:15px;font-weight:500;letter-spacing:-.005em}
-.tcard .ab{display:grid;grid-template-columns:1fr 22px 1fr;gap:10px;align-items:center;font-size:13px}
-.tcard .ab .v{padding:10px 12px;border:1px solid var(--n-line-strong);border-radius:2px;background:var(--n-bg)}
-.tcard .ab .over{color:var(--n-mute);text-decoration:line-through;text-decoration-color:var(--n-line-strong)}
-.tcard .ab .vs{text-align:center;color:var(--n-faint);font:11px/1 var(--n-mono)}
-.tcard .why{margin:0;font-size:13px;color:var(--n-mute)}
-.rules{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
-.rule{font:500 10.5px/1 var(--n-mono);letter-spacing:.06em;text-transform:uppercase;padding:4px 7px;
-  border-radius:2px;border:1px solid var(--n-line-strong);color:var(--n-mute)}
-.rule.forbid{color:var(--n-bad);border-color:color-mix(in srgb,var(--n-bad) 45%,transparent)}
-.rule.max{color:var(--n-warn);border-color:color-mix(in srgb,var(--n-warn) 45%,transparent)}
-.rule.require{color:var(--n-ok);border-color:color-mix(in srgb,var(--n-ok) 45%,transparent)}
-
-/* ---- source record: split compare */
-.compare{position:relative;border:1px solid var(--n-line);overflow:hidden;background:var(--n-panel);touch-action:none}
-.compare .layer{display:block;width:100%}
-.compare .layer.b{position:absolute;inset:0;clip-path:inset(0 50% 0 0)}
-.compare .layer.b img{width:100%;display:block}
-.compare img{display:block;width:100%}
-.compare .handle{position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--n-ink);pointer-events:none}
-.compare .handle::after{content:'';position:absolute;top:50%;left:50%;width:28px;height:28px;margin:-14px 0 0 -14px;
-  border-radius:50%;border:1px solid var(--n-ink);background:var(--n-bg)}
-.compare input[type=range]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
-.compare .lab{position:absolute;bottom:10px;font:10.5px/1 var(--n-mono);letter-spacing:.06em;text-transform:uppercase;
-  background:var(--n-bg);color:var(--n-mute);padding:5px 7px;border:1px solid var(--n-line-strong)}
-.compare .lab.l{left:10px} .compare .lab.r{right:10px}
-.sbs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--n-line);border:1px solid var(--n-line)}
-.sbs figure{margin:0;background:var(--n-panel);padding:12px}
-.sbs img{width:100%;display:block;border:1px solid var(--n-line)}
-.sbs figcaption{font:11px/1.4 var(--n-mono);color:var(--n-mute);margin-top:8px}
-.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;margin-top:20px}
-.shots figure{margin:0}
-.shots img{width:100%;border:1px solid var(--n-line);display:block}
-.shots figcaption{font:11px/1.4 var(--n-mono);color:var(--n-mute);margin-top:6px}
-ul.plain{margin:0;padding-left:18px;color:var(--n-mute);font-size:13px}
-ul.plain li{margin:4px 0}
-footer{padding:32px 56px 64px;color:var(--n-mute);font-size:12px;font-family:var(--n-mono)}
-@media(max-width:900px){
-  header.top,main,footer{padding-left:20px;padding-right:20px}
-  main{padding-bottom:80px}
-  .type-row{grid-template-columns:1fr}
-  .type-params{border-right:0;padding-right:0;border-bottom:1px solid var(--n-line)}
-  .type-specimen{padding-left:0}
-  .motion{grid-template-columns:1fr}
-  .motion .plot{border-right:0}
-  .sbs{grid-template-columns:1fr}
-}
+preview.html has no system/ folder: its Live Preview and Specs views are assembled here from
+dna.json alone, plus the clips/, capture/ and render files that sit beside it. visual_base and
+site_render supply CSS and JS so both books look like one publication; the HTML is assembled in
+this module so the file reduces to a single page a reviewer can open from any folder.
 """
 
-PREVIEW_JS = """
-(function(){
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var status = document.getElementById('p-status');
-  function say(t){ if(status) status.textContent = t; }
-  // "240ms" -> 240, "0.4s" -> 400; never assume a unit
-  function msFrom(d){
-    var m = /^ *([0-9.]+) *(ms|s)? *$/i.exec(String(d));
-    if(!m) return 300;
-    return m[2] && m[2].toLowerCase() === 's' ? parseFloat(m[1]) * 1000 : parseFloat(m[1]);
-  }
-  // slow-motion factor shared by every replay control (0.25x .. 4x)
-  var slow = 1;
-  var slowEl = document.getElementById('p-slow');
-  if(slowEl) slowEl.addEventListener('input', function(){ slow = parseFloat(slowEl.value) || 1; say('replay speed ' + slow + 'x'); });
+from __future__ import annotations
 
-  Array.prototype.forEach.call(document.querySelectorAll('[data-replay]'), function(btn){
-    var dot = document.getElementById(btn.getAttribute('data-replay'));
-    if(!dot) return;
-    var dur = btn.getAttribute('data-dur'), ease = btn.getAttribute('data-ease');
-    btn.addEventListener('click', function(){
-      dot.style.transition = 'none'; dot.style.transform = 'translateX(0)'; void dot.offsetWidth;
-      if(reduce){ say('reduced motion: replay skipped'); return; }
-      var ms = msFrom(dur) * slow;
-      dot.style.transition = 'transform ' + ms + 'ms ' + ease;
-      dot.style.transform = 'translateX(calc(100% - 12px))';
-      say('replaying ' + dur + ' at ' + slow + 'x');
-      window.setTimeout(function(){ dot.style.transition = 'transform ' + ms + 'ms ' + ease; dot.style.transform = 'translateX(0)'; }, ms + 120);
-    });
-    btn.addEventListener('mouseenter', function(){ if(!reduce) dot.style.transition = 'transform ' + (msFrom(dur) * slow) + 'ms ' + ease; });
-  });
+import re
 
-  // fidelity: split compare by default, side-by-side on request
-  var cmp = document.getElementById('p-compare');
-  var sbs = document.getElementById('p-sbs');
-  var toggle = document.getElementById('p-view-toggle');
-  if(toggle && cmp && sbs){
-    toggle.addEventListener('click', function(){
-      var split = toggle.getAttribute('aria-pressed') === 'true';
-      toggle.setAttribute('aria-pressed', split ? 'false' : 'true');
-      toggle.textContent = split ? 'Side by side' : 'Split compare';
-      cmp.hidden = split ? true : false;
-      sbs.hidden = split ? false : true;
-    });
-  }
-  var range = document.getElementById('p-split');
-  if(range && cmp){
-    var apply = function(){ cmp.style.setProperty('--split', range.value + '%');
-      var b = cmp.querySelector('.layer.b'); if(b) b.style.clipPath = 'inset(0 ' + (100 - range.value) + '% 0 0)';
-      var h = cmp.querySelector('.handle'); if(h) h.style.left = range.value + '%'; };
-    range.addEventListener('input', apply); apply();
-  }
-  document.addEventListener('keydown', function(e){
-    if(!range || (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight')) return;
-    var step = e.shiftKey ? 10 : 2;
-    range.value = Math.max(0, Math.min(100, parseFloat(range.value) + (e.key === 'ArrowRight' ? step : -step)));
-    range.dispatchEvent(new Event('input'));
-  });
-})();
+import build_artifacts as ba
+import site_render as sr
+import visual_base as vb
+
+PREVIEW_CSS_PATCH = """
+/* preview.html is one file: the render artifacts it references are listed once, in the Specs overview,
+   not in the top bar (the top bar stays three groups). */
+.papp { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 4px; }
+.papp .mail { font: 500 10.5px/1 var(--n-mono); letter-spacing: .04em; padding: 6px 9px; border-radius: 4px;
+  border: 1px solid var(--n-line-strong); color: var(--n-mute); text-decoration: none; }
+.papp .mail:hover { color: var(--n-ink); border-color: var(--n-ink); }
 """
 
 
-def _esc(value) -> str:
-    return (
-        str(value).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
-    )
-
-
-def _js(value) -> str:
-    return json.dumps(str(value), ensure_ascii=False).replace("</", "<\\/")
-
-
-def render_preview_html(dna: dict, resolver=None, exists=None) -> str:
-    """Single-file specimen book. Zero external deps: styles from ./tokens.css, everything else inline."""
-    meta = dna["meta"]
-    modes = meta.get("modes") or ["default"]
-    mode = modes[0]
+def render_preview_html(dna: dict, resolver=None, exists=None, root=None) -> str:
+    """Single-file specimen book in two views: Live Preview (01-05) and Specs."""
     global resolve_tokens
     if resolver is not None:
         resolve_tokens = resolver
-    import visual_base as vb
-
-    resolved = resolve_tokens(dna["tokens"], mode)
-    ev = {e["id"]: e for e in dna["evidence"]}
+    meta = dna["meta"]
+    modes = meta.get("modes") or ["default"]
+    resolved = resolve_tokens(dna["tokens"], modes[0])
     canvas = next((resolved[t["id"]]["resolved"] for t in dna["tokens"] if t["id"] == "color/canvas"), None)
     tone = vb.tone_of(canvas)
+    esc = sr._e
+    read = sr.reads(resolved)
+    text = sr.specimen_text(dna)
+    bricks = ba.render_bricks(root) if root is not None else []
+    pages = meta.get("crawl", {}).get("pages") or [meta["source"]]
+    name = meta.get("name") or meta.get("domain") or "design system"
 
-    def chip(status: str) -> str:
-        cls = {"observed": "ok", "inferred": "warn", "proposed": "", "unknown": "bad"}.get(status, "")
-        return f'<span class="chip {cls}">{_esc(status)}</span>'
+    def obs(kind: str, label: str = "+ Observed") -> str:
+        return f'<button class="tag-obs" data-obs="{esc(kind)}">{esc(label)}</button>'
 
-    # ---- colour: 96px fill, token + hex, then a quieter sub-line
-    def swatch_group(layer: str, heading: str) -> str:
+    # ---------------------------------------------------------------- 01 colour
+    def swatches(layer: str) -> str:
         toks = [t for t in dna["tokens"] if t["type"] == "color" and t["layer"] == layer]
         if not toks:
             return ""
         cells = []
         for t in toks:
-            value = resolved[t["id"]]["resolved"]
-            alias = next(iter(t["values"].values()))
-            alias_note = alias["alias"] if isinstance(alias, dict) else ""
-            transparent = str(value).replace(" ", "") in ("rgba(0,0,0,0)", "transparent")
+            v = resolved[t["id"]]["resolved"]
+            ground, role = ba.colour_ground(t["id"], resolved)
+            if role == "fill":
+                chip, grade = "fill · solid", ""
+            elif ground == v:
+                chip, grade = "canvas · ground", ""
+            else:
+                label, grade = vb.wcag_badge(v, ground)
+                chip = f"{role.replace('-', ' ')} · {label}"
             cells.append(
-                '<div class="swatch" data-copy="' + _esc(value) + '" tabindex="0" role="button" '
-                'aria-label="copy ' + _esc(t["id"]) + ' value ' + _esc(value) + '">'
-                f'<div class="fill{" checker" if transparent else ""}" style="background:{_esc(value)}"></div>'
-                f'<div class="line"><span class="tok">{_esc(t["id"])}</span>'
-                f'<span class="hex">{_esc(value)}</span></div>'
-                f'<div class="sub"><span class="mono" style="color:var(--n-faint)">{_esc(alias_note or " ")}</span>'
-                f'{chip(t["status"])}</div></div>'
-            )
-        return (f'<h3>{heading} <span class="count" style="font-family:var(--n-mono);font-size:11px;'
-                f'color:var(--n-faint);text-transform:none;letter-spacing:0">· {len(toks)}</span></h3>'
-                f'<div class="sw">{"" .join(cells)}</div>')
+                f'<div class="swatch"><div class="fill" style="background:{esc(v)}"></div>'
+                f'<div class="meta"><span class="tok" data-copy="var(--{esc(t["css"].lstrip("-"))})" role="button" tabindex="0">'
+                f'{esc(t["id"])}</span><span class="hex" data-copy="{esc(v)}">{esc(v)}</span></div>'
+                f'<div class="sub"><span class="wchip {grade}">{esc(chip)}</span></div></div>')
+        return (f'<div class="lp-group"><h3><span>{esc(layer)}</span>'
+                f'<span class="scene">{esc(_SCENE.get(layer, ""))} · {len(toks)}</span>'
+                f'{obs("palette") if layer == "semantic" else ""}</h3><div class="sw">{"".join(cells)}</div></div>')
 
-    colour_html = (swatch_group("semantic", "Semantic roles")
-                   + swatch_group("component", "Component colours")
-                   + swatch_group("primitive", "Primitives"))
-
-    # real pairs used on the source page, with the contrast ratio measured from the token values
-    pairs = [
-        ("heading / canvas", "color/text/heading", "color/canvas", "display copy"),
-        ("body / canvas", "color/text/body", "color/canvas", "paragraphs"),
-        ("body / subtle", "color/text/body", "color/surface-subtle", "cards, raised rows"),
-        ("action-fg / action-bg", "color/action/fg", "color/action/bg", "primary button"),
-        ("link / canvas", "color/link", "color/canvas", "inline links"),
-    ]
-    pair_cells = []
-    for label, fg_id, bg_id, where in pairs:
-        fg = resolved.get(fg_id, {}).get("resolved")
-        bg = resolved.get(bg_id, {}).get("resolved")
+    prow = ""
+    for label, fg_id, bg_id, where in _PAIRS:
+        fg, bg = resolved.get(fg_id, {}).get("resolved"), resolved.get(bg_id, {}).get("resolved")
         if not fg or not bg:
             continue
-        badge, grade = vb.wcag_badge(fg, bg)
-        pair_cells.append(
-            f'<div class="pair"><div class="sample" style="background:{_esc(bg)};color:{_esc(fg)}">{_esc(label)}</div>'
-            f'<div class="pmeta"><span class="mono">{_esc(where)}</span>'
-            f'<span class="chip {grade}">{_esc(badge)}</span></div></div>'
-        )
-    pairs_html = "".join(pair_cells)
+        wcag, grade = vb.wcag_badge(fg, bg)
+        prow += (f'<div class="prow"><div class="sample" style="background:{esc(bg)};color:{esc(fg)}">'
+                 f'<span class="cap-label">{esc(label)}</span>Aa 0123 0123456789</div>'
+                 f'<div class="pmeta"><span>{esc(where)}</span><span class="wchip {grade}">{esc(wcag)}</span></div></div>')
+    live_colour = f"""
+<div class="lp-sheet"><span class="lp-num">01</span><h2 class="lp-title">Colour Palette</h2>
+<span class="rule"></span><span class="count">{len([t for t in dna['tokens'] if t['type'] == 'color'])} colours</span></div>
+<p class="lp-lede">Roles first, primitives last. Ratios are computed from the two token values, not sampled from a
+screenshot; a text colour is graded on the ground it actually sits on.</p>
+<div class="lp-groups">{swatches("semantic")}{swatches("component")}{swatches("primitive")}</div>
+<div class="pairs"><h3>Pairs in use</h3>{prow}</div>"""
 
-    # ---- typography: parameters on the left, specimen on the right, one row per token
-    def type_row(t: dict) -> str:
-        size = resolved[t["id"]]["resolved"]
-        tracking = next((resolved[x["id"]]["resolved"] for x in dna["tokens"]
-                         if x["id"].startswith("tracking/")), None)
-        params = [("size", size), ("colour", "var(--n-ink)")]
-        if tracking:
-            params.append(("tracking", tracking))
-        dl = "".join(f"<dt>{_esc(k)}</dt><dd>{_esc(v)}</dd>" for k, v in params)
-        long_text = float(str(size).replace("px", "") or 16) <= 20
-        spec_cls = "spec wide" if long_text else "spec"
-        return (
-            f'<div class="type-row"><div class="type-params">'
-            f'<span class="tok" data-copy="var({_esc(t["css"])})">{_esc(t["id"])}</span>'
-            f'<dl>{dl}</dl></div>'
-            f'<div class="type-specimen"><span class="{spec_cls}" style="font-size:{_esc(size)};'
-            f'line-height:1.12">{_esc(SPECIMEN)}</span></div></div>'
-        )
+    # ---------------------------------------------------------------- 02 type
+    type_tokens = [t for t in dna["tokens"] if t["type"] == "dimension" and t["id"].startswith("type/")]
+    scale_params = "".join(f'<span>{esc(t["id"].replace("type/", ""))} {esc(resolved[t["id"]]["resolved"])}</span>'
+                           for t in type_tokens)
+    face = next((str(resolved[t]["resolved"]).split(",")[0].strip('"\' ')
+                 for t in ("font/body", "font/sans", "font/ui") if t in resolved), "the declared stack")
+    live_type = f"""
+<div class="lp-sheet"><span class="lp-num">02</span><h2 class="lp-title">Typography Scale</h2>
+<span class="rule"></span><span class="count">{len(type_tokens)} steps</span></div>
+<p class="lp-lede">The run's own headline set at every step, at real size, in {esc(face)} and its fallback stack;
+the face itself is not shipped. Numeral steps show the run's first figure, text steps its headline.</p>
+<div class="type-scale-params">{scale_params}</div>
+{sr.type_rows(dna["tokens"], resolved, text, tag_prefix="1")}"""
 
-    type_rows = "".join(type_row(t) for t in dna["tokens"]
-                        if t["type"] == "dimension" and t["id"].startswith("type/"))
-    weight_rows = ""
-    for t in dna["tokens"]:
-        if t["type"] != "fontWeight":
-            continue
-        w = resolved[t["id"]]["resolved"]
-        weight_rows += (
-            f'<div class="type-row"><div class="type-params">'
-            f'<span class="tok" data-copy="var({_esc(t["css"])})">{_esc(t["id"])}</span>'
-            f'<dl><dt>weight</dt><dd>{_esc(w)}</dd></dl></div>'
-            f'<div class="wspec" style="font-weight:{_esc(w)}"><b>{_esc(SPECIMEN)}</b></div></div>'
-        )
+    # ---------------------------------------------------------------- 03 components
+    hero = text["hero"]
+    cta = hero.get("primaryCta") or "Primary action"
+    form = text["form"] or {}
+    fields = form.get("fields") or []
+    form_block = ""
+    if fields:
+        f0 = fields[0]
+        title = f'<div class="cap">{esc(form["title"])}</div>' if form.get("title") else ""
+        form_block = (f'<div class="block"><div class="cap"><span>Form field</span></div>'
+                      f'<div class="lp-form">{title}'
+                      f'<label class="ds-field"><span>{esc(f0["label"])}</span>'
+                      f'<input class="ds-input" id="demo-email" type="email" placeholder="{esc(f0.get("placeholder", ""))}" '
+                      f'data-invalid="{esc(f0.get("invalid", "Enter a valid value"))}" autocomplete="off">'
+                      f'<span class="field-note" id="demo-email-note" aria-live="polite"></span></label>'
+                      f'<div><button class="ds-btn ds-btn--primary" type="button">{esc(form.get("submit") or "Continue")}</button></div>'
+                      f'</div></div>')
+    floor = ba.shadow_floor(dna)
+    float_line = ('<div class="ds-card ds-card--float">Float card · the run\'s float shadow, because no '
+                  'restraint caps it.</div>' if (floor is None or floor >= 4) else
+                  '<div class="ds-card">Shadow specimen withheld: this run\'s restraint caps box-shadow '
+                  'below 4px, so depth is a hairline here.</div>')
+    chips = "".join(
+        f'<button class="state-chip" data-state="{cls}" data-state-group="btn" aria-pressed="'
+        f'{"true" if cls == "" else "false"}">{esc(label)}{" · forced" if forced else ""}</button>'
+        for label, cls, forced in (("default", "", False), ("hover", "is-hover", True),
+                                   ("focus-visible", "is-focus", True), ("active", "is-active", True)))
+    cards = text["cards"]
+    tier_html = ""
+    if cards:
+        tier_html = '<div class="pricing">' + "".join(
+            f'<div class="tier{" featured" if c.get("featured") else ""}"><span class="kind">{esc(c["title"])}</span>'
+            f'<span class="price">{esc(c["price"])}'
+            + (f'<small>{esc(c["per"])}</small>' if c.get("per") else "")
+            + f'</span><span class="note">{esc(c["note"])}</span>'
+            + (f'<button class="ds-btn ds-btn--primary" type="button">{esc(c.get("cta") or cta)}</button>'
+               if c.get("cta") else "")
+            + '</div>' for c in cards) + '</div>'
+    table = text["table"]
+    table_html = ""
+    if table:
+        trend = {j for j, c in enumerate(table["columns"]) if re.search(r"trend|change|24h|return|move", c, re.IGNORECASE)}
+        rows = ""
+        for row in table["rows"]:
+            cells = ""
+            for j, v in enumerate(row):
+                sign = v.strip().startswith("-")
+                if j in trend or (j == 2 and v.strip().endswith("%")):
+                    cells += f'<td data-trend="{esc("down" if sign else "up")}">{esc(v)}</td>'
+                else:
+                    cells += f"<td>{esc(v)}</td>"
+            rows += f"<tr>{cells}</tr>"
+        table_html = (f'<div class="lp-tbl"><table><thead><tr>'
+                      f'{"".join(f"<th>{esc(c)}</th>" for c in table["columns"])}</tr></thead>'
+                      f'<tbody>{rows}</tbody></table></div>')
+    live_components = f"""
+<div class="lp-sheet"><span class="lp-num">03</span><h2 class="lp-title">Components &amp; Cards</h2>
+<span class="rule"></span><span class="count">real states, not screenshots</span></div>
+<p class="lp-lede">Controls read the run's action tokens. Click a state chip to force a state; hover and focus-visible
+stay live.</p>
+<div class="lp-comp-grid">
+  <div class="col">
+    <div class="block"><div class="cap"><span>Button</span>{obs("material")}</div>
+      <div class="btn-row"><button class="ds-btn ds-btn--primary" id="demo-btn" type="button">{esc(cta)}</button>
+      {f'<button class="ds-btn ds-btn--secondary" type="button">{esc(hero["secondaryCta"])}</button>' if hero.get("secondaryCta") else ""}</div>
+      <div class="state-row" role="group" aria-label="forced button states">{chips}</div>
+      <p class="lp-figcaption">Forced samples sit next to live states; neither replaces the other.</p></div>
+    {form_block}
+  </div>
+  <div class="col">
+    {f'<div class="block"><div class="cap"><span>Cards</span><span>{esc("pricing tiers" if any(c.get("per") for c in cards) else "core cards")}</span></div>{tier_html}</div>' if tier_html else ""}
+    {f'<div class="block"><div class="cap"><span>Sample rows</span><span>{esc(table.get("caption") or "sample rows")}</span></div>{table_html}</div>' if table_html else ""}
+    <div class="block"><div class="cap"><span>Surfaces</span><span>radius {esc(" / ".join(sorted({resolved[t["id"]]["resolved"] for t in dna["tokens"] if t["id"].startswith("radius/")}, key=lambda r: (len(r), r))[:3])) or "none recorded"}</span></div>
+      <div class="ds-card">Default card · body copy sits on the surface token.</div>
+      <div class="ds-card ds-card--tint">Tint card · the quieter surface.</div>
+      {float_line}</div>
+  </div>
+</div>"""
 
-    # ---- radius + depth
-    radius_cells = []
-    for t in dna["tokens"]:
-        if t["type"] != "dimension" or not t["id"].startswith("radius/"):
-            continue
-        r = resolved[t["id"]]["resolved"]
-        radius_cells.append(
-            f'<div class="shape"><div class="obj" style="border-radius:{_esc(r)}"></div>'
-            f'<div class="cap"><span class="mono" data-copy="var({_esc(t["css"])})">{_esc(t["id"])}</span>'
-            f'<span class="mono" style="color:var(--n-mute)">{_esc(r)}</span></div></div>'
-        )
-    # a shadow specimen paints through its token; one the run's own restraint caps below 4px is shown as
-    # a value instead, so the page never demos what the rules forbid
-    shadow_cap = None
-    for taste in dna["taste"]:
-        cap = ((taste.get("guardrail") or {}).get("max") or {}).get("box-shadow")
-        if cap:
-            shadow_cap = min(shadow_cap or 1e9, float(cap.get("value", 0)))
-    shadow_cells = []
-    for t in dna["tokens"]:
-        if t["type"] != "shadow":
-            continue
-        sh = resolved[t["id"]]["resolved"]
-        if shadow_cap is not None and shadow_cap < 4:
-            shadow_cells.append(
-                f'<div class="shape"><div class="cap"><span class="mono" data-copy="var({_esc(t["css"])})">{_esc(t["id"])}</span>'
-                f'<span class="mono" style="color:var(--n-mute);text-align:right;word-break:break-all">{_esc(sh)}</span>'
-                f'<span class="mono" style="color:var(--n-faint)">value only · restraint caps box-shadow</span></div></div>'
-            )
-            continue
-        shadow_cells.append(
-            f'<div class="shape"><div class="obj" style="box-shadow:{_esc(sh)};border-color:transparent"></div>'
-            f'<div class="cap"><span class="mono" data-copy="var({_esc(t["css"])})">{_esc(t["id"])}</span>'
-            f'<span class="mono" style="color:var(--n-mute);text-align:right;word-break:break-all">{_esc(sh)}</span></div></div>'
-        )
-
-    # ---- motion: a deterministic easing plot per duration, plus a real replay dot
-    durations = [t for t in dna["tokens"] if t["type"] == "duration"]
+    # ---------------------------------------------------------------- 04 motion & guardrails
     easings = [t for t in dna["tokens"] if t["type"] == "easing"]
-    ease_default = resolved[easings[0]["id"]]["resolved"] if easings else "ease"
-    motion_rows = []
-    ease_list = []
-    easing_specs = [resolved[e["id"]]["resolved"] for e in easings] or [ease_default]
-
-    def easing_for(token_id: str) -> str:
-        # pick by name so a "reveal" tier plots a different curve from a "fast" one
-        key = token_id.lower()
-        for e in easings:
-            tail = e["id"].split("/")[-1].lower()
-            if tail and tail in key:
-                return resolved[e["id"]]["resolved"]
-        if "reveal" in key or "enter" in key:
-            return max(easing_specs, key=lambda spec: abs((vb.cubic_points(spec) or (0, 0, 0.5, 1))[2] - 0.5))
-        return easing_specs[0]
-
-    for t in durations:
+    durations = [t for t in dna["tokens"] if t["type"] == "duration"]
+    rows = []
+    for i, t in enumerate(durations):
         dur = resolved[t["id"]]["resolved"]
-        ease_here = easing_for(t["id"])
-        dot_id = "dot-" + t["id"].split("/")[-1]
-        plot = vb.bezier_svg(ease_here)
-        motion_rows.append(
-            f'<div class="motion"><div class="plot">{plot}</div>'
-            f'<div class="mid"><div class="tok" data-copy="var({_esc(t["css"])})">{_esc(t["id"])} · {_esc(dur)}</div>'
-            f'<div class="ease">{_esc(ease_here)}</div>'
-            f'<div class="track"><span class="dot" id="{dot_id}"></span></div></div>'
-            f'<div class="act"><button class="mini-btn" data-replay="{dot_id}" data-dur="{_esc(dur)}" '
-            f'data-ease="{_esc(ease_here)}">Replay</button></div></div>'
-        )
+        spec = resolved[easings[i % len(easings)]["id"]]["resolved"] if easings else "cubic-bezier(0.4, 0, 0.2, 1)"
+        rows.append(
+            f'<div class="motion"><div class="plot">{vb.bezier_svg(spec, 168, 88)}</div>'
+            f'<div class="mid"><div class="mono" data-copy="var(--{esc(t["css"].lstrip("-"))})" role="button" tabindex="0">'
+            f'{esc(t["id"])} · {esc(dur)}</div><div class="track"><span class="dot" id="sym-{i}-dot"></span></div></div>'
+            f'<div class="act"><label for="sym-{i}-range">Replay</label>'
+            f'<input type="range" id="sym-{i}-range" class="motion-range" min="0" max="1000" value="0" '
+            f'aria-label="scrub {esc(t["id"])}">'
+            f'<button class="tp-btn" data-sys-replay="sym-{i}-dot" data-dur="{esc(dur)}" data-ease="{esc(spec)}">Play</button>'
+            f'</div></div>')
     for t in easings:
-        bottom = t["values"].get(mode) if isinstance(t["values"].get(mode), dict) else None
         spec = resolved[t["id"]]["resolved"]
-        ease_list.append(
-            f'<div class="motion"><div class="plot">{vb.bezier_svg(spec)}</div>'
-            f'<div class="mid"><div class="tok" data-copy="var({_esc(t["css"])})">{_esc(t["id"])}</div>'
-            f'<div class="ease">{_esc(spec)}</div></div>'
-            f'<div class="act"><span class="chip">{_esc(t["status"])}</span></div></div>'
-        )
-
-    # ---- taste: rule capsules derived from the guardrail, machine rule folded into <details>
-    def rule_capsules(guard: dict) -> str:
-        caps = []
-        for prop in guard.get("forbidCss") or []:
-            caps.append(f'<li class="rule forbid">forbid · {_esc(prop)}</li>')
-        if guard.get("forbidClass"):
-            caps.append(f'<li class="rule forbid">forbid · {len(guard["forbidClass"])} class pattern(s)</li>')
-        for prop, bound in (guard.get("max") or {}).items():
-            caps.append(f'<li class="rule max">max · {_esc(prop)} ≤ {_esc(bound.get("value"))}{_esc(bound.get("unit", ""))}</li>')
-        for prop in guard.get("require") or []:
-            caps.append(f'<li class="rule require">require · {_esc(prop)}</li>')
-        return f'<ul class="rules">{"".join(caps)}</ul>' if caps else ""
-
-    taste_cards = []
+        rows.append(
+            f'<div class="motion"><div class="plot">{vb.bezier_svg(spec, 168, 88)}</div>'
+            f'<div class="mid"><div class="mono" data-copy="var(--{esc(t["css"].lstrip("-"))})" role="button" tabindex="0">'
+            f'{esc(t["id"])}</div><div class="spec-val">{esc(spec)}</div></div>'
+            f'<div class="act">{obs("motion", t["status"])}</div></div>')
+    taste_html, gates = "", ""
     for t in dna["taste"]:
-        guard = t.get("guardrail") or {}
-        machine = ""
-        if guard:
-            machine = (f'<details><summary>Machine rule</summary>'
-                       f'<pre>{_esc(json.dumps(guard, indent=1, ensure_ascii=False))}</pre></details>')
-        taste_cards.append(
-            f'<article class="tcard"><div class="head">{chip(t["status"])}'
-            f'<span class="mono" style="color:var(--n-faint)">{_esc(t["kind"])} · {_esc(", ".join(t["evidence"]))}</span></div>'
-            f'<h4>{_esc(t["name"])}</h4>'
-            f'<div class="ab"><div class="v">{_esc(t["chose"])}</div><div class="vs">over</div>'
-            f'<div class="v over">{_esc(t["over"])}</div></div>'
-            f'<p class="why">{_esc(t["reason"])}</p>{rule_capsules(guard)}{machine}</article>'
-        )
+        taste_html += (
+            f'<article class="tcard"><div class="head"><span>{esc(t["kind"])}</span>'
+            f'<span>{esc(" · ".join(t["evidence"]))}</span><span>{esc(t["status"])}</span></div>'
+            f'<h4>{esc(t["name"])}</h4><div class="ab"><div class="v">{esc(t["chose"])}</div>'
+            f'<div class="vs">over</div><div class="v over">{esc(t["over"])}</div></div>'
+            f'<p class="why">{esc(t["reason"])}</p></article>')
+        if t.get("guardrail"):
+            gates += (f'<div class="gate-item"><div class="gate-head"><span>{esc(t["name"])}</span>'
+                      f'<span class="mono">{esc(t["id"])}</span></div>'
+                      f'{sr.guardrail_caps(t["guardrail"], expandable=True)}</div>')
+    live_motion = f"""
+<div class="lp-sheet"><span class="lp-num">04</span><h2 class="lp-title">Motion &amp; Guardrails</h2>
+<span class="rule"></span><span class="count">{len(durations)} durations · {len(easings)} curves</span></div>
+<p class="lp-lede">Each curve is the token's own cubic-bezier with its handles drawn. Play runs the real duration,
+the slider scrubs it, and Reduced motion in the top bar replaces travel with its end state.</p>
+<div class="lp-motion">{"".join(rows)}</div>
+<p class="lp-motion-legend">dot · direction of travel · curve · measured easing · status · evidence class</p>
+<div class="sec-col">
+  <div><div class="cap">MUST NOT · mechanical gates</div>
+    <p class="lp-figcaption">Every capsule is a machine-readable rule. Expand one to read the regex a build is
+    checked against; a generated page that matches it fails <code>lint_output.py</code>.</p>
+    <div class="gate-list">{gates or '<p class="lp-figcaption">No restraint carries a machine gate in this run.</p>'}</div></div>
+  <div><div class="cap">Taste · decision, and the rejected alternative</div>{taste_html}</div>
+</div>"""
 
-    # ---- source record
-    def has_file(name: str) -> bool:
-        return True if exists is None else bool(exists(name))
+    # ---------------------------------------------------------------- 05 bricks
+    if bricks:
+        cards_html = "".join(ba._brick_card(b, read, esc, obs) for b in bricks)
+        bricks_html = (f'<div class="lp-bricks">{cards_html}</div>'
+                       f'<p class="provenance">Each brick was recorded twice in the same browser: once normally, once '
+                       f'with CDP <code>prefers-reduced-motion: reduce</code>. Screenshots are the real frames from '
+                       f'<code>clips/{esc(bricks[0]["slug"])}/shots/</code>.</p>')
+        count = f"{len(bricks)} brick{'' if len(bricks) == 1 else 's'}"
+    else:
+        bricks_html = ('<p class="provenance">No <code>clips/</code> beside this file. A single module can be lifted '
+                       'with <code>lewitt clip --find "…" --dest runs/…</code>, and its brick would be shown here.</p>')
+        count = "no clips yet"
+    live_bricks = f"""
+<div class="lp-sheet"><span class="lp-num">05</span><h2 class="lp-title">Clipped Bricks</h2>
+<span class="rule"></span><span class="count">{esc(count)}</span></div>
+<p class="lp-lede">One module with its interaction, skin stripped and mapped onto this run's slots. The live module
+on the left is rebuilt from the slot mapping; on the right is what the browser recorded on the source.</p>
+{bricks_html}"""
 
-    shots = [n for n in ("viewport.png", "viewport-2.png", "viewport-3.png", "viewport-4.png") if has_file(n)]
-    hero = shots[0] if shots else None
-    # A split slider needs two different pictures; comparing the source with itself is a fake.
-    rebuild = next((n for n in ("rebuild.png", "rebuild-1.png") if has_file(n) and n != hero), None)
-    full = meta.get("mode") == "full"
-    rebuild_where = ("<code>system/index.html</code>" if full else
-                     "the rendered specimens on this page: every swatch, type step and stage reads "
-                     "<code>tokens.css</code>")
-    compare_html = ""
-    sbs_html = ""
-    toggle_html = ""
-    if hero and rebuild:
-        compare_html = (
-            '<div class="compare" id="p-compare"><img class="layer a" src="capture/' + _esc(hero) + '" alt="captured source page">'
-            '<div class="layer b"><img src="capture/' + _esc(rebuild) + '" alt="rebuilt page"></div>'
-            '<div class="handle"></div>'
-            '<span class="lab l">source · capture/' + _esc(hero) + '</span>'
-            '<span class="lab r">rebuild · capture/' + _esc(rebuild) + '</span>'
-            '<input id="p-split" type="range" min="0" max="100" value="50" '
-            'aria-label="compare source and rebuild, drag or use arrow keys"></div>'
-        )
-        sbs_html = (
-            '<div class="sbs" id="p-sbs" hidden>'
-            f'<figure><img src="capture/{_esc(hero)}" alt="captured source page"><figcaption>source · capture/{_esc(hero)}</figcaption></figure>'
-            f'<figure><img src="capture/{_esc(rebuild)}" alt="rebuilt page"><figcaption>rebuild · capture/{_esc(rebuild)}</figcaption></figure></div>'
-        )
-        toggle_html = ('<div style="display:flex;justify-content:flex-end;margin-bottom:12px">'
-                       '<button class="mini-btn" id="p-view-toggle" aria-pressed="true">Side by side</button></div>')
-    elif hero:
-        compare_html = (
-            '<figure class="source-only"><img src="capture/' + _esc(hero) + '" alt="captured source page">'
-            '<figcaption>source · capture/' + _esc(hero) + '</figcaption></figure>'
-            '<p class="sect-note" style="margin:10px 0 0">No rebuild screenshot in <code>capture/</code>, so there is '
-            'no split to drag: the rebuild is ' + rebuild_where + ', not painted over the source. Record '
-            '<code>capture/rebuild.png</code> at the same viewport to enable the comparison.</p>'
-        )
-    other_shots = "".join(
-        f'<figure><img src="capture/{_esc(n)}" alt="source page screenshot {_esc(n)}" loading="lazy">'
-        f'<figcaption>{_esc(n)}</figcaption></figure>' for n in shots[1:]
-    )
-    pages = meta.get("crawl", {}).get("pages") or [meta["source"]]
-    token_rows = "".join(
-        f'<tr><td><code data-copy="var({_esc(t["css"])})">{_esc(t["css"])}</code></td>'
-        f'<td><code>{_esc(t["id"])}</code></td><td>{_esc(t["layer"])}</td><td>{_esc(t["type"])}</td>'
-        f'<td><code data-copy="{_esc(resolved[t["id"]]["resolved"])}">{_esc(resolved[t["id"]]["resolved"])}</code></td>'
-        f'<td>{chip(t["status"])}</td></tr>'
-        for t in dna["tokens"]
-    )
-    limits = "".join(f"<li>{_esc(x)}</li>" for x in meta.get("limitations", []))
-    page_list = "".join(f'<li><a href="{_esc(p)}" rel="noreferrer">{_esc(p)}</a></li>' for p in pages)
-    principle = max(dna["taste"], key=lambda t: (t["kind"] == "restraint", len(t.get("evidence", []))))
-    iso = "isolated browser" if meta.get("captureIsolated") else "not isolated"
+    live = {"hero": _hero(dna, resolved, text, esc, obs), "colour": live_colour, "type": live_type,
+            "components": live_components, "motion": live_motion, "bricks": live_bricks}
+    # every artifact lives in the same folder as this file, so the run folder stands in for `dest`
+    specs = ba._specs_panels(dna, root, resolved, pages, bricks, esc) if root is not None else \
+        ba._specs_panels(dna, _NoFolder(), resolved, pages, bricks, esc)
+    specs["downloads"] = specs["downloads"].replace("../", "")
 
-    return f"""<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>lewitt specimen — {_esc(meta['name'])}</title>
-<link rel="stylesheet" href="tokens.css">
-<style>{vb.base_css(tone)}{PREVIEW_CSS}{vb.fingerprint_css(vb.fingerprint_stops(resolved, dna), selector="#fp-head")}</style>
-</head>
-<body data-tone="{tone}">
-<header class="top" id="top">
-  <div class="fpl" id="fp-head" aria-hidden="true"></div>
-  <p class="eyebrow">{vb.lines_mark()}<span>lewitt · design specimen · {_esc(meta['mode'])} mode</span></p>
-  <h1>{_esc(meta['name'])}</h1>
-  <p class="lede">{_esc(principle['name'])}: {_esc(principle['chose'])}, not {_esc(principle['over'])}.</p>
-  <p class="lede">Every value below is a render of <code>dna.json</code> reading the same <code>tokens.css</code>
-  a build would import. Click any swatch, token name or value to copy it.</p>
-  <div class="meta">
-    <span class="chip">{_esc(len(pages))} pages</span>
-    <span class="chip">{_esc(len(dna['tokens']))} tokens</span>
-    <span class="chip">{_esc(len(dna['evidence']))} evidence</span>
-    <span class="chip">captured {_esc(str(meta.get('capturedAt', 'unknown'))[:10])}</span>
-    <span class="chip">{_esc(iso)}</span>
-  </div>
-</header>
-<main>
-  <div class="bar" role="toolbar" aria-label="Handoff">
-    <button class="mini-btn" id="copy-all" data-copy="{_esc(chr(10).join(resolved[t['id']]['resolved'] for t in dna['tokens']))}">Copy all values</button>
-    <a class="mini-btn" href="tokens.css" download>tokens.css</a>
-    <a class="mini-btn" href="shadcn-theme.css" download>shadcn-theme.css</a>
-    <a class="mini-btn" href="agent-rules.md" download>agent-rules.md</a>
-    <a class="mini-btn" href="taste.md" download>taste.md</a>
-    <span class="grow"></span>
-    <label class="mono" for="p-slow" style="color:var(--n-mute)">replay</label>
-    <input id="p-slow" type="range" min="0.25" max="4" step="0.25" value="1" aria-label="slow motion factor" style="width:96px">
-    <span class="mono" id="p-status" aria-live="polite" style="color:var(--n-mute)"></span>
-  </div>
+    shell = sr.app_shell(dna, resolved, live, specs, pages=len(pages))
+    shell = shell.replace('<link rel="stylesheet" href="../tokens.css">',
+                          '<link rel="stylesheet" href="tokens.css">')
+    shell = shell.replace('<title>lewitt — ', '<title>lewitt preview — ')
+    for link in ('<link rel="stylesheet" href="doc.css">\n', '<link rel="stylesheet" href="site.css">\n',
+                 '<link rel="stylesheet" href="system.css">\n'):
+        shell = shell.replace(link, "")
+    shell = shell.replace('<script src="system.js"></script>', f'<script>{vb.COPY_JS}{sr.JS}</script>')
+    shell = shell.replace('</head>', "<style>" + vb.base_css(tone, scope=":root") + "\n" + sr.CSS
+                          + PREVIEW_CSS_PATCH + "</style>"
+                          + '<script id="evidence-data" type="application/json">'
+                          + sr._json(sr.evidence_for_tags(dna)) + "</script></head>")
+    # the right slot: copies of the renders beside the file, then the stress booleans
+    files = "".join(f'<a class="mail" href="{f}" download>{f}</a>' for f in _SIDE)
+    # preview.html: the Files links sit in the (hidden) Specs panel, not the top bar
+    shell = shell.replace('<h1>Overview</h1>', '<h1>Overview</h1><p class="papp" aria-label="files beside this page">'
+                          + files + '</p>', 1)
+    return shell
 
-  <section aria-labelledby="s-color">
-    <h2 id="s-color">Colour <span class="count">{_esc(len([t for t in dna['tokens'] if t['type'] == 'color']))}</span></h2>
-    <p class="sect-note">Roles first, primitives after. Each block is the token's resolved value; the ratio
-    beside a real pair is measured from those two values, not estimated from the screenshot.</p>
-    {colour_html}
-    <h3>Pairs in use</h3>
-    <div class="pairs">{pairs_html}</div>
-  </section>
 
-  <section aria-labelledby="s-type">
-    <h2 id="s-type">Typography</h2>
-    <p class="sect-note">Parameters on the left, the specimen on the right at its real size. Web fonts are not
-    shipped: the specimen uses the declared stack and falls back where the face is missing.</p>
-    {type_rows}
-    {weight_rows}
-  </section>
+_SCENE = {"semantic": "roles: where ink, surface and action may appear",
+          "component": "inside a control: fill, label, ring",
+          "primitive": "the raw palette behind the roles"}
+_PAIRS = [("heading / canvas", "color/text/heading", "color/canvas", "display copy"),
+          ("primary / canvas", "color/text/primary", "color/canvas", "headlines and labels"),
+          ("body / canvas", "color/text/body", "color/canvas", "paragraphs"),
+          ("secondary / canvas", "color/text/secondary", "color/canvas", "supporting rows"),
+          ("muted / surface", "color/text/muted", "color/surface", "captions on raised rows"),
+          ("muted / well", "color/text/tertiary", "color/well", "captions on the deepest surface"),
+          ("action-fg / action-bg", "color/action/fg", "color/action/bg", "primary button"),
+          ("link / canvas", "color/link", "color/canvas", "inline links")]
+_SIDE = ("tokens.css", "shadcn-theme.css", "agent-rules.md", "taste.md", "VERIFY.md")
 
-  <section aria-labelledby="s-shape">
-    <h2 id="s-shape">Radius &amp; depth</h2>
-    <div class="grid-2">{''.join(radius_cells)}{''.join(shadow_cells) or '<div class="shape"><div class="cap"><span class="mono">no shadow tokens</span><span class="mono" style="color:var(--n-mute)">this system separates layers with borders</span></div></div>'}</div>
-  </section>
 
-  <section aria-labelledby="s-motion">
-    <h2 id="s-motion">Motion</h2>
-    <p class="sect-note">Each curve is plotted from the token's own cubic-bezier, with its control handles.
-    Replay runs the real duration on the track; the slider above slows every replay.</p>
-    {''.join(motion_rows)}
-    {''.join(ease_list)}
-  </section>
+class _NoFolder:
+    """No files beside the page: empty downloads, a stated absence of capture/clips."""
 
-  <section aria-labelledby="s-taste">
-    <h2 id="s-taste">Taste &amp; guardrails</h2>
-    <p class="sect-note">The decision in words, the rule it compiles to, and the machine pattern behind it.
-    A build that violates a capsule fails <code>lint_output.py</code>.</p>
-    <div class="taste">{''.join(taste_cards)}</div>
-  </section>
+    name = "preview"
 
-  <section aria-labelledby="s-source">
-    <h2 id="s-source">Source record</h2>
-    <p class="sect-note">The screenshots are the captured source pages, kept for comparison: they are not rebuilt by lewitt.</p>
-    {toggle_html}
-    {compare_html}
-    {sbs_html}
-    <div class="shots">{other_shots}</div>
-    <h3>Pages inspected</h3><ul class="plain">{page_list}</ul>
-    <h3>Limitations</h3><ul class="plain">{limits}</ul>
-  </section>
+    def __truediv__(self, name):
+        return self
 
-  <section aria-labelledby="s-tokens">
-    <h2 id="s-tokens">Every token</h2>
-    <div class="tbl"><table><thead><tr><th>CSS var</th><th>Token</th><th>Layer</th><th>Type</th><th>Value</th><th>Status</th></tr></thead>
-    <tbody>{token_rows}</tbody></table></div>
-  </section>
-</main>
-<footer>Rendered by lewitt from dna.json — do not edit by hand. Re-render with build_artifacts.py.</footer>
-<script>{vb.COPY_JS}{PREVIEW_JS}</script>
-</body>
-</html>
-"""
+    def exists(self):
+        return False
+
+    def glob(self, pattern):
+        return []
+
+    def read_text(self, **kw):
+        return ""
+
+
+def _hero(dna: dict, resolved: dict, text: dict, esc, obs) -> str:
+    hero = text["hero"]
+    lines = text["headline_lines"] or ["Specimen copy is set at this step"]
+    ctas = ""
+    if hero.get("primaryCta"):
+        ctas += f'<button class="ds-btn ds-btn--primary" type="button">{esc(hero["primaryCta"])}</button>'
+    if hero.get("secondaryCta"):
+        ctas += f'<button class="ds-btn ds-btn--secondary" type="button">{esc(hero["secondaryCta"])}</button>'
+    strip = ('<div class="stat-strip">' + "".join(
+        f'<div class="stat"><span class="v">{esc(s["value"])}</span><span class="k">{esc(s["label"])}</span></div>'
+        for s in text["stats"]) + '</div>') if text["stats"] else ""
+    canvas_v = resolved.get("color/canvas", {}).get("resolved", "")
+    return f"""
+<div class="hero-copy">
+  {sr.brand_svg(dna)}
+  {f'<p class="eyebrow">{esc(hero["eyebrow"])}</p>' if hero.get("eyebrow") else ""}
+  <h1>{"".join(f"<span>{esc(ln)}</span>" for ln in lines)}</h1>
+  {f'<p class="sub">{esc(hero["subhead"])}</p>' if hero.get("subhead") else ""}
+  <div class="ctas">{ctas}</div>
+  <p class="hero-note">canvas <code>{esc(canvas_v)}</code> · every specimen here reads <code>tokens.css</code>,
+  the deterministic render of dna.json — not a screenshot {obs("palette")}</p>
+</div>
+<div class="graphic">
+  <div class="twin-card"><div class="band"><span class="bandlines"></span><span class="silhouette"></span></div>
+    <div class="body"><div class="status"><i></i>signature module · rendering</div>
+      <div class="bar"><span></span></div><div class="name">{esc(lines[0])}</div><div class="ghost"></div></div></div>
+  <span class="graphic-cap">brand colour enters only here, in the hero artwork — every control stays ink-and-action.</span>
+</div>
+{strip}"""

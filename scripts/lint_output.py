@@ -310,7 +310,9 @@ def guardrail_selftest(dna: dict) -> list[str]:
                 continue
             sample = None
             if "shadow" in pattern:
-                sample = "btn shadow-lg"
+                # a variant-scoped rule ("hover:shadow-lg") is tried on the class as written,
+                # not on the bare utility, or a correct guardrail reports as vacuous
+                sample = ("hover:" if ":" in pattern else "btn ") + "shadow-lg"
             elif "gradient-to-" in pattern or "linear-to-" in pattern:
                 sample = "bg-gradient-to-r"
             elif pattern.startswith("(?:^|[^a-z0-9-])bg-") or "bg-(?!" in pattern:
@@ -377,6 +379,163 @@ def preview_checks(dest: Path, dna: dict) -> tuple[bool, str]:
     if external:
         return False, "external dependency: " + ", ".join(external[:4])
     return True, "single file, same-folder tokens.css, no remote assets"
+
+
+JS_SCOPE_CHECK = r"""
+// node --expose-internals: scope-resolved duplicate `var` detection, no bundled parser needed.
+// Every generated inline script is compiled as one script; a `var` name bound twice in the same
+// closure is reported (the later binding silently resets the earlier, and the page throws only
+// when someone clicks it).
+const vm = require('vm');
+const srcs = JSON.parse(process.env.LW_SCRIPTS || '[]');
+let parser = null;
+try { parser = require('internal/deps/acorn/acorn/dist/acorn'); } catch (e) {}
+const out = [];
+if (!parser) { out.push('scope check unavailable: node has no vendored parser'); }
+for (const [i, code] of (parser ? srcs : []).entries()) {
+  let tree;
+  try { tree = parser.parse(code, { ecmaVersion: 2022, locations: true }); }
+  catch (e) { out.push('script ' + i + ' does not parse: ' + String(e.message).slice(0, 80)); continue; }
+  const state = { owners: [], open: [] };       // owners: nodes with a var list; open: var-owning scopes
+  const line = n => (n.loc ? n.loc.start.line : '?');
+  const walk = (node, closesScope) => {
+    if (!node || typeof node.type !== 'string') return;
+    const isFn = node.type === 'FunctionDeclaration' || node.type === 'FunctionExpression' ||
+                 node.type === 'ArrowFunctionExpression';
+    if (isFn) { node.__vars = []; state.open.push(node); }
+    if (node.type === 'VariableDeclaration' && node.kind === 'var') {
+      const home = state.open[state.open.length - 1] || tree;
+      home.__vars = home.__vars || [];
+      for (const d of node.declarations) if (d.id && d.id.type === 'Identifier') home.__vars.push(d.id.name + '@' + line(node));
+    }
+    for (const k of Object.keys(node)) {
+      const v = node[k];
+      if (Array.isArray(v)) v.forEach(x => walk(x));
+      else if (v && typeof v.type === 'string') walk(v, k === 'body' && isFn);
+    }
+    if (isFn) {
+      const names = node.__vars || [];
+      const counts = {};
+      names.forEach(n => { const nm = n.split('@')[0]; counts[nm] = (counts[nm] || []).concat([n.split('@')[1]]); });
+      for (const nm of Object.keys(counts)) if (counts[nm].length > 1) {
+        out.push('script ' + i + " redeclares '" + nm + "' inside one function (lines " + counts[nm].join(', ') + ')');
+      }
+      state.open.pop();
+    }
+  };
+  walk(tree);
+  const top = tree.__vars || [];
+  const tcount = {};
+  top.forEach(n => { const nm = n.split('@')[0]; tcount[nm] = (tcount[nm] || []).concat([n.split('@')[1]]); });
+  for (const nm of Object.keys(tcount)) if (tcount[nm].length > 1) {
+    out.push('script ' + i + " redeclares '" + nm + "' in the top-level closure (lines " + tcount[nm].join(', ') + ')');
+  }
+}
+// second class: an identifier read somewhere but declared nowhere in any script body and not a
+// browser global (the "card is not defined" family — a rename lint never saw the page run).
+const GLOBAL_NAMES = new Set(('window document navigator location history console setTimeout clearTimeout ' +
+  'setInterval clearInterval requestAnimationFrame matchMedia localStorage sessionStorage JSON Math Object ' +
+  'Array String Number Boolean Date Promise Map Set WeakMap Symbol RegExp Error Event CustomEvent URL ' +
+  'Element HTMLElement Node NodeList CSS CSSStyleSheet getComputedStyle fetch parseInt parseFloat isNaN ' +
+  'encodeURIComponent decodeURIComponent KeyboardEvent MouseEvent PointerEvent Image MutationObserver ' +
+  'IntersectionObserver ResizeObserver DOMParser Intl Reflect arguments undefined NaN Infinity encodeURI ' +
+  'decodeURI atob btoa globalThis queueMicrotask structuredClone AbortController URLSearchParams ' +
+  'TextEncoder Blob FileReader FormData Uint8Array Float32Array ArrayBuffer HTMLInputElement').split(/\s+/));
+const declared = new Set();
+const bindingsOf = (pattern) => {
+  if (!pattern) return;
+  if (pattern.type === 'Identifier') { declared.add(pattern.name); return; }
+  if (pattern.type === 'AssignmentPattern') { bindingsOf(pattern.left); return; }
+  if (pattern.type === 'RestElement') { bindingsOf(pattern.argument); return; }
+  if (pattern.type === 'ObjectPattern') { pattern.properties.forEach(pr => bindingsOf(pr.value || pr.argument)); return; }
+  if (pattern.type === 'ArrayPattern') { pattern.elements.forEach(e => bindingsOf(e)); return; }
+};
+const collectBindings = (node) => {
+  if (!node || typeof node.type !== 'string') return;
+  if (node.type === 'VariableDeclarator') bindingsOf(node.id);
+  if (node.type === 'FunctionDeclaration' || node.type === 'FunctionExpression' || node.type === 'ArrowFunctionExpression') {
+    if (node.id) declared.add(node.id.name);
+    (node.params || []).forEach(bindingsOf);
+  }
+  if (node.type === 'CatchClause') bindingsOf(node.param);
+  for (const k of Object.keys(node)) {
+    const v = node[k];
+    if (Array.isArray(v)) v.forEach(collectBindings); else if (v && typeof v.type === 'string') collectBindings(v);
+  }
+};
+const trees = [];
+for (const code of (parser ? srcs : [])) {
+  try { const t = parser.parse(code, { ecmaVersion: 2022, locations: true }); trees.push(t); collectBindings(t); }
+  catch (e) { /* parse errors are reported above */ }
+}
+const undeclared = new Set();
+for (const tree of trees) {
+  const visit = (node, bind) => {
+    if (!node || typeof node.type !== 'string') return;
+    if (node.type === 'Identifier') {
+      if (!bind && !declared.has(node.name) && !GLOBAL_NAMES.has(node.name)) {
+        undeclared.add(node.name + '@' + (node.loc ? node.loc.start.line : '?'));
+      }
+      return;
+    }
+    if (node.type === 'MemberExpression' && !node.computed) { visit(node.object, false); return; }
+    if (node.type === 'Property') { visit(node.value, node.shorthand ? false : true); return; }
+    for (const k of Object.keys(node)) {
+      const v = node[k];
+      const isBind = (node.type === 'VariableDeclarator' && k === 'id') || (node.type === 'FunctionDeclaration' && k === 'id') ||
+                     (node.type === 'FunctionExpression' && k === 'id') || (node.type === 'ClassDeclaration' && k === 'id') ||
+                     (node.type === 'CatchClause' && k === 'param');
+      if (Array.isArray(v)) v.forEach(x => visit(x, isBind));
+      else if (v && typeof v.type === 'string') visit(v, isBind);
+    }
+  };
+  visit(tree, false);
+}
+for (const id of undeclared) out.push('script reads undeclared identifier ' + id.split('@')[0] + ' (line ' + id.split('@')[1] + ')');
+process.stdout.write(JSON.stringify(out));
+"""
+
+
+def script_selftest() -> list[str]:
+    """A gate that cannot reproduce a known bug is worthless: inject both classes it guards."""
+    dup = ('<script>var v = document.getElementById("probe-a");\n'
+           'var other = document.getElementById("probe-b");\nvar v = document.getElementById("probe-c");</script>')
+    undeclared = '<script>var el = document.getElementById("probe"); el.removeAttribute(missingAttr);</script>'
+    bad = []
+    if not script_checks(dup):
+        bad.append("duplicate-name check did not catch an injected duplicate")
+    if not script_checks(undeclared):
+        bad.append("undeclared-identifier check did not catch an injected name")
+    return bad
+
+
+def script_checks(html: str) -> list[str]:
+    """Every inline script in one generated page shares the page. A `var` bound twice in one closure is
+    not a syntax error: the later binding silently resets the earlier one, and the page throws only
+    when someone clicks (a duplicated rail var once crashed the view switch; a stale `card` once
+    swallowed the evidence panel). This compiles each script body and reports both classes."""
+    import os
+    import subprocess
+    bodies = []
+    for attrs, body in re.findall(r"<script([^>]*)>(.+?)</script>", html, re.S):
+        if re.search(r'type="(?:text/plain|application/json)"', attrs, re.I):
+            continue                                            # json / theme payloads are data
+        if not re.match(r'\s*(?:[{\[]|"[^"]*":)', body):
+            bodies.append(body)
+    if not bodies:
+        return []
+    env = {**os.environ, "LW_SCRIPTS": json.dumps(bodies)}
+    try:
+        proc = subprocess.run(["node", "--expose-internals", "--eval", JS_SCOPE_CHECK],
+                              capture_output=True, text=True, env=env, timeout=60)
+    except (OSError, subprocess.TimeoutExpired):
+        return ["script scope check did not run: node is not available"]
+    if proc.returncode != 0:
+        return [f"script scope check failed: {proc.stderr.strip()[:80]}"]
+    try:
+        return json.loads(proc.stdout.strip() or "[]")
+    except json.JSONDecodeError:
+        return []
 
 
 def _rgb(value: str):
@@ -472,11 +631,80 @@ def brick_problems(path: Path) -> list[str]:
     return out
 
 
+ROLLS = ("01", "02", "03", "04")
+
+
 def shell_checks(html: str) -> list[str]:
-    """The reference site must be an app shell: one rail, one scrolling canvas, routed panels."""
+    """system/ and preview.html are a dual-view long scroll: minimal top bar, Live Preview | Specs.
+
+    Required (v1.2):
+      - sticky top bar: lewitt mark, the run's 3px fingerprint band, a two-option view segmented
+        control (Live Preview default, Specs & Evidence), a copy-shadcn button, and the three
+        stress booleans (Long copy / Reduced motion / Narrow 390);
+      - view 1, an immersive long scroll with numbered sections 01 colour · 02 type ·
+        03 components · 04 motion & guardrails (05 bricks is optional: it states its own absence);
+        colour carries Observed tags and WCAG chips, motion is drawn from the bezier, guardrails
+        are MUST NOT capsules with the regex folded away;
+      - view 2, the specs panels (tokens, measurements, evidence, downloads at least).
+    The old rail shell is still accepted so runs rendered before v1.2 do not regress.
+    """
+    problems: list[str] = []
+    if 'class="topbar"' not in html:
+        if 'class="rail"' in html and 'class="panel' in html:
+            return _legacy_shell_checks(html)
+        return ["missing the sticky top bar (class=\"topbar\")"]
+    for token, label in (('id="fp"', "brand fingerprint band"), ('class="tb-seg"', "view segmented control"),
+                         ('id="tab-live"', "Live Preview tab"), ('id="tab-specs"', "Specs tab"),
+                         ('id="copy-theme"', "copy shadcn-theme.css button"),
+                         ('id="stress-btn"', "Stress menu control"), ('id="stress-menu"', "Stress menu"),
+                         ('id="theme-css"', "inline shadcn theme payload")):
+        if token not in html:
+            problems.append(f"top bar missing {label}")
+    # the top bar stays three groups: no counters, no duplicate section rail
+    topbar = html.split('class="topbar"', 1)[1].split("</header>", 1)[0] if 'class="topbar"' in html else ""
+    if "tb-meta" in topbar:
+        problems.append("top bar carries counters (tb-meta): they belong in the Specs overview")
+    if 'class="lp-jump"' in html or 'class="tp-jump"' in html:
+        problems.append("a second section rail duplicates the in-canvas nav")
+    for key, label in (("long", "Long copy"), ("reduced", "Reduced motion"), ("narrow", "Narrow 390")):
+        if f'data-stress-toggle="{key}"' not in html:
+            problems.append(f"top bar missing the stress switch “{label}”")
+    live = html.split('id="view-live"', 1)[1].split('id="view-specs"', 1)[0] if 'id="view-live"' in html else ""
+    specs = html.split('id="view-specs"', 1)[1] if 'id="view-specs"' in html else ""
+    for num, key in ((n, k) for n, k in (("01", "colour"), ("02", "type"), ("03", "components"),
+                                          ("04", "motion"), ("05", "bricks"))):
+        if f'<span class="lp-num">{num}</span>' not in live:
+            problems.append(f"Live Preview has no section {num}")
+        if f'<section class="lp-sec" id="{key}"' not in live and not (num == "01" or f'id="{key}"' in live):
+            problems.append(f"section {num} has no numbered long-scroll heading")
+    if 'class="tag-obs"' not in live:
+        problems.append("Live Preview carries no Observed evidence tag")
+    if "wchip" not in live:
+        problems.append("Live Preview has no WCAG contrast chip on colour")
+    if 'class="bezier"' not in live:
+        problems.append("Motion has no drawn bezier curve")
+    if "data-sys-replay" not in live:
+        problems.append("Motion has no replay control")
+    if "must not" not in live.lower():
+        problems.append("Guardrails show no MUST NOT capsule")
+    if not re.search(r'class="gate forbid gate-regex"', live):
+        problems.append("Guardrails fold no regex behind a disclosure (no restraint with a class regex)")
+    if 'class="lp-hero"' not in live:
+        problems.append("Live Preview opens with no brand hero")
+    for panel in ("tokens", "measurements", "evidence", "downloads"):
+        if f'id="sp-{panel}"' not in specs:
+            problems.append(f"Specs view missing the {panel} panel")
+    if re.search(r'<div class="lp-scroll"([^>]*data-ds|.*?)>', html) is None or \
+            not re.search(r'<div class="lp-scroll"[^>]*data-ds', html):
+        problems.append("Live Preview is not scoped to the run's tokens (lp-scroll without [data-ds])")
+    return problems
+
+
+def _legacy_shell_checks(html: str) -> list[str]:
+    """Pre-1.2 app shell: one rail, one scrolling canvas, routed panels."""
     problems = []
-    for token, label in (('class="rail"', "rail"), ('class="canvas"', "canvas"),
-                         ('class="toolbar"', "sticky toolbar"), ('class="scroll"', "scrolling region")):
+    for token, label in (('class="canvas"', "canvas"), ('class="toolbar"', "sticky toolbar"),
+                         ('class="scroll"', "scrolling region")):
         if token not in html:
             problems.append(f"missing {label}")
     panels = html.count('class="panel')
@@ -580,7 +808,12 @@ def schema_checks(dest: Path, dna: dict) -> list[dict]:
         rows.append({"name": "clip bricks", "result": "n/a", "detail": "no clips/ directory"})
 
     ok, detail = preview_checks(dest, dna)
-    rows.append({"name": "preview.html (self-contained)", "result": "PASS" if ok else "FAIL", "detail": detail})
+    script_problems = [p for p in script_checks((dest / "preview.html").read_text(encoding="utf-8"))] if ok else []
+    if ok:
+        html = (dest / "preview.html").read_text(encoding="utf-8")
+        site = shell_checks(html) + script_problems
+        ok, detail = not site, detail if not site else "; ".join(site)
+    rows.append({"name": "preview.html (self-contained, dual view)", "result": "PASS" if ok else "FAIL", "detail": detail})
 
     frozen_moves = frozen_violations(dna, changed)
     inc = (dna.get("meta") or {}).get("incremental") or {}
@@ -615,7 +848,10 @@ def main() -> int:
     dest = Path(args.dest).expanduser().resolve()
     dna_path = dest / "dna.json"
     if not dna_path.exists():
-        bricks = sorted((dest / "clips").glob("*/brick.json"))
+        # dest may name the clips folder itself (…/clips) or a single brick folder
+        roots = [dest / "clips", dest] if dest.name == "clips" else [dest / "clips", dest]
+        bricks = sorted({f for root in roots for f in root.glob("*/brick.json")} |
+                        ({dest / "brick.json"} if (dest / "brick.json").exists() else set()))
         if bricks:
             verdicts = {f: brick_problems(f) for f in bricks}
             problems = [p for probs in verdicts.values() for p in probs]
@@ -634,6 +870,10 @@ def main() -> int:
         slop = scan_slop(dna)
     except Exception as exc:
         slop = [{"where": "dna.json", "word": "n/a", "line": f"slop scan crashed: {exc}"}]
+    selftest_script = script_selftest()
+    rows.append({"name": "generated-code script scope", "result": "PASS" if not selftest_script else "FAIL",
+                 "detail": "; ".join(selftest_script) or "duplicate var names and undeclared identifiers are both caught (injected probes)"})
+
     rows.append({"name": "anti-slop (authored prose)", "result": "PASS" if not slop else "FAIL",
                  "detail": f"{len(slop)} hit(s)" + (
                      ": " + " | ".join(f"{h['where']} ← “{h['word']}”" for h in slop[:5]) if slop else "")})
@@ -676,9 +916,10 @@ def main() -> int:
         if not site.exists():
             rows.append({"name": "full system/ site", "result": "FAIL", "detail": "mode=full but system/index.html is missing"})
         else:
-            shell = shell_checks(site.read_text(encoding="utf-8"))
+            html = site.read_text(encoding="utf-8")
+            shell = shell_checks(html) + script_checks(html)
             rows.append({"name": "full system/ site", "result": "PASS" if not shell else "FAIL",
-                         "detail": "app shell present (rail + canvas + panel routing)" if not shell else "; ".join(shell)})
+                         "detail": "dual view present (top bar + Live Preview 01-05 + Specs)" if not shell else "; ".join(shell)})
     else:
         rows.append({"name": "full system/ site", "result": "n/a", "detail": "DNA mode does not build system/"})
 

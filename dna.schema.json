@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/CClishan/lewitt-skill/blob/main/dna.schema.json",
   "title": "lewitt design DNA",
-  "description": "The data contract shared by every lewitt companion tool. schemaVersion 1.1 adds the optional interactions block. build_artifacts.py::validate is the executable authority; this file documents it for other tools.",
+  "description": "The data contract shared by every lewitt companion tool. schemaVersion 1.1 adds the optional interactions block and the optional specimens block (site-voice copy for the specimen surfaces). build_artifacts.py::validate is the executable authority; this file documents it for other tools.",
   "type": "object",
   "required": [
     "schemaVersion",
@@ -20,6 +20,248 @@
     }
   },
   "properties": {
+    "specimens": {
+      "type": "object",
+      "description": "schema 1.1: optional site-voice copy for the specimen surfaces — hero copy, stats, cards, sample rows, form labels, the source's section rhythm (backdrop) and its inline mark (brandSvg). Written by the extraction phase; a run without it renders neutral specimens.",
+      "additionalProperties": false,
+      "properties": {
+        "hero": {
+          "type": "object",
+          "required": [
+            "headline"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "eyebrow": {
+              "type": "string",
+              "minLength": 1
+            },
+            "headline": {
+              "type": "string",
+              "minLength": 1,
+              "description": "the specimen headline; line breaks separate display lines"
+            },
+            "subhead": {
+              "type": "string",
+              "minLength": 1
+            },
+            "primaryCta": {
+              "type": "string",
+              "minLength": 1
+            },
+            "secondaryCta": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "stats": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "description": "large-number trust row or core metrics; value is a display figure, label explains it",
+          "items": {
+            "type": "object",
+            "required": [
+              "value",
+              "label"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 1
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "cards": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "description": "three pricing tiers or core feature cards; exactly one may be the featured (inverted) tier",
+          "items": {
+            "type": "object",
+            "required": [
+              "title",
+              "price",
+              "note"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "price": {
+                "type": "string",
+                "minLength": 1,
+                "description": "display price or figure, e.g. '2.9% + 30¢' or '$12.4M'"
+              },
+              "per": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "description": "one line of what the card includes"
+              },
+              "cta": {
+                "type": "string"
+              },
+              "featured": {
+                "type": "boolean",
+                "description": "true marks the inverted highlight tier; at most one"
+              }
+            }
+          }
+        },
+        "table": {
+          "type": "object",
+          "description": "optional 3-4 row sample (market rows, issue list, line items)",
+          "required": [
+            "columns",
+            "rows"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "caption": {
+              "type": "string"
+            },
+            "columns": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 5,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "rows": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 4,
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "form": {
+          "type": "object",
+          "description": "optional form card (field labels and the state words the demo toggles)",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "fields": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "label"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "placeholder": {
+                    "type": "string"
+                  },
+                  "invalid": {
+                    "type": "string",
+                    "description": "message shown when the field is in its invalid state"
+                  }
+                }
+              }
+            },
+            "submit": {
+              "type": "string"
+            }
+          }
+        },
+        "backdrop": {
+          "type": "object",
+          "description": "the source's own section rhythm, named by role",
+          "properties": {
+            "nav": {
+              "enum": [
+                "canvas",
+                "surface",
+                "action"
+              ]
+            },
+            "hero": {
+              "enum": [
+                "canvas",
+                "surface",
+                "action"
+              ]
+            },
+            "colour": {
+              "enum": [
+                "canvas",
+                "surface",
+                "action"
+              ]
+            },
+            "type": {
+              "enum": [
+                "canvas",
+                "surface",
+                "action"
+              ]
+            },
+            "components": {
+              "enum": [
+                "canvas",
+                "surface",
+                "action"
+              ]
+            },
+            "motion": {
+              "enum": [
+                "canvas",
+                "surface",
+                "action"
+              ]
+            },
+            "bricks": {
+              "enum": [
+                "canvas",
+                "surface",
+                "action"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "brandSvg": {
+          "type": "string",
+          "description": "the source's own inline <svg> mark; self-contained, no href/url()"
+        },
+        "typeSpecimens": {
+          "type": "object",
+          "description": "per type-token specimen copy, keyed by token id",
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
     "schemaVersion": {
       "type": "string",
       "pattern": "^1\\.",

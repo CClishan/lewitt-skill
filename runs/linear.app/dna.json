@@ -1484,5 +1484,90 @@
         "default": "232px"
       }
     }
-  ]
+  ],
+  "specimens": {
+    "hero": {
+      "eyebrow": "plan · track · ship",
+      "headline": "Issues, in the order\nthat ships.",
+      "subhead": "Backlog, cycle and release in one list that updates as the team works - written down once, read everywhere.",
+      "primaryCta": "Start building",
+      "secondaryCta": "See pricing"
+    },
+    "stats": [
+      {
+        "value": "1,284",
+        "label": "issues in cycle 24"
+      },
+      {
+        "value": "96%",
+        "label": "pegged to a project"
+      },
+      {
+        "value": "3.2 days",
+        "label": "median cycle time"
+      },
+      {
+        "value": "48",
+        "label": "teams on this workspace"
+      }
+    ],
+    "cards": [
+      {
+        "title": "Free",
+        "price": "$0",
+        "per": "per member",
+        "note": "Unlimited issues, two teams, and the full keyboard-first UI.",
+        "cta": "Get started"
+      },
+      {
+        "title": "Business",
+        "price": "$12",
+        "per": "per member / mo",
+        "note": "Cycles, roadmaps, and connected pull requests.",
+        "cta": "Start trial",
+        "featured": true
+      },
+      {
+        "title": "Enterprise",
+        "price": "Custom",
+        "note": "SAML, SCIM, and an SLA that names a human.",
+        "cta": "Talk to sales"
+      }
+    ],
+    "table": {
+      "caption": "issue list",
+      "columns": [
+        "Issue",
+        "Title",
+        "Status",
+        "Owner"
+      ],
+      "rows": [
+        [
+          "ENG-1240",
+          "Board cards flutter on resize",
+          "In review",
+          "Ada"
+        ],
+        [
+          "ENG-1241",
+          "Cycle scope counts duplicates twice",
+          "In progress",
+          "Grace"
+        ],
+        [
+          "ENG-1242",
+          "Empty state for the triage queue",
+          "Backlog",
+          "Alan"
+        ],
+        [
+          "ENG-1243",
+          "Keyboard shortcut for archive",
+          "Done",
+          "Lin"
+        ]
+      ]
+    }
+  }
 }

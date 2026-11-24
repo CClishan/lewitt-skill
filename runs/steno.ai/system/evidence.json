@@ -1,0 +1,1110 @@
+{
+  "source": "https://www.steno.ai/",
+  "capturedAt": "2026-11-24T10:16:55+00:00",
+  "evidence": [
+    {
+      "id": "e-canvas",
+      "url": "https://www.steno.ai/",
+      "locator": "html/body background",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "pageBackground": "rgb(240, 237, 218)",
+        "oatmeal-03": "var(--oatmeal--03) = #F0EDDA"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport.png"
+    },
+    {
+      "id": "e-canvas-about",
+      "url": "https://www.steno.ai/about",
+      "locator": "about page sections",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "dark sections": "rgb(40, 39, 36) = 70.8% of element area",
+        "alternate": "rgb(255, 253, 241) = 46.2% on home"
+      },
+      "status": "observed",
+      "artifact": "capture/viewport-2.png"
+    },
+    {
+      "id": "e-canvas-team",
+      "url": "https://www.steno.ai/team",
+      "locator": "team page sections",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "tint": "rgb(207, 204, 177) = 26.9%",
+        "darkest": "rgb(0, 0, 0) = 70.9% (video frames)"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-surface",
+      "url": "https://www.steno.ai/",
+      "locator": "raised cards (twin card, tiles)",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+viewport-screenshot",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "twin card background": "rgb(186, 165, 123)",
+        "share of element area": "0.7%"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-oatmeal-scale",
+      "url": "https://www.steno.ai/",
+      "locator": "CSS custom properties --oatmeal--02..09",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "cssom-variable-read",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "02": "#FFFDF1",
+        "03": "#F0EDDA",
+        "04": "#DAD7C1",
+        "05": "#CFCCB1",
+        "06": "#BAA57B",
+        "08": "#43413C",
+        "09": "#282724"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-ink",
+      "url": "https://www.steno.ai/",
+      "locator": "body text colour",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "text": "rgb(40, 39, 36)",
+        "var": "--text-color--text-primary #282724",
+        "text nodes": "390 on home, 1124 on /experts"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-ink-muted",
+      "url": "https://www.steno.ai/",
+      "locator": "text-style-muted nodes",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "cssom-variable-read",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "primary-muted": "#282725B3 (70%)",
+        "alternate-muted": "#F0EDDAB3",
+        "supermuted": "#28272580 / #F0EDDA80"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-text-secondary",
+      "url": "https://www.steno.ai/",
+      "locator": "light surfaces on dark sections",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "cssom-variable-read",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "--text-color--text-secondary": "#FFFDF1",
+        "alternate text": "#F0EDDA"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-brand-oatmeal",
+      "url": "https://www.steno.ai/",
+      "locator": "var(--oatmeal--06) on twin card and cards",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "surface": "#BAA57B",
+        "count": "8 elements"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-accent-lime",
+      "url": "https://www.steno.ai/",
+      "locator": "hero eyebrow play glyph",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "glyph fill": "#CAFF75",
+        "var": "--neon",
+        "usage": "icon-only on home; rgba(255,253,241,0.55) text on /experts"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-ink-soft",
+      "url": "https://www.steno.ai/",
+      "locator": "btn-icon-content__bg (CTA hover fill)",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "fill": "rgb(67, 65, 60) = #43413C",
+        "var": "--oatmeal--08"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-action-bg",
+      "url": "https://www.steno.ai/",
+      "locator": "primary CTA surface `.hero_cta .btn-icon-content`",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "background": "rgb(40, 39, 36) = #282724",
+        "border": "1px rgba(240,237,218,0.1)"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-action-fg",
+      "url": "https://www.steno.ai/",
+      "locator": "CTA label `.btn-icon-content__text`",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "color": "rgb(255, 253, 241) = #FFFDF1",
+        "weight": "600"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-nav-primary",
+      "url": "https://www.steno.ai/",
+      "locator": "nav menu links `.nav_menu a`",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "color": "rgb(40, 39, 36)",
+        "height": "48px"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-link",
+      "url": "https://www.steno.ai/",
+      "locator": "var(--link-color--link-primary), var(--base-color-system--focus-state)",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "cssom-variable-read",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "link-primary": "#2D62FF",
+        "focus-state": "#2D62FF",
+        "usage": "#2D62FF is not used on the home hero"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-font-writer",
+      "url": "https://www.steno.ai/",
+      "locator": "h1..h4 computed font-family",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+document.fonts",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "family": "PP Writer",
+        "fallback": "Georgia, sans-serif",
+        "faces loaded": "PP Writer 400"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-font-mori",
+      "url": "https://www.steno.ai/",
+      "locator": "body/ui computed font-family",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style+document.fonts",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "family": "PP Mori",
+        "fallback": "Arial, sans-serif",
+        "faces loaded": "PP Mori 400, 600"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-font-mono",
+      "url": "https://www.steno.ai/experts",
+      "locator": "ui-monospace nodes",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "family": "ui-monospace",
+        "usage": "'Duplicating — 25%' progress caption"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-h1",
+      "url": "https://www.steno.ai/",
+      "locator": "`.hero_content h1.heading-style-h1`",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "font-size": "76.8px",
+        "line-height": "76.8px",
+        "weight": "400",
+        "letter-spacing": "normal",
+        "text": "Influence / everywhere. / All at once."
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-h2",
+      "url": "https://www.steno.ai/",
+      "locator": "h2 headings",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "font-size": "56px",
+        "line-height": "61.6px",
+        "weight": "400"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-h2-large",
+      "url": "https://www.steno.ai/about",
+      "locator": "about h2",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "font-size": "60.8px",
+        "line-height": "66.88px",
+        "letter-spacing": "-0.8px",
+        "weight": "400"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-h3",
+      "url": "https://www.steno.ai/",
+      "locator": "h3 headings",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "font-size": "22px",
+        "line-height": "28.6px",
+        "weight": "400"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-h4",
+      "url": "https://www.steno.ai/",
+      "locator": "h4 headings",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "font-size": "18px",
+        "line-height": "23.4px",
+        "weight": "400"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-h40",
+      "url": "https://www.steno.ai/",
+      "locator": "40px display blocks",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "font-size": "40px",
+        "line-height": "48px",
+        "letter-spacing": "-1.28px"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-body-mori",
+      "url": "https://www.steno.ai/",
+      "locator": "PP Mori body copy",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "body": "20px / 28px / 400",
+        "default": "16px / 22.4px / 400",
+        "tiny": "13px / 18.2px / 400",
+        "micro": "12px / 16.8px / 400"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-sizes",
+      "url": "https://www.steno.ai/",
+      "locator": "distinct font sizes, home",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "16px": "598 nodes",
+        "76.8px": "87",
+        "20px": "79",
+        "40px": "59",
+        "13px": "56",
+        "18px": "54",
+        "60.8px": "42",
+        "22px": "31"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-weights",
+      "url": "https://www.steno.ai/",
+      "locator": "font-weight distribution, home",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "400": "1063 nodes",
+        "600": "6",
+        "700": "1"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-radii",
+      "url": "https://www.steno.ai/",
+      "locator": "border-radius distribution",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "8px": "127 elements",
+        "6px": "12",
+        "16px": "2",
+        "1600px": "1 (quote pill)",
+        "4px": "1"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-pill",
+      "url": "https://www.steno.ai/",
+      "locator": "`.hero_eyebrow`",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "radius": "1600px",
+        "padding": "8px 16px 8px 8px",
+        "gap": "4px",
+        "border": "1px rgba(40,39,37,0.15)",
+        "height": "55px"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-shadow",
+      "url": "https://www.steno.ai/",
+      "locator": "the only box-shadow",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "count": "1 element",
+        "value": "rgba(44,38,27,0)·0 208px 58px + 3 more layers, max blur 58px"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-motion-btn",
+      "url": "https://www.steno.ai/",
+      "locator": "`.btn-icon-content__text`, `.btn-icon-content__bg`",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "transition": "transform 0.525s cubic-bezier(0.625, 0, 0, 1) (0.625,0.05,0,1)",
+        "txt": "transform 0.525s ..."
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-motion-hover-rule",
+      "url": "https://www.steno.ai/",
+      "locator": "CSSOM rule",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "cssom-scan",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "rule": ".btn-icon-link:hover .btn-icon-content__bg { transform: translate(0px) rotate(0deg); }"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-motion-soft",
+      "url": "https://www.steno.ai/",
+      "locator": "other transition strings",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "opacity": "0.3s",
+        "background-color": "0.3s",
+        "color": "color 0.2s, background-color 0.2s",
+        "reveal": "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-motion-reduced-scan",
+      "url": "https://www.steno.ai/",
+      "locator": "CSSOM prefers-reduced-motion blocks",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "cssom-scan",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "home": "0 blocks",
+        "about": "0",
+        "team": "0",
+        "experts": "0"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-hero-svg-wheel",
+      "url": "https://www.steno.ai/",
+      "locator": "twin-card rotating svg card (PointerEvent IS_POINTER_COARSE checks)",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "dom+scroll-state observation",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "code": "window.PointerEvent && PointerEvent.prototype.IS_POINTER_COARSE → renderer (desktop, react-three-fiber) | (touch, svg card)",
+        "svg card opacity": "0 at load"
+      },
+      "status": "inferred",
+      "artifact": "capture/dom.json"
+    },
+    {
+      "id": "e-hero-grid",
+      "url": "https://www.steno.ai/",
+      "locator": "`.home-hero_grid`",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "columns": "648px 648px",
+        "column-gap": "64px",
+        "hero height": "900px at 1440"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-section-gap",
+      "url": "https://www.steno.ai/",
+      "locator": "`.padding-global` padding",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "padding": "0 40px",
+        "container": "1360px inside 1440"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-metric",
+      "url": "https://www.steno.ai/",
+      "locator": "twin card status `0% Complete` + progress caption",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "computed-style",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "font": "13px / 18.2px / 400 mono on /experts",
+        "text": "progress percentage"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-cta-focus",
+      "url": "https://www.steno.ai/",
+      "locator": "`.hero_cta a.btn-icon-link` forced `:focus-visible` via CDP mouse + focus()",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "focus-visible",
+      "method": "cdp-mouse+focus-diff",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "outline before": "3px none rgb(40,39,36)",
+        "outline after": "1px auto rgb(0, 95, 204)"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-cta-hover",
+      "url": "https://www.steno.ai/",
+      "locator": "`.hero_cta a.btn-icon-link` hovered with real CDP mouseMoved",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "hover",
+      "method": "cdp-mouse-diff",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "rule present": ":hover .btn-icon-content__bg → translate(0) rotate(0)",
+        "measured delta in capture": "none above noise (reveal animation rerun on hover)"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-nav-focus",
+      "url": "https://www.steno.ai/",
+      "locator": "`button.nav-dropdown_dropdown-toggle` (Company)",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "focus-visible",
+      "method": "cdp-mouse+focus-diff",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "hover delta": "none",
+        "outline after": "0px none rgb(40,39,36) (no visible ring)"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-brick-hover",
+      "url": "https://www.steno.ai/",
+      "locator": "brick hero-cta: `.hero_cta a.btn-icon-link` hover, 260ms settle",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "hover",
+      "method": "cdp-mouse-diff",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "conclusion": "observed",
+        "changes": "4 (rect/opacity wobble, see brick.md)"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-brick-reduced",
+      "url": "https://www.steno.ai/",
+      "locator": "brick hero-cta: same timeline under Emulation.setEmulatedMedia prefers-reduced-motion: reduce",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "cdp-emulated-media",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "status": "not-degraded",
+        "normal": "0ms, 0px",
+        "reduced": "0ms, 0px",
+        "matchMedia": "true"
+      },
+      "status": "observed",
+      "artifact": null
+    },
+    {
+      "id": "e-specimens-source",
+      "url": "https://www.steno.ai/",
+      "locator": "hero + home cards copy",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "default",
+      "method": "read from capture copy",
+      "capturedAt": "2026-11-24T10:16:55+00:00",
+      "values": {
+        "headline": "Influence everywhere. All at once.",
+        "subhead": "We create AI Twins that turn personal brands into personal relationships, at infinite scale.",
+        "cta": "Start a Demo",
+        "quote": "With Steno, build a legacy, not a bot. — Tony Robbins"
+      },
+      "status": "observed",
+      "artifact": null
+    }
+  ],
+  "measurements": [
+    {
+      "id": "m-canvas",
+      "category": "Color / canvas",
+      "value": "#F0EDDA oatmeal-03 fills the page (49% element background share at 1440); #FFFDF1 oatmeal-02 46.2% of alt panels",
+      "status": "observed",
+      "evidence": [
+        "e-canvas",
+        "e-oatmeal-scale",
+        "e-canvas-about"
+      ]
+    },
+    {
+      "id": "m-surface",
+      "category": "Color / surface",
+      "value": "#BAA57B oatmeal-06 is the product card / twin card surface (0.7% of area); #DAD7C1 oatmeal-04 and #CFCCB1 oatmeal-05 are tint bands",
+      "status": "observed",
+      "evidence": [
+        "e-surface",
+        "e-oatmeal-scale"
+      ]
+    },
+    {
+      "id": "m-ink",
+      "category": "Color / text",
+      "value": "#282724 text on oatmeal; #FFFDF1 on ink; muted is 70% alpha of either",
+      "status": "observed",
+      "evidence": [
+        "e-ink",
+        "e-ink-muted",
+        "e-text-secondary"
+      ]
+    },
+    {
+      "id": "m-action",
+      "category": "Color / action",
+      "value": "#282724 fill + #FFFDF1 label, 1px rgba(240,237,218,0.1) ring; hover fill #43413C",
+      "status": "observed",
+      "evidence": [
+        "e-action-bg",
+        "e-action-fg",
+        "e-ink-soft"
+      ]
+    },
+    {
+      "id": "m-accent",
+      "category": "Color / accent",
+      "value": "#CAFF75 neon exists only on the hero eyebrow play glyph; role reads as a play marker for the mauve and dark CTA",
+      "status": "observed",
+      "evidence": [
+        "e-accent-lime",
+        "e-action-bg"
+      ]
+    },
+    {
+      "id": "m-serif",
+      "category": "Type / display",
+      "value": "PP Writer 400: 76.8/76.8 h1, 60.8/66.88 display with -0.8px, 56/61.6 h2, 40/48 with -1.28px, 22/28.6 h3, 18/23.4 h4",
+      "status": "observed",
+      "evidence": [
+        "e-font-writer",
+        "e-h1",
+        "e-h2",
+        "e-h2-large",
+        "e-h3",
+        "e-h4",
+        "e-h40"
+      ]
+    },
+    {
+      "id": "m-sans",
+      "category": "Type / body",
+      "value": "PP Mori 400: 20/28 lead, 16/22.4 default, 13/18.2 tiny, 12/16.8 micro; 600 only on button labels",
+      "status": "observed",
+      "evidence": [
+        "e-font-mori",
+        "e-body-mori",
+        "e-weights"
+      ]
+    },
+    {
+      "id": "m-scale",
+      "category": "Type / scale shape",
+      "value": "two bands: 76.8-56-40 display and 22-20-18-16-14-13-12 UI, with 16px carrying 598 nodes",
+      "status": "observed",
+      "evidence": [
+        "e-sizes",
+        "e-h1",
+        "e-body-mori"
+      ]
+    },
+    {
+      "id": "m-radius",
+      "category": "Shape / radius",
+      "value": "8px on 127 elements (controls, cards); 6px on 12; 16px on 2 chips; 1600px on the quote pill",
+      "status": "observed",
+      "evidence": [
+        "e-radii",
+        "e-pill"
+      ]
+    },
+    {
+      "id": "m-depth",
+      "category": "Shape / depth",
+      "value": "no card shadow anywhere except one 4-layer drop shadow of up to 58px blur on a single overlay",
+      "status": "observed",
+      "evidence": [
+        "e-shadow"
+      ]
+    },
+    {
+      "id": "m-motion",
+      "category": "Motion",
+      "value": "transform 0.525s cubic-bezier(0.625, 0.05, 0, 1) for button text/bg; 0.4s cubic-bezier(0.25, 1, 0.5, 1) for reveals; color/bg 0.2-0.3s",
+      "status": "observed",
+      "evidence": [
+        "e-motion-btn",
+        "e-motion-hover-rule",
+        "e-motion-soft"
+      ]
+    },
+    {
+      "id": "m-grid",
+      "category": "Layout",
+      "value": "hero: 2 columns of 648px with a 64px gap at 1440; 40px page gutters (1360px container)",
+      "status": "observed",
+      "evidence": [
+        "e-hero-grid",
+        "e-section-gap"
+      ]
+    },
+    {
+      "id": "m-rm",
+      "category": "Accessibility",
+      "value": "no prefers-reduced-motion block on any of the 4 pages",
+      "status": "observed",
+      "evidence": [
+        "e-motion-reduced-scan"
+      ]
+    },
+    {
+      "id": "m-focus",
+      "category": "Accessibility / focus",
+      "value": "focus ring is the browser default 1px auto rgb(0,95,204) on CTAs; the nav dropdown button shows none",
+      "status": "observed",
+      "evidence": [
+        "e-cta-focus",
+        "e-nav-focus"
+      ]
+    }
+  ],
+  "specimens": {
+    "hero": {
+      "eyebrow": "Start a Demo",
+      "headline": "Influence\neverywhere.\nAll at once.",
+      "subhead": "We create AI Twins that turn personal brands into personal relationships, at infinite scale.",
+      "primaryCta": "Start a Demo",
+      "secondaryCta": "Watch the film"
+    },
+    "stats": [
+      {
+        "value": "92%",
+        "label": "of buyers ask for a person, not a page"
+      },
+      {
+        "value": "3.4x",
+        "label": "more replies than an inbox"
+      },
+      {
+        "value": "24/7",
+        "label": "twin answers, on brand"
+      },
+      {
+        "value": "1 day",
+        "label": "to launch a twin"
+      }
+    ],
+    "cards": [
+      {
+        "title": "Personal",
+        "price": "$0",
+        "per": "for 1 twin",
+        "note": "A twin trained on your public voice and published as one page.",
+        "cta": "Try it"
+      },
+      {
+        "title": "Studio",
+        "price": "$29",
+        "per": "per month",
+        "note": "Five twins, your voice model, and DM routing.",
+        "cta": "Start a Demo",
+        "featured": true
+      },
+      {
+        "title": "Agency",
+        "price": "Custom",
+        "note": "Quarterly brand-review, twin training workshop, and a team of twins.",
+        "cta": "Talk to us"
+      }
+    ],
+    "table": {
+      "caption": "twin activity · today",
+      "columns": [
+        "Twin",
+        "Conversations",
+        "Replies",
+        "Hours saved"
+      ],
+      "rows": [
+        [
+          "Emma",
+          "1,284",
+          "97%",
+          "+18h"
+        ],
+        [
+          "Theo",
+          "812",
+          "94%",
+          "+12h"
+        ],
+        [
+          "Nia",
+          "640",
+          "91%",
+          "+9h"
+        ],
+        [
+          "Luca",
+          "510",
+          "88%",
+          "+7h"
+        ]
+      ]
+    },
+    "form": {
+      "title": "Start a Demo",
+      "fields": [
+        {
+          "label": "Work email",
+          "placeholder": "you@brand.com",
+          "invalid": "That address looks incomplete — try you@brand.com."
+        }
+      ],
+      "submit": "Request a slot"
+    },
+    "backdrop": {
+      "nav": "action",
+      "hero": "canvas",
+      "colour": "canvas",
+      "type": "canvas",
+      "components": "canvas",
+      "motion": "action"
+    },
+    "brandSvg": "<svg width=\"100%\" height=\"100%\" viewBox=\"0 0 125 30\" fill=\"none\" preserveAspectRatio=\"xMidYMid meet\" aria-hidden=\"true\" role=\"img\">\n<path d=\"M20.3179 8.87739C20.3168 8.87739 20.3159 8.87646 20.3159 8.87531V8.75547C20.3159 8.7549 20.3154 8.75443 20.3148 8.75443C20.3142 8.75443 20.3138 8.75397 20.3138 8.75339V0.51334C20.3138 0.150438 19.9444 -0.0976529 19.6049 0.0372649L5.66934 5.57626C2.34897 6.88713 0 10.1091 0 13.8812C0 17.0806 1.69092 19.8837 4.23159 21.4605C4.38777 21.5575 4.48649 21.7255 4.48649 21.9083V29.9729C4.48649 30.3358 4.85586 30.5839 5.1953 30.4489L19.1309 24.9099C19.5399 24.7458 19.9323 24.5569 20.3101 24.341C20.3125 24.3396 20.3152 24.3389 20.3179 24.3389L4.915 21.6256C4.66831 21.5821 4.48858 21.3693 4.48858 21.1206V13.2651C4.48858 13.0305 4.64901 12.8258 4.87814 12.7681L20.3179 8.87739V24.3389C22.9977 22.7925 24.8023 19.9103 24.8023 16.605C24.8023 13.2997 22.9977 10.4217 20.3179 8.87739Z\" fill=\"currentColor\"></path>\n<path d=\"M117.664 25.6105L117.948 24.8995H119.228C119.769 24.8995 120.081 24.5867 120.081 24.0463V13.9503L117.948 12.9549V12.5284C119.228 12.0449 121.702 11.4477 122.698 11.3908H122.982C122.783 12.9834 122.641 14.576 122.641 16.1686V24.8995L125.001 24.7573L124.717 25.6105H117.664ZM119.57 6.30012C119.57 5.36161 120.337 4.59375 121.304 4.59375C122.243 4.59375 122.982 5.36161 122.982 6.30012C122.982 7.23862 122.214 8.00648 121.304 8.00648C120.337 8.00648 119.57 7.23862 119.57 6.30012Z\" fill=\"currentColor\"></path>\n<path d=\"M114.524 25.8947C113.159 25.8947 112.903 24.6434 112.903 23.6196H112.875C111.567 24.814 110.543 25.8947 108.637 25.8947C107.016 25.8947 105.48 25.07 105.48 23.4489C105.48 22.1692 106.959 21.316 109.291 20.2353L112.818 18.6142V16.2538C112.818 14.3199 112.59 12.5282 110.6 12.5282C109.974 12.5282 109.206 12.6988 108.922 12.9548L109.007 14.4052C109.092 15.8272 108.012 16.3675 107.073 16.3675C106.191 16.3675 105.651 15.9125 105.651 15.3721C105.651 14.4905 109.917 11.3906 111.424 11.3906C113.756 11.3906 115.69 12.6988 115.576 15.1731C115.434 18.273 115.434 20.6619 115.434 23.7618L117.653 24.0462V24.4728C116.6 25.2406 115.264 25.8947 114.524 25.8947ZM108.353 22.3682C108.353 23.4774 108.808 23.904 110.116 23.904C111.055 23.904 112.022 23.648 112.818 23.3352V19.2399L110.059 20.4912C108.865 21.0316 108.353 21.6573 108.353 22.3682Z\" fill=\"currentColor\"></path>\n<path d=\"M101.341 25.8955C100.431 25.8955 99.6914 25.1561 99.6914 24.246C99.6914 23.336 100.431 22.625 101.341 22.625C102.251 22.625 102.99 23.336 102.99 24.246C102.99 25.1561 102.223 25.8955 101.341 25.8955Z\" fill=\"currentColor\"></path>\n<path d=\"M91.5698 25.8947C87.8727 25.8947 84.6875 23.0508 84.6875 18.7849C84.6875 14.519 87.4746 11.3906 91.4561 11.3906C95.1532 11.3906 98.2815 14.2346 98.2815 18.5005C98.2815 22.7664 95.5514 25.8947 91.5698 25.8947ZM87.5314 18.0739C87.5314 21.9132 89.5506 25.0416 92.0533 25.0416C94.0441 25.0416 95.4376 22.6242 95.4376 19.2115C95.4376 15.3721 93.4753 12.2722 90.9157 12.2722C88.925 12.2722 87.5314 14.6612 87.5314 18.0739Z\" fill=\"currentColor\"></path>\n<path d=\"M78.0037 25.6103L78.2881 24.8994H78.9991C79.5395 24.8994 79.8523 24.5865 79.8523 24.0462V16.3675C79.8523 13.9502 78.9138 13.3245 77.3496 13.3245C76.4111 13.3245 75.046 13.6658 73.88 14.1777V24.8994L76.5818 24.7572L76.2974 25.6103H69.4719L69.7563 24.8994H70.4673C71.0076 24.8994 71.3205 24.5865 71.3205 24.0462V13.808L69.1875 12.8126V12.386C70.4673 11.7888 72.1736 11.5044 73.169 11.3906H73.4534L73.8516 13.6089H73.88C75.0176 12.642 76.4964 11.3906 78.8 11.3906C81.1605 11.3906 82.4118 12.7557 82.4118 15.5143V24.8994L84.8292 24.7572L84.5448 25.6103H78.0037Z\" fill=\"currentColor\"></path>\n<path d=\"M63.3823 25.8947C59.8558 25.8947 57.2109 22.937 57.2109 19.1546C57.2109 14.4336 60.0549 11.3906 63.5529 11.3906C66.5391 11.3906 68.4445 12.9832 68.4445 16.0831C68.4445 16.4528 68.3023 16.8794 68.1317 17.0501H59.998C59.9696 17.3629 59.9696 17.6757 59.9696 18.017C59.9696 21.6573 62.0456 23.904 64.6336 23.904C66.2831 23.904 67.4776 23.3067 68.6152 22.2545L68.8995 22.5389C67.5913 24.5012 65.885 25.8947 63.3823 25.8947ZM60.0833 16.3391H64.8896C65.3731 16.3391 65.7143 16.0263 65.7143 15.6281C65.7143 13.4951 64.7758 12.1016 63.2401 12.1016C61.6191 12.1016 60.4246 13.6942 60.0833 16.3391Z\" fill=\"currentColor\"></path>\n<path d=\"M53.6091 25.8942C51.2771 25.8942 50.1111 24.7566 50.1111 22.9365V12.3854H47.8359V11.9588L50.1111 10.7928L52.3294 8.26172H52.6706V11.6745H57.1641V12.3854H52.6706V22.197C52.6706 23.7612 53.3247 24.4722 54.5192 24.4722C55.543 24.4722 56.3109 24.3584 57.2209 24.1594L57.5053 24.4438C56.2256 25.4391 55.0027 25.8942 53.6091 25.8942Z\" fill=\"currentColor\"></path>\n<path d=\"M40.2655 25.8936C37.45 25.8936 35.4592 25.3532 33.7529 24.6423L33.0703 18.9828H33.4969C34.606 21.9405 36.8812 24.8982 40.4361 24.8982C42.4553 24.8982 44.6736 23.7038 44.6736 21.1727C44.6736 19.2956 42.6544 17.8452 39.3839 16.5086C35.4877 14.916 33.4969 13.7784 33.4969 10.6785C33.4969 7.49329 36.3408 5.13281 40.6068 5.13281C42.1709 5.13281 44.1048 5.47409 45.5837 5.92912L45.9818 11.5032H45.5268C44.3039 8.03363 42.7113 6.12819 39.4123 6.12819C36.995 6.12819 35.6867 7.97676 35.6867 9.71156C35.6867 11.7308 37.9335 13.039 41.1756 14.2903C44.503 15.5701 47.0056 16.8499 47.0056 20.2626C47.0056 23.6469 43.9057 25.8936 40.2655 25.8936Z\" fill=\"currentColor\"></path>\n</svg>",
+    "typeSpecimens": {
+      "type/display-xl": "Influence everywhere.",
+      "type/display-lg": "All at once.",
+      "type/display": "Your Twin, custom",
+      "type/headline": "built for you.",
+      "type/title": "Emma’s Twin",
+      "type/subtitle": "Business Coach · 1.2m followers",
+      "type/lead": "Have millions of conversations between you and your fans",
+      "type/body": "Emma’s Twin · 23% Complete · Active",
+      "type/ui": "Design your Twin",
+      "type/caption": "1.2m followers",
+      "type/micro": "Show up like a human, not a billboard."
+    }
+  }
+}

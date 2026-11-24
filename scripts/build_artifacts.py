@@ -32,24 +32,51 @@ try:
     import preview_template as _preview
 except ImportError:  # imported as a package
     from . import preview_template as _preview
-PREVIEW_CSS, PREVIEW_JS = _preview.PREVIEW_CSS, _preview.PREVIEW_JS
 
+
+# lewitt token ids are authored either with slashes (`color/text/primary`, Stripe) or with a dash
+# (BEM / `.text-size` systems write `color/text-primary`, Steno.ai). These two forms are paired
+# exactly — no fuzzy matching — so a slot never maps to an id its author did not write.
+_DASHED = [
+    "color/text/primary", "color/text/heading", "color/text/body", "color/text/muted",
+    "color/text/secondary", "color/text/tertiary", "color/brand",
+]
+
+
+def _any(*ids: str) -> list[str]:
+    out: list[str] = []
+    for i in ids:
+        out.append(i)
+        if i in _DASHED:
+            out.append(i.replace("color/", "color/", 1).replace("/", "-", 1))   # color/text-body
+    return list(dict.fromkeys(out))
+
+
+# the two spellings of one token are interchangeable candidates: (slashed, dashed)
+def _pair(slashed: str, dashed: str) -> list[str]:
+    return [slashed, dashed]
+
+
+TEXT_UP = _pair("color/text/primary", "color/text-primary") + _pair("color/text/heading", "color/text-heading")
+TEXT_BODY = _pair("color/text/body", "color/text-body")
+TEXT_MUTED = (_pair("color/text/muted", "color/text-muted") + _pair("color/text/tertiary", "color/text-tertiary")
+              + _pair("color/text/secondary", "color/text-secondary"))
 
 SHADCN_SLOTS = [
     ("--background", ["color/canvas", "color/background", "color/surface/canvas"], "canvas"),
-    ("--foreground", ["color/text/primary", "color/text/heading", "color/text/body", "color/foreground"], "primary text"),
+    ("--foreground", TEXT_UP + TEXT_BODY, "primary text"),
     ("--card", ["color/surface", "color/card", "color/surface/raised", "color/canvas-tint"], "raised surface"),
-    ("--card-foreground", ["color/text/primary", "color/text/body"], "card text"),
+    ("--card-foreground", TEXT_UP + TEXT_BODY, "card text"),
     ("--popover", ["color/surface", "color/overlay", "color/card", "color/canvas"], "overlay surface"),
-    ("--popover-foreground", ["color/text/primary", "color/text/body"], "overlay text"),
+    ("--popover-foreground", TEXT_UP + TEXT_BODY, "overlay text"),
     ("--primary", ["color/action/bg", "color/action/primary", "color/brand", "color/accent"], "action fill"),
     ("--primary-foreground", ["color/action/fg", "color/on-brand", "color/text/on-action"], "action label"),
     ("--secondary", ["color/surface-subtle", "color/surface/muted", "color/well", "color/surface"], "secondary fill"),
-    ("--secondary-foreground", ["color/text/primary", "color/text/body"], "secondary label"),
+    ("--secondary-foreground", TEXT_UP + TEXT_BODY, "secondary label"),
     ("--muted", ["color/surface-subtle", "color/well", "color/surface/muted", "color/surface"], "muted fill"),
-    ("--muted-foreground", ["color/text/muted", "color/text/tertiary", "color/text/secondary"], "muted text"),
+    ("--muted-foreground", TEXT_MUTED, "muted text"),
     ("--accent", ["color/surface-subtle", "color/action/bg", "color/brand"], "hover fill"),
-    ("--accent-foreground", ["color/text/primary", "color/text/heading", "color/action/fg"], "hover label"),
+    ("--accent-foreground", TEXT_UP + ["color/action/fg"], "hover label"),
     ("--destructive", ["color/danger", "color/error", "color/trend/down", "color/down"], "destructive action"),
     ("--border", ["color/border", "color/stroke", "color/divider", "color/canvas-tint"], "borders"),
     ("--input", ["color/border-strong", "color/stroke/strong", "color/border", "color/canvas-tint"], "input borders"),
@@ -85,6 +112,11 @@ def render_theme_head(dna: dict, mode: str | None = None) -> str:
     return "\n".join(out) + ("\n  /* unmapped: " + ", ".join(notes) + " */" if notes else "")
 
 
+def _has_alpha(value: str) -> bool:
+    v = (value or "").strip().lower()
+    return v.startswith(("rgba(", "hsla(")) or (v.startswith("#") and len(v) == 9) or v == "transparent"
+
+
 def render_shadcn_theme(dna: dict) -> str:
     mode = (dna["meta"].get("modes") or ["default"])[0]
     resolved = resolve_tokens(dna["tokens"], mode)
@@ -96,8 +128,19 @@ def render_shadcn_theme(dna: dict) -> str:
 
     slots = []
     for slot, candidates, label in SHADCN_SLOTS:
-        tid = _first_token(dna, candidates, lambda t: t["type"] == "color")
-        slots.append((slot, tid, label))
+        # a slot whose value has alpha sits on an unknown fill in another project: fall back to the
+        # next opaque candidate (a text-role slot must not arrive as rgba(…, 0.70))
+        picked = None
+        for cand in candidates:
+            tok = next((x for x in dna["tokens"] if x["id"] == cand and x["type"] == "color"), None)
+            if not tok:
+                continue
+            value = resolved[cand]["resolved"]
+            if _has_alpha(value) and "-foreground" in slot and picked is None:
+                continue
+            picked = cand
+            break
+        slots.append((slot, picked, label))
     radius = None
     for cand in SHADCN_RADIUS[0][1]:
         if any(t["id"] == cand for t in dna["tokens"]):
@@ -180,10 +223,10 @@ def render_preview_html(dna: dict, dest: Path | None = None) -> str:
             return True
         return (dest / "capture" / name).exists()
 
-    return _preview.render_preview_html(dna, resolver=resolve_tokens, exists=exists)
+    return _preview.render_preview_html(dna, resolver=resolve_tokens, exists=exists, root=dest)
 
 RENDERER_VERSION = "build_artifacts.py/v2"
-BLOCKS = ("meta", "evidence", "measurements", "patterns", "taste", "tokens", "interactions")
+BLOCKS = ("meta", "evidence", "measurements", "patterns", "taste", "tokens", "interactions", "specimens")
 REQUIRED_BLOCKS = ("meta", "evidence", "measurements", "patterns", "taste", "tokens")
 STATUSES = ("observed", "inferred", "proposed", "unknown")
 LAYERS = ("primitive", "semantic", "component")
@@ -194,9 +237,13 @@ TOKEN_TYPES = (
 UNIT_TYPES = ("dimension", "duration")
 # Any block can be rerun when the caller declares it. `evidence` is special: it is
 # append-only (re-observations add ids) and `meta` is tooling-owned.
-RERUNNABLE = ("evidence", "measurements", "patterns", "taste", "tokens", "interactions")
+RERUNNABLE = ("evidence", "measurements", "patterns", "taste", "tokens", "interactions", "specimens")
 SCHEMA_VERSION = "1.1"
 INTERACTION_PROPS = ("background-color", "color", "border-color", "box-shadow", "outline", "transform")
+SPECIMEN_KEYS = {"hero", "stats", "cards", "table", "form", "backdrop", "brandSvg", "typeSpecimens"}
+SPECIMEN_HERO_KEYS = {"eyebrow", "headline", "subhead", "primaryCta", "secondaryCta"}
+SPECIMEN_CARD_KEYS = {"title", "price", "per", "note", "cta", "featured"}
+SPECIMEN_FIELD_KEYS = {"label", "placeholder", "invalid"}
 
 BANNED = re.compile(
     r"\b(clean|modern|sleek|visually appealing|user-friendly|intuitive|seamless|"
@@ -416,6 +463,99 @@ def validate(dna: dict) -> list[str]:
             ]
             if it.get("status") == "observed" and not recorded:
                 err(errors, f"interaction[{loc}] is observed but records no hover/focus delta")
+
+    specimens = dna.get("specimens")
+    if specimens is not None:
+        if not isinstance(specimens, dict):
+            err(errors, "specimens must be an object")
+            specimens = {}
+        unknown = [k for k in specimens if k not in SPECIMEN_KEYS]
+        if unknown:
+            err(errors, f"specimens has unknown keys {unknown} (allowed: {sorted(SPECIMEN_KEYS)})")
+        hero = specimens.get("hero")
+        if hero is not None:
+            if not isinstance(hero, dict) or not isinstance(hero.get("headline"), str) or not hero["headline"].strip():
+                err(errors, "specimens.hero must be an object with a non-empty headline")
+            else:
+                for k in hero:
+                    if k not in SPECIMEN_HERO_KEYS:
+                        err(errors, f"specimens.hero.{k} is not a known key (allowed: {sorted(SPECIMEN_HERO_KEYS)})")
+                    elif not isinstance(hero[k], str) or not hero[k].strip():
+                        err(errors, f"specimens.hero.{k} must be a non-empty string")
+        stats = specimens.get("stats")
+        if stats is not None:
+            if not isinstance(stats, list) or not stats or len(stats) > 4:
+                err(errors, "specimens.stats must be a list of 1-4 {value,label} rows")
+                stats = []
+            for i, st in enumerate(stats):
+                if not isinstance(st, dict) or not isinstance(st.get("value"), str) or not st["value"].strip() \
+                        or not isinstance(st.get("label"), str) or not st["label"].strip():
+                    err(errors, f"specimens.stats[{i}] must be {{value,label}} strings")
+        cards = specimens.get("cards")
+        if cards is not None:
+            if not isinstance(cards, list) or not cards or len(cards) > 3:
+                err(errors, "specimens.cards must be a list of 1-3 cards (pricing tiers or core features)")
+                cards = []
+            featured = 0
+            for i, c in enumerate(cards):
+                if not isinstance(c, dict):
+                    err(errors, f"specimens.cards[{i}] must be an object")
+                    continue
+                for k in ("title", "price", "note"):
+                    if not isinstance(c.get(k), str) or not c[k].strip():
+                        err(errors, f"specimens.cards[{i}].{k} must be a non-empty string")
+                for k in c:
+                    if k not in SPECIMEN_CARD_KEYS:
+                        err(errors, f"specimens.cards[{i}].{k} is not a known key (allowed: {sorted(SPECIMEN_CARD_KEYS)})")
+                if c.get("featured"):
+                    featured += 1
+            if featured > 1:
+                err(errors, "specimens.cards marks more than one featured card (at most one inverted tier)")
+        table = specimens.get("table")
+        if table is not None:
+            if not isinstance(table, dict) or not isinstance(table.get("columns"), list) \
+                    or not isinstance(table.get("rows"), list):
+                err(errors, "specimens.table must be {columns[], rows[]}")
+            else:
+                cols = len(table["columns"])
+                if cols < 2 or cols > 5:
+                    err(errors, "specimens.table.columns must hold 2-5 column names")
+                if len(table["rows"]) < 2 or len(table["rows"]) > 4:
+                    err(errors, "specimens.table.rows must hold 2-4 sample rows")
+                for i, row in enumerate(table["rows"]):
+                    if not isinstance(row, list) or len(row) != cols or not all(isinstance(c, str) for c in row):
+                        err(errors, f"specimens.table.rows[{i}] must be {cols} strings (one per column)")
+        backdrop = specimens.get("backdrop")
+        if backdrop is not None:
+            if not isinstance(backdrop, dict):
+                err(errors, "specimens.backdrop must be an object mapping section -> canvas|surface|action")
+            else:
+                allowed = {"nav", "hero", "colour", "type", "components", "motion", "bricks"}
+                for k, v in backdrop.items():
+                    if k not in allowed:
+                        err(errors, f"specimens.backdrop.{k} is not a known section (allowed: {sorted(allowed)})")
+                    elif v not in ("canvas", "surface", "action"):
+                        err(errors, f"specimens.backdrop.{k} must name a role: canvas | surface | action")
+        brand = specimens.get("brandSvg")
+        if brand is not None:
+            if not isinstance(brand, str) or not brand.strip().startswith("<svg"):
+                err(errors, "specimens.brandSvg must be an inline <svg> string")
+            elif re.search(r"href=|url\(|@import|<script|<image", brand, re.IGNORECASE):
+                err(errors, "specimens.brandSvg must be self-contained: no href, url(), script or <image>")
+        type_spec = specimens.get("typeSpecimens")
+        if type_spec is not None and not isinstance(type_spec, dict):
+            err(errors, "specimens.typeSpecimens must be an object mapping type token ids to specimen copy")
+        form = specimens.get("form")
+        if form is not None:
+            if not isinstance(form, dict) or not isinstance(form.get("fields"), list) or not form["fields"]:
+                err(errors, "specimens.form must carry at least one field")
+            else:
+                for i, f in enumerate(form["fields"]):
+                    if not isinstance(f, dict) or not isinstance(f.get("label"), str) or not f["label"].strip():
+                        err(errors, f"specimens.form.fields[{i}].label required")
+                    for k in f:
+                        if k not in SPECIMEN_FIELD_KEYS:
+                            err(errors, f"specimens.form.fields[{i}].{k} is not a known key")
 
     tokens = dna.get("tokens")
     if not isinstance(tokens, list) or not tokens:
@@ -844,8 +984,101 @@ SITE_CSS = """
 """
 
 
+def render_bricks_data(dest: Path) -> list[dict]:
+    """Lift the compilable slice of each clips/*/brick.json for the preview's Clipped Bricks block."""
+    out = []
+    for path in sorted((dest / "clips").glob("*/brick.json")):
+        try:
+            b = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        skin = {k: v for k, v in (b.get("skin") or {}).items() if not k.startswith("__")}
+        shots = sorted((path.parent / "shots").glob("*.png"))
+        states = {k: v for k, v in (b.get("states") or {}).items() if not k.startswith("_")}
+        trigger = (b.get("source") or {}).get("triggerBox") or [0, 0, 0, 0]
+        out.append({
+            "slug": path.parent.name,
+            "action": b.get("action"),
+            "system": (b.get("slots") or {}).get("system"),
+            "source": b.get("source") or {},
+            "conclusion": b.get("conclusion"),
+            "signalCount": b.get("signalCount"),
+            "skin": skin,
+            "reducedMotion": b.get("reducedMotion") or {},
+            "deltas": {k: v for k, v in (b.get("deltas") or {}).items() if v},
+            "timing": ((states.get("during") or {}).get("trigger") or {}).get("transition") or "",
+            "radius": ((states.get("before") or {}).get("trigger") or {}).get("border-radius") or "",
+            # the screenshots are 1440x900 viewport frames; the block sits at the trigger's y
+            "crop": max(0, int(trigger[1]) - 28) if len(trigger) == 4 else 0,
+            # time order, never alphabetical (after.png < before.png): the state machine reads forward
+            "shots": _state_order([p.name for p in shots if "-reduced" not in p.name
+                                   and p.name not in ("before_target.png", "_before_target.png")]),
+            "shotsReduced": [p.name for p in shots if "-reduced" in p.name],
+            "label": (b.get("source") or {}).get("triggerText") or path.parent.name,
+            "capturedAt": b.get("capturedAt"),
+        })
+    return out
+
+
+def colour_role(own_id: str, resolved: dict) -> str:
+    """What this colour does on the page:
+       text     — body / heading / link / muted copy: graded against the canvas
+       status   — trend, success/error text: graded against its surface (canvas or dark section)
+       on-fill  — a label or mark on a filled control: graded against that fill, never the canvas
+       fill     — a surface or control fill: a swatch, no ratio (it does not carry a label)
+    """
+    own = own_id
+    if re.match(r"color/(text|link)", own):
+        return "text"
+    if re.match(r"color/(trend|up|down|success|danger|error|warning)", own):
+        return "status"
+    if re.match(r"color/(action/fg|on-|text/on)", own):
+        return "on-fill"
+    return "fill"
+
+
+def colour_ground(own_id: str, resolved: dict) -> tuple[str, str]:
+    """(ground, role) — see colour_role(); the ground is the colour the role is measured against."""
+    role = colour_role(own_id, resolved)
+    by = resolved
+    if role in ("text", "status"):
+        for g in ("color/canvas", "color/surface", "color/well", "color/canvas-tint"):
+            if g in by:
+                return by[g]["resolved"], role
+    if role == "on-fill":
+        for g in ("color/action/bg", "color/brand"):
+            if g in by:
+                return by[g]["resolved"], role
+    return (by[own_id]["resolved"] if own_id in by else "#ffffff"), role
+
+
+def shadow_floor(dna: dict) -> float | None:
+    """The tightest box-shadow cap among the taste guardrails (px), or None when none bounds it."""
+    floors = [value for t in dna["taste"] if (t.get("kind") == "restraint")
+              for value in [((t.get("guardrail") or {}).get("max") or {}).get("box-shadow")]
+              if value]
+    if not floors:
+        return None
+    return min(float(f.get("value", 0)) for f in floors)
+
+
+def render_bricks(root: Path | None) -> list[dict]:
+    return render_bricks_data(root) if root is not None else []
+
+
+BRICK_STATE_ORDER = ("before", "during", "settled", "after", "restored", "after_target")
+
+
+def _state_order(names: list[str]) -> list[str]:
+    """Shots in the order the recording happened: before → during → settled → after → restored."""
+    def rank(n: str) -> int:
+        stem = n[:-4] if n.endswith(".png") else n
+        return BRICK_STATE_ORDER.index(stem) if stem in BRICK_STATE_ORDER else len(BRICK_STATE_ORDER)
+    return sorted(names, key=lambda n: (rank(n), n))
+
+
 def render_site_files(dna: dict, dest: Path) -> dict[str, str]:
-    """system/index.html + doc.css + system.js + site.css, all rendered from dna.json."""
+    """system/index.html + doc.css + system.js + site.css — every byte a render of dna.json."""
     import site_render as sr
     import visual_base as vb
 
@@ -855,472 +1088,653 @@ def render_site_files(dna: dict, dest: Path) -> dict[str, str]:
     canvas = next((resolved[t["id"]]["resolved"] for t in dna["tokens"] if t["id"] == "color/canvas"), None)
     tone = vb.tone_of(canvas)
     pages = meta.get("crawl", {}).get("pages") or [meta["source"]]
-    esc = sr._esc
-    panels: dict[str, str] = {}
+    esc = sr._e
+    read = sr.reads(resolved)
+    text = sr.specimen_text(dna)
+    bricks = render_bricks(dest)
 
-    def stage(title, inner, *, meta_note="", note="", tight=False):
-        head = (f'<div class="stage-head"><span>{title}</span><span>{meta_note}</span></div>'
-                if title or meta_note else "")
-        tail = f'<div class="stage-note">{note}</div>' if note else ""
-        cls = "stage-body tight" if tight else "stage-body"
-        return (f'<div class="stage">{head}<div class="{cls}"><div data-ds>{inner}</div></div>{tail}</div>')
+    # ---------------------------------------------------------------- Observed tag -> evidence ids
+    TAG_KEYS = {
+        "palette": re.compile(r"color|palette|swatch|canvas|ink|surface|brand|up|down|purple|gold|grey|grey"),
+        "typography": re.compile(r"font|type|weight|heading|size|dist|h1|h2|h3|body|display|styles"),
+        "motion": re.compile(r"motion|ease|duration|transition|frame"),
+        "material": re.compile(r"radius|radii|shadow|depth|ring|hairline|btn|button"),
+    }
+
+    def obs(kind: str, label: str = "+ Observed") -> str:
+        return f'<button class="tag-obs" data-obs="{esc(kind)}">{esc(label)}</button>'
+
+    def font_family() -> str:
+        for tid in ("font/body", "font/sans", "font/ui"):
+            if tid in resolved:
+                return str(resolved[tid]["resolved"]).split(",")[0].strip().strip("\"'")
+        return "the declared stack"
+
+    # ---------------------------------------------------------------- 01 colour
+    group_scene = {
+        "semantic": "roles: where ink, surface and action may appear",
+        "component": "inside a control: fill, label, ring, depth",
+        "primitive": "the raw palette behind the roles",
+    }
+
+    canvas_v = (resolved.get("color/canvas") or {}).get("resolved")
+    if not canvas_v:
+        canvas_v = next(t["values"][mode] for t in dna["tokens"] if t["id"] == "color/canvas") \
+            if any(t["id"] == "color/canvas" for t in dna["tokens"]) else "#FFFFFF"
+
+    def swatch_group(layer: str) -> str:
+        toks = [t for t in dna["tokens"] if t["type"] == "color" and t["layer"] == layer]
+        if not toks:
+            return ""
+        cells = []
+        for t in toks:
+            v = resolved[t["id"]]["resolved"]
+            ground, role = colour_ground(t["id"], resolved)
+            if role == "fill":
+                chip, grade = "fill · solid", ""       # a swatch is the colour; it does not carry a label
+            elif ground == v:
+                chip, grade = "canvas · ground", ""
+            else:
+                label, grade = vb.wcag_badge(v, ground)
+                chip = f"{role.replace('-', ' ')} · {label}"
+            cells.append(
+                f'<div class="swatch"><div class="fill{" is-translucent" if ("rgba" in v or (len(v) == 9 and v.startswith("#")) or v in ("transparent",) or v.endswith(("B3", "80", "1A", "4D", "E6")) and len(v) == 9) else ""}" style="background:{esc(v)}"></div>'
+                f'<div class="meta"><span class="tok" data-copy="var(--{esc(t["css"].lstrip("-"))})" role="button" '
+                f'tabindex="0">{esc(t["id"])}</span><span class="hex" data-copy="{esc(v)}">{esc(v)}</span></div>'
+                f'<div class="sub"><span class="wchip {grade}">{esc(chip)}</span></div></div>')
+        return (f'<div class="lp-group"><h3><span>{esc(layer)}</span>'
+                f'<span class="scene">{esc(group_scene[layer])} · {len(toks)}</span>'
+                f'{obs("palette") if layer == "semantic" else ""}</h3>'
+                f'<div class="sw">{"".join(cells)}</div></div>')
+
+    pair_defs = [("heading / canvas", "color/text/heading", "color/canvas", "display copy"),
+                 ("primary / canvas", "color/text/primary", "color/canvas", "headlines and labels"),
+                 ("body / canvas", "color/text/body", "color/canvas", "paragraphs"),
+                 ("secondary / canvas", "color/text/secondary", "color/canvas", "supporting rows"),
+                 ("muted / surface", "color/text/tertiary", "color/surface", "captions on raised rows"),
+                 ("muted / well", "color/text/muted", "color/well", "captions on the deepest surface"),
+                 ("action-fg / action-bg", "color/action/fg", "color/action/bg", "primary button"),
+                 ("link / canvas", "color/link", "color/canvas", "inline links")]
+    prow = ""
+    for label, fg_id, bg_id, where in pair_defs:
+        fg, bg = resolved.get(fg_id, {}).get("resolved"), resolved.get(bg_id, {}).get("resolved")
+        if not fg or not bg:
+            continue
+        wcag, grade = vb.wcag_badge(fg, bg)
+        sample = "Aa 0123 0123456789"
+        prow += (f'<div class="prow"><div class="sample" style="background:{esc(bg)};color:{esc(fg)}">'
+                 f'<span class="cap-label">{esc(label)}</span>{esc(sample)}</div>'
+                 f'<div class="pmeta"><span>{esc(where)}</span>'
+                 f'<span class="wchip {grade}">{esc(wcag)}</span></div></div>')
+    n_colors = len([t for t in dna["tokens"] if t["type"] == "color"])
+    live_colour = f"""
+<div class="lp-sheet"><span class="lp-num">01</span><h2 class="lp-title">Colour Palette</h2>
+<span class="rule"></span><span class="count">{n_colors} colours</span></div>
+<p class="lp-lede">Roles first, primitives last. Each chip is computed from the two token values, not sampled
+from a screenshot; the canvas itself is shown as “canvas itself” rather than compared with itself.</p>
+<div class="lp-groups">{swatch_group("semantic")}{swatch_group("component")}{swatch_group("primitive")}</div>
+<div class="pairs"><h3>Pairs in use</h3>{prow}</div>"""
+
+    # ---------------------------------------------------------------- 02 type
+    type_tokens = [t for t in dna["tokens"] if t["type"] == "dimension" and t["id"].startswith("type/")]
+    scale_params = "".join(f'<span>{esc(t["id"].replace("type/", ""))} {esc(resolved[t["id"]]["resolved"])}</span>'
+                           for t in type_tokens)
+    live_type = f"""
+<div class="lp-sheet"><span class="lp-num">02</span><h2 class="lp-title">Typography Scale</h2>
+<span class="rule"></span><span class="count">{len(type_tokens)} steps</span></div>
+<p class="lp-lede">The run's own headline set at every step, at real size, in {esc(font_family())} and its
+fallback stack — the face itself is not shipped.</p>
+<div class="type-scale-params">{scale_params}</div>
+{sr.type_rows(dna["tokens"], resolved, text, tag_prefix="1")}"""
+
+    # ---------------------------------------------------------------- 03 components
+    hero = text["hero"]
+    cta = hero.get("primaryCta") or "Primary action"
+    state_chips = "".join(
+        f'<button class="state-chip" data-state="{cls}" data-state-group="btn" aria-pressed="'
+        f'{"true" if cls == "" else "false"}">{esc(label)}{" · forced" if forced else ""}</button>'
+        for label, cls, forced in (("default", "", False), ("hover", "is-hover", True),
+                                   ("focus-visible", "is-focus", True), ("active", "is-active", True)))
+    form = text["form"] or {}
+    fields = form.get("fields") or []
+    if fields:
+        f0 = fields[0]
+        form_html = (
+            '<div class="lp-form">'
+            + (f'<div class="cap">{esc(form.get("title"))}</div>' if form.get("title") else "")
+            + f'<label class="ds-field"><span>{esc(f0["label"])}</span>'
+              f'<input class="ds-input" id="demo-email" type="email" placeholder="{esc(f0.get("placeholder", ""))}" '
+              f'data-invalid="{esc(f0.get("invalid", "Enter a valid value"))}" autocomplete="off">'
+              f'<span class="field-note" id="demo-email-note" aria-live="polite"></span></label>'
+            + f'<div><button class="ds-btn ds-btn--primary" type="button">{esc(form.get("submit") or "Continue")}</button></div>'
+            + '</div>')
+        form_block = f'<div class="block"><div class="cap"><span>Form field</span></div>{form_html}</div>'
+    else:
+        form_block = ""
+
+    cards = text["cards"]
+    tier_html, tier_cap = "", ""
+    if cards:
+        tiers = "".join(
+            f'<div class="tier{" featured" if c.get("featured") else ""}">'
+            f'<span class="kind">{esc(c["title"])}</span>'
+            f'<span class="price">{esc(c["price"])}'
+            + (f'<small>{esc(c["per"])}</small>' if c.get("per") else "")
+            + f'</span><span class="note">{esc(c["note"])}</span>'
+            + (f'<button class="ds-btn ds-btn--primary" type="button">{esc(c.get("cta") or cta)}</button>'
+               if c.get("cta") else "")
+            + '</div>' for c in cards)
+        tier_html = f'<div class="pricing">{tiers}</div>'
+        tier_cap = "pricing tiers" if any(c.get("per") for c in cards) else "core cards"
+
+    table = text["table"]
+    table_html, table_cap = "", ""
+    if table:
+        trend_cols = {j for j, c in enumerate(table["columns"])
+                      if re.search(r"trend|change|24h|return|move", c, re.IGNORECASE)}
+        head = "".join(f"<th>{esc(c)}</th>" for c in table["columns"])
+        rows = ""
+        for row in table["rows"]:
+            cells = ""
+            for j, v in enumerate(row):
+                attr = ""
+                if j == 1 and len(table["columns"]) == 4 and row[1].strip().endswith("%"):
+                    attr = f' data-trend="{"down" if v.strip().startswith("-") else "up"}"'
+                elif j in trend_cols:
+                    attr = f' data-trend="{esc("down" if v.strip().startswith("-") else "up")}"'
+                cells += f"<td{attr}>{esc(v)}</td>"
+            rows += f"<tr>{cells}</tr>"
+        table_html = f'<div class="lp-tbl"><table><thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table></div>'
+        table_cap = table.get("caption") or "sample rows"
+
+    inter_rows = ""
+    for it in (dna.get("interactions") or [])[:2]:
+        hover = (it.get("hover") or {}).get("delta") or {}
+        focus = (it.get("focus") or {}).get("delta") or {}
+        pick = next(iter(hover.items()), next(iter(focus.items()), None))
+        if pick:
+            k, pair = pick
+            inter_rows += (f'<div class="row"><span>{esc(it["kind"])} · {"hover" if hover else "focus"} →</span>'
+                           f'<b>{esc(k)} {esc(str(pair[0])[:22])} → {esc(str(pair[1])[:22])}</b></div>')
+    inter_block = (f'<div class="block"><div class="cap"><span>Measured interaction</span>'
+                   f'<span>real pointer</span></div><div class="rows">{inter_rows}</div></div>'
+                   if inter_rows else "")
+    radii = sorted({resolved[t["id"]]["resolved"] for t in dna["tokens"] if t["id"].startswith("radius/")},
+                   key=lambda r: (len(r), r))[:3]
+    float_line = ('<div class="ds-card ds-card--float">Float card · the run\'s float shadow, because no '
+                  'restraint caps it.</div>'
+                  if (shadow_floor(dna) is None or shadow_floor(dna) >= 4) else
+                  '<div class="ds-card">Shadow specimen withheld: this run\'s restraint caps box-shadow '
+                  'below 4px, so depth is a hairline here.</div>')
+    live_components = f"""
+<div class="lp-sheet"><span class="lp-num">03</span><h2 class="lp-title">Components &amp; Cards</h2>
+<span class="rule"></span><span class="count">real states, not screenshots</span></div>
+<p class="lp-lede">Controls read the run's action tokens. Click a state chip to force a state; hover and
+focus-visible remain live.</p>
+<div class="lp-comp-grid">
+  <div class="col">
+    <div class="block"><div class="cap"><span>Button</span>{obs("material")}</div>
+      <div class="btn-row"><button class="ds-btn ds-btn--primary" id="demo-btn" type="button">{esc(cta)}</button>
+      {f'<button class="ds-btn ds-btn--secondary" type="button">{esc(hero["secondaryCta"])}</button>' if hero.get("secondaryCta") else ""}</div>
+      <div class="state-row" role="group" aria-label="forced button states">{state_chips}</div>
+      <p class="lp-figcaption">Forced samples sit next to live states; neither replaces the other.</p>
+    </div>
+    {form_block}{inter_block}
+  </div>
+  <div class="col">
+    {f'<div class="block"><div class="cap"><span>Cards</span><span>{esc(tier_cap)}</span></div>{tier_html}</div>' if tier_html else ""}
+    {f'<div class="block"><div class="cap"><span>Sample rows</span><span>{esc(table_cap)}</span></div>{table_html}</div>' if table_html else ""}
+    <div class="block"><div class="cap"><span>Surfaces</span><span>radius {esc(" / ".join(radii)) or "none recorded"}</span></div>
+      <div class="ds-card">Default card · body copy sits on the surface token.</div>
+      <div class="ds-card ds-card--tint">Tint card · the quieter surface.</div>
+      {float_line}
+    </div>
+  </div>
+</div>"""
+
+    # ---------------------------------------------------------------- 04 motion & guardrails
+    easings = [t for t in dna["tokens"] if t["type"] == "easing"]
+    durations = [t for t in dna["tokens"] if t["type"] == "duration"]
+    rows = []
+    for i, t in enumerate(durations):
+        dur = resolved[t["id"]]["resolved"]
+        spec = resolved[easings[i % len(easings)]["id"]]["resolved"] if easings else "cubic-bezier(0.4, 0, 0.2, 1)"
+        rows.append(
+            f'<div class="motion"><div class="plot">{vb.bezier_svg(spec, 168, 88)}</div>'
+            f'<div class="mid"><div class="mono" data-copy="var(--{esc(t["css"].lstrip("-"))})" role="button" '
+            f'tabindex="0">{esc(t["id"])} · {esc(dur)}</div>'
+            f'<div class="track"><span class="dot" id="sym-{i}-dot"></span></div></div>'
+            f'<div class="act"><label for="sym-{i}-range">Replay</label>'
+            f'<input type="range" id="sym-{i}-range" class="motion-range" min="0" max="1000" value="0" '
+            f'aria-label="scrub {esc(t["id"])}">'
+            f'<button class="tp-btn" data-sys-replay="sym-{i}-dot" data-dur="{esc(dur)}" data-ease="{esc(spec)}">Play</button>'
+            f'</div></div>')
+    for t in easings:
+        spec = resolved[t["id"]]["resolved"]
+        rows.append(
+            f'<div class="motion"><div class="plot">{vb.bezier_svg(spec, 168, 88)}</div>'
+            f'<div class="mid"><div class="mono" data-copy="var(--{esc(t["css"].lstrip("-"))})" role="button" '
+            f'tabindex="0">{esc(t["id"])}</div><div class="spec-val">{esc(spec)}</div></div>'
+            f'<div class="act">{obs("motion", t["status"])}</div></div>')
+
+    taste_blocks, gate_blocks = "", ""
+    for t in dna["taste"]:
+        taste_blocks += (
+            f'<article class="tcard"><div class="head"><span>{esc(t["kind"])}</span>'
+            f'<span>{esc(" · ".join(t["evidence"]))}</span><span>{esc(t["status"])}</span></div>'
+            f'<h4>{esc(t["name"])}</h4>'
+            f'<div class="ab"><div class="v">{esc(t["chose"])}</div><div class="vs">over</div>'
+            f'<div class="v over">{esc(t["over"])}</div></div>'
+            f'<p class="why">{esc(t["reason"])}</p>'
+            + (sr.guardrail_caps(t["guardrail"], expandable=True) if t.get("guardrail") else "")
+            + '</article>')
+        if t.get("guardrail"):
+            gate_blocks += (f'<div class="gate-item"><div class="gate-head"><span>{esc(t["name"])}</span>'
+                            f'<span class="mono">{esc(t["id"])}</span></div>'
+                            f'{sr.guardrail_caps(t["guardrail"], expandable=True)}</div>')
+    live_motion = f"""
+<div class="lp-sheet"><span class="lp-num">04</span><h2 class="lp-title">Motion &amp; Guardrails</h2>
+<span class="rule"></span><span class="count">{len(durations)} durations · {len(easings)} curves</span></div>
+<p class="lp-lede">Each curve is the token's own cubic-bezier with its handles drawn. Play runs the real
+duration, the slider scrubs it, and Reduced motion in the top bar replaces every travel with its end state.</p>
+<div class="lp-motion">{''.join(rows)}</div>
+<p class="lp-motion-legend">dot · direction of travel · curve · measured easing · status · evidence class</p>
+<div class="sec-col">
+  <div><div class="cap">MUST NOT · mechanical gates</div>
+    <p class="lp-figcaption">Every capsule is a machine-readable rule. Expand one to read the regex a build is
+    checked against; a generated page that matches it fails <code>lint_output.py</code>.</p>
+    <div class="gate-list">{gate_blocks or '<p class="lp-figcaption">No restraint carries a machine gate in this run.</p>'}</div></div>
+  <div><div class="cap">Taste · decision, and the rejected alternative</div>{taste_blocks}</div>
+</div>"""
+
+    # ---------------------------------------------------------------- 05 bricks
+    if bricks:
+        cards_html = "".join(_brick_card(b, read, esc, obs) for b in bricks)
+        bricks_html = (f'<div class="lp-bricks">{cards_html}</div>'
+                       f'<p class="provenance">Each brick was recorded twice in the same browser: once normally, '
+                       f'once with CDP <code>prefers-reduced-motion: reduce</code>. The screenshots are the real '
+                       f'frames from <code>clips/{esc(bricks[0]["slug"])}/shots/</code>.</p>')
+        count = f"{len(bricks)} brick{'' if len(bricks) == 1 else 's'}"
+    else:
+        bricks_html = ('<p class="provenance">No <code>clips/</code> in this run. A single module can be lifted '
+                       'with <code>lewitt clip --find "…"</code>; its brick, keyframes and reduced-motion '
+                       'measurement would land here.</p>')
+        count = "no clips yet"
+    live_bricks = f"""
+<div class="lp-sheet"><span class="lp-num">05</span><h2 class="lp-title">Clipped Bricks</h2>
+<span class="rule"></span><span class="count">{esc(count)}</span></div>
+<p class="lp-lede">One module with its interaction, skin stripped and mapped onto this run's slots. The live
+module on the left is rebuilt from the slot mapping; on the right is what the browser recorded on the source.</p>
+{bricks_html}"""
+
+    live = {"hero": _hero_html(dna, resolved, read, text, esc, obs),
+            "colour": live_colour, "type": live_type, "components": live_components,
+            "motion": live_motion, "bricks": live_bricks}
+    # each long-scroll step is painted by specimens.backdrop in site_render._live_section
+    specs = _specs_panels(dna, dest, resolved, pages, bricks, esc)
+
+    html = sr.app_shell(dna, resolved, live, specs, pages=len(pages))
+    html = html.replace('<link rel="stylesheet" href="site.css">',
+                        '<link rel="stylesheet" href="site.css">\n<style>:root { --doc-bg: '
+                        + vb.TONES[tone]["bg"] + '; }\n'
+                        + vb.fingerprint_css(vb.fingerprint_stops(resolved, dna), selector="#fp")
+                        + '</style>')
+    evidence = json.dumps({"source": meta["source"], "capturedAt": meta.get("capturedAt"),
+                           "evidence": dna["evidence"], "measurements": dna["measurements"],
+                           "specimens": dna.get("specimens")},
+                          ensure_ascii=False, indent=2) + "\n"
+    return {
+        "system/index.html": html,
+        "system/doc.css": vb.base_css(tone, scope=":root") + "\n" + sr.CSS,
+        "system/site.css": SITE_CSS,
+        "system/system.js": sr.JS,
+        "system/evidence.json": evidence,
+    }
+
+
+def _brick_card(b: dict, read: dict, esc, obs) -> str:
+    skin = b["skin"]
+    fill = (skin.get("trigger_fill") or {}).get("css") or "var(--lw-action-bg)"
+    label_css = (skin.get("trigger_label") or {}).get("css") or "var(--lw-action-fg)"
+    radius = (skin.get("radius") or {}).get("css")
+    timing = b["timing"] or "transform .3s ease"
+    rm = b["reducedMotion"]
+    verdict = {
+        "degraded-to-none": ("ok", "transition removed under reduce; end state applied instantly"),
+        "degraded": ("ok", f"shortened to {rm.get('reduced', {}).get('durationMs', 0):g}ms; end state kept"),
+        "not-degraded": ("bad", "the source keeps moving under reduce — implement the branch yourself"),
+        "unrecorded": ("manual", "the reduced pass produced no snapshot"),
+    }.get(rm.get("status"), ("manual", "not recorded"))
+    # every shot is a 1440x900 viewport frame; crop the window around the trigger (where it sat), as a %
+    # of the image height so the thumbnail scales with the column
+    shot_h = 900
+    crop = max(0.0, b["crop"])
+    band = 620
+    top = min(max(crop - 40, 0), shot_h - band)
+    shots = "".join(
+        f'<figure class="trim" style="--crop-y:{(top / shot_h) * 100:.2f}%">'
+        f'<img src="../clips/{esc(b["slug"])}/shots/{esc(name)}" alt="{esc(b["label"])} · {esc(name[:-4])}" loading="lazy">'
+        f'<figcaption>{esc(name[:-4].replace("-", " "))}</figcaption></figure>'
+        for name in b["shots"][:3])
+    changes = ""
+    for part, props in (b["deltas"].get("module.hover") or {}).items():
+        for k, pair in list(props.items())[:2]:
+            changes += f'<div class="row"><span>{esc(part)} · {esc(k)}</span><b>{esc(str(pair[1])[:26])}</b></div>'
+    skin_notes = " · ".join(f"{esc(k)} → {esc(v['css'])}" for k, v in list(skin.items())[:3] if v.get("css"))
+    radius_rule = (f"--brick-radius:{radius};" if radius else "")
+    return f"""
+<div class="brick-card">
+  <div class="bh"><span class="name">brick · {esc(b["slug"])}</span>
+    <span>action {esc(b["action"])}</span><span>slots {esc(b["system"])}</span>
+    <span>{esc(b["source"].get("how", ""))} · <q>{esc(b["label"])}</q></span>
+    <span class="tag-obs" aria-disabled="true">{esc(b["conclusion"])} · {esc(b["signalCount"])} changes</span></div>
+  <div class="brick-live">
+    <div class="brick-stage" style="--brick-bg:{esc(fill)};--brick-fg:{esc(label_css)};{radius_rule}--brick-transition:{esc(timing)}">
+      <div class="cap"><span>live brick · rebuilt from the slot mapping</span></div>
+      <div class="brick-cta-row"><button class="brick-cta" type="button">{esc(b["label"])}</button></div>
+      <div class="brick-shots">{shots}</div>
+    </div>
+    <aside class="brick-meta">
+      <div class="cap"><span>measured on the source</span>{obs("material")}</div>
+      <div class="rows">
+        <div class="row"><span>trigger</span><b>&lt;{esc(b["source"].get("triggerTag", "a"))}&gt; {esc(b["source"].get("triggerBox") or "")}</b></div>
+        {f'<div class="row"><span>module</span><b>{esc(_short(b["source"].get("module", ""), 40))}</b></div>' if b["source"].get("moduleIsTrigger") is False else ""}
+        <div class="row"><span>changes</span><b>{esc(b["signalCount"])}</b></div>
+        {changes}
+      </div>
+      <div class="verdict {verdict[0]}">reduced motion · {esc(rm.get("status", "n/a"))}<br>{esc(verdict[1])}</div>
+      <div class="mono-line">{skin_notes}</div>
+    </aside>
+  </div>
+</div>"""
+
+
+def _short(text: str, n: int) -> str:
+    text = str(text)
+    return text if len(text) <= n else text[: n - 1] + "…"
+
+
+def _hero_html(dna: dict, resolved: dict, read: dict, text: dict, esc, obs) -> str:
+    """First screen = the brand: the run's own headline at its own display size, its stats strip, the
+    eyebrow pill and the single primary action; the source's media becomes the band below the copy."""
+    hero = text["hero"]
+    lines = text["headline_lines"] or ["Specimen copy is set at this step"]
+    ctas = ""
+    if hero.get("secondaryCta"):
+        ctas += f'<button class="ds-btn ds-btn--secondary" type="button">{esc(hero["secondaryCta"])}</button>'
+    if hero.get("primaryCta"):
+        ctas += f'<button class="ds-btn ds-btn--primary" type="button">{esc(hero["primaryCta"])}</button>'
+    strip = ('<div class="stat-strip">' + "".join(
+        f'<div class="stat"><span class="v">{esc(s["value"])}</span><span class="k">{esc(s["label"])}</span></div>'
+        for s in text["stats"]) + '</div>') if text["stats"] else ""
+    canvas_v = resolved.get("color/canvas", {}).get("resolved", "")
+    specs = dna.get("specimens") or {}
+    accent = (specs.get("backdrop") or {}).get("nav")
+    media = hero.get("media") or ""
+    src = os.path.relpath(Path(os.path.dirname(os.path.abspath(__file__)))) and ""
+    media_html = (f'<figure class="hero-band"><img src="../{esc(media)}" alt="captured hero frame of '
+                  f'{esc(dna["meta"].get("name") or "")}" loading="eager">'
+                  f'<figcaption>hero frame · the captured source, not a rebuilt mock</figcaption></figure>'
+                  if media else "")
+    kind = "a twin answering at midnight, in your voice" if "twin" in json.dumps(specs).lower() else "the brand, in one line"
+    eyebrow = (f'<p class="eyebrow{" is-tip" if accent == "action" else ""}">{esc(hero["eyebrow"])}</p>'
+               if hero.get("eyebrow") else "")
+    return f"""
+<div class="hero-before">{esc(kind)}</div>
+<div class="hero-copy">
+  {eyebrow}
+  <h1>{"".join(f"<span>{esc(ln)}</span>" for ln in lines)}</h1>
+  {f'<p class="sub">{esc(hero["subhead"])}</p>' if hero.get("subhead") else ""}
+  <div class="ctas">{ctas}</div>
+</div>
+{media_html}
+{strip}
+<p class="hero-note">canvas <code>{esc(canvas_v)}</code> · {"hero frame · the captured still, not a rebuilt mock; " if media else ""}every specimen on this page reads the run's own <code>--lw-*</code> tokens {obs("palette")}</p>
+"""
+
+
+def _section_roles(dna: dict, live: dict[str, str], esc) -> dict[str, str]:
+    """specimens.backdrop picks the source's own rhythm: a section is painted canvas, surface or action."""
+    backdrop = (dna.get("specimens") or {}).get("backdrop") or {}
+    out = {}
+    for key, html in live.items():
+        role = backdrop.get(key)
+        if role and role != "canvas":
+            out[key] = f'<div data-backdrop="{esc(role)}">{html}</div>'
+        else:
+            out[key] = f'<div data-backdrop="canvas">{html}</div>'
+    return out
+
+
+def _brick_card(b: dict, read: dict, esc, obs) -> str:
+    skin = b["skin"]
+    fill = (skin.get("trigger_fill") or {}).get("css") or "var(--lw-action-bg)"
+    label_css = (skin.get("trigger_label") or {}).get("css") or "var(--lw-action-fg)"
+    radius = (skin.get("radius") or {}).get("css")
+    timing = b["timing"] or "transform .3s ease"
+    rm = b["reducedMotion"]
+    verdict = {
+        "degraded-to-none": ("ok", "transition removed under reduce; end state applied instantly"),
+        "degraded": ("ok", f"shortened to {rm.get('reduced', {}).get('durationMs', 0):g}ms; end state kept"),
+        "not-degraded": ("bad", "the source keeps moving under reduce — implement the branch yourself"),
+        "unrecorded": ("manual", "the reduced pass produced no snapshot"),
+    }.get(rm.get("status"), ("manual", "not recorded"))
+    # every shot is a 1440x900 viewport frame; crop the window around the trigger (where it sat), as a %
+    # of the image height so the thumbnail scales with the column
+    shot_h = 900
+    crop = max(0.0, b["crop"])
+    band = 620
+    top = min(max(crop - 40, 0), shot_h - band)
+    shots = "".join(
+        f'<figure class="trim" style="--crop-y:{(top / shot_h) * 100:.2f}%">'
+        f'<img src="../clips/{esc(b["slug"])}/shots/{esc(name)}" alt="{esc(b["label"])} · {esc(name[:-4])}" loading="lazy">'
+        f'<figcaption>{esc(name[:-4].replace("-", " "))}</figcaption></figure>'
+        for name in b["shots"][:3])
+    changes = ""
+    for part, props in (b["deltas"].get("module.hover") or {}).items():
+        for k, pair in list(props.items())[:2]:
+            changes += f'<div class="row"><span>{esc(part)} · {esc(k)}</span><b>{esc(str(pair[1])[:26])}</b></div>'
+    skin_notes = " · ".join(f"{esc(k)} → {esc(v['css'])}" for k, v in list(skin.items())[:3] if v.get("css"))
+    radius_rule = (f"--brick-radius:{radius};" if radius else "")
+    return f"""
+<div class="brick-card">
+  <div class="bh"><span class="name">brick · {esc(b["slug"])}</span>
+    <span>action {esc(b["action"])}</span><span>slots {esc(b["system"])}</span>
+    <span>{esc(b["source"].get("how", ""))} · <q>{esc(b["label"])}</q></span>
+    <span class="tag-obs" aria-disabled="true">{esc(b["conclusion"])} · {esc(b["signalCount"])} changes</span></div>
+  <div class="brick-live">
+    <div class="brick-stage" style="--brick-bg:{esc(fill)};--brick-fg:{esc(label_css)};{radius_rule}--brick-transition:{esc(timing)}">
+      <div class="cap"><span>live brick · rebuilt from the slot mapping</span></div>
+      <div class="brick-cta-row"><button class="brick-cta" type="button">{esc(b["label"])}</button></div>
+      <div class="brick-shots">{shots}</div>
+    </div>
+    <aside class="brick-meta">
+      <div class="cap"><span>measured on the source</span>{obs("material")}</div>
+      <div class="rows">
+        <div class="row"><span>trigger</span><b>&lt;{esc(b["source"].get("triggerTag", "a"))}&gt; {esc(b["source"].get("triggerBox") or "")}</b></div>
+        {f'<div class="row"><span>module</span><b>{esc(_short(b["source"].get("module", ""), 40))}</b></div>' if b["source"].get("moduleIsTrigger") is False else ""}
+        <div class="row"><span>changes</span><b>{esc(b["signalCount"])}</b></div>
+        {changes}
+      </div>
+      <div class="verdict {verdict[0]}">reduced motion · {esc(rm.get("status", "n/a"))}<br>{esc(verdict[1])}</div>
+      <div class="mono-line">{skin_notes}</div>
+    </aside>
+  </div>
+</div>"""
+
+
+def _short(text: str, n: int) -> str:
+    text = str(text)
+    return text if len(text) <= n else text[: n - 1] + "…"
+
+
+def _hero_html(dna: dict, resolved: dict, read: dict, text: dict, esc, obs) -> str:
+    """First screen = the brand: the run's own headline, its stats strip, and its source's hero media
+    when one was captured (the captured frame itself, never a fake mock)."""
+    hero = text["hero"]
+    lines = text["headline_lines"] or ["Specimen copy is set at this step"]
+    ctas = ""
+    if hero.get("primaryCta"):
+        ctas += f'<button class="ds-btn ds-btn--primary" type="button">{esc(hero["primaryCta"])}</button>'
+    if hero.get("secondaryCta"):
+        ctas += f'<button class="ds-btn ds-btn--secondary" type="button">{esc(hero["secondaryCta"])}</button>'
+    strip = ('<div class="stat-strip">' + "".join(
+        f'<div class="stat"><span class="v">{esc(s["value"])}</span><span class="k">{esc(s["label"])}</span></div>'
+        for s in text["stats"]) + '</div>') if text["stats"] else ""
+    canvas_v = resolved.get("color/canvas", {}).get("resolved", "")
+    specs = dna.get("specimens") or {}
+    accent = (specs.get("backdrop") or {}).get("nav")
+    chip = " is-tip" if accent == "action" else ""
+    kind = "a twin answering at midnight, in your voice" if "twin" in json.dumps(specs).lower() else "the run's signature module"
+    eyebrow = f'<p class="eyebrow{chip}" title="{esc(kind)}">{esc(hero["eyebrow"])}</p>' if hero.get("eyebrow") else ""
+    media = bool(hero.get("media"))
+    cls = "lp-hero lp-hero--solo" if (hero.get("composition") == "solo" or not media) else "lp-hero"
+    note = ("every specimen below reads the run's own <code>--lw-*</code> tokens, not a screenshot"
+            if not media else
+            "hero photograph · the captured frame, not a rebuilt mock; every specimen below reads the run's own "
+            "<code>--lw-*</code> tokens")
+    return f"""
+<div class="hero-copy">
+  <div class="hero-before">{esc(hero["eyebrow"])}</div>
+  <h1>{"".join(f"<span>{esc(ln)}</span>" for ln in lines)}</h1>
+  {f'<p class="sub">{esc(hero["subhead"])}</p>' if hero.get("subhead") else ""}
+  <div class="ctas">{ctas}</div>
+  <p class="hero-note">canvas <code>{esc(canvas_v)}</code> · {note} {obs("palette")}</p>
+</div>
+{strip}"""
+def _specs_panels(dna: dict, dest: Path, resolved: dict, pages: list, bricks: list, esc) -> dict[str, str]:
+    meta = dna["meta"]
+    taste0 = dna["taste"][0]
 
     def badge(status: str) -> str:
         return f'<span class="badge {esc(status)}">{esc(status)}</span>'
 
-    # ---------------------------------------------------------------- overview
-    taste0 = dna["taste"][0]
-    panels["overview"] = f"""
-<h1>{esc(meta.get('name', ''))} — extracted design system</h1>
-<p class="lede">{esc(meta['source'])} · captured {esc(str(meta.get('capturedAt', ''))[:19])} · every specimen below
-reads <code>../tokens.css</code>, a deterministic render of <code>dna.json</code>.</p>
+    hero = (dna.get("specimens") or {}).get("hero") or {}
+    claims = [("specimens.hero.headline", hero.get("headline")), ("specimens.hero.subhead", hero.get("subhead")),
+              ("specimens.hero.primaryCta", hero.get("primaryCta")),
+              ("specimens.stats", "; ".join(f'{s["value"]} {s["label"]}' for s in (dna.get("specimens") or {}).get("stats") or [])),
+              ("specimens.cards", "; ".join(c["title"] for c in (dna.get("specimens") or {}).get("cards") or [])),
+              ("clips/", ", ".join(b["slug"] for b in bricks))]
+    claim_rows = "".join(f'<tr><td class="mono">{esc(k)}</td><td>{esc(v)}</td></tr>' for k, v in claims if v)
+
+    overview = f"""
+<h1>Overview</h1>
+<p class="lede">{esc(meta['source'])} · captured {esc(str(meta.get('capturedAt', ''))[:19])} · {esc(meta.get('mode'))} mode · every figure is rendered from <code>dna.json</code> and reads <code>../tokens.css</code>.</p>
+<p class="sp-ledger"><span class="tb-meta">{len(dna['tokens'])} tokens</span><span class="tb-meta">{len(dna['evidence'])} evidence</span><span class="tb-meta">{len(pages)} pages inspected</span></p>
 <div class="note"><strong>{esc(taste0['name'])}</strong> — {esc(taste0['reason'])}</div>
-<h2>By the numbers</h2>
-{sr.spec_table(["", "Value", "Reads"], [
-    ["Tokens", str(len(dna["tokens"])), "semantic → component → primitive"],
-    ["Evidence", str(len(dna["evidence"])), "every value cites an id"],
-    ["Pages", str(len(pages)), "entry plus representative subpages"],
-    ["Interactions", str(len(dna.get("interactions") or [])), "measured with real pointer and focus input"],
-])}
-<h2>Limitations</h2>
-<ul>{''.join(f"<li>{esc(x)}</li>" for x in meta.get("limitations", []))}</ul>
-"""
+<div class="sp-stat-grid">
+  <div class="sp-stat"><span class="v">{len(pages)}</span><span class="k">pages inspected</span><span class="d">entry + representative subpages</span></div>
+  <div class="sp-stat"><span class="v">{len(dna['tokens'])}</span><span class="k">tokens</span><span class="d">primitive → semantic → component</span></div>
+  <div class="sp-stat"><span class="v">{len(dna['evidence'])}</span><span class="k">evidence entries</span><span class="d">each observed value cites one</span></div>
+  <div class="sp-stat"><span class="v">{len(dna['measurements'])}</span><span class="k">measurements</span><span class="d">werted with units and a status</span></div>
+  <div class="sp-stat"><span class="v">{len(dna['patterns'])}</span><span class="k">patterns</span><span class="d">rules between values and taste</span></div>
+  <div class="sp-stat"><span class="v">{len(dna['taste'])}</span><span class="k">taste principles</span><span class="d">{sum(1 for t in dna['taste'] if t['kind'] == 'restraint')} restraint(s) with machine gate</span></div>
+  <div class="sp-stat"><span class="v">{len(dna.get('interactions') or [])}</span><span class="k">interaction deltas</span><span class="d">forced with a real pointer</span></div>
+  <div class="sp-stat"><span class="v">{len(bricks)}</span><span class="k">clipped bricks</span><span class="d">single modules, reduce measured</span></div>
+</div>
+<h2>Pages</h2>
+<ul>{"".join(f'<li><a href="{esc(p)}" rel="noreferrer">{esc(p)}</a></li>' for p in pages)}</ul>
+<h2>Claim register</h2>
+<p class="lede">Specimen copy is <em>inferred</em> from the source's voice: it is written for this run, never quoted
+from the site, and the page never presents it as the site's own copy. Tokens and measurements are observed.</p>
+<div class="tbl"><table><thead><tr><th>Claim</th><th>Basis</th></tr></thead><tbody>{claim_rows}</tbody></table></div>"""
+    overview = overview.replace("werted with units", "measured with units")
 
-    # ---------------------------------------------------------------- colour
-    def swatches(layer: str) -> str:
-        toks = [t for t in dna["tokens"] if t["type"] == "color" and t["layer"] == layer]
-        if not toks:
-            return ""
-        cells = "".join(
-            f'<div class="swatch"><div class="fill" style="background:{esc(resolved[t["id"]]["resolved"])}"></div>'
-            f'<div class="line"><span data-copy="{esc(resolved[t["id"]]["resolved"])}">{esc(t["id"])}</span>'
-            f'<span class="hex" data-copy="var(--{esc(t["css"].lstrip("-"))})">{esc(resolved[t["id"]]["resolved"])}</span></div>'
-            f'<div class="sub">{badge(t["status"])}</div></div>' for t in toks)
-        return f'<h3>{layer} · {len(toks)}</h3><div class="sw">{cells}</div>'
+    token_rows = "".join(
+        f'<tr><td><span class="mono" data-copy="var(--{esc(t["css"].lstrip("-"))})">{esc(t["css"])}</span></td>'
+        f'<td class="mono">{esc(t["id"])}</td><td>{esc(t["layer"])}</td><td>{esc(t["type"])}</td>'
+        f'<td><span class="mono" data-copy="{esc(resolved[t["id"]]["resolved"])}">{esc(resolved[t["id"]]["resolved"])}</span></td>'
+        f'<td>{badge(t["status"])}</td></tr>' for t in dna["tokens"])
+    tokens = f"""
+<h1>Tokens</h1>
+<p class="lede">The full registry with aliases resolved for mode <code>{esc((meta.get('modes') or ['default'])[0])}</code>.
+Click a name or a value to copy it.</p>
+<div class="tbl"><table><thead><tr><th>CSS var</th><th>Token</th><th>Layer</th><th>Type</th><th>Value</th><th>Status</th></tr></thead>
+<tbody>{token_rows}</tbody></table></div>"""
 
-    pairs = [("heading / canvas", "color/text/heading", "color/canvas", "display copy"),
-             ("body / canvas", "color/text/body", "color/canvas", "paragraphs"),
-             ("body / subtle", "color/text/body", "color/surface-subtle", "cards, raised rows"),
-             ("action-fg / action-bg", "color/action/fg", "color/action/bg", "primary button"),
-             ("link / canvas", "color/link", "color/canvas", "inline links")]
-    pair_cells = ""
-    for label, fg_id, bg_id, where in pairs:
-        fg, bg = resolved.get(fg_id, {}).get("resolved"), resolved.get(bg_id, {}).get("resolved")
-        if not fg or not bg:
-            continue
-        text, grade = vb.wcag_badge(fg, bg)
-        pair_cells += (f'<div class="pair"><div class="sample" style="background:{esc(bg)};color:{esc(fg)}">{esc(label)}</div>'
-                       f'<div class="pmeta"><span class="mono">{esc(where)}</span>'
-                       f'<span class="chip {grade}">{esc(text)}</span></div></div>')
-    panels["colour"] = f"""
-<h1>Colour</h1>
-<p class="lede">Roles before primitives. Ratios are computed from the two token values, not sampled from a screenshot.</p>
-{swatches("semantic")}{swatches("component")}{swatches("primitive")}
-<h2>Pairs in use</h2>
-<div class="pairs">{pair_cells}</div>
-"""
+    measure_rows = "".join(
+        f'<tr><td>{esc(m["category"])}</td><td>{esc(m["value"])}</td><td>{badge(m["status"])}</td>'
+        f'<td class="mono">{esc(", ".join(m["evidence"]))}</td></tr>' for m in dna["measurements"])
+    measurements = f"""
+<h1>Measurements</h1>
+<p class="lede">Values with units and the evidence that produced them. A row whose status is not observed says so.</p>
+<div class="tbl"><table><thead><tr><th>Category</th><th>Value</th><th>Status</th><th>Evidence</th></tr></thead><tbody>{measure_rows}</tbody></table></div>"""
 
-    # ---------------------------------------------------------------- typography + type scale
-    # Specimens are neutral (Aa 0123456789 / placeholder sentences) and never borrow another site's copy.
-    # A numeral token is shown as a numeral, a text token as text: read the id, no guessing.
-    FIGURE = "337,527,796"
-    SENTENCE = "The quick brown fox jumps over the lazy dog"
-    NUMERIC = re.compile(r"figure|numeric|digit|number|num(?!eral-word)", re.IGNORECASE)
-    text_colour = next((f'var(--{t["css"].lstrip("-")})' for t in dna["tokens"]
-                        if t["type"] == "color" and t["layer"] == "semantic"
-                        and re.match(r"color/text/(heading|primary|title|body)$", t["id"])), None)
-    text_style = f"color:{text_colour};" if text_colour else ""
+    evidence_rows = "".join(
+        f'<tr><td class="mono">{esc(e["id"])}</td><td class="mono">{esc(e["url"].replace("https://", ""))}</td>'
+        f'<td>{esc(e["locator"])}</td><td class="mono">{esc(e["method"])}</td><td>{badge(e["status"])}</td>'
+        f'<td class="mono">{esc(json.dumps(e["values"], ensure_ascii=False)[:220])}</td></tr>' for e in dna["evidence"])
+    ledger = f"""
+<h1>Evidence Ledger</h1>
+<p class="lede">Every observed or inferred claim cites one of these recordings; none was estimated from a screenshot.</p>
+<div class="tbl"><table><thead><tr><th>ID</th><th>URL</th><th>Locator</th><th>Method</th><th>Status</th><th>Values</th></tr></thead>
+<tbody>{evidence_rows}</tbody></table></div>"""
 
-    def type_tokens():
-        return [t for t in dna["tokens"] if t["type"] == "dimension" and t["id"].startswith("type/")]
+    limitations = f"""
+<h1>Limitations</h1>
+<p class="lede">What this run can and cannot claim. Rows that are not tested say so in <code>VERIFY.md</code>.</p>
+<ul>{"".join(f"<li>{esc(x)}</li>" for x in meta.get("limitations", []))}</ul>
+<h2>Fidelity</h2>
+<p class="lede">The rebuild is the Live Preview of this page. Type parity is out of scope: the source face is not
+shipped. Fidelity stays <strong>PARTIAL</strong> until every deviation in <code>fidelity.json</code> is closed.</p>"""
 
-    def specimen(t) -> tuple[str, str]:
-        """(text, extra style). Numeral steps show digits in the system's own mono; text steps show a sentence."""
-        size = resolved[t["id"]]["resolved"]
-        if NUMERIC.search(t["id"].split("/")[-1]):
-            mono = resolved.get("font/mono", {}).get("resolved") or "var(--n-mono)"
-            return FIGURE, f";font-family:{mono};font-variant-numeric:tabular-nums;font-weight:400"
-        m = re.match(r"([0-9.]+)", str(size))
-        if m and float(m.group(1)) <= 14:
-            return "Aa 0123456789", ""
-        return SENTENCE, ""
-
-    # the run names its own weights (weight/light, weight/regular, weight/body…): take the first,
-    # and never borrow another run's name
-    weights = [t["id"] for t in dna["tokens"] if t["type"] == "fontWeight"]
-    light = next((w for w in weights if w.endswith(("light", "regular", "body"))), weights[0] if weights else None)
-    light_value = resolved[light]["resolved"] if light else "400"
-
-    def type_rows() -> str:
-        return "".join(
-            f'<div class="type-row"><div class="type-params">'
-            f'<span class="mono" data-copy="var(--{esc(t["css"].lstrip("-"))})">{esc(t["id"])}</span>'
-            f'<dl><dt>size</dt><dd>{esc(resolved[t["id"]]["resolved"])}</dd>'
-            f'<dt>weight</dt><dd>{esc(light_value)}</dd></dl></div>'
-            f'<div class="type-specimen"><span class="spec" style="font-size:{esc(resolved[t["id"]]["resolved"])};'
-            f'font-weight:{esc(light_value)};'
-            f'letter-spacing:{esc(resolved.get("tracking/hero", {}).get("resolved", "normal"))}'
-            f'{specimen(t)[1]}">{esc(specimen(t)[0])}</span></div></div>'
-            for t in type_tokens())
-
-    weight_rows = "".join(
-        f'<div class="type-row"><div class="type-params"><span class="mono" data-copy="var(--{esc(t["css"].lstrip("-"))})">'
-        f'{esc(t["id"])}</span><dl><dt>weight</dt><dd>{esc(resolved[t["id"]]["resolved"])}</dd></dl></div>'
-        f'<div class="type-specimen"><span class="spec" style="font-size:32px;font-weight:{esc(resolved[t["id"]]["resolved"])}">'
-        f'{SENTENCE}</span></div></div>'
-        for t in dna["tokens"] if t["type"] == "fontWeight")
-    panels["typography"] = f"""
-<h1>Typography</h1>
-<p class="lede">Parameters on the left, a neutral specimen on the right at its real size. Web fonts are not
-shipped; the specimen uses the declared stack and falls back where the face is missing.</p>
-{type_rows()}
-<h2>Weights</h2>
-{weight_rows}
-"""
-    panels["type-scale"] = f"""
-<h1>Type Scale</h1>
-<p class="lede">The full stack in reading order, drawn from the tokens exactly as a build would.
-Numeral steps show digits, text steps show a sentence.</p>
-{stage("type scale · ratios between steps",
-       ''.join(f'<div style="font-size:{esc(resolved[t["id"]]["resolved"])};line-height:1.12;'
-               f'font-weight:{esc(light_value)};'
-               f'letter-spacing:{esc(resolved.get("tracking/hero", {}).get("resolved", "normal"))};'
-               f'margin:0 0 18px;{text_style}{specimen(t)[1]}">'
-               f'{esc(specimen(t)[0])}</div>'
-               for t in type_tokens()),
-       meta_note="on var(--lw-canvas)")}
-"""
-
-    # ---------------------------------------------------------------- shape
-    radius_cells = "".join(
-        f'<div class="shape"><div class="obj" style="border-radius:{esc(resolved[t["id"]]["resolved"])}"></div>'
-        f'<div class="cap"><span data-copy="var(--{esc(t["css"].lstrip("-"))})">{esc(t["id"])}</span>'
-        f'<span class="v">{esc(resolved[t["id"]]["resolved"])}</span></div></div>'
-        for t in dna["tokens"] if t["type"] == "dimension" and t["id"].startswith("radius/"))
-    # a shadow specimen paints through its token, never an inline literal: the token is the specimen,
-    # and a rule that forbids shadows must be able to see (and veto) the demo meant to show one
-    def shadow_allowed() -> bool:
-        for taste in dna["taste"]:
-            cap = ((taste.get("guardrail") or {}).get("max") or {}).get("box-shadow")
-            if cap and float(cap.get("value", 1)) < 4:
-                return False   # too tight to paint a specimen honestly; the token is shown as a value
-        return True
-
-    def shadow_cell(t) -> str:
-        css = f'var(--{esc(t["css"].lstrip("-"))})'
-        return (f'<div class="shape"><div class="obj" style="box-shadow:{css};border-color:transparent"></div>'
-                f'<div class="cap"><span data-copy="{css}">{esc(t["id"])}</span>'
-                f'<span class="v">{esc(resolved[t["id"]]["resolved"])}</span></div></div>')
-
-    shadow_tokens = [t for t in dna["tokens"] if t["type"] == "shadow"]
-    shadow_cells = "".join(shadow_cell(t) for t in shadow_tokens) if shadow_allowed() else ""
-    shadow_note = ("" if shadow_allowed() else
-                   '<p class="note">This run\'s restraint caps box-shadow below 4px, so the specimen is not '
-                   'painted here; the observed value stays a token:</p>'
-                   + "".join(f'<p class="mono">{esc(t["id"])} · <span data-copy="{esc(resolved[t["id"]]["resolved"])}">'
-                             f'{esc(resolved[t["id"]]["resolved"])}</span> · {badge(t["status"])}</p>'
-                             for t in shadow_tokens))
-    panels["shape"] = f"""
-<h1>Radius &amp; Depth</h1>
-<p class="lede">Corners and layer separation as tokenised values.</p>
-<div class="grid-2">{radius_cells}{shadow_cells or ("" if shadow_tokens else '<div class="shape"><div class="cap"><span>no shadow tokens</span><span class="v">layers are separated with 1px borders</span></div></div>')}</div>
-{shadow_note}
-"""
-
-    # ---------------------------------------------------------------- components
-    def button_matrix() -> str:
-        cells = ""
-        for label, cls, extra in (("default", "ds-btn--primary", ""), ("hover", "ds-btn--primary is-hover", "forced"),
-                                  ("focus-visible", "ds-btn--primary is-focus", "forced"),
-                                  ("active", "ds-btn--primary is-active", "forced"),
-                                  ("disabled", "ds-btn--primary", "disabled")):
-            attr = " disabled" if extra == "disabled" else ""
-            cells += (f'<figure><div class="mono" style="color:var(--lw-text-muted);margin-bottom:6px">{label}'
-                      + (f' · {extra}' if extra else "") + f'</div>'
-                      f'<button class="ds-btn {cls}"{attr}>Get started</button></figure>')
-        return f'<div class="matrix">{cells}</div>'
-
-    def skin_supports(*classes: str) -> bool:
-        path = dest / "system" / "system.css"
+    def code_block(filename: str) -> str:
+        path = dest / filename
         if not path.exists():
-            return False
-        css = path.read_text(encoding="utf-8")
-        return all(re.search(r"\." + re.escape(c) + r"(?![\w-])", css) for c in classes)
+            return ""
+        body = path.read_text(encoding="utf-8")
+        return (f'<div class="code"><div class="code-head"><span>{esc(filename)}</span>'
+                f'<button class="mini-btn" data-copy="{esc(body)}">Copy</button></div>'
+                f'<pre>{esc(body)}</pre></div>')
 
-    def input_matrix() -> str:
-        if not skin_supports("ds-input", "ds-field"):
-            return ('<p class="lede" style="margin:0">This run recorded no form controls, so the skin ships no '
-                    'input component. STATES below shows what was observed instead.</p>')
-        cells = ""
-        for label, cls, extra, invalid in (("default", "", "", False), ("hover", "is-hover", "forced", False),
-                                           ("focus-visible", "is-focus", "forced", False),
-                                           ("invalid", "is-invalid", "state", True), ("disabled", "", "disabled", False)):
-            attr = " disabled" if extra == "disabled" else (' aria-invalid="true"' if invalid else "")
-            cells += (f'<figure><div class="mono" style="color:var(--lw-text-muted);margin-bottom:6px">{label}'
-                      + (f' · {extra}' if extra else "") + f'</div>'
-                      f'<label class="ds-field"><span>Email</span>'
-                      f'<input class="ds-input {cls}" placeholder="you@company.com"{attr}></label></figure>')
-        return f'<div class="matrix">{cells}</div>'
+    downloads = f"""
+<h1>Code &amp; Downloads</h1>
+<p class="lede">All three files are renders of the same <code>dna.json</code>; a hand edit to any of them fails
+<code>lint_output.py</code>'s single-source drift check.</p>
+<div class="dl">{"".join(f'<a class="mini-btn" href="../{f}" download>{f}</a>' for f in ("tokens.css", "shadcn-theme.css", "agent-rules.md", "taste.md", "VERIFY.md", "tokens.resolved.json"))}</div>
+{code_block("tokens.css")}{code_block("shadcn-theme.css")}{code_block("agent-rules.md")}"""
 
-    panels["components"] = f"""
-<h1>Components &amp; States</h1>
-<p class="lede">Every state is a real browser state; forced samples are labelled as such. The toolbar above
-stresses the demos while you look at them.</p>
-{stage("Button · default, hover, focus-visible, active, disabled", button_matrix(),
-       meta_note="reads ../tokens.css", note="Hover and focus are real: move the pointer or press Tab.")}
-{('<h2>Input</h2>' + stage("Input · default, hover, focus-visible, invalid, disabled", input_matrix(),
-        note="Blur validation is live on this page: type into the live field below.")) if skin_supports("ds-input") else ''}
-<h2>Cards &amp; links</h2>
-{stage("Card surfaces", '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px">'
-       '<div class="ds-card" style="padding:18px">Default card</div>'
-       '<div class="ds-card ds-card--tint" style="padding:18px">Tint card</div>'
-       '<div class="ds-card ds-card--float" style="padding:18px">Float card</div></div>'
-       '<p style="margin:18px 0 0"><a class="ds-link" href="#components">Read the docs</a> · '
-       '<a class="ds-link" href="#specs">view evidence</a></p>')}
-"""
-
-    # ---------------------------------------------------------------- compositions
-    probes = ["A short line", "A longer line that wraps at narrow widths",
-              "One more line, same type step, to read the rhythm"]
-    panels["compositions"] = f"""
-<h1>Compositions</h1>
-<p class="lede">Assembled only from the components above and the tokens in <code>../tokens.css</code>. Copy is
-neutral placeholder text, never the source's.</p>
-<h2>Marketing hero</h2>
-{stage("hero · display type, one action", '<div class="ds-scope" style="padding:48px">'
-       + "".join(f'<h2 class="ds-hero ds-stressable" style="font-size:var(--lw-type-h2);margin:0 0 18px;{text_style}">{p}</h2>' for p in probes)
-       + '<button class="ds-btn ds-btn--primary">Primary action</button></div>',
-       meta_note="display · 3 lengths", note="Long copy in the toolbar re-cuts these lines.")}
-<h2>Pricing rows</h2>
-{stage("pricing · three tiers", '<div class="ds-scope" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;padding:32px">'
-       + "".join(f'<div class="ds-card" style="padding:20px"><div class="ds-caption">Caption</div>'
-                 f'<div class="ds-price" style="font-variant-numeric:tabular-nums">{p}</div>'
-                 f'<button class="ds-btn ds-btn--secondary" style="margin-top:12px">Action</button></div>'
-                 for p in ("10", "20", "30")) + '</div>',
-       note="Card, caption and button states all come from the same tokens.")}
-"""
-
-    # ---------------------------------------------------------------- field states
-    panels["states"] = (f"""
-<h1>Field States</h1>
-<p class="lede">The same input in five states, so a reviewer can compare without hovering anything.</p>
-{stage("input states", '<div class="ds-scope" style="display:grid;gap:18px;padding:32px;max-width:420px">'
-       + "".join(f'<label class="ds-field"><span>{label}</span>'
-                 f'<input class="ds-input {cls}" placeholder="you@company.com"{attr}></label>'
-                 for label, cls, attr in (("default", "", ""), ("hover (forced)", "is-hover", ""),
-                                          ("focus-visible (forced)", "is-focus", ""),
-                                          ("invalid", "is-invalid", ' aria-invalid="true"'),
-                                          ("disabled", "", " disabled")))
-       + '</div>', note="aria-invalid drives the invalid style, not a colour class.")}
-""" if skin_supports("ds-input") else f"""
-<h1>Field States</h1>
-<p class="lede">No form controls were observed in this run, so this run has no field states to show.</p>
-{stage("recorded states", '<div class="ds-scope" style="padding:24px"><button class="ds-btn ds-btn--primary" style="margin:0 8px 8px 0">Sign Up</button><button class="ds-btn ds-btn--secondary" style="margin:0 8px 8px 0">Log In</button><button class="ds-btn ds-btn--ghost">Deposit</button></div>',
-       meta_note="buttons · observed", note="Only the controls below exist as tokens in this run.")}
-""")
-
-    # ---------------------------------------------------------------- motion
-    easings = [t for t in dna["tokens"] if t["type"] == "easing"]
-    durations = [t for t in dna["tokens"] if t["type"] == "duration"]
-    easing_spec = resolved[easings[0]["id"]]["resolved"] if easings else "cubic-bezier(0.25, 0.1, 0.25, 1)"
-    motion_rows = ""
-    for t in durations:
-        dur = resolved[t["id"]]["resolved"]
-        dot_id = "dot-" + t["id"].split("/")[-1]
-        motion_rows += (f'<div class="motion"><div class="plot">{vb.bezier_svg(easing_spec)}</div>'
-                        f'<div class="mid"><div class="mono" data-copy="var(--{esc(t["css"].lstrip("-"))})">{esc(t["id"])} · {esc(dur)}</div>'
-                        f'<div class="ease">{esc(easing_spec)}</div><div class="track"><span class="dot" id="{dot_id}"></span></div></div>'
-                        f'<div class="act"><button class="tb-btn" data-sys-replay="{dot_id}" data-dur="{esc(dur)}" '
-                        f'data-ease="{esc(easing_spec)}">Replay</button></div></div>')
-    for t in easings:
-        motion_rows += (f'<div class="motion"><div class="plot">{vb.bezier_svg(resolved[t["id"]]["resolved"])}</div>'
-                        f'<div class="mid"><div class="mono" data-copy="var(--{esc(t["css"].lstrip("-"))})">{esc(t["id"])}</div>'
-                        f'<div class="ease">{esc(resolved[t["id"]]["resolved"])}</div></div>'
-                        f'<div class="act">{badge(t["status"])}</div></div>')
-    inter_rows = "".join(
-        f'<h3>{esc(i.get("kind"))} <span class="mono" style="color:var(--n-mute)">{esc(i.get("locator", "")[:48])}</span></h3>'
-        + "".join(f'<p class="mono">{ph}: ' + ("; ".join(f"{esc(k)}: {esc(v[0])} → {esc(v[1])}" for k, v in (i[ph].get("delta") or {}).items())
-                                                  or esc(i[ph].get("note", "no computed change"))) + "</p>"
-                  for ph in ("hover", "focus") if isinstance(i.get(ph), dict))
-        for i in (dna.get("interactions") or []))
-    panels["motion"] = f"""
-<h1>Motion</h1>
-<p class="lede">Each curve is plotted from the token's own cubic-bezier. Replay runs the real duration.</p>
-{motion_rows or '<p class="lede">No duration or easing tokens in this run.</p>'}
-<h2>Interaction deltas</h2>
-<p class="lede">Forced with a real CDP mouse and element.focus(); values come from <code>dna.json &gt; interactions</code>.</p>
-{inter_rows or '<p class="lede">No interaction deltas recorded for this run.</p>'}
-"""
-
-    # ---------------------------------------------------------------- fidelity
-    # A split slider needs two different pictures. Without a real rebuild shot it would compare the
-    # source with itself, so the default is the clean source capture plus the rebuild stated in words.
     shots = sorted(p.name for p in (dest / "capture").glob("viewport*.png")) if (dest / "capture").exists() else []
     source_shot = shots[0] if shots else None
     rebuild_shot = next((n for n in ("rebuild.png", "rebuild-1.png") if (dest / "capture" / n).exists()), None)
-    # no rebuild shot: the clean source capture, then the rebuild stated in words (no fake split)
-    rebuild_note = f"""<div class="fid-note">
-  <h2>Rebuild</h2>
-  <p>No rebuild screenshot in <code>capture/</code>, so there is no split to drag: the rebuild is this page
-  itself — <a href="#compositions">Compositions</a> and <a href="#components">Components</a> — and it is not
-  painted over the source.</p>
-  <p class="mono">Record <code>capture/rebuild.png</code> at {esc(str((dna.get('meta') or {}).get('viewport') or 'the same viewport'))}
-  and rerun to enable pixel-against-pixel comparison.</p>
-</div>"""
+    fid: dict = {}
+    if (dest / "fidelity.json").exists():
+        try:
+            fid = json.loads((dest / "fidelity.json").read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            fid = {}
+    deviations = "".join(
+        f'<div class="deviation"><strong>{esc(d.split(" — ")[0][:72])}</strong>'
+        f'{esc(d.split(" — ", 1)[1]) if " — " in d else ""}</div>' for d in fid.get("deviations") or [])
+    agrees = "".join(f"<li>{esc(a)}</li>" for a in fid.get("agrees") or [])
     if source_shot and rebuild_shot:
-        fidelity_body = f"""
-<div style="display:flex;justify-content:flex-end;margin:0 0 12px">
-  <button class="tb-btn" id="compare-toggle" aria-pressed="true">Side by side</button>
-</div>
+        compare = f"""
 <div class="compare" id="compare">
   <img src="../capture/{esc(source_shot)}" alt="captured source page">
   <div class="layer b"><img src="../capture/{esc(rebuild_shot)}" alt="rebuilt page"></div>
   <div class="handle"></div>
   <span class="lab l">source · capture/{esc(source_shot)}</span><span class="lab r">rebuild · capture/{esc(rebuild_shot)}</span>
   <input id="split" type="range" min="0" max="100" value="50" aria-label="compare source and rebuild">
-</div>
-<div class="sbs" id="sbs" hidden>
-  <figure><img src="../capture/{esc(source_shot)}" alt="captured source page" style="width:100%"><figcaption>source · capture/{esc(source_shot)}</figcaption></figure>
-  <figure><img src="../capture/{esc(rebuild_shot)}" alt="rebuilt page" style="width:100%"><figcaption>rebuild · capture/{esc(rebuild_shot)}</figcaption></figure>
 </div>"""
     elif source_shot:
-        fidelity_body = (f'<div class="fid"><div class="src-shot"><img src="../capture/{esc(source_shot)}" '
-                         f'alt="captured source page"></div>{rebuild_note}</div>')
+        compare = (f'<div class="fid"><div class="src-shot"><img src="../capture/{esc(source_shot)}" '
+                   f'alt="captured source page"></div><div class="fid-note"><h3>Rebuild</h3>'
+                   f'<p class="lede">The rebuild is the Live Preview itself. No rebuild screenshot was recorded, '
+                   f'so there is no split to drag. Record <code>capture/rebuild.png</code> at '
+                   f'{esc(str(meta.get("viewport") or "the same viewport"))} to enable pixel comparison.</p></div></div>')
     else:
-        fidelity_body = ('<p class="lede">No capture was recorded for this run, so there is nothing to compare '
-                         'against.</p>')
-    fid_panel = f"""
+        compare = '<p class="lede">No capture was recorded for this run.</p>'
+    fidelity = f"""
 <h1>Fidelity vs Source</h1>
-<p class="lede">The captured source screen, then what the rebuild owes it. Differences stay visible
-rather than claimed away.</p>
-{fidelity_body}
-<p class="note">Type rendering cannot be matched because the source face is not shipped. Fidelity stays
-<strong>PARTIAL</strong> in VERIFY.md until every recorded deviation is closed.</p>
-"""
-    panels["fidelity"] = fid_panel
+<p class="lede">{esc(fid.get("method") or "No fidelity record in this run.")}</p>
+{compare}
+{('<h2>Agrees</h2><ul>' + agrees + '</ul>') if agrees else ''}
+{('<h2>Recorded deviations</h2><div class="deviations">' + deviations + '</div>') if deviations else ''}
+<p class="note">Status: <strong>{esc(str(fid.get("status") or "unverified").upper())}</strong>. Deviations stay visible rather than claimed away.</p>"""
 
-    # ---------------------------------------------------------------- system & taste
-    def caps(guard: dict) -> str:
-        if not guard:
-            return ""
-        out = "".join(f'<span class="rule-cap forbid">forbid · {esc(p)}</span>' for p in guard.get("forbidCss") or [])
-        if guard.get("forbidClass"):
-            out += f'<span class="rule-cap forbid">forbid · {len(guard["forbidClass"])} class pattern(s)</span>'
-        out += "".join(f'<span class="rule-cap max">max · {esc(p)} ≤ {esc(b.get("value"))}{esc(b.get("unit", ""))}</span>'
-                       for p, b in (guard.get("max") or {}).items())
-        return f'<div>{out}</div>'
-
-    taste_cards = "".join(
-        f'<article class="tcard"><div class="head">{badge(t["status"])}'
-        f'<span class="mono" style="color:var(--n-faint)">{esc(t["kind"])} · {esc(", ".join(t["evidence"]))}</span></div>'
-        f'<h4>{esc(t["name"])}</h4>'
-        f'<div class="ab"><div class="v">{esc(t["chose"])}</div><div class="vs">over</div>'
-        f'<div class="v over">{esc(t["over"])}</div></div>'
-        f'<p class="why">{esc(t["reason"])}</p>{caps(t.get("guardrail") or {})}'
-        + (f'<details><summary>Machine rule</summary><pre>{esc(json.dumps(t["guardrail"], indent=1, ensure_ascii=False))}</pre></details>'
-           if t.get("guardrail") else "")
-        + '</article>' for t in dna["taste"])
-    patterns = "".join(f'<h3>{esc(p["name"])}</h3><p><strong>{esc(p["rule"])}</strong></p>'
-                       f'<p class="mono" style="color:var(--n-mute)">{esc(p["goal"])} · {esc(", ".join(p["evidence"]))}</p>'
-                       for p in dna["patterns"])
-    panels["system"] = f"""
-<h1>System &amp; Taste</h1>
-<p class="lede">The decision in words, the rule it compiles to, and the machine pattern behind it.</p>
-<div class="taste">{taste_cards}</div>
-<h2>Patterns</h2>
-{patterns}
-"""
-
-    # ---------------------------------------------------------------- specs
-    token_rows = "".join(
-        f'<tr><td><span class="mono" data-copy="var(--{esc(t["css"].lstrip("-"))})">{esc(t["css"])}</span></td>'
-        f'<td class="mono">{esc(t["id"])}</td><td>{esc(t["layer"])}</td><td>{esc(t["type"])}</td>'
-        f'<td><span class="mono" data-copy="{esc(resolved[t["id"]]["resolved"])}">{esc(resolved[t["id"]]["resolved"])}</span></td>'
-        f'<td>{badge(t["status"])}</td></tr>' for t in dna["tokens"])
-    measure_rows = "".join(
-        f'<tr><td>{esc(m["category"])}</td><td>{esc(m["value"])}</td><td>{badge(m["status"])}</td>'
-        f'<td class="mono">{esc(", ".join(m["evidence"]))}</td></tr>' for m in dna["measurements"])
-    evidence_rows = "".join(
-        f'<tr><td class="mono">{esc(e["id"])}</td><td class="mono">{esc(e["url"].replace("https://", ""))}</td>'
-        f'<td>{esc(e["locator"])}</td><td class="mono">{esc(e["method"])}</td><td>{badge(e["status"])}</td>'
-        f'<td class="mono">{esc(", ".join(f"{k}={v}" for k, v in e["values"].items()))}</td></tr>' for e in dna["evidence"])
-
-    def code_block(filename: str) -> str:
-        path = dest / filename
-        if not path.exists():
-            return ""
-        text = path.read_text(encoding="utf-8")
-        return (f'<div class="code" style="margin:0 0 20px"><div class="code-head"><span>{esc(filename)}</span>'
-                f'<button class="mini-btn" data-copy="{esc(text)}">Copy</button></div>'
-                f'<pre>{esc(text)}</pre></div>')
-
-    panels["specs"] = f"""
-<h1>Evidence &amp; Downloads</h1>
-<div class="subtabs" role="tablist" aria-label="Specs">
-  <button role="tab" id="tab-downloads" aria-controls="sub-downloads" aria-selected="true" tabindex="0">Downloads</button>
-  <button role="tab" id="tab-code" aria-controls="sub-code" aria-selected="false" tabindex="-1">Code</button>
-  <button role="tab" id="tab-tokens" aria-controls="sub-tokens" aria-selected="false" tabindex="-1">Tokens</button>
-  <button role="tab" id="tab-measurements" aria-controls="sub-measurements" aria-selected="false" tabindex="-1">Measurements</button>
-  <button role="tab" id="tab-evidence" aria-controls="sub-evidence" aria-selected="false" tabindex="-1">Evidence ({len(dna["evidence"])})</button>
-</div>
-<div class="tabpanel" id="sub-downloads" role="tabpanel" aria-labelledby="tab-downloads">
-  <div class="dl">{''.join(f'<a class="mini-btn" href="../{f}" download>{f}</a>' for f in ("tokens.css", "shadcn-theme.css", "agent-rules.md", "taste.md", "VERIFY.md", "tokens.resolved.json"))}</div>
-  <h3>Pages inspected</h3><ul>{''.join(f'<li><a href="{esc(p)}" rel="noreferrer">{esc(p)}</a></li>' for p in pages)}</ul>
-  <h3>Limitations</h3><ul>{''.join(f"<li>{esc(x)}</li>" for x in meta.get("limitations", []))}</ul>
-</div>
-<div class="tabpanel" id="sub-code" role="tabpanel" aria-labelledby="tab-code" hidden>
-  {code_block("tokens.css")}{code_block("shadcn-theme.css")}{code_block("agent-rules.md")}
-</div>
-<div class="tabpanel" id="sub-tokens" role="tabpanel" aria-labelledby="tab-tokens" hidden>
-  <table><thead><tr><th>CSS var</th><th>Token</th><th>Layer</th><th>Type</th><th>Value</th><th>Status</th></tr></thead>
-  <tbody>{token_rows}</tbody></table>
-</div>
-<div class="tabpanel" id="sub-measurements" role="tabpanel" aria-labelledby="tab-measurements" hidden>
-  <table><thead><tr><th>Category</th><th>Value</th><th>Status</th><th>Evidence</th></tr></thead><tbody>{measure_rows}</tbody></table>
-</div>
-<div class="tabpanel" id="sub-evidence" role="tabpanel" aria-labelledby="tab-evidence" hidden>
-  <table><thead><tr><th>ID</th><th>URL</th><th>Locator</th><th>Method</th><th>Status</th><th>Values</th></tr></thead>
-  <tbody>{evidence_rows}</tbody></table>
-</div>
-"""
-
-    html = sr.app_shell(dna, resolved, panels, pages=len(pages))
-    # the promise that every specimen reads the run's tokens, plus the run's own 3px fingerprint
-    html = html.replace('<link rel="stylesheet" href="site.css">',
-                        '<link rel="stylesheet" href="site.css">\n<style>:root { --doc-bg: '
-                        + vb.TONES[tone]["bg"] + '; }\n'
-                        + vb.fingerprint_css(vb.fingerprint_stops(resolved, dna), selector="#fp")
-                        + '</style>')
-    js = sr.ROUTER_JS + """
-// replay dots for the system/ motion panel
-(function () {
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function msFrom(d) { var m = /([0-9.]+)\\s*(ms|s)/i.exec(String(d)); return m ? (m[2].toLowerCase() === 's' ? parseFloat(m[1]) * 1000 : parseFloat(m[1])) : 300; }
-  Array.prototype.forEach.call(document.querySelectorAll('[data-sys-replay]'), function (btn) {
-    var dot = document.getElementById(btn.getAttribute('data-sys-replay'));
-    if (!dot) return;
-    var dur = btn.getAttribute('data-dur'), ease = btn.getAttribute('data-ease');
-    btn.addEventListener('click', function () {
-      dot.style.transition = 'none'; dot.style.transform = 'translateX(0)'; void dot.offsetWidth;
-      if (reduce) return;
-      dot.style.transition = 'transform ' + dur + ' ' + ease;
-      dot.style.transform = 'translateX(calc(100% - 12px))';
-    });
-  });
-})();
-"""
-    evidence = json.dumps({"source": meta["source"], "capturedAt": meta.get("capturedAt"),
-                           "evidence": dna["evidence"], "measurements": dna["measurements"]},
-                          ensure_ascii=False, indent=2) + "\n"
-    return {
-        "system/index.html": html,
-        "system/doc.css": vb.base_css(tone, scope=":root") + "\n" + sr.CHROME_CSS,
-        "system/site.css": SITE_CSS,
-        "system/system.js": js,
-        "system/evidence.json": evidence,
-        "system/system.css": (dest / "system" / "system.css").read_text(encoding="utf-8")
-        if (dest / "system" / "system.css").exists() else "",
-    }
+    return {"overview": overview, "tokens": tokens, "measurements": measurements,
+            "evidence": ledger, "limitations": limitations, "downloads": downloads,
+            "fidelity": fidelity}
 
 
 def render_verify_md(dest: Path, result: dict) -> str:
@@ -1372,7 +1786,7 @@ def main() -> int:
     ap.add_argument("dest", help="output directory {dest}/{domain}/")
     ap.add_argument("--incremental", metavar="SCOPE",
                     help="comma list of blocks this run may change; everything else is frozen. "
-                         "Any of: evidence,measurements,patterns,taste,tokens")
+                         "Any of: evidence,measurements,patterns,taste,tokens,interactions,specimens")
     ap.add_argument("--check", action="store_true", help="validate only, write nothing")
     ap.add_argument("--export", default="all", choices=["all", "shadcn", "css"],
                     help="which generated stylesheets to write: all (default), shadcn-theme.css only, or tokens.css only")
@@ -1451,7 +1865,9 @@ def main() -> int:
         "agent-rules.md": render_agent_rules(dna),
         "preview.html": render_preview_html(dna, dest),
     }
-    full = (dna.get("meta") or {}).get("mode") == "full"
+    # system/ is the reference site; any run can carry it, whatever meta.mode says (drift_check is
+    # the authority for whether it is current)
+    full = True
     if args.export in ("all", "css"):
         artifacts["tokens.css"] = render_tokens_css(dna)
     if args.export in ("all", "shadcn"):

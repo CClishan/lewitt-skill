@@ -13,13 +13,14 @@ Renders are deterministic re-encodings of `dna.json`: byte-equality proves the a
 | interaction delta | unverified | no interactions block (schema 1.0 run or capture without probe) |
 | shadcn theme slots | PASS | all required slots mapped; 3 declared UNMAPPED: --destructive, --border, --input |
 | clip bricks | n/a | no clips/ directory |
-| preview.html (self-contained) | PASS | single file, same-folder tokens.css, no remote assets |
+| preview.html (self-contained, dual view) | PASS | single file, same-folder tokens.css, no remote assets |
 | incremental freeze | PASS | no frozen block changed since the last render |
 | evidence coverage | PASS | 28 evidence entries cited |
 | restraint guardrails | PASS | 2/2 restraint principles carry machine-readable guardrails |
+| generated-code script scope | PASS | duplicate var names and undeclared identifiers are both caught (injected probes) |
 | anti-slop (authored prose) | PASS | 0 hit(s) |
-| guardrail (generated code) | PASS | 0 violation(s) — scanned linear.app |
+| guardrail (generated code) | PASS | 0 violation(s) — scanned linear.app/system |
 | visual fidelity | unverified | no fidelity.json — requires a side-by-side comparison at matching viewports |
 | full system/ site | n/a | DNA mode does not build system/ |
 
-Generated at 2026-11-24T09:17:50+00:00.
+Generated at 2026-11-24T12:05:19+00:00.
