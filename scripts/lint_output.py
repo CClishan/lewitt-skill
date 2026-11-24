@@ -394,6 +394,74 @@ def _lum(rgb):
     return 0.2126 * ch(rgb[0]) + 0.7152 * ch(rgb[1]) + 0.0722 * ch(rgb[2])
 
 
+SHADCN_VARS = {"--background", "--foreground", "--card", "--card-foreground", "--popover",
+               "--popover-foreground", "--primary", "--primary-foreground", "--secondary",
+               "--secondary-foreground", "--muted", "--muted-foreground", "--accent",
+               "--accent-foreground", "--destructive", "--border", "--input", "--ring", "--radius"}
+HARDCODED_COLOUR = re.compile(r"(?<![\w-])#[0-9a-fA-F]{3,8}\b|\brgba?\(|\bhsla?\(")
+
+
+def brick_problems(path: Path) -> list[str]:
+    """A brick must be skinless and honest: slots only, a measured reduce branch, real deltas."""
+    name = path.parent.name
+    out = []
+    try:
+        b = json.loads(path.read_text())
+    except json.JSONDecodeError as exc:
+        return [f"{name}: invalid JSON ({exc})"]
+    system = (b.get("slots") or {}).get("system")
+    if system not in ("shadcn", "lw"):
+        out.append(f"{name}: slots.system must be shadcn or lw (got {system!r})")
+    skin = {k: v for k, v in (b.get("skin") or {}).items() if not k.startswith("__")}
+    if not skin:
+        out.append(f"{name}: no skin mapping")
+    for k, v in skin.items():
+        css = (v or {}).get("css") or ""
+        if not (v or {}).get("slot"):
+            out.append(f"{name}: skin {k} mapped to no slot")
+        if system == "shadcn":
+            var = css[4:-1] if css.startswith("var(") and css.endswith(")") else ""
+            if var not in SHADCN_VARS:
+                out.append(f"{name}: skin {k} uses {css!r}, not a shadcn slot")
+        if HARDCODED_COLOUR.search(css) or HARDCODED_COLOUR.search(str((v or {}).get("slot"))):
+            out.append(f"{name}: skin {k} leaks a hardcoded colour")
+    # measured values (used to derive deltas) may be raw; the step you actually write must not be
+    if any(HARDCODED_COLOUR.search(str(css_target := (v or {}).get("css", ""))) for v in skin.values()):
+        out.append(f"{name}: a skin step points at a raw colour instead of a variable")
+    states = b.get("states") or {}
+    if "before" not in states:
+        out.append(f"{name}: no 'before' state")
+    if not states.get("_machine"):
+        out.append(f"{name}: no state machine")
+    for target, d in (b.get("deltas") or {}).items():
+        for prop, pair in (d or {}).items():
+            if not isinstance(pair, list) or len(pair) != 2:
+                out.append(f"{name}: {target}.{prop} is not a [before, after] pair")
+    rm = b.get("reducedMotion")
+    if not isinstance(rm, dict) or not rm:
+        out.append(f"{name}: no reducedMotion recording (run without --no-reduced)")
+    elif rm.get("status") not in ("degraded", "degraded-to-none", "not-degraded", "unrecorded"):
+        out.append(f"{name}: reducedMotion.status {rm.get('status')!r} is not a known verdict")
+    elif rm.get("emulated") is not True:
+        out.append(f"{name}: reduced-motion pass did not confirm the media emulation")
+    md = path.parent / "brick.md"
+    if not md.exists():
+        out.append(f"{name}: brick.md missing")
+    else:
+        text = md.read_text(encoding="utf-8")
+        if "Slot system:" not in "\n".join(text.splitlines()[:6]):
+            out.append(f"{name}: brick.md does not state the slot system at the top")
+        if "## Reduced motion" not in text:
+            out.append(f"{name}: brick.md has no Reduced motion section")
+        skin_md = text.split("## Skin mapping")[-1].split("## State machine")[0]
+        if "var(--" not in skin_md:
+            out.append(f"{name}: brick.md skin section names no variable")
+        leaked = [ln for ln in skin_md.splitlines() if ln.startswith("- `") and "→ `var(--" not in ln and "no slot" not in ln]
+        if leaked:
+            out.append(f"{name}: brick.md skin line without a variable: {leaked[0][:60]}")
+    return out
+
+
 def shell_checks(html: str) -> list[str]:
     """The reference site must be an app shell: one rail, one scrolling canvas, routed panels."""
     problems = []
@@ -489,27 +557,13 @@ def schema_checks(dest: Path, dna: dict) -> list[dict]:
     rows.append({"name": "shadcn theme slots", "result": "PASS" if ok else "FAIL", "detail": detail})
 
     bdir = dest / "clips"
-    if bdir.is_dir() and any(bdir.glob("*/brick.json")):
+    bricks = sorted(bdir.glob("*/brick.json")) if bdir.is_dir() else []
+    if bricks:
         problems = []
-        for f in sorted(bdir.glob("*/brick.json")):
-            try:
-                b = json.loads(f.read_text())
-            except json.JSONDecodeError as exc:
-                problems.append(f"{f.parent.name}: invalid JSON ({exc})")
-                continue
-            if not b.get("states") or "before" not in b["states"]:
-                problems.append(f"{f.parent.name}: no 'before' state")
-            for target, d in (b.get("deltas") or {}).items():
-                for prop, pair in d.items():
-                    if not isinstance(pair, list) or len(pair) != 2:
-                        problems.append(f"{f.parent.name}: {target}.{prop} is not a [before, after] pair")
-            for k, v in (b.get("skin") or {}).items():
-                if k.startswith("__"):
-                    continue
-                if isinstance(v, dict) and not v.get("slot") and v.get("value"):
-                    problems.append(f"{f.parent.name}: skin {k} mapped to no slot")
+        for f in bricks:
+            problems += brick_problems(f)
         rows.append({"name": "clip bricks", "result": "PASS" if not problems else "FAIL",
-                     "detail": "; ".join(problems[:4]) or f"{len(list(bdir.glob('*/brick.json')))} brick(s) valid"})
+                     "detail": "; ".join(problems[:5]) or f"{len(bricks)} brick(s) valid"})
     else:
         rows.append({"name": "clip bricks", "result": "n/a", "detail": "no clips/ directory"})
 
@@ -549,7 +603,15 @@ def main() -> int:
     dest = Path(args.dest).expanduser().resolve()
     dna_path = dest / "dna.json"
     if not dna_path.exists():
-        print(f"FAIL: {dna_path} not found")
+        bricks = sorted((dest / "clips").glob("*/brick.json"))
+        if bricks:
+            problems = [p for f in bricks for p in brick_problems(f)]
+            for f in bricks:
+                print(f"[{'PASS' if not brick_problems(f) else 'FAIL'}] {f.parent.name}")
+            print(("PASS: " if not problems else "FAIL: ") + f"{len(bricks)} standalone brick(s)"
+                  + ("" if not problems else f", {len(problems)} problem(s): " + "; ".join(problems[:5])))
+            return 0 if not problems else 1
+        print(f"FAIL: {dna_path} not found (and no clips/ to gate standalone)")
         return 1
     dna = json.loads(dna_path.read_text(encoding="utf-8"))
 

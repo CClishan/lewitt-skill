@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-24T04:15:57+00:00",
+  "generatedAt": "2026-11-24T04:46:01+00:00",
   "dest": "stripe.com",
   "meta": {
     "name": "Stripe",
@@ -86,8 +86,8 @@
     },
     {
       "name": "clip bricks",
-      "result": "PASS",
-      "detail": "2 brick(s) valid"
+      "result": "n/a",
+      "detail": "no clips/ directory"
     },
     {
       "name": "preview.html (self-contained)",

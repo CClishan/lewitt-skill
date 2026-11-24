@@ -14,7 +14,7 @@ Last run: **incremental** — scope `taste`; frozen `meta, evidence, measurement
 | system/ colour scope | PASS | canvas token #FFFFFF (light); chrome shell light |
 | interaction delta | PASS | 2/3 targets recorded a hover/focus delta |
 | shadcn theme slots | PASS | all required slots mapped; 1 declared UNMAPPED: --destructive |
-| clip bricks | PASS | 2 brick(s) valid |
+| clip bricks | n/a | no clips/ directory |
 | preview.html (self-contained) | PASS | single file, same-folder tokens.css, no remote assets |
 | incremental freeze | PASS | no frozen block changed since the last render — scope ['taste'], frozen ['meta', 'evidence', 'measurements', 'patterns', 'tokens'] |
 | evidence coverage | PASS | 32 evidence entries cited |
@@ -24,4 +24,4 @@ Last run: **incremental** — scope `taste`; frozen `meta, evidence, measurement
 | visual fidelity | PARTIAL | 1 composition(s), 4 recorded deviation(s), status=partial |
 | full system/ site | PASS | app shell present (rail + canvas + panel routing) |
 
-Generated at 2026-11-24T04:15:57+00:00.
+Generated at 2026-11-24T04:46:01+00:00.

@@ -120,14 +120,28 @@ STATE_JS = r"""
     'border-radius': cs.borderRadius, 'box-shadow': cs.boxShadow,
     transition: cs.transition, animation: cs.animation,
     anims,
+    timing: (() => {
+      const ms = (v) => (String(v || '').match(/([\d.]+)\s*(m?s)/g) || []).map((x) => {
+        const n = parseFloat(x); return /ms$/.test(x) ? n : n * 1000; });
+      const tr = ms(cs.transitionDuration).filter((n) => n > 0);
+      const an = ms(cs.animationDuration).filter((n) => n > 0);
+      const transformPx = (() => {
+        const m = /matrix\(([^)]+)\)/.exec(cs.transform || '');
+        if (!m) return [0, 0];
+        const p = m[1].split(',').map((x) => parseFloat(x.trim()));
+        return [Math.round(p[4] || 0), Math.round(p[5] || 0)];
+      })();
+      return { transitionMaxMs: tr.length ? Math.max(...tr) : 0, animationMaxMs: an.length ? Math.max(...an) : 0, transformPx };
+    })(),
   };
 }
 """
 
 
-def run(page_url: str, script_body: str, wait: list[dict]) -> list[dict]:
-    """One page load, a scripted timeline: [{'action':'snapshot'|'hover'|'click'|'wait', ...}]."""
-    plan = json.dumps(wait)
+def run(page_url: str, script_body: str, steps_in: list[dict], reduced: bool = False) -> list[dict]:
+    """One page load, a scripted timeline. reduced=True emulates prefers-reduced-motion: reduce."""
+    plan = json.dumps(steps_in)
+    media_arg = '"reduce"' if reduced else '"no-preference"' 
     js = f"""
 const {{ chromium }} = require(process.env.LEWITT_PLAYWRIGHT || 'playwright');
 (async () => {{
@@ -136,7 +150,9 @@ const {{ chromium }} = require(process.env.LEWITT_PLAYWRIGHT || 'playwright');
   const page = await ctx.newPage();
   const cdp = await ctx.newCDPSession(page);
   await page.goto({json.dumps(page_url)}, {{ waitUntil: 'domcontentloaded', timeout: 45000 }});
+  await cdp.send('Emulation.setEmulatedMedia', {{ features: [{{ name: 'prefers-reduced-motion', value: {media_arg} }}] }});
   await page.waitForTimeout(2500);
+  const reduceActive = await page.evaluate(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   const steps = {plan};
   const out = [];
   for (const step of steps) {{
@@ -153,7 +169,7 @@ const {{ chromium }} = require(process.env.LEWITT_PLAYWRIGHT || 'playwright');
     }}
     if (step.wait) await page.waitForTimeout(step.wait);
     if (step.shot) await page.screenshot({{ path: step.shot }});
-    if (step.snapshot) out.push({{ name: step.name, sel: step.snapshot, state: await page.evaluate({STATE_JS}, step.snapshot) }});
+    if (step.snapshot) out.push({{ name: step.name, sel: step.snapshot, reduceActive, state: await page.evaluate({STATE_JS}, step.snapshot) }});
   }}
   await browser.close();
   process.stdout.write(JSON.stringify(out));
@@ -176,10 +192,47 @@ const {{ chromium }} = require(process.env.LEWITT_PLAYWRIGHT || 'playwright');
 SCRIPT_SHOTS = []
 
 
+def shadcn_map(before: dict, during: dict | None, action: str) -> dict:
+    """Map an element to shadcn/Tailwind v4 slots by role, not by nearest hex."""
+    out = {}
+    bg = (before or {}).get("background")
+    fg = (before or {}).get("color")
+    radius = (before or {}).get("border-radius")
+    if action == "hover":
+        out["surface"] = {"value": bg, "slot": "--card", "css": "var(--card)",
+                          "why": "the module is a passive block: card surface"}
+        if during and during.get("background") != bg:
+            out["surface_hover"] = {"value": during["background"], "slot": "--muted", "css": "var(--muted)",
+                                    "why": "hover darkens/lightens the block: muted is the neutral hover surface"}
+        out["text"] = {"value": fg, "slot": "--card-foreground", "css": "var(--card-foreground)",
+                       "why": "body text inside a card"}
+    else:
+        out["trigger_fill"] = {"value": bg, "slot": "--primary", "css": "var(--primary)",
+                               "why": "the control that changes state is the primary action"}
+        out["trigger_label"] = {"value": fg, "slot": "--primary-foreground", "css": "var(--primary-foreground)",
+                                "why": "label on the primary action"}
+        out["surface"] = {"value": None, "slot": "--card", "css": "var(--card)",
+                          "why": "the revealed panel is a card"}
+    if radius:
+        out["radius"] = {"value": radius, "slot": "--radius", "css": "var(--radius)",
+                         "why": "shadcn derives every control radius from --radius"}
+    return out
+
+
+def lewitt_map(dna: dict, resolved: dict, before: dict, during: dict | None, action: str) -> dict:
+    """The v1.1 behaviour: nearest semantic token of this run."""
+    out = {}
+    for key, purpose in (("background", "bg"), ("color", "fg")):
+        if before:
+            out[key] = slot_for(dna, resolved, before[key], "action" if action != "hover" else "bg")
+    if during and during.get("background") != (before or {}).get("background"):
+        out["background_during"] = slot_for(dna, resolved, during["background"], "bg")
+    return out
+
+
 def slot_for(dna: dict, resolved: dict, colour: str, purpose: str) -> dict:
     """Map a source colour to the run's semantic slot with the closest value."""
     best, best_d = None, None
-    kind = "fg" if purpose == "fg" else "bg"
     for tok in dna["tokens"]:
         if tok["type"] != "color" or tok["layer"] != "semantic":
             continue
@@ -208,25 +261,72 @@ def diff(a: dict | None, b: dict | None) -> dict:
     return out
 
 
+def reduced_report(std: dict, red: dict, action: str) -> dict:
+    """Compare the normal and reduced-motion recordings of the element that actually moves."""
+    s_during, r_during = std.get("during_target"), red.get("during_target")
+    s_t = (s_during or {}).get("timing") or {}
+    r_t = (r_during or {}).get("timing") or {}
+    s_px = abs((s_t.get("transformPx") or [0, 0])[1])
+    r_px = abs((r_t.get("transformPx") or [0, 0])[1])
+    s_ms = max(s_t.get("transitionMaxMs", 0), s_t.get("animationMaxMs", 0))
+    r_ms = max(r_t.get("transitionMaxMs", 0), r_t.get("animationMaxMs", 0))
+    same_end = ((s_during or {}).get("rect") == (r_during or {}).get("rect")
+                and (s_during or {}).get("transform") == (r_during or {}).get("transform"))
+    if r_during is None:
+        status, reason = "unrecorded", "the reduced-motion pass produced no snapshot for this state"
+    elif s_during is None:
+        status, reason = "unrecorded", "the normal pass produced no snapshot for this state"
+    elif r_ms == 0 and s_ms > 0:
+        status, reason = "degraded-to-none", f"transition removed entirely (normal {s_ms:g}ms)"
+    elif r_ms < s_ms * 0.8 and (same_end or action != "hover") and r_px <= s_px:
+        status, reason = "degraded", (f"{s_ms:g}ms → {r_ms:g}ms, travel {s_px:g}px → {r_px:g}px"
+                                      + ("" if same_end else ", end state differs"))
+    elif r_px == 0 and s_px > 0:
+        status, reason = "degraded", f"motion removed: travel {s_px:g}px → 0px, end state kept"
+    else:
+        status, reason = "not-degraded", (
+            f"same motion under reduce: {s_ms:g}ms → {r_ms:g}ms, travel {s_px:g}px → {r_px:g}px")
+    return {
+        "emulated": bool(red.get("_reduceActive", True)),
+        "status": status,
+        "reason": reason,
+        "normal": {"durationMs": s_ms, "travelPx": round(s_px, 1), "transform": (s_during or {}).get("transform")},
+        "reduced": {"durationMs": r_ms, "travelPx": round(r_px, 1), "transform": (r_during or {}).get("transform")},
+        "endStateKept": same_end,
+    }
+
+
 def write_md(brick: dict, path: Path) -> None:
-    s = brick["source"]
+    src = brick["source"]
+    system = brick["slots"]["system"]
     lines = [
-        f"# brick — {s['module']}", "",
-        f"- url: {s['url']}", f"- found by: {s['how']} · trigger `<{s['triggerTag']}>` “{s['triggerText']}”",
+        f"# brick — {src['module']}", "",
+        f"> **Slot system: `{system}`** — every colour and radius below is written as a "
+        + ("shadcn / Tailwind v4 variable (`var(--card)`, `var(--muted)`…). "
+           if system == "shadcn" else
+           "lewitt variable (`var(--lw-…)`) from this run. ")
+        + "Copying the source's hardcoded hex or rgb values into your project is a **hard violation**: "
+        "re-run `lewitt cert` and it will reject the build.", "",
+        f"- url: {src['url']}", f"- found by: {src['how']} · trigger `<{src['triggerTag']}>` “{src['triggerText']}”",
         f"- action: **{brick['action']}** · camera: {brick['camera']['width']}×{brick['camera']['height']}",
-        f"- instructions: `{brick['sourceRun']}` (dna.json {brick['schemaVersion']})",
+        f"- instructions: " + (f"`{brick['sourceRun']}` (dna.json {brick['schemaVersion']})" if brick.get("schemaVersion")
+                                else "none — standalone clip, skin mapping by role"),
+        f"- slot source: " + (brick["slots"].get("from") or "—"),
         f"- captured: {brick['capturedAt']}", "",
         "## States", "",
-        "| State | geometry | opacity | transform | transitions running |",
-        "| --- | --- | --- | --- | --- |",
+        "| State | geometry | opacity | transform | transitions running | duration |",
+        "| --- | --- | --- | --- | --- | --- |",
     ]
     for name, st in brick["states"].items():
         if name.startswith("_"):
             continue
         if not st:
-            lines.append(f"| {name} | missing | — | — | — |")
+            lines.append(f"| {name} | missing | — | — | — | — |")
             continue
-        lines.append(f"| {name} | {st['rect']} | {st['opacity']} | {st['transform'][:32]} | {len(st['anims'])} |")
+        tm = st.get("timing") or {}
+        dur = max(tm.get("transitionMaxMs", 0), tm.get("animationMaxMs", 0))
+        lines.append(f"| {name} | {st['rect']} | {st['opacity']} | {st['transform'][:32]} | "
+                     f"{len(st['anims'])} | {dur:g}ms |")
     lines += ["", "## Deltas", ""]
     for target, d in brick["deltas"].items():
         if not d:
@@ -238,13 +338,47 @@ def write_md(brick: dict, path: Path) -> None:
     for k, v in brick["skin"].items():
         if k.startswith("__"):
             continue
-        slot = v.get("slot")
-        lines.append(f"- `{k}`: source `{v['value']}` → slot `{slot}`"
-                     + (f" (`var({v['css']})` = `{v['resolved']}`, Δ{v['delta']})" if slot else " — **no slot matched, pick one**"))
+        target = v.get("slot")
+        if system == "shadcn":
+            lines.append(f"- `{k}`: source `{v['value']}` → `{v['css']}`" + (f" — {v['why']}" if v.get("why") else "")
+                         + ("  · **no slot — pick one**" if not target else ""))
+        else:
+            lines.append(f"- `{k}`: source `{v['value']}` → slot `{target}`"
+                         + (f" (`var({v['css']})` = `{v['resolved']}`, Δ{v['delta']})" if target else " — **no slot matched, pick one**"))
     lines += ["", "## State machine", ""]
     for transition in brick["states"].get("_machine", []):
         lines.append(f"- **{transition['from']} → {transition['to']}**: {transition['how']}"
                      + (f" (observed: {transition['observed']})" if transition.get("observed") is not None else " (not observed)"))
+    rm = brick.get("reducedMotion") or {}
+    lines += ["", "## Reduced motion", ""]
+    if not rm:
+        lines.append("_Not recorded._")
+    else:
+        flag = {"degraded": "✅ observed", "degraded-to-none": "✅ observed",
+                "not-degraded": "⚠️ **not degraded — the source keeps moving**",
+                "unrecorded": "⚠️ not recorded"}.get(rm["status"], rm["status"])
+        lines += [
+            f"- emulated with CDP `Emulation.setEmulatedMedia` `prefers-reduced-motion: reduce` "
+            f"(matchMedia in page: {rm.get('emulated')})",
+            f"- status: **{rm['status']}** — {flag}",
+            f"- detail: {rm['reason']}",
+            "",
+            "| Recording | duration | travel (translateY) | transform |",
+            "| --- | --- | --- | --- |",
+            f"| normal | {rm['normal']['durationMs']:g}ms | {rm['normal']['travelPx']:g}px | `{str(rm['normal']['transform'])[:40]}` |",
+            f"| reduced | {rm['reduced']['durationMs']:g}ms | {rm['reduced']['travelPx']:g}px | `{str(rm['reduced']['transform'])[:40]}` |",
+            "",
+        ]
+        if rm["status"] == "not-degraded":
+            lines.append("> The source does not honour `prefers-reduced-motion` here. Your implementation must — "
+                         "either drop the transition or keep the end state and remove the travel. "
+                         "This is a place to improve on the source, not to copy it.")
+        elif rm["status"] == "degraded-to-none":
+            lines.append("> Under reduce the source removes the transition entirely. Mirror that: "
+                         "apply the end state instantly, no cross-fade.")
+        elif rm["status"] == "degraded":
+            lines.append("> Under reduce the source keeps the end state and shortens/removes the travel. "
+                         "Mirror that ratio rather than inventing one.")
     lines += ["", "## Implementation notes", ""]
     for note in brick["notes"]:
         lines.append(f"- {note}")
@@ -279,23 +413,70 @@ LAYOUT_JS = r"""
 """
 
 
+def build_timeline(action: str, module: str, target: str, click: tuple[int, int], shot) -> list[dict]:
+    """States per action. `target` is the stateful element that moves on activation."""
+    x, y = click
+
+    def snap(name, sel, with_shot=False):
+        return {"action": "snapshot", "name": name, "sel": sel, "snapshot": sel,
+                **({"shot": shot(name)} if with_shot else {})}
+
+    steps = [snap("before", module, True)]
+    if action == "hover":
+        steps += [
+            {"action": "hover", "x": x, "y": y, "wait": 60},
+            snap("during", module, True),
+            {"action": "shake", "x": x, "y": y, "wait": 120},
+            snap("settled", module),
+            snap("during_target", target),
+            {"action": "move", "wait": 400},
+            snap("after", module, True),
+        ]
+    else:
+        steps += [
+            snap("before_target", target),
+            {"action": "click", "x": x, "y": y, "wait": 80},
+            snap("during_target", target, True),
+            {"action": "move", "wait": 600},
+            snap("after", target, True),
+        ]
+        if action == "toggle":
+            steps += [
+                {"action": "click", "x": x, "y": y, "wait": 700},
+                snap("restored", target),
+            ]
+    return steps
+
+
+def collect(url: str, steps: list[dict], reduced: bool) -> tuple[dict, dict]:
+    rows = run(url, "", steps, reduced=reduced)
+    return {r["name"]: r["state"] for r in rows}, {"_reduceActive": rows[0]["reduceActive"] if rows else False}
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Clip one interaction-ready block out of a live site")
     ap.add_argument("--url", required=True)
-    ap.add_argument("--dest", required=True, help="a lewitt run directory (provides dna.json for skin slots)")
+    ap.add_argument("--dest", help="output root (a lewitt run directory, or any folder in standalone mode)")
+    ap.add_argument("--out", help="explicit output directory; wins over --dest")
     ap.add_argument("--find", help="visible text of the trigger")
     ap.add_argument("--selector", help="CSS selector of the trigger")
     ap.add_argument("--action", default="hover", choices=["hover", "click", "toggle"])
+    ap.add_argument("--slots", default="shadcn", choices=["shadcn", "lw"],
+                    help="target slot system (default: shadcn / Tailwind v4; lw needs dna.json)")
     ap.add_argument("--slug", default=None)
+    ap.add_argument("--no-reduced", action="store_true", help="skip the reduced-motion pass")
     args = ap.parse_args()
+    if not args.out and not args.dest:
+        ap.error("give --dest (or --out)")
 
-    run_dir = Path(args.dest).expanduser().resolve()
-    dna_path = run_dir / "dna.json"
-    if not dna_path.exists():
-        print("FAIL: --dest must be a lewitt run (dna.json missing)", file=sys.stderr)
+    dest = Path((args.out or args.dest)).expanduser().resolve()
+    dest.mkdir(parents=True, exist_ok=True)
+    dna_path = Path(args.dest).expanduser().resolve() / "dna.json" if args.dest else None
+    dna = json.loads(dna_path.read_text()) if dna_path and dna_path.exists() else None
+    if args.slots == "lw" and not dna:
+        print("FAIL: --slots=lw needs a run with dna.json in --dest", file=sys.stderr)
         return 2
-    dna = json.loads(dna_path.read_text())
-    resolved = ba.resolve_tokens(dna["tokens"], (dna.get("meta", {}).get("modes") or ["default"])[0])
+    resolved = ba.resolve_tokens(dna["tokens"], (dna.get("meta", {}).get("modes") or ["default"])[0]) if dna else {}
 
     found = page_probe.run(args.url, FIND_JS, {"text": args.find or "", "selector": args.selector or ""})
     if not found or found.get("error"):
@@ -303,115 +484,127 @@ def main() -> int:
         return 2
 
     slug = args.slug or re.sub(r"[^a-z0-9]+", "-", (args.find or args.selector or "block").lower()).strip("-")[:40]
-    out_dir = run_dir / "clips" / slug
+    domain = re.sub(r"^www\.", "", re.sub(r"^https?://", "", args.url).split("/")[0])
+    domain = re.sub(r"[^a-z0-9.-]+", "-", domain.lower()).strip(".-") or "local"
+    if args.out:                      # explicit directory: use it verbatim
+        out_dir = dest
+    elif args.slots == "shadcn" and not dna:
+        out_dir = dest / "clips" / f"{domain}-{slug}"
+    else:
+        out_dir = dest / "clips" / slug
     (out_dir / "shots").mkdir(parents=True, exist_ok=True)
-    tx, ty = found["moduleBox"][0] + found["moduleBox"][2] // 2, found["moduleBox"][1] + found["moduleBox"][3] // 2
-    trig = found.get("triggerBox") or [tx, ty, 1, 1]
-    click_x, click_y = None, None
-    click_point = page_probe.run(args.url, r"""
+
+    point = page_probe.run(args.url, r"""
       (arg) => { const el = document.querySelector(arg.sel); if (!el) return null;
         el.scrollIntoView({ block: 'center' });
         const r = el.getBoundingClientRect(); return { x: Math.round(r.left + r.width / 2), y: Math.round(r.top + r.height / 2) }; }
     """, {"sel": found["trigger"]}) or {}
-    click_x = click_point.get("x", tx)
-    click_y = click_point.get("y", ty)
+    box = found["moduleBox"]
+    click = (point.get("x", box[0] + box[2] // 2), point.get("y", box[1] + box[3] // 2))
+    target = found.get("stateful") or found["module"]
 
-    name = out_dir.name
     shot = lambda s: str(out_dir / "shots" / f"{s}.png")
-    target = found.get("stateful") or found["module"]     # what actually moves on activation
-    snap = lambda name, sel, with_shot=False: {
-        "action": "snapshot", "name": name, "sel": sel, "snapshot": sel,
-        **({"shot": shot(name)} if with_shot else {}),
-    }
-    timeline = [snap("before", found["module"], True)]
-    if args.action == "hover":
-        timeline += [
-            {"action": "hover", "x": click_x, "y": click_y, "wait": 60},
-            snap("during", found["module"], True),
-            {"action": "shake", "x": click_x, "y": click_y, "wait": 120},
-            snap("settled", found["module"]),
-            {"action": "move", "wait": 400},
-            snap("after", found["module"], True),
-        ]
-    else:
-        timeline += [
-            snap("before_target", target),
-            {"action": "click", "x": click_x, "y": click_y, "wait": 80},
-            snap("during", target, True),
-            {"action": "move", "wait": 600},
-            snap("after", target, True),
-        ]
-        if args.action == "toggle":
-            timeline += [
-                {"action": "click", "x": click_x, "y": click_y, "wait": 700},
-                snap("restored", target),
-            ]
+    steps = build_timeline(args.action, found["module"], target, click, shot)
+    states, std_meta = collect(args.url, steps, reduced=False)
 
-    states = {s["name"]: s["state"] for s in run(args.url, "", timeline)}
-    layout = page_probe.run(args.url, LAYOUT_JS, found["module"])
+    red = {}
+    rm = {}
+    if not args.no_reduced:
+        red_steps = []
+        for st in steps:
+            st = dict(st)
+            if st.get("shot"):
+                st["shot"] = shot(st["name"] + "-reduced")
+            red_steps.append(st)
+        red, red_meta = collect(args.url, red_steps, reduced=True)
+        rm = reduced_report(states, red, args.action)
+        rm["emulated"] = bool(red_meta.get("_reduceActive"))
 
     before = states.get("before")
-    skin = {}
-    for key, purpose in (("background", "bg"), ("color", "fg")):
-        if before:
-            skin[key] = slot_for(dna, resolved, before[key], "action" if args.action != "hover" else "bg")
-    if states.get("during") and states["during"].get("background") != (before or {}).get("background"):
-        skin["background_during"] = slot_for(dna, resolved, states["during"]["background"], "bg")
-    skin["__layout"] = layout
+    during = states.get("during")
+    if args.slots == "lw":
+        skin = lewitt_map(dna, resolved, before or {}, during, args.action)
+        slot_from = f"lewitt run `{dna_path.parent.name}` (dna.json {dna.get('schemaVersion')})"
+    else:
+        skin = shadcn_map(before or {}, during, args.action)
+        slot_from = "shadcn / Tailwind v4 slots, mapped by role"
+    skin["__layout"] = page_probe.run(args.url, LAYOUT_JS, found["module"])
 
-    observed_hover = "during" in states and bool(diff(before, states.get("during")))
-    observed_settled = states.get("settled") is not None
     if args.action == "hover":
         machine = [
-            {"from": "idle", "to": "hover", "how": "pointer enters the module (CSS :hover or pointer handlers)", "observed": observed_hover},
-            {"from": "hover", "to": "settled", "how": "transition finishes; nothing else moves", "observed": bool(diff(before, states.get("settled")))},
-            {"from": "settled", "to": "idle", "how": "pointer leaves the module; every computed value returns to baseline", "observed": diff(before, states.get("after")) == {}},
+            {"from": "idle", "to": "hover", "how": "pointer enters the module (CSS :hover or pointer handlers)",
+             "observed": bool(diff(before, during))},
+            {"from": "hover", "to": "settled", "how": "transition finishes; nothing else moves",
+             "observed": bool(diff(before, states.get("settled")))},
+            {"from": "settled", "to": "idle", "how": "pointer leaves the module; every computed value returns to baseline",
+             "observed": diff(before, states.get("after")) == {}},
         ]
     else:
         opens = bool(diff(states.get("before_target"), states.get("after")))
-        closes = args.action == "toggle" and diff(states.get("before_target"), states.get("restored")) == {} and opens
+        closes = args.action == "toggle" and opens and diff(states.get("before_target"), states.get("restored")) == {}
         machine = [
             {"from": "idle", "to": "open", "how": "click (or keyboard equivalent) on the trigger", "observed": opens},
             {"from": "open", "to": "idle", "how": "second click, Escape, or click outside", "observed": closes},
         ]
 
+    changed = sorted({k for d in [diff(before, during), diff(states.get("before_target"), states.get("after"))] for k in d})
+    if args.slots == "shadcn" and args.action != "hover" and states.get("before_target"):
+        tgt = states["before_target"]
+        skin["surface"] = {"value": tgt.get("background"), "slot": "--card", "css": "var(--card)",
+                           "why": "the revealed panel is a card"}
+        if tgt.get("color"):
+            skin["surface_text"] = {"value": tgt.get("color"), "slot": "--card-foreground",
+                                    "css": "var(--card-foreground)", "why": "text inside the revealed panel"}
+        if (during or {}).get("background") not in (None, tgt.get("background")):
+            skin["surface_open"] = {"value": during["background"], "slot": "--muted", "css": "var(--muted)",
+                                    "why": "open state tint"}
     notes = [
         "Drive the state with a class the project owns (e.g. `is-open`), never with source-site classes.",
-        f"Animate only the properties that changed: {', '.join(sorted({k for d in [diff(before, states.get('during'))] for k in d})) or 'none'}.",
-        "Use the source's transition string for timing; replace colours and faces with the mapped slots above.",
+        f"Animate only the properties that changed: {', '.join(changed) or 'none'}.",
+        "Use the source's transition string for timing; take colours from the mapped slots, never from the source.",
         "Keep the geometry contract: the module's box is " + str((before or {}).get("rect")) + ". Layout inside it may change, the box may not.",
         "If a property did not change in the recording, do not invent a transition for it.",
     ]
+    if rm.get("status") == "not-degraded":
+        notes.append("The source ignores prefers-reduced-motion: implement the reduce branch yourself.")
+    elif rm.get("status") in ("degraded", "degraded-to-none"):
+        notes.append(f"Mirror the measured reduce branch: {rm['reason']}.")
+
     cleanup = [
         "Remove any injected helper styles before leaving the page.",
         "Close any window an activation opened; the recording never submits forms or logs in.",
         "Keep shots/ next to brick.md so the geometry can be re-checked after implementation.",
     ]
     brick = {
-        "version": "0.1.0",
+        "version": "0.2.0",
         "capturedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "sourceRun": run_dir.name,
-        "schemaVersion": dna.get("schemaVersion"),
+        "mode": "run" if dna else "standalone",
+        "sourceRun": dna_path.parent.name if dna_path and dna_path.exists() else None,
+        "schemaVersion": dna.get("schemaVersion") if dna else None,
+        "slots": {"system": args.slots, "from": slot_from},
         "action": args.action,
         "camera": {"width": 1440, "height": 900},
         "source": {"url": args.url, **{k: found[k] for k in ("how", "trigger", "triggerText", "triggerTag", "module", "moduleBox")}},
-        "states": {k: v for k, v in states.items() if not k.startswith("_")},
+        "states": states,
         "deltas": {
-            "module.hover": diff(before, states.get("during")) if args.action == "hover" else {},
+            "module.hover": diff(before, during) if args.action == "hover" else {},
             "module.settled": diff(before, states.get("settled")),
             "stateful.open": diff(states.get("before_target"), states.get("after")) if args.action != "hover" else {},
             "stateful.closed": diff(states.get("before_target"), states.get("restored")) if args.action == "toggle" else {},
         },
         "skin": skin,
+        "reducedMotion": rm,
         "notes": notes,
         "cleanup": cleanup,
     }
     brick["states"]["_machine"] = machine
     (out_dir / "brick.json").write_text(json.dumps(brick, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     write_md(brick, out_dir / "brick.md")
-    print(f"[CLIPPED] {found['module']}  ({found['how']})")
-    for target, d in brick["deltas"].items():
-        print(f"  {target}: {', '.join(d) if d else 'no computed change'}")
+    print(f"[CLIPPED] {found['module']}  ({found['how']}) · slots={args.slots} · mode={brick['mode']}")
+    for key, d in brick["deltas"].items():
+        print(f"  {key}: {', '.join(d) if d else 'no computed change'}")
+    if rm:
+        print(f"  reduced-motion: {rm['status']} — {rm['reason']}")
     print(f"wrote {out_dir}/brick.md and brick.json and shots/")
     return 0
 

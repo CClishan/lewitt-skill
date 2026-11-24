@@ -198,7 +198,8 @@ It writes `cert.md` / `cert.html` / `cert.json` with a verdict (`certified`, `wa
 **Clip a block** — lift one module with its interaction, skin stripped, from any live page:
 
 ```sh
-python3 "$SKILL/scripts/clip.py" --url <url> --find "<visible text>" --dest "$DEST/$DOMAIN"
+python3 "$SKILL/scripts/clip.py" --url <url> --find "<visible text>" --dest ./bricks   # standalone, shadcn slots
+python3 "$SKILL/scripts/clip.py" --url <url> --find "<visible text>" --dest "$DEST/$DOMAIN" --slots lw
 ```
 
 Read [references/clip.md](references/clip.md).

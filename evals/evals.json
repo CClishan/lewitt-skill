@@ -155,6 +155,30 @@
           "check": "cert_honesty"
         }
       ]
+    },
+    {
+      "id": 5,
+      "name": "clip-standalone",
+      "url": "http://127.0.0.1:8768/",
+      "rationale": "A brick must be liftable with no extraction, drop into a shadcn project, and prove the reduce branch.",
+      "assertions": [
+        {
+          "text": "runs with no dna.json and writes {dest}/clips/{domain}-{slug}/",
+          "check": "clip_standalone"
+        },
+        {
+          "text": "skin maps to shadcn slots by role, never to raw hex",
+          "check": "clip_slots"
+        },
+        {
+          "text": "reduced-motion pass is emulated and classified (degraded / not-degraded)",
+          "check": "clip_reduced"
+        },
+        {
+          "text": "lint gates standalone bricks and catches hardcoded colours",
+          "check": "clip_gate"
+        }
+      ]
     }
   ]
 }
