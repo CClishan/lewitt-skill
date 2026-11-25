@@ -1,5 +1,7 @@
 ---
 name: lewitt
+display_name: 网站设计 DNA 提取
+display_name_en: Design DNA Extractor
 description: >-
   Reverse-engineer a website's design into an evidence-backed, agent-usable design DNA:
   tokens (primitive/semantic/component) plus opinionated WHY trade-offs, rendered from one
@@ -9,8 +11,18 @@ description: >-
   Two modes: DNA mode (default, ~1-2 min, no site build) and --full (adds a runnable
   design-system reference site with component states and compositions). Do NOT use to scrape
   content, summarize a page, or clone a screenshot pixel-for-pixel.
-cn: "给一个网址，抽出可追溯的设计 DNA（tokens + 为什么这么做），生成 taste.md / tokens.css / agent-rules.md 并强制校验；--full 才建可浏览的设计系统站点。"
-category: "设计/前端"
+description_zh: 给一个网址，用无头浏览器实测出可追溯的设计 DNA（tokens + 取舍理由），生成可直接粘贴的 shadcn / Tailwind v4 主题、agent 规则和能做机械校验的 guardrail；也能单独切出一个模块或微交互。
+description_en: Turn any URL into measured design tokens, a shadcn / Tailwind v4 theme, agent rules and linter-enforced guardrails — or lift a single block or micro-interaction as a skin-free brick.
+examples_zh:
+  - "用 lewitt 分析 https://stripe.com 的设计 DNA"
+  - "用 lewitt 拆解 https://www.steno.ai/ 首页的配色、字阶和圆角，直接给我 shadcn 主题"
+  - "用 lewitt clip 提取 https://www.onepixelai.com/ 上 Index 按钮的 hover 交互"
+examples_en:
+  - "Use lewitt to analyze https://stripe.com"
+  - "Extract the design DNA of https://linear.app and give me a shadcn theme"
+  - "Use lewitt clip on https://www.steno.ai/ to extract the hero CTA hover interaction"
+version: 1.3.0
+author: "CClishan"
 ---
 
 # Design DNA
@@ -60,6 +72,9 @@ Do not silently upgrade to Full. Do not build `system/` in DNA mode.
 ## Pipeline
 
 Set `SKILL=<this skill dir>`, `DEST=<output root>`, `DOMAIN=<host without www>`.
+
+**Fresh install.** `setup.sh` opens the package, so if the scripts or the driver are missing, read
+[references/install.md](references/install.md) and follow it before Phase 0.
 
 ### Phase 0 — Brief (do this first, every time)
 
