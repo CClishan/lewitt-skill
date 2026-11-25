@@ -40,10 +40,21 @@ Turn a URL into one authored file — `dna.json` — and everything else is rend
 | `dna.schema.json` | the v1.1 data contract other tools can validate against (repo root; `build_artifacts.validate` is the authority) | authored |
 | `agent-rules.md` | hard constraints first, then principles, patterns, token list, verify command | `build_artifacts.py` |
 | `VERIFY.md` / `verify.json` | gate results, including explicit `unverified` rows | `lint_output.py` |
-| `system/` | runnable reference site — states, compositions, stress controls, fidelity (**`--full` only**) | you, then `lint_output.py --check-code` |
+| `system/` | runnable ref site — states, compositions, stress controls, fidelity (**`--full` only**) | you, then `lint_output.py --check-code` |
 | `fidelity.json` | side-by-side comparison record (`--full`): what agrees, what deviates | you |
 
 Output lives at `{dest}/{domain}/` so two sites never overwrite each other.
+
+## Layout and entry point
+
+The skill is flat: `SKILL.md`, `lewitt.py`, `dna.schema.json` and one level of `scripts/` + `references/`.
+
+```sh
+python3 "$SKILL/lewitt.py" extract <url> --dest ./runs --pages 4   # or: --help for the command list
+```
+
+`lewitt.py` is the only entry you call; it forwards to `scripts/` with the same arguments. With no
+bundled example run, a `{dest}/{domain}/` directory is created on first capture.
 
 ## Three rules that override everything below
 
@@ -109,11 +120,11 @@ page.
 Read [references/sense.md](references/sense.md), then:
 
 ```sh
-python3 "$SKILL/scripts/capture.py" <url> --dest "$DEST" --pages 4
+python3 "$SKILL/lewitt.py" extract <url> --dest "$DEST" --pages 4
 ```
 
 `capture.py` finds playwright via `LEWITT_PW_DIR` → the skill's own `node_modules` → global/npx,
-so a fresh clone only needs `bash scripts/setup.sh`. It refuses to run without an isolated driver — a logged-in or wrong surface is a
+so a fresh clone only needs `bash "$SKILL/scripts/setup.sh"`. It refuses to run without an isolated driver — a logged-in or wrong surface is a
 failed capture, not a weaker one. It writes `capture/dom.json` (with `interactions`: forced hover / focus-visible deltas), `capture/viewport.png`,
 `capture/fullpage.png` (only when ≤ 6 viewports tall), `capture/dom-N.json` for extra pages, and
 `capture/meta.json`. Read the screenshots: composition is judged visually, values come from the
@@ -121,7 +132,7 @@ DOM, and disagreements are recorded as `conflict`, not silently resolved.
 
 ### Phase 2 — Infer (three passes, in order)
 
-Read each reference when you reach it; do not preload all three.
+Read each ref when you reach it; do not preload all three.
 
 1. **Measure** — [references/infer-measure.md](references/infer-measure.md): ~17 categories of
    exact values, each tied to evidence ids.
@@ -151,7 +162,7 @@ blocks. Tokens are layered: `primitive` (raw value) → `semantic` (role, aliase
 ### Phase 4 — Render
 
 ```sh
-python3 "$SKILL/scripts/build_artifacts.py" "$DEST/$DOMAIN"
+python3 "$SKILL/lewitt.py" render "$DEST/$DOMAIN"
 ```
 
 It validates, then writes the five renders (including `preview.html`, which links the same-folder
@@ -161,15 +172,15 @@ never the output.
 Theme export (always written; or on demand):
 
 ```sh
-python3 "$SKILL/scripts/build_artifacts.py" "$DEST/$DOMAIN" --export=shadcn   # only shadcn-theme.css
-python3 "$SKILL/scripts/build_artifacts.py" "$DEST/$DOMAIN" --print-theme     # paste into globals.css
+python3 "$SKILL/lewitt.py" render "$DEST/$DOMAIN" --export=shadcn   # only shadcn-theme.css
+python3 "$SKILL/lewitt.py" render "$DEST/$DOMAIN" --print-theme     # paste into globals.css
 ```
 
 Incremental form:
 
 ```sh
-python3 "$SKILL/scripts/build_artifacts.py" "$DEST/$DOMAIN" --incremental taste
-python3 "$SKILL/scripts/build_artifacts.py" "$DEST/$DOMAIN" --incremental evidence,measurements,tokens   # e.g. the brand colour changed
+python3 "$SKILL/lewitt.py" render "$DEST/$DOMAIN" --incremental taste
+python3 "$SKILL/lewitt.py" render "$DEST/$DOMAIN" --incremental evidence,measurements,tokens   # e.g. the brand colour changed
 ```
 
 Frozen blocks that moved since the last render make it fail; so does a `tokens` change whose
@@ -178,8 +189,8 @@ Frozen blocks that moved since the last render make it fail; so does a `tokens` 
 ### Phase 5 — Verify
 
 ```sh
-python3 "$SKILL/scripts/lint_output.py" --dest "$DEST/$DOMAIN"
-python3 "$SKILL/scripts/lint_output.py" --dest "$DEST/$DOMAIN" --check-code "$DEST/$DOMAIN/system"   # --full only
+python3 "$SKILL/lewitt.py" check --dest "$DEST/$DOMAIN"
+python3 "$SKILL/lewitt.py" check --dest "$DEST/$DOMAIN" --check-code "$DEST/$DOMAIN/system"   # --full only
 ```
 
 Gates: `dna.json` contract, token resolution (no cycles/dangling/type mismatch), anti-slop,
@@ -193,7 +204,7 @@ One short block: mode, pages inspected, artifact paths, the sharpest principle i
 every `FAIL`/`unverified` row. Do not claim a site is ready when a gate failed.
 
 **Full mode only** — read [references/build-full.md](references/build-full.md) and build
-`system/` from the same tokens, then run `--check-code`. The reference site is a minimal top bar over two
+`system/` from the same tokens, then run `--check-code`. The ref site is a minimal top bar over two
 views — **Live Preview** (an immersive long scroll in the site's own `--lw-*` tokens) and **Specs &
 Evidence** (the engineering ledger) — not a rail of panels.
 
@@ -204,7 +215,7 @@ Subcommands stay small on purpose: `cert` and `remix` live in their own referenc
 same `dna.json`:
 
 ```sh
-python3 "$SKILL/scripts/cert.py" --url http://localhost:3000 --dest "$DEST/$DOMAIN"
+python3 "$SKILL/lewitt.py" certify --url http://localhost:3000 --dest "$DEST/$DOMAIN"
 ```
 
 It writes `cert.md` / `cert.html` / `cert.json` with a verdict (`certified`, `warned`, `rejected`,
@@ -214,8 +225,8 @@ It writes `cert.md` / `cert.html` / `cert.json` with a verdict (`certified`, `wa
 **Clip a block** — lift one module with its interaction, skin stripped, from any live page:
 
 ```sh
-python3 "$SKILL/scripts/clip.py" --url <url> --find "<visible text>" --dest ./bricks   # standalone, shadcn slots
-python3 "$SKILL/scripts/clip.py" --url <url> --find "<visible text>" --dest "$DEST/$DOMAIN" --slots lw
+python3 "$SKILL/lewitt.py" clip --url <url> --find "<visible text>" --dest ./bricks   # standalone, shadcn slots
+python3 "$SKILL/lewitt.py" clip --url <url> --find "<visible text>" --dest "$DEST/$DOMAIN" --slots lw
 ```
 
 Read [references/clip.md](references/clip.md).
@@ -231,7 +242,7 @@ They are allowed only as an explicit foil ("could have gone 'clean and modern', 
 
 | Situation | Do |
 | --- | --- |
-| No isolated browser driver | Stop. Run `bash scripts/setup.sh` (installs playwright next to the skill), or set `LEWITT_PW_DIR`, or pass `--driver`. Do not fall back to a shared session silently; if you must, set `meta.captureIsolated=false` + `meta.isolationNote`. |
+| No isolated browser driver | Stop. Run `bash "$SKILL/scripts/setup.sh"` (installs playwright next to the skill), or set `LEWITT_PW_DIR`, or pass `--driver`. Do not fall back to a shared session silently; if you must, set `meta.captureIsolated=false` + `meta.isolationNote`. |
 | Bot wall / login form | Report it; ask for an accessible URL or exported screenshots. A labeled scaffold is not an extraction. |
 | SPA still hydrating | `capture.py` waits; add a `limitations` entry and mark affected measurements `inferred`. |
 | Fewer than 3 taste principles survive | Ship 2 with evidence. Never pad with generic ones. |

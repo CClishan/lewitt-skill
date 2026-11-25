@@ -1,57 +1,58 @@
 #!/usr/bin/env bash
 # lewitt — build the shareable skill zip (WorkBuddy and any other SKILL.md host).
 #
-#   bash scripts/pack.sh            # -> dist/lewitt-<version>.zip   (slim, default)
-#   bash scripts/pack.sh --full     # all four runs/ with screenshots (for the repo only)
+#   bash scripts/pack.sh     # -> dist/lewitt-<version>.zip
 #
-# The zip root is `lewitt/` itself, so unzipping it into a skills folder is already the install.
-# Slim pack keeps one run (runs/stripe.com) and strips what a reader does not need: capture
-# DOM dumps, the run's own preview.html/system pages (re-rendered from dna.json), fidelity
-# screenshots and clip shots. Target: well under the open platform's 3 MB upload limit.
+# The zip is flat — root files + one level of scripts/ and references/ — because the open platform
+# rejects deeper nesting and nothing else is allowed at level 2. Layout:
+#
+#   lewitt/  SKILL.md  lewitt.py  dna.schema.json  README.md  README.zh-CN.md  LICENSE  Makefile
+#            scripts/   *.py *.js setup.sh
+#            references/ *.md
+#
+# Not shipped: runs/ (examples live in the repo), evals/ (repo-only), docs/ screenshots,
+# node_modules (setup.sh installs it), caches.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 VERSION="$(sed -n 's/^version: *//p' "$ROOT/SKILL.md" | head -1 | tr -d "\"'")"
-FULL=0
-[ "${1:-}" = "--full" ] && FULL=1
-SUFFIX=""; if [ $FULL = 1 ]; then SUFFIX="-full"; fi
-OUT="$ROOT/dist/lewitt-${VERSION:-dev}${SUFFIX}.zip"
+OUT="$ROOT/dist/lewitt-${VERSION:-dev}.zip"
 STAGE="$(mktemp -d)"
 trap 'rm -rf "$STAGE"' EXIT
 
-mkdir -p "$STAGE/lewitt"
-tar -C "$ROOT" -cf - \
-  --exclude=.git --exclude=node_modules --exclude=docs --exclude=dist --exclude=__pycache__ \
-  --exclude='.DS_Store' --exclude='*/__pycache__' --exclude='*.pyc' --exclude=.dd --exclude=.playwright-cli \
-  SKILL.md README.md README.zh-CN.md LICENSE Makefile dna.schema.json \
-  scripts references evals runs \
-  | tar -C "$STAGE/lewitt" -xf -
+mkdir -p "$STAGE/lewitt/scripts" "$STAGE/lewitt/references"
+cp "$ROOT"/{SKILL.md,lewitt.py,dna.schema.json,README.md,README.zh-CN.md,LICENSE,Makefile} "$STAGE/lewitt/"
+cp "$ROOT"/scripts/*.{py,js,sh} "$STAGE/lewitt/scripts/"
+cp "$ROOT"/references/*.md "$STAGE/lewitt/references/"
+chmod +x "$STAGE"/lewitt/lewitt.py "$STAGE"/lewitt/scripts/setup.sh
 
-if [ $FULL = 0 ]; then
-  rm -rf "$STAGE/lewitt/runs"
-  mkdir -p "$STAGE/lewitt/runs"
-  rsync -a --exclude .DS_Store --exclude __pycache__ "$ROOT/runs/stripe.com" "$STAGE/lewitt/runs/"
-  find "$STAGE/lewitt/runs" -name dom.json -o -name 'dom-*.json' -o -name fullpage.png -o -name rebuild.png \
-    -o -path '*/clips/*/shots/*' | xargs rm -f
-  # PNG screenshots -> JPEG keeps the evidence viewable without the size.
-  python3 - "$STAGE/lewitt" <<'PY'
+# Gate 1 — layout: exactly root / level-2 dir / file, nothing deeper.
+python3 - "$STAGE/lewitt" <<'PY'
 import sys, pathlib
-from PIL import Image
 root = pathlib.Path(sys.argv[1])
-for p in list(root.rglob("*.png")):
-    try:
-        Image.open(p).convert("RGB").save(p.with_suffix(".jpg"), quality=72, optimize=True)
-        p.unlink()
-    except Exception:
-        pass
+bad = [str(p.relative_to(root)) for p in root.rglob("*")
+       if len(p.relative_to(root).parts) > 2 and not p.is_dir()]
+bad += [str(p.relative_to(root)) for p in root.rglob("*")
+        if p.is_dir() and len(p.relative_to(root).parts) > 1]
+if bad:
+    sys.exit("layout: nesting too deep: " + ", ".join(bad[:5]))
 PY
-fi
 
-# Offline smoke test on the staged copy: scripts run, the bundled dna.json passes every gate
-# (renders are rebuilt first, so the stripped pages are regenerated from the SSOT).
-python3 "$STAGE/lewitt/scripts/build_artifacts.py" "$STAGE/lewitt/runs/stripe.com" >/dev/null
-python3 "$STAGE/lewitt/scripts/lint_output.py" --dest "$STAGE/lewitt/runs/stripe.com" >/dev/null
-rm -rf "$STAGE"/lewitt/scripts/__pycache__   # created by the smoke test
+# Gate 2 — frontmatter has every field the platform requires.
+python3 - "$STAGE/lewitt/SKILL.md" <<'PY'
+import sys, yaml
+d = yaml.safe_load(open(sys.argv[1]).read().split("---")[1])
+need = ["name", "display_name", "display_name_en", "description", "description_zh",
+        "description_en", "version", "author"]
+missing = [k for k in need if not d.get(k)]
+if missing:
+    sys.exit("frontmatter: missing " + ", ".join(missing))
+PY
+
+# Gate 3 — the entry point resolves and the scripts still run offline.
+python3 "$STAGE/lewitt/lewitt.py" --help >/dev/null
+for f in "$STAGE"/lewitt/scripts/*.py; do python3 -c 'import ast,sys; ast.parse(open(sys.argv[1]).read())' "$f"; done
+rm -rf "$STAGE"/lewitt/scripts/__pycache__
 
 mkdir -p "$ROOT/dist"
 rm -f "$OUT"
