@@ -20,6 +20,13 @@ need() { command -v "$1" >/dev/null 2>&1 || { echo "lewitt: '$1' is required" >&
 need node
 need npm
 
+# The platform package keeps node_modules out of the upload, and a read-only skill dir cannot hold
+# them either: fall back to a per-user cache outside the skill when the skill dir is not writable.
+if [ "${1:-}" != "--check" ] && [ "$TARGET" = "$SKILL_ROOT" ] && ! { mkdir -p "$TARGET" && [ -w "$TARGET" ]; } 2>/dev/null; then
+  TARGET="${XDG_CACHE_HOME:-$HOME/.cache}/lewitt"
+  echo "skill dir is not writable; installing into $TARGET instead"
+fi
+
 probe() {
   node -e '
     const dir = process.argv[1];
@@ -52,6 +59,6 @@ echo "ensuring a matching chromium build ..."
 probe
 cat <<EOF
 
-ready. capture.py will use it automatically, or point it elsewhere:
+ready. lewitt finds it automatically, unless you point it elsewhere:
   export LEWITT_PW_DIR=$TARGET
 EOF

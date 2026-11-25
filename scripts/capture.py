@@ -159,8 +159,10 @@ def playwright_candidates() -> list[Path]:
     1. LEWITT_PW_DIR              explicit override (a dir containing node_modules/playwright,
                                   or the module dir itself)
     2. <skill>/node_modules       self-contained: `scripts/setup.sh` installs here
-    3. $npm root -g               a globally installed playwright
-    4. npx cache                  whatever `npx playwright` already downloaded
+    3. ~/.cache/lewitt            where setup.sh falls back to when the skill dir is read-only
+                                  (e.g. an installed platform package)
+    4. $npm root -g               a globally installed playwright
+    5. npx cache                  whatever `npx playwright` already downloaded
     No hardcoded home-directory path: a fresh clone behaves like the dev machine.
     """
     cands: list[Path] = []
@@ -169,6 +171,8 @@ def playwright_candidates() -> list[Path]:
         e = Path(env).expanduser()
         return [c for c in (e / "node_modules" / "playwright", e) if (c / "package.json").exists()] or [e]
     cands.append(HERE.parent / "node_modules" / "playwright")
+    cache = os.environ.get("XDG_CACHE_HOME") or (str(Path.home() / ".cache"))
+    cands.append(Path(cache) / "lewitt" / "node_modules" / "playwright")
     try:
         out = subprocess.run(["npm", "root", "-g"], capture_output=True, text=True, timeout=20)
         if out.returncode == 0 and out.stdout.strip():
