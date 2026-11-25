@@ -29,7 +29,25 @@ Each piece works alone. `clip` needs no extraction; `cert` needs one (`dna.json`
 
 ---
 
-## Quick start
+## Use it in your agent
+
+Paste this into **Claude Code**, **Codex**, **Cursor**, or **OpenCode** — your agent will clone, install the browser driver, and wire up the skill for itself:
+
+```text
+Install the lewitt skill from https://github.com/CClishan/lewitt-skill.git into ~/Projects/skills/lewitt, run ./scripts/setup.sh, and symlink it into your own skills directory (e.g. ~/.claude/skills/lewitt or ~/.codex/skills/lewitt). Confirm once SKILL.md is loaded and ready.
+```
+
+Then ask:
+
+```text
+Use lewitt to analyze https://stripe.com
+Use lewitt clip on https://www.steno.ai/ to extract the hero CTA hover interaction
+```
+
+No API key, no sign-up · MIT license
+
+<details>
+<summary>Manual install (CLI)</summary>
 
 ```sh
 git clone https://github.com/CClishan/lewitt-skill.git ~/Projects/skills/lewitt
@@ -48,9 +66,7 @@ check on `system/`, and the clip bricks):
 make check
 ```
 
-Then, in the agent:
-
-> Use lewitt to analyze https://stripe.com
+</details>
 
 Add `--full` to also build `system/index.html`: a two-view book. **Live Preview** is a numbered
 long scroll in the site's own `--lw-*` tokens — 01 colour · 02 type · 03 components · 04 motion &
