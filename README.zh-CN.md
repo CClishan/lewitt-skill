@@ -90,15 +90,39 @@ python3 scripts/cert.py --url http://localhost:3000 --dest runs/stripe.com
 
 一键复验全部样例（离线）：`make check`。
 
-## 安装
+## 在 Agent 里直接用
+
+把下面这段粘进 **Claude Code**、**Codex**、**Cursor** 或 **OpenCode**，Agent 会自己 clone、装浏览器驱动、把 skill 挂进它自己的 skills 目录：
+
+```text
+Install the lewitt skill from https://github.com/CClishan/lewitt-skill.git into ~/Projects/skills/lewitt, run ./scripts/setup.sh, and symlink it into your own skills directory (e.g. ~/.claude/skills/lewitt or ~/.codex/skills/lewitt). Confirm once SKILL.md is loaded and ready.
+```
+
+装完直接问：
+
+```text
+Use lewitt to analyze https://stripe.com
+Use lewitt clip on https://www.steno.ai/ to extract the hero CTA hover interaction
+```
+
+无需 API key，无需注册 · MIT 协议
+
+<details>
+<summary>手动安装（命令行）</summary>
 
 ```sh
 git clone https://github.com/CClishan/lewitt-skill.git ~/Projects/skills/lewitt
-ln -s ~/Projects/skills/lewitt ~/.codex/skills/lewitt
-ln -s ~/Projects/skills/lewitt ~/.claude/skills/lewitt
-ln -s ~/Projects/skills/lewitt ~/.dsh/skills/lewitt
-cd ~/Projects/skills/lewitt && bash scripts/setup.sh
+cd ~/Projects/skills/lewitt
+bash scripts/setup.sh          # 安装 Playwright 驱动并缓存 Chromium
+
+ln -s ~/Projects/skills/lewitt ~/.codex/skills/lewitt     # Codex
+ln -s ~/Projects/skills/lewitt ~/.claude/skills/lewitt    # Claude Code
+ln -s ~/Projects/skills/lewitt ~/.dsh/skills/lewitt       # DeepSeek Harness
 ```
+
+离线复验全部样例：`make check`
+
+</details>
 
 ## 接进 shadcn/ui + Tailwind v4 项目
 
